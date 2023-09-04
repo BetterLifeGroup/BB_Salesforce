@@ -1,0 +1,23 @@
+/**
+ * Created by frans fourie on 2023/04/26.
+ */
+.checkGreen {
+
+    --lwc-colorTextIconDefault: #08a808;
+    margin-left: 8px;
+    display: flex;
+    align-items: end;
+}
+
+.crossRed {
+
+    --lwc-colorTextIconDefault: #b40000;
+    margin-left: 8px;
+    display: flex;
+    align-items: end;
+}
+
+.buttonClass {
+    padding-right: 12px;
+    padding-top: 12px;
+}

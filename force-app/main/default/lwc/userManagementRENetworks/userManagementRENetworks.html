@@ -1,0 +1,118 @@
+<!--
+ - Created by frans fourie on 2023/05/02.
+ -->
+
+<!-- User Management Re Networks -->
+<template>
+    <template if:true={devInProgress}>
+        <div class='slds-align_absolute-center' style='margin-top: 20px; font-size: large'>
+            Development in Progress
+        </div>
+    </template>
+    <template if:false={devInProgress}>
+        <template if:false={dataHasLoaded}>
+            <lightning-spinner>
+            </lightning-spinner>
+        </template>
+        <template if:true={dataHasLoaded}>
+            <div style='display: flex;justify-content: end; padding-bottom: 16px'>
+                <lightning-button
+                        onclick={handleClick}
+                        label="Create">
+                </lightning-button>
+            </div>
+            <lightning-formatted-text
+                    value='View Existing Relationships'
+                    class='slds-align_absolute-center slds-text-heading_small bottomPadding'
+            ></lightning-formatted-text>
+            <div style='display: flex;flex-direction: row;gap: 8px;margin-right: 4px'>
+                <div id="Networks" style='width: 40%'>
+                    <c-user-management-record-search
+                            label='Network, Agency or Branch'
+                            account-mode={constantTrue}
+                            account-scope='reAll'
+                            onrecordselected={accountSelected}
+                            onselectioncleared={handleSelectionCleared}
+                    ></c-user-management-record-search>
+                </div>
+            </div>
+        </template>
+        <template if:true={viewRelations}>
+
+            <div style='display:flex;flex-direction: row;border-top: #e8e8e8 1.5px solid'>
+                <div style='flex-grow: 1'>
+                    <lightning-formatted-text
+                            value='Network'
+                            class='slds-align_absolute-center slds-text-heading_small bottomPadding topPadding'
+                    ></lightning-formatted-text>
+                </div>
+                <div style='flex-grow: 1'>
+                    <lightning-formatted-text
+                            value='Agency'
+                            class='slds-align_absolute-center slds-text-heading_small bottomPadding topPadding'
+                    ></lightning-formatted-text>
+                </div>
+                <div style='flex-grow: 1'>
+                    <lightning-formatted-text
+                            value='Branch'
+                            class='slds-align_absolute-center slds-text-heading_small bottomPadding topPadding'
+                    ></lightning-formatted-text>
+                </div>
+            </div>
+            <div style='display: flex;flex-direction: row'>
+                <div style='display: flex;flex-direction: column;flex-grow: 1'>
+
+                    <div style='display: flex;flex-direction: row;gap: 4px; border: solid #e8e8e8 1.5px; border-radius: 4px;margin: 4px;padding: 6px'>
+                        <lightning-icon
+                                icon-name='standard:record_lookup'
+                                size="small"
+                        ></lightning-icon>
+
+                        <lightning-formatted-text
+                                value={returnedAccounts.network.Name}
+                                class='accountCard'
+                        ></lightning-formatted-text>
+                        <!--                        </div>-->
+                    </div>
+                </div>
+                <div style='display: flex;flex-direction: column; flex-grow: 1'>
+
+                    <div for:each={returnedAccounts.agencies} for:item="agency" key={agency.Id}>
+                        <div style='display: flex;flex-direction: row;gap: 4px; border: solid #e8e8e8 1.5px; border-radius: 4px;margin: 4px;padding: 6px'>
+
+                            <lightning-icon
+                                    icon-name='standard:record_lookup'
+                                    size="small"
+                            ></lightning-icon>
+
+                            <lightning-formatted-text
+                                    value={agency.Name}
+                                    class='accountCard'
+                            ></lightning-formatted-text>
+
+                        </div>
+                    </div>
+                </div>
+                <div style='display: flex;flex-direction: column; flex-grow: 1'>
+
+                    <div for:each={returnedAccounts.branches} for:item="branch" key={branch.Id}>
+                        <div style='display: flex;flex-direction: row;gap: 4px; border: solid #e8e8e8 1.5px; border-radius: 4px;margin: 4px;padding: 6px'>
+
+                            <lightning-icon
+                                    icon-name='standard:record_lookup'
+                                    size="small"
+                            ></lightning-icon>
+
+                            <lightning-formatted-text
+                                    value={branch.Name}
+                                    class='accountCard'
+                            ></lightning-formatted-text>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </template>
+    </template>
+</template>

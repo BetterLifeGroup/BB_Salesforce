@@ -1,0 +1,87 @@
+<!--
+ - Created by frans fourie on 2023/06/23.
+ -->
+
+<!-- User Management Add New Agent -->
+<template>
+    <template if:true={working}>
+        <lightning-spinner size='small'></lightning-spinner>
+    </template>
+    <template if:false={working}>
+        <div>
+            <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+                <lightning-input
+                        label='First Name'
+                        class='inputClass'
+                        onchange={handleAgentFirstNameChange}
+                ></lightning-input>
+                <lightning-input
+                        label='Preferred Name'
+                        class='inputClass'
+                        onchange={handleAgentPreferredNameChange}
+                ></lightning-input>
+                <lightning-input
+                        label='Last Name'
+                        class='inputClass'
+                        onchange={handleAgentLastNameChange}
+                        required
+                ></lightning-input>
+                <div style='display: flex;flex-direction: row;align-items: end' class='searchClass'>
+                    <div style='display: flex;flex-direction: column'>
+                        <lightning-input
+                                label='4DX Indicator'
+                                type='Checkbox'
+                                checked={agent.agent.X4DX_Indicator__c}
+                                onchange={handle4dxChange}
+                        ></lightning-input>
+                        <lightning-input
+                                label='P40 Indicator'
+                                type='Checkbox'
+                                checked={agent.agent.P40_Indicator__c}
+                                onchange={handleP40Change}
+                        ></lightning-input>
+                    </div>
+                    <template if:true={saveEnabled}>
+                        <div style='display: flex;justify-content: start;padding-top: 8px' class='searchClass'>
+                            <lightning-button
+                                    label='Create'
+                                    onclick={handleCreate}
+                            ></lightning-button>
+                        </div>
+                    </template>
+                    <template if:false={saveEnabled}>
+                        <div style='display: flex;justify-content: start; padding-top: 8px' class='searchClass'>
+                            <lightning-button
+                                    label='Create'
+                                    disabled
+                            ></lightning-button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+                <lightning-input
+                        label='Email'
+                        class='inputClass'
+                        onchange={handleAgentEmailChange}
+                        data-field="email"
+                        required
+                ></lightning-input>
+                <lightning-input
+                        label='Phone'
+                        class='inputClass'
+                        onchange={handleAgentMobilePhoneChange}
+                        data-field="mobile"
+                ></lightning-input>
+                <c-searchable-combobox
+                        class='searchClass'
+                        label='Assigned Branch'
+                        options={branchOptions}
+                        onrecordselected={handleBranchSelected}
+                        onrecordremoved={handleRecordRemoved}
+                ></c-searchable-combobox>
+            </div>
+
+        </div>
+    </template>
+</template>

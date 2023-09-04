@@ -1,0 +1,26 @@
+<!--
+ - Created by frans fourie on 2023/05/02.
+ -->
+<!-- User Management Branches -->
+<template>
+    <div style='margin-bottom: 12px;display: flex;flex-direction: row; gap: 8px;align-items: end'>
+        <div style='width: 50%'>
+            <lightning-input
+                    label='Search'
+                    placeholder='Search for Region, Branch, Sub-Branch or Consultant'
+                    onchange={handleSearchChange}
+            ></lightning-input>
+        </div>
+        <lightning-button
+                onclick={handleClick}
+                label="Create">
+        </lightning-button>
+    </div>
+    <div style=''>
+        <lightning-tree
+                header="Region Hierarchy"
+                items={finalResult}
+                onselect={handleSelect}
+        ></lightning-tree>
+    </div>
+</template>

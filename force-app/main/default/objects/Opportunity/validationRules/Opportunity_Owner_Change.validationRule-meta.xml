@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opportunity_Owner_Change</fullName>
+    <active>true</active>
+    <description>Prevent changing of Opportunity Owner if user is not an authorised user</description>
+    <errorConditionFormula>AND(ISCHANGED(OwnerId) , OR($Profile.Name = &quot;Consultant&quot;,  $Profile.Name = &quot;Office Administrator&quot;), NOT(Wrap_Up_Reason__c = &quot;Automated&quot;))</errorConditionFormula>
+    <errorDisplayField>OwnerId</errorDisplayField>
+    <errorMessage>You are not authorised to change the opportunity owner. Please reach out to your team lead.</errorMessage>
+</ValidationRule>

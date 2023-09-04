@@ -1,0 +1,829 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Status__c</fullName>
+    <externalId>false</externalId>
+    <label>Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>StageName</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>General enquiry</fullName>
+                <default>false</default>
+                <label>General enquiry</label>
+            </value>
+            <value>
+                <fullName>Duplicate</fullName>
+                <default>false</default>
+                <label>Duplicate</label>
+            </value>
+            <value>
+                <fullName>Test</fullName>
+                <default>false</default>
+                <label>Test</label>
+            </value>
+            <value>
+                <fullName>Not interested - not buying</fullName>
+                <default>false</default>
+                <label>Not interested - not buying</label>
+            </value>
+            <value>
+                <fullName>Not interested - poor service - Direct</fullName>
+                <default>false</default>
+                <label>Not interested - poor service - Direct</label>
+            </value>
+            <value>
+                <fullName>Not interested - poor service - Region</fullName>
+                <default>false</default>
+                <label>Not interested - poor service - Region</label>
+            </value>
+            <value>
+                <fullName>Not interested - browsing</fullName>
+                <default>false</default>
+                <label>Not interested - browsing</label>
+            </value>
+            <value>
+                <fullName>Not interested - process</fullName>
+                <default>false</default>
+                <label>Not interested - process</label>
+            </value>
+            <value>
+                <fullName>Not interested - poor service - Insurance</fullName>
+                <default>false</default>
+                <label>Not interested - poor service - Insurance</label>
+            </value>
+            <value>
+                <fullName>Not interested - renting</fullName>
+                <default>false</default>
+                <label>Not interested - renting</label>
+            </value>
+            <value>
+                <fullName>Already submitted to bank(s)</fullName>
+                <default>false</default>
+                <label>Already submitted to bank(s)</label>
+            </value>
+            <value>
+                <fullName>Switch</fullName>
+                <default>false</default>
+                <label>Switch</label>
+            </value>
+            <value>
+                <fullName>Submitted to another originator</fullName>
+                <default>false</default>
+                <label>Submitted to another originator</label>
+            </value>
+            <value>
+                <fullName>Dealing with another region</fullName>
+                <default>false</default>
+                <label>Dealing with another region</label>
+            </value>
+            <value>
+                <fullName>Further loan - FNB</fullName>
+                <default>false</default>
+                <label>Further loan - FNB</label>
+            </value>
+            <value>
+                <fullName>Complaint - Insurance</fullName>
+                <default>false</default>
+                <label>Complaint - Insurance</label>
+            </value>
+            <value>
+                <fullName>Complaint - POPI</fullName>
+                <default>false</default>
+                <label>Complaint - POPI</label>
+            </value>
+            <value>
+                <fullName>Complaint - Direct</fullName>
+                <default>false</default>
+                <label>Complaint - Direct</label>
+            </value>
+            <value>
+                <fullName>Complaint - Region</fullName>
+                <default>false</default>
+                <label>Complaint - Region</label>
+            </value>
+            <value>
+                <fullName>Complaint - Other</fullName>
+                <default>false</default>
+                <label>Complaint - Other</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Head office</fullName>
+                <default>false</default>
+                <label>Transfer out - Head office</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Insurance</fullName>
+                <default>false</default>
+                <label>Transfer out - Insurance</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - NW</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - NW</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - SE</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - SE</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - WC</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - WC</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - KZN</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - KZN</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - PTA</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - PTA</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - FS</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - FS</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Region - EC</fullName>
+                <default>false</default>
+                <label>Transfer out - Region - EC</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Developments</fullName>
+                <default>false</default>
+                <label>Transfer out - Developments</label>
+            </value>
+            <value>
+                <fullName>Transfer out - Marketing</fullName>
+                <default>false</default>
+                <label>Transfer out - Marketing</label>
+            </value>
+            <value>
+                <fullName>IVR Message - Insurance</fullName>
+                <default>false</default>
+                <label>IVR Message - Insurance</label>
+            </value>
+            <value>
+                <fullName>Transfer - Personal loans</fullName>
+                <default>false</default>
+                <label>Transfer - Personal loans</label>
+            </value>
+            <value>
+                <fullName>Client requested face to face - sent to region</fullName>
+                <default>false</default>
+                <label>Client requested face to face - sent to region</label>
+            </value>
+            <value>
+                <fullName>Developer - sent to development hub</fullName>
+                <default>false</default>
+                <label>Developer - sent to development hub</label>
+            </value>
+            <value>
+                <fullName>Transfer internal (Direct) - follow up on existing</fullName>
+                <default>false</default>
+                <label>Transfer internal (Direct) - follow up on existing</label>
+            </value>
+            <value>
+                <fullName>Contact details invalid</fullName>
+                <default>false</default>
+                <label>Contact details invalid</label>
+            </value>
+            <value>
+                <fullName>No Contact</fullName>
+                <default>false</default>
+                <label>No Contact</label>
+            </value>
+            <value>
+                <fullName>Poor credit</fullName>
+                <default>false</default>
+                <label>Poor credit</label>
+            </value>
+            <value>
+                <fullName>PA Issued - No OTP Received</fullName>
+                <default>false</default>
+                <label>PA Issued - No OTP Received</label>
+            </value>
+            <value>
+                <fullName>PA Requested - awaiting consent</fullName>
+                <default>false</default>
+                <label>PA Requested - awaiting consent</label>
+            </value>
+            <value>
+                <fullName>No PA consent received</fullName>
+                <default>false</default>
+                <label>No PA consent received</label>
+            </value>
+            <value>
+                <fullName>PA requested - IDV failed</fullName>
+                <default>false</default>
+                <label>PA requested - IDV failed</label>
+            </value>
+            <value>
+                <fullName>PA requested - IDV failed - awaiting consent</fullName>
+                <default>false</default>
+                <label>PA requested - IDV failed - awaiting consent</label>
+            </value>
+            <value>
+                <fullName>PA requested - internal rehab required - thin file</fullName>
+                <default>false</default>
+                <label>PA requested - internal rehab required - thin file</label>
+            </value>
+            <value>
+                <fullName>PA requested - internal rehab required</fullName>
+                <default>false</default>
+                <label>PA requested - internal rehab required</label>
+            </value>
+            <value>
+                <fullName>PA requested - internal rehab in progress</fullName>
+                <default>false</default>
+                <label>PA requested - internal rehab in progress</label>
+            </value>
+            <value>
+                <fullName>PA requested - not interested in internal rehab</fullName>
+                <default>false</default>
+                <label>PA requested - not interested in internal rehab</label>
+            </value>
+            <value>
+                <fullName>PA requested - credit check error</fullName>
+                <default>false</default>
+                <label>PA requested - credit check error</label>
+            </value>
+            <value>
+                <fullName>PA requested - no internal rehab - poor credit</fullName>
+                <default>false</default>
+                <label>PA requested - no internal rehab - poor credit</label>
+            </value>
+            <value>
+                <fullName>PA requested - poor credit</fullName>
+                <default>false</default>
+                <label>PA requested - poor credit</label>
+            </value>
+            <value>
+                <fullName>PA Requested - awaiting documents</fullName>
+                <default>false</default>
+                <label>PA Requested - awaiting documents</label>
+            </value>
+            <value>
+                <fullName>No PA documents received</fullName>
+                <default>false</default>
+                <label>No PA documents received</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Ready for verification</fullName>
+                <default>false</default>
+                <label>PA Requested - Ready for verification</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Verification in progress</fullName>
+                <default>false</default>
+                <label>PA Requested - Verification in progress</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Verification complete</fullName>
+                <default>false</default>
+                <label>PA Requested - Verification complete</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Verification failed - credit profile</fullName>
+                <default>false</default>
+                <label>PA Requested - Verification failed - credit profile</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Verification failed - no affordability</fullName>
+                <default>false</default>
+                <label>PA Requested - Verification failed - no affordability</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Verification failed - value</fullName>
+                <default>false</default>
+                <label>PA Requested - Verification failed - value</label>
+            </value>
+            <value>
+                <fullName>PA Requested - Verification failed - documents</fullName>
+                <default>false</default>
+                <label>PA Requested - Verification failed - documents</label>
+            </value>
+            <value>
+                <fullName>PA Requested - No affordability - rehab in progress</fullName>
+                <default>false</default>
+                <label>PA Requested - No affordability - rehab in progress</label>
+            </value>
+            <value>
+                <fullName>PA not issued - Value</fullName>
+                <default>false</default>
+                <label>PA not issued - Value</label>
+            </value>
+            <value>
+                <fullName>PA not issued - No affordability</fullName>
+                <default>false</default>
+                <label>PA not issued - No affordability</label>
+            </value>
+            <value>
+                <fullName>PA not issued - Credit profile</fullName>
+                <default>false</default>
+                <label>PA not issued - Credit profile</label>
+            </value>
+            <value>
+                <fullName>PA not issued - Documents</fullName>
+                <default>false</default>
+                <label>PA not issued - Documents</label>
+            </value>
+            <value>
+                <fullName>PA Issued - awaiting OTP</fullName>
+                <default>false</default>
+                <label>PA Issued - awaiting OTP</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - NW</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - NW</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - SE</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - SE</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - WC</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - WC</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - EC</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - EC</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - PTA</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - PTA</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - KZN</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - KZN</label>
+            </value>
+            <value>
+                <fullName>PA Issued - OTP received - FS</fullName>
+                <default>false</default>
+                <label>PA Issued - OTP received - FS</label>
+            </value>
+            <value>
+                <fullName>Profile Created</fullName>
+                <default>false</default>
+                <label>Profile Created</label>
+            </value>
+            <value>
+                <fullName>Lead Converted</fullName>
+                <default>false</default>
+                <label>Lead Converted</label>
+            </value>
+            <value>
+                <fullName>Attempting Contact</fullName>
+                <default>false</default>
+                <label>Attempting Contact</label>
+            </value>
+            <value>
+                <fullName>Self employed / does not meet the minimum criteria</fullName>
+                <default>false</default>
+                <label>Self employed / does not meet the minimum criteria</label>
+            </value>
+            <value>
+                <fullName>Awaiting OTP</fullName>
+                <default>false</default>
+                <label>Awaiting OTP</label>
+            </value>
+            <value>
+                <fullName>OTP received</fullName>
+                <default>false</default>
+                <label>OTP received</label>
+            </value>
+            <value>
+                <fullName>Deal Submitted</fullName>
+                <default>false</default>
+                <label>Deal Submitted</label>
+            </value>
+            <value>
+                <fullName>No OTP Received</fullName>
+                <default>false</default>
+                <label>No OTP Received</label>
+            </value>
+            <value>
+                <fullName>Cash Sale</fullName>
+                <default>false</default>
+                <label>Cash Sale</label>
+            </value>
+            <value>
+                <fullName>OTP Received - No Documents Received</fullName>
+                <default>false</default>
+                <label>OTP Received - No Documents Received</label>
+            </value>
+            <value>
+                <fullName>Close off reason - No PA consent received</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Close off reason - No PA consent received</label>
+            </value>
+            <value>
+                <fullName>Contact Attempts and Close Out Date Reached</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Contact Attempts and Close Out Date Reached</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Working (Bond)</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification (Bond)</controllingFieldValue>
+            <controllingFieldValue>Nurture (Bond)</controllingFieldValue>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>General enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working (Bond)</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification (Bond)</controllingFieldValue>
+            <controllingFieldValue>Nurture (Bond)</controllingFieldValue>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>Duplicate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working (Bond)</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification (Bond)</controllingFieldValue>
+            <controllingFieldValue>Nurture (Bond)</controllingFieldValue>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>Test</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working (Bond)</controllingFieldValue>
+            <controllingFieldValue>Bond</controllingFieldValue>
+            <valueName>Awaiting OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working (Bond)</controllingFieldValue>
+            <controllingFieldValue>Bond</controllingFieldValue>
+            <valueName>OTP received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Requested - awaiting consent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>No PA consent received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - IDV failed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - IDV failed - awaiting consent</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - internal rehab required - thin file</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - internal rehab required</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - internal rehab in progress</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - not interested in internal rehab</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - credit check error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - no internal rehab - poor credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA requested - poor credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Requested - awaiting documents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Working</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>No PA documents received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>New</controllingFieldValue>
+            <valueName>Profile Created</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Nurture</controllingFieldValue>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - awaiting OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Ready for verification</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Verification in progress</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Verification complete</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Verification failed - credit profile</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Verification failed - no affordability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Verification failed - value</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - Verification failed - documents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA Requested - No affordability - rehab in progress</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA not issued - Value</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA not issued - No affordability</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA not issued - Credit profile</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <controllingFieldValue>Ready for Verification</controllingFieldValue>
+            <valueName>PA not issued - Documents</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <controllingFieldValue>Bond</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>PA Issued - OTP received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - NW</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - SE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - WC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - EC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - PTA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - KZN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Pre-Approval</controllingFieldValue>
+            <valueName>PA Issued - OTP received - FS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - not buying</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - poor service - Direct</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - poor service - Region</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - browsing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - process</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - poor service - Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Not interested - renting</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Already submitted to bank(s)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Switch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Submitted to another originator</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Dealing with another region</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Further loan - FNB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Complaint - Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Complaint - POPI</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Complaint - Direct</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Complaint - Region</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Complaint - Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Head office</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - NW</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - SE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - WC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - KZN</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - PTA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - FS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Region - EC</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Developments</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer out - Marketing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>IVR Message - Insurance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer - Personal loans</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Client requested face to face - sent to region</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Developer - sent to development hub</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Transfer internal (Direct) - follow up on existing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Contact details invalid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>No Contact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Poor credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Self employed / does not meet the minimum criteria</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>No OTP Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>Cash Sale</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <valueName>OTP Received - No Documents Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Open</controllingFieldValue>
+            <valueName>Attempting Contact</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>PA Issued - No OTP Received</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>Deal Submitted</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Remaining_Duration__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(SLA_Deadline__c &gt; NOW() &amp;&amp; ISPICKVAL(StageName, &quot;Closed Lost&quot;)  || ISPICKVAL(StageName, &quot;Closed Won&quot;)  , &quot;Achieved within SLA&quot; ,  
+IF(SLA_Deadline__c &lt; NOW() &amp;&amp;ISPICKVAL(StageName, &quot;Closed Lost&quot;) || ISPICKVAL(StageName, &quot;Closed Won&quot;) ,  &quot;SLA has been Breached&quot; ,
+
+IF((SLA_Deadline__c - NOW() &gt; 0) &amp;&amp; Opportunity_SLA__c &gt; 0 &amp;&amp; $RecordType.DeveloperName = &apos;General_Opportunity&apos; &amp;&amp; CONTAINS(&quot;Attempting Contact&quot;, Workflow_Description_Formula__c), TEXT( FLOOR( SLA_Deadline__c - NOW() ) ) &amp; &quot; days &quot;
+&amp; TEXT( FLOOR( MOD( (SLA_Deadline__c - NOW() ) * 24, 24 ) ) ) &amp; &quot; hours &quot;
+&amp; TEXT( ROUND( MOD( (SLA_Deadline__c - NOW() ) * 24 * 60, 60 ), 0 ) ) &amp; &quot; minutes&quot;,
+
+IF(Opportunity_SLA__c &gt; 0 &amp;&amp; $RecordType.DeveloperName = &apos;Pre_Approval_Opportunity&apos;, TEXT( FLOOR( SLA_Deadline__c - NOW() ) ) &amp; &quot; days &quot;
+&amp; TEXT( FLOOR( MOD( (SLA_Deadline__c - NOW() ) * 24, 24 ) ) ) &amp; &quot; hours &quot;
+&amp; TEXT( ROUND( MOD( (SLA_Deadline__c - NOW() ) * 24 * 60, 60 ), 0 ) ) &amp; &quot; minutes&quot;,
+			
+IF(Opportunity_SLA__c &gt; 0 &amp;&amp; $RecordType.DeveloperName = &apos;Bond&apos;, TEXT( FLOOR( SLA_Deadline__c - NOW() ) ) &amp; &quot; days &quot;
+&amp; TEXT( FLOOR( MOD( (SLA_Deadline__c - NOW() ) * 24, 24 ) ) ) &amp; &quot; hours &quot;
+&amp; TEXT( ROUND( MOD( (SLA_Deadline__c - NOW() ) * 24 * 60, 60 ), 0 ) ) &amp; &quot; minutes&quot;,
+			
+IF(Opportunity_SLA__c &gt; 0 &amp;&amp; (PreApprovalOpportunity__c &lt;&gt; NULL || Bond_Opportunity__c &lt;&gt; NULL)  &amp;&amp; $RecordType.DeveloperName = &apos;General_Opportunity&apos; &amp;&amp; SLA_Deadline__c &gt;= PreApprovalOpportunity__r.CreatedDate, &quot;Achieved within SLA&quot;,
+IF(Opportunity_SLA__c &gt; 0 &amp;&amp; (PreApprovalOpportunity__c &lt;&gt; NULL || Bond_Opportunity__c &lt;&gt; NULL) &amp;&amp; $RecordType.DeveloperName = &apos;General_Opportunity&apos; &amp;&amp; SLA_Deadline__c &lt; PreApprovalOpportunity__r.CreatedDate, &quot;SLA has been Breached&quot;,
+
+			
+IF(Opportunity_SLA__c &gt; 0 &amp;&amp; $RecordType.DeveloperName = &apos;General_Opportunity&apos; &amp;&amp; SLA_Deadline__c &lt; NOW(), &quot;SLA has been Breached&quot;,
+/*IF(PreApprovalOpportunity__c &lt;&gt; NULL &amp;&amp; SLA_Deadline__c &lt; PreApprovalOpportunity__r.CreatedDate , &quot;SLA has been Breached&quot;,*/
+IF(TEXT(Opportunity_SLA__c)=&quot;&quot; &amp;&amp; SLA_Deadline__c &gt;= NOW() &amp;&amp; SLA_Deadline__c &lt;&gt; NULL, &quot;Achieved within SLA&quot;,
+IF(TEXT(Opportunity_SLA__c)=&quot;&quot; &amp;&amp; SLA_Deadline__c &lt; NOW() &amp;&amp; SLA_Deadline__c &lt;&gt; NULL, &quot;SLA has been Breached&quot;,
+&quot;&quot;))))))))))</formula>
+    <label>SLA Remaining Duration</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,32 @@
+<!--
+- Created by Danielle Benade on 2023/07/25.
+-->
+
+<!-- Flow Filtered Dependant Picklist -->
+<template>
+    <lightning-spinner if:true={loading}></lightning-spinner>
+
+    <!-- Use lightning-combobox for controlling picklist (StageName) -->
+    <lightning-combobox
+            name="stage"
+            label="Stage"
+            value={selectedStage}
+            options={stageOptions}
+            disabled>
+    </lightning-combobox>
+
+    <!-- Use lightning-combobox for dependent picklist (Status) -->
+    <template if:true={isStatusOptionsEmpty}>
+        <div>No status options available for the selected stage.</div>
+    </template>
+    <template if:false={isStatusOptionsEmpty}>
+        <lightning-combobox
+                name="status"
+                label="Status"
+                value={selectedStatus}
+                options={statusOptions}
+                onchange={handleStatusChange}
+                required>
+        </lightning-combobox>
+    </template>
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ISPA_Issued__c</fullName>
+    <description>Check to see if PA has been issued at least once.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK( PA_Issued_Date_Time__c ), false, true)</formula>
+    <label>Is PA Issued</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

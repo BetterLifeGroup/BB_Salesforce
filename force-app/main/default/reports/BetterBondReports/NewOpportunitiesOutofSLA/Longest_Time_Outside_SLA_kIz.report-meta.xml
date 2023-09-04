@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>CDF1:UNIQUE / RowCount</calculatedFormula>
+        <datatype>percent</datatype>
+        <developerName>FORMULA1</developerName>
+        <isActive>false</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>Opportunities Out of SLA %</masterLabel>
+        <scale>2</scale>
+    </aggregates>
+    <columns>
+        <field>Opportunity$BLG_Campaign__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$BLG_Campaign__c.Campaign_List__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Activities$Due_Date_Time__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Activities$CompletedDateTime</field>
+    </columns>
+    <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
+        <field>Opportunity.Activities$Call_Outcome__c</field>
+    </columns>
+    <columns>
+        <field>Opportunity$Name</field>
+    </columns>
+    <customDetailFormulas>
+        <calculatedFormula>TEXT(MAX(VALUE(IF(OR( ISNULL(Activity.CompletedDateTime - Activity.Due_Date_Time__c),(Activity.CompletedDateTime - Activity.Due_Date_Time__c) &lt; 0), &quot;&quot;,
+
+FORMATDURATION(Activity.CompletedDateTime, Activity.Due_Date_Time__c)))))</calculatedFormula>
+        <dataType>Text</dataType>
+        <developerName>CDF1</developerName>
+        <label>Time Out of SLA (DD:HH:MM:SS)</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <filter>
+        <criteriaItems>
+            <column>Opportunity$SLA_Remaining_Duration__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>SLA has been Breached</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Opportunity$Owner</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Longest Time Outside SLA</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>BetterBond_Reporting_Opportunities_Follow_ups__c</reportType>
+    <scope>salesteamteam</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <sortColumn>CDF1</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>Opportunity$Assignment_DateTime__c</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
+    </timeFrameFilter>
+</Report>

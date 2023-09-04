@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>Add_To_Update_Collection</name>
+        <label>Add To Update Collection</label>
+        <locationX>720</locationX>
+        <locationY>815</locationY>
+        <assignmentItems>
+            <assignToReference>TasksToReassign</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Loop_Qualifying_Tasks</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Qualifying_Tasks</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Reassign_Tasks_to_New_Owner</name>
+        <label>Reassign Tasks to New Owner</label>
+        <locationX>577</locationX>
+        <locationY>682</locationY>
+        <assignmentItems>
+            <assignToReference>Loop_Qualifying_Tasks.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Loop_Qualifying_Tasks.locked__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_To_Update_Collection</targetReference>
+        </connector>
+    </assignments>
+    <description>DB: 10 aug
+
+Flow Description:
+Reassigns open tasks to the new opportunity owner if the owner on Opportunity changes.
+
+No Front-End Access - Flow is record triggered based on the entry criteria.</description>
+    <environments>Default</environments>
+    <interviewLabel>BLG Reassign Task to Opportunity Owner {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>BLG Reassign Task to Opportunity Owner</label>
+    <loops>
+        <name>Loop_Qualifying_Tasks</name>
+        <label>Loop Qualifying Tasks</label>
+        <locationX>802</locationX>
+        <locationY>543</locationY>
+        <collectionReference>Get_Open_Tasks_For_Opportunity</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Reassign_Tasks_to_New_Owner</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Task_Who_Id</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Open_Tasks_For_Opportunity</name>
+        <label>Get Open Tasks For Opportunity</label>
+        <locationX>775</locationX>
+        <locationY>381</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Qualifying_Tasks</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Task_Who_Id</name>
+        <label>Update Task Who Id</label>
+        <locationX>909</locationX>
+        <locationY>892</locationY>
+        <inputReference>TasksToReassign</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>649</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Open_Tasks_For_Opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OwnerId</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>TasksToReassign</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Task</objectType>
+    </variables>
+</Flow>

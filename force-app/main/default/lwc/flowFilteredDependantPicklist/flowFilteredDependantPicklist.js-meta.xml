@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+<apiVersion>52.0</apiVersion>
+<isExposed>true</isExposed>
+<targets>
+    <target>lightning__FlowScreen</target>
+</targets>
+<targetConfigs>
+    <targetConfig targets="lightning__FlowScreen">
+        <!-- Add output variable for the Selected Status -->
+        <property name="selectedStatus" type="String" label="Selected Status" description="Selected Value Name" />
+        <property name="excludedValues" type="String" label="Excluded Values" description="Semicolon seperated string with picklist values to exclude" />
+        <property name="selectedStage" type="String" label="Selected Stage" description="Selected dependant stage, default Closed Won" />
+    </targetConfig>
+</targetConfigs>
+</LightningComponentBundle>

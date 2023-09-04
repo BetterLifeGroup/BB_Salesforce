@@ -1,0 +1,16 @@
+/**
+ * Created by frans fourie on 2023/06/07.
+ */
+.highZ {
+    position: absolute;
+    z-index: 9999;
+}
+
+.dropdown-value-container {
+    overflow-y: scroll;
+    display: block;
+    align-items: start;
+    justify-content: start;
+    position: absolute;
+    width: 100%;
+}

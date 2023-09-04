@@ -1,0 +1,88 @@
+/**
+ * Created by frans fourie on 2023/04/24.
+ */
+.tabMargin {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+.grid-containerEightWide {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    border-radius: 5px;
+    align-items: end;
+}
+
+.spanOne {
+    grid-column: span 1;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+}
+
+.spanTwo {
+    grid-column: span 2;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+}
+
+.spanThree {
+    grid-column: span 3;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+}
+
+.spanFour {
+    grid-column: span 4;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+
+}
+
+.spanFive {
+    grid-column: span 5;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+}
+
+.spanSix {
+    grid-column: span 6;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+}
+
+.spanEight {
+    grid-column: span 8;
+    padding: 3px;
+    /*display: flex;*/
+    align-items: center;
+    font-weight: 300;
+}
+
+.buttonClass {
+    padding-right: 12px;
+    padding-top: 12px;
+}
+
+.fontWeight{
+    font-weight: 300;
+}
+
+.valid {
+
+}
+
+.inValid {
+border: red solid 1px;
+
+}

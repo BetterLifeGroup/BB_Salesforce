@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <decisions>
+        <name>Is_this_the_first_opp_for_the_day</name>
+        <label>Is this the first opp for the day?</label>
+        <locationX>182</locationX>
+        <locationY>755</locationY>
+        <defaultConnector>
+            <targetReference>Update_Current_Opportunity</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Yes, its the first one</defaultConnectorLabel>
+        <rules>
+            <name>Already_one_for_today</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Current_Opportunity_Created.Opportunity_Reference_Number__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Prev_PA_Opportunity_Created.Opportunity_Reference_Number__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Current_Opportunity_0</targetReference>
+            </connector>
+            <label>Already one for today</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Opp_Record_Type</name>
+        <label>Opp Record Type</label>
+        <locationX>380</locationX>
+        <locationY>539</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Pre_Approval</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Current_Opportunity_Created.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_PA_Opportunity_Record_Type.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Prev_PA_Opportunity_Created</targetReference>
+            </connector>
+            <label>Pre-Approval</label>
+        </rules>
+    </decisions>
+    <description>DB: Add flow description
+
+Flow Description: Populates the Reference Number field on Opportunity in an incremental manner.
+
+No Front-End Access - Flow is record triggered based on the entry criteria.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>createdDate</name>
+        <dataType>Date</dataType>
+        <expression>{!Get_Prev_PA_Opportunity_Created.CreatedDate}</expression>
+    </formulas>
+    <formulas>
+        <name>finalPARef</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Current_Opportunity_Created.Opportunity_Reference_Number__c} + &quot;/&quot; + LPAD(TEXT({!plusOnePA}),4,&apos;0&apos;)</expression>
+    </formulas>
+    <formulas>
+        <name>incrementExtractPA</name>
+        <dataType>Number</dataType>
+        <expression>FIND(&quot;/&quot;, {!Get_Prev_PA_Opportunity_Created.Reference_Number_Text__c} , 0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>lengthExtractPA</name>
+        <dataType>Number</dataType>
+        <expression>LEN({!Get_Prev_PA_Opportunity_Created.Reference_Number_Text__c})</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>matchFinal</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE({!finalPARef}, &quot;/&quot;, &quot;-&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>noMatchFinal</name>
+        <dataType>String</dataType>
+        <expression>SUBSTITUTE({!noMatchIncrement}, &quot;/&quot;, &quot;-&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>noMatchIncrement</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Current_Opportunity_Created.Opportunity_Reference_Number__c} + &quot;/0001&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>plusOnePA</name>
+        <dataType>Number</dataType>
+        <expression>VALUE({!referenceIncrementPA}) + 1</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>referenceIncrementPA</name>
+        <dataType>String</dataType>
+        <expression>RIGHT({!Get_Prev_PA_Opportunity_Created.Reference_Number_Text__c},{!rightCountPA})</expression>
+    </formulas>
+    <formulas>
+        <name>region</name>
+        <dataType>String</dataType>
+        <expression>MID({!$Record.Reference_Number_Text__c}, 3, 3)</expression>
+    </formulas>
+    <formulas>
+        <name>rightCountPA</name>
+        <dataType>Number</dataType>
+        <expression>{!lengthExtractPA} - {!incrementExtractPA}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>TheFirstRefNumber</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Current_Opportunity_Created.Opportunity_Reference_Number__c} + &quot;-0001&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>TheNextRefNumber</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Current_Opportunity_Created.Opportunity_Reference_Number__c} + &quot;-&quot; +
+
+LPAD(TEXT(VALUE(RIGHT({!Get_Prev_PA_Opportunity_Created.Reference_Number_Text__c}, 4)) + 1), 4 ,&apos;0&apos;)</expression>
+    </formulas>
+    <interviewLabel>Reference Number Increment on Opportunity {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Reference Number Increment on Opportunity</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Current_Opportunity_Created</name>
+        <label>Get Current Opportunity Created</label>
+        <locationX>380</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Opp_Record_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_PA_Opportunity_Record_Type</name>
+        <label>Get PA Opportunity Record Type</label>
+        <locationX>380</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Current_Opportunity_Created</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Pre_Approval_Opportunity</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Prev_PA_Opportunity_Created</name>
+        <label>Get Prev PA Opportunity Created</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_this_the_first_opp_for_the_day</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_PA_Opportunity_Record_Type.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Reference_Number_Text__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Reference_Number_Text__c</field>
+            <operator>Contains</operator>
+            <value>
+                <elementReference>region</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.CreatedDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Current_Opportunity</name>
+        <label>Update Current Opportunity</label>
+        <locationX>314</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>Reference_Number_Text__c</field>
+            <value>
+                <elementReference>TheFirstRefNumber</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Current_Opportunity_0</name>
+        <label>Update Current Opportunity</label>
+        <locationX>50</locationX>
+        <locationY>863</locationY>
+        <inputAssignments>
+            <field>Reference_Number_Text__c</field>
+            <value>
+                <elementReference>TheNextRefNumber</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_PA_Opportunity_Record_Type</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Ready for Verification</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Reference_Number_Text__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Reference_Number_Text__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>lastDateExtract</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>latestDateCalcExtract</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

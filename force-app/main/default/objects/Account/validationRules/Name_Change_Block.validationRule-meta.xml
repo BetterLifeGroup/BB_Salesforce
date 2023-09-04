@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Name_Change_Block</fullName>
+    <active>true</active>
+    <description>This function prevents a consultant and office admin from updating/editing the name of an account.</description>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    OR(
+        $Profile.Name = &quot;Consultant&quot;,
+        $Profile.Name = &quot;Office Administrator&quot;
+    ),
+    ISCHANGED(Name)
+)</errorConditionFormula>
+    <errorMessage>Neither an Office Administrator nor a Consultant is allowed to change the name of either an Account or a Contact.</errorMessage>
+</ValidationRule>

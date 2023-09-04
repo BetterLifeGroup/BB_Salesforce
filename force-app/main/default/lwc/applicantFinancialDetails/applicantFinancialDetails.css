@@ -1,0 +1,43 @@
+/**
+ * Created by frans fourie on 2023/02/03.
+ */
+.standard {
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.red {
+    color: red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.redBin {
+
+    --lwc-colorTextIconDefault: #c22626;
+    padding-right: 8px;
+    padding-left: 18px;
+}
+
+.checkbox {
+    padding-top: 8px;
+}
+
+.mandatoryNotSatisfied {
+    color: red;
+    border: red solid 1px;
+    border-radius: 5px;
+}
+
+.banner {
+    background-color: #f3f2f2;
+    border-radius: 4px;
+    display: flex;
+    height: 32px;
+    padding-top: 3px;
+    margin-bottom: 8px;
+
+}

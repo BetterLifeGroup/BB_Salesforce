@@ -1,0 +1,2008 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Pre_Approval</fullName>
+    <active>false</active>
+    <businessProcess>FinServ__Opportunity Process</businessProcess>
+    <label>Pre-Approval</label>
+    <picklistValues>
+        <picklist>Are_you_buying_your_first_home__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Capture_Progress__c</picklist>
+        <values>
+            <fullName>Address details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bank account details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit check outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit history</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employment details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Income</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Living expenses</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POPIA Consent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tax info</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>DB_Competitor__c</picklist>
+        <values>
+            <fullName>Competitor A</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor B</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Competitor C</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Do_you_earn_any_additional_income_from_t__c</picklist>
+        <values>
+            <fullName>Commission</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maintenance %2F Alimony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Overtime</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Income</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Do_you_have_a_South_African_ID_number__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Do_you_own_an_existing_property__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Document_Selection__c</picklist>
+        <values>
+            <fullName>1 Months Bank Statement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1 Months Invoice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>1 Payslip</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Months Bank Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Months Invoices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2 Payslips</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3 Months Invoices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 Months Bank Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 Months Invoices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4 Payslips</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 Months Bank Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 Months Invoices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5 Payslips</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Copy of ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Copy of Passport</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Bureau Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Divorce Decree %2F Settlement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR Letter Confirming Contract Employment Terms</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR Letter Confirming Employment Date</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HR Letter Confirming Salary Adjustment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID Card Back</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ID Card Front</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest 3 Months Bank Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest 3 Months Payslips</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest 6 Months Bank Statements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest 6 Months Invoices</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest 6 Months Payslips</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest Bank Statement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest Invoice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latest Payslip</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Offer To Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paid Up Letter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rental Agreement%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rescinded Letter</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ForecastCategoryName</picklist>
+        <values>
+            <fullName>Best Case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Omitted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pipeline</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>In_what_capacity_are_you_buying__c</picklist>
+        <values>
+            <fullName>I am buying in my personal capacity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I am buying in the name of a business or trust</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LeadSource</picklist>
+        <values>
+            <fullName>Advertisement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Event</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>External Referral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google AdWords</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hippo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchased List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Show</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Webinar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Loss_Reason__c</picklist>
+        <values>
+            <fullName>Lost to Competitor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Budget %2F Lost Funding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Decision %2F Non-Responsive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Price</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MC_Credit_status__c</picklist>
+        <values>
+            <fullName>Good credit%2C with docs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Good credit%2C without docs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor credit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Marital_Agreement__c</picklist>
+        <values>
+            <fullName>Married - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Married in Community of Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Married</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner in Traditional marriage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Partner in a Islamic marriage</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Nationality__c</picklist>
+        <values>
+            <fullName>Afghanistan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Albania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Algeria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>American Samoa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Andorra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Angola</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Anguilla</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Antarctica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Antigua And Barbuda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Argentina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Armenia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Aruba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Austria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Azerbaijan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bahamas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bahrain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bangladesh</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Barbados</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Belarus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Belgium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Belize</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Benin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bermuda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bhutan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bolivia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bosnia And Herzegowina</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Botswana</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bouvet Island</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brazil</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>British Indian Ocean Territory</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Brunei Darussalam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bulgaria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Burkina Faso</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Burundi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cambodia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cameroon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Canada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cape Verde</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cayman Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Central African Republic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chad</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>China %28People%27s Republic Of%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Christmas Island</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cocos %28Keeling%29 Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Colombia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Comoros</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Congo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cook Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Costa Rica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cote D%27ivoire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Croatia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cuba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cyprus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Czech Republic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denmark</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Djibouti</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dominica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dominican Republic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>East Timor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ecuador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Egypt</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>El Salvador</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Equatorial Guinea</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Eritrea</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estonia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ethiopia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falkland Islands %28Malvinas%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Faroe Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Federal Republic Of Yugoslavia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fiji</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Finland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>France</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>France%2C Metropolitan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French Guiana</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French Polynesia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>French Southern Territories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gabon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gambia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Georgia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Germany</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ghana</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gibraltar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greece</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Greenland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grenada</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guadeloupe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guatemala</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guinea</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guinea-Bissau</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guyana</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Haiti</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Heard And Mc Donald Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hellenic Republic %28Greece%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Honduras</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hong Kong</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hungary</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Iceland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>India</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indonesia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Iran</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Iraq</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ireland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Israel</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Italy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jamaica</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Japan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jordan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kazakhstan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kenya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kingdom Of Belgium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kingdom Of Spain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kingdom Of Sweden</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kingdom Of The Netherlands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kiribati</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Korea %28Republic Of%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Korea%2C Democratic People%27s Republic Of</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kuwait</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kyrgyzstan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lao People%27s Democratic Republic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Latvia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lebanon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lesotho</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liberia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Libya</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liechtenstein</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lithuania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Luxembourg</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Macao</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Macedonia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Madagascar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Malawi</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Malaysia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Maldives</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mali</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Malta</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Marshall Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Martinique</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mauritania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mauritius</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mayotte</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mexico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Micronesia%2C Federated States Of</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Moldova%2C Republic Of</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monaco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mongolia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Montserrat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Morocco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mozambique</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Myanmar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Namibia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nauru</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nepal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netherlands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netherlands Antilles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Caledonia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Zealand</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nicaragua</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Niger</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Nigeria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Niue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Norfolk Island</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Northern Mariana Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Norway</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Selected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Oman</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pakistan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Palau</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Panama</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Papua New Guinea</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Paraguay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Peru</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Philippines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pitcairn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portugal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Puerto Rico</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qatar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Republic Of Bulgaria</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Republic Of Finland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reunion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Romania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Russian Federation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rwanda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Saint Kitts And Nevis</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Saint Lucia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Saint Vincent And The Grenadines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Samoa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>San Marino</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sao Tome And Principe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Saudi Arabia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Senegal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Serbia And Montenegro</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seychelles</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sierra Leone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Singapore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Slovakia %28Slovak Republic%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Slovenia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Socialist Republic Of Viet Nam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solomon Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Somalia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>South Africa</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>South Georgia And The South Sandwich Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Spain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sri Lanka</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>St%2E Helena</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>St%2E Pierre And Miquelon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sudan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Suriname</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Svalbard And Jan Mayen Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Swaziland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sweden</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Switzerland</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Syrian Arab Republic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Taiwan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tajikistan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tanzania</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thailand</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Togo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tokelau</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tonga</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trinidad And Tobago</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tunisia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Turkey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Turkmenistan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Turks And Caicos Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tuvalu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uganda</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ukraine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unallocated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Union Of Soviet Socialist Republics Ussr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United Arab Emirates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United Kingdom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United Kingdom Of Great Britain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United States</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United States Minor Outlying Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uruguay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ussr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Uzbekistan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vanuatu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vatican City State %28Holy City%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Venezuela</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vietnam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virgin Islands %28British%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virgin Islands %28US%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wallis And Futuna Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Western Sahara</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yemen</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zaire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zambia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zimbabwe</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status__c</picklist>
+        <values>
+            <fullName>Already submitted to bank%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client requested face to face - sent to region</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint - Direct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint - Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint - POPI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaint - Region</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contact details invalid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dealing with another region</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Developer - sent to development hub</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Duplicate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Further loan - FNB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IVR Message - Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No PA consent received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No PA documents received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - browsing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - not buying</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - poor service - Direct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - poor service - Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - poor service - Region</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - process</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not interested - renting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - No OTP Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - EC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - FS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - KZN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - NW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - PTA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - SE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - OTP received - WC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Issued - awaiting OTP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - No affordability - rehab in progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Ready for verification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Verification complete</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Verification failed - credit profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Verification failed - documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Verification failed - no affordability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Verification failed - value</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - Verification in progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - awaiting consent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA Requested - awaiting documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA not issued - Credit profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA not issued - Documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA not issued - No affordability</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA not issued - Value</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - IDV failed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - IDV failed - awaiting consent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - credit check error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - internal rehab in progress</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - internal rehab required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - internal rehab required - thin file</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - no internal rehab - poor credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - not interested in internal rehab</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - poor credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profile Created</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted to another originator</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Switch</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer - Personal loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer internal %28Direct%29 - follow up on existing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Developments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Head office</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - EC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - FS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - KZN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - NW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - PTA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - SE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transfer out - Region - WC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Submission_Status__c</picklist>
+        <values>
+            <fullName>Formal Grant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted To Bank</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Template_Selection__c</picklist>
+        <values>
+            <fullName>Consent form reminder - follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit check positive - requesting docs to complete PA %28Documents Required%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Consent form reminder - follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Credit check positive - requesting docs to complete PA %28Documents Required%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA - no answer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA - sending consent form %28spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA issued - awaiting OTP %28attach PA certificate%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA requested - docs follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Poor credit - post conversation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA - no answer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA - sending consent form %28spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA issued - awaiting OTP %28attach PA certificate%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - docs follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor credit - post conversation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Type</picklist>
+        <values>
+            <fullName>Existing Business</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Business</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_is_your_credit_status__c</picklist>
+        <values>
+            <fullName>I am currently under debt review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I am currently under sequestration in terms of a court order</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I have judgements against me</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>None of the above</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_is_your_employment_status__c</picklist>
+        <values>
+            <fullName>Contract worker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Full-time employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Part-time employee</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retired%2FPensioner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Self Employed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Temp Employed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unemployed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_type_of_bond_are_you_applying_for__c</picklist>
+        <values>
+            <fullName>Further loan on existing property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal home loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property for commercial use</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant land and%2For building loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>When_are_you_buying__c</picklist>
+        <values>
+            <fullName>I have found a home and I%27m waiting for my offer to be accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I have found a home and my signed Offer to Purchase has been accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I%27m house-hunting and want to be pre-approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I%27m thinking about buying and want to know what I can afford</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>When_are_you_paid__c</picklist>
+        <values>
+            <fullName>Bi-Weekly%2FFortnightly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Monthly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weekly</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Workflow_Description__c</picklist>
+        <values>
+            <fullName>Attempting contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-approval OTP nurturing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-approval consent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-approval documents</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pre-approval verification</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>mcGenOppEmailSend__c</picklist>
+        <values>
+            <fullName>Hard Bounce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opened</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Successfully</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Soft Bounce</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>mcPAOppMailSend__c</picklist>
+        <values>
+            <fullName>Hard Bounce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opened</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sent Successfully</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Soft Bounce</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>noAgentClassification__c</picklist>
+        <values>
+            <fullName>Attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Auctioneer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Private</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

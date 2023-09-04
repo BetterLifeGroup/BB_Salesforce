@@ -1,0 +1,233 @@
+<!--
+ - Created by frans fourie on 2023/04/25.
+ -->
+
+<!-- User Management Add User -->
+<template>
+    <div style='padding-bottom: 45px; overflow-wrap: normal;'>
+        <div class='slds-align_absolute-center'
+             style='padding-top: 12px;font-size: large;font-weight: 300;padding-bottom: 8px'>
+            Create a new user
+        </div>
+        <template if:true={showSpinner}>
+            <div class='spanTwo' style='display: flex;align-items: end'>
+                <lightning-spinner
+                        size='small'
+                ></lightning-spinner>
+            </div>
+        </template>
+
+        <div>
+            <template if:true={showUserDetails}>
+                <div style='gap: 3px; border-bottom: 1px #d0d0d0 solid;padding-bottom: 9px'
+                >
+                    <div style='padding-right: 12px; gap: 4px' class='grid-containerEightWide'>
+                        <div class='spanThree'>
+                            <lightning-combobox
+                                    label='User Profile'
+                                    options={profileComboboxOptions}
+                                    onchange={handleProfileChange}
+                                    required
+                            ></lightning-combobox>
+                        </div>
+                        <div class='spanThree'>
+                            <lightning-combobox
+                                    label='User Role'
+                                    options={roleComboboxOptions}
+                                    onchange={handleRoleChange}
+                                    required
+                            ></lightning-combobox>
+                        </div>
+                        <div class='spanThree'>
+                            <lightning-input
+                                    label='Name'
+                                    onchange={handleFirstNameChange}
+                                    required
+                            ></lightning-input>
+                        </div>
+                        <div class='spanThree'>
+                            <lightning-input
+                                    label='Surname'
+                                    onchange={handleLastNameChange}
+                                    required
+                            ></lightning-input>
+                        </div>
+
+
+                        <div class='spanTwo' style='display: flex;align-items: end; padding-bottom: 6px'>
+                            <lightning-input
+                                    label='Permission Sets'
+                                    type='checkbox'
+                                    onchange={handlePermissionChange}
+                            ></lightning-input>
+                        </div>
+                        <template if:true={showSaveButton}>
+                            <div class='spanTwo' style='display: flex;align-items: end'>
+                                <lightning-button
+                                        label='Create User'
+                                        onclick={createUser}
+                                ></lightning-button>
+                            </div>
+                        </template>
+                        <template if:false={showSaveButton}>
+                            <div class='spanTwo' style='display: flex;align-items: end'>
+                                <lightning-button
+                                        label='Create User'
+                                        disabled="true"
+                                ></lightning-button>
+                            </div>
+                        </template>
+
+
+                    </div>
+                    <div style='padding-right: 12px; gap: 4px' class='grid-containerEightWide'>
+                        <div class='spanThree'>
+                            <lightning-input
+                                    label='Email'
+                                    onchange={handleEmailChange}
+                                    data-field="email"
+                                    required
+                            ></lightning-input>
+                        </div>
+                        <div class='spanThree'>
+                            <lightning-input
+                                    label='Mobile Number'
+                                    onchange={handleMobileChange}
+                                    data-field="mobile"
+                                    required
+                            ></lightning-input>
+                        </div>
+                        <template if:true={forceCommissionEntityId}>
+                            <div class='spanSix'>
+                                <lightning-input
+                                        label='DigiApp Link'
+                                        onchange={handleDigiAppLinkChange}
+                                        data-field="digiapp"
+                                        required
+                                ></lightning-input>
+                            </div>
+                        </template>
+                        <template if:false={forceCommissionEntityId}>
+                            <div class='spanSix'>
+                                <lightning-input
+                                        label='DigiApp Link'
+                                        onchange={handleDigiAppLinkChange}
+                                        data-field="digiapp"
+                                ></lightning-input>
+                            </div>
+                        </template>
+                    </div>
+                    <template if:true={displayError}>
+                        <div>
+                            {error}
+                        </div>
+                    </template>
+                </div>
+                <template if:true={showBranch}>
+                    <div style=' border-bottom: 1px #d0d0d0 solid; padding-bottom: 9px '>
+                        <div style='display: flex;flex-direction: row'>
+                            <div class='slds-align_absolute-center'
+                                 style='padding-top: 12px;font-size: large;font-weight: 300'>
+                                Region Relationship
+                            </div>
+                        </div>
+                        <div for:each={assignedSubBranches} for:item='assignedSubBranch'
+                             key={assignedSubBranch.Id}>
+                            <div class='fontWeight'>
+                                <div style='display: flex;flex-direction: row; gap: 8px;align-items: end;padding-bottom: 12px;'>
+                                    <div style='width: 35%'>
+                                        <template if:true={forceCommissionEntityId}>
+                                            <lightning-input
+                                                    label='Commission Entity Id'
+                                                    value={assignedSubBranch.commissionEntityId}
+                                                    onchange={handleCommissionEntityIdChange}
+                                                    data-id={assignedSubBranch.subBranchId}
+                                                    required
+                                            ></lightning-input>
+                                        </template>
+                                        <template if:false={forceCommissionEntityId}>
+                                            <lightning-input
+                                                    label='Commission Entity Id'
+                                                    value={assignedSubBranch.commissionEntityId}
+                                                    onchange={handleCommissionEntityIdChange}
+                                                    data-id={assignedSubBranch.subBranchId}
+                                            ></lightning-input>
+                                        </template>
+                                        <template if:true={dataHasLoaded}>
+                                            <div style='min-width: 250px'>
+                                                <c-searchable-combobox
+                                                        label='Sub-Branch'
+                                                        onrecordselected={handleRecordSelected}
+                                                        options={subBranches}
+                                                        onrecordremoved={handleRecordRemoved}
+                                                ></c-searchable-combobox>
+                                            </div>
+                                        </template>
+                                        <lightning-input
+                                                label='Branch'
+                                                value={assignedSubBranch.branchName}
+                                                disabled
+                                        ></lightning-input>
+                                        <lightning-input
+                                                label='Region'
+                                                value={assignedSubBranch.regionName}
+                                                disabled
+                                        ></lightning-input>
+                                    </div>
+                                    <div style='width: 10%'></div>
+                                    <div style='width: 55%'>
+                                        <lightning-dual-listbox
+                                                label='Skill Groups'
+                                                options={multiSelectOptions}
+                                                selected-label='Assigned'
+                                                source-label='Available'
+                                                value={assignedSubBranch.skills}
+                                                onchange={handleSkillsChange}
+                                                data-id={assignedSubBranch.subBranchId}
+                                        ></lightning-dual-listbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={isConsultant}>
+                    <div style='display: flex;flex-direction: row'>
+                        <div class='slds-align_absolute-center'
+                             style='padding-top: 12px;font-size: large;font-weight: 300'>
+                            Default Opportunity Team Members
+                        </div>
+                        <lightning-button
+                                class='buttonClass'
+                                label='Manage'
+                                onmouseup={handleManageAdmin}
+                        ></lightning-button>
+                    </div>
+                    <div style='display: flex;flex-direction: row'>
+                        <div>
+                            <div for:each={admins} for:item='admin' key={admin.Id} style='padding-top: 6px'>
+                                <div style='display:flex;flex-direction: row' class='fontWeight'>
+                                    <lightning-input
+                                            value={admin.user.Name}
+                                            label='Name'
+                                            read-only
+                                    ></lightning-input>
+                                    <lightning-input
+                                            value={admin.role}
+                                            label='Role'
+                                            read-only
+                                    ></lightning-input>
+                                    <lightning-input
+                                            value={admin.accessLevel}
+                                            label='Opportunity Access'
+                                            read-only
+                                    ></lightning-input>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </div>
+    </div>
+</template>

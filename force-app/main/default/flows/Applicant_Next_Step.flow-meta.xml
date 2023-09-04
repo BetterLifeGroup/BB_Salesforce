@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>navigate</name>
+        <label>navigate</label>
+        <locationX>782</locationX>
+        <locationY>339</locationY>
+        <actionName>c:DetailPageNavigation</actionName>
+        <actionType>component</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>sObject</name>
+            <value>
+                <stringValue>LoanApplicant</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>mode</name>
+            <value>
+                <stringValue>View</stringValue>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Whats_Next</name>
+        <label>Whats Next</label>
+        <locationX>528</locationX>
+        <locationY>344</locationY>
+        <defaultConnector>
+            <targetReference>No_Next_Action</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No actions available</defaultConnectorLabel>
+        <rules>
+            <name>Do_Consent_Idv_Credit_Check</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>GetApplicant.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Awaiting Consent</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>GetApplicant.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Awaiting Credit Check</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>GetApplicant.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Attempting Contact</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Consent_Idv_Credit_Check</targetReference>
+            </connector>
+            <label>Do Consent, Idv &amp; Credit Check</label>
+        </rules>
+        <rules>
+            <name>Upload_Documents</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetApplicant.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Awaiting Documents</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>navigate</targetReference>
+            </connector>
+            <label>Upload Documents</label>
+        </rules>
+        <rules>
+            <name>Verification_Completed</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>GetApplicant.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Verification Failed</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>GetApplicant.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Verification Successful</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Applicant_Financial_Validation_SubFlow</targetReference>
+            </connector>
+            <label>Verification Completed</label>
+        </rules>
+    </decisions>
+    <description>Flow Description: Used to kick off the Next steps (subflows) in the Applicant process based on the Applicant’s current Status. Launched from Convert to Pre-Approval Subflow which is launched from Wrap Up Opportunity H2
+
+Front-End Access: “Work Opportunity” button on Opportunity Record Page.</description>
+    <environments>Default</environments>
+    <interviewLabel>Applicant Next Step {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Applicant Next Step</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>GetApplicant</name>
+        <label>GetApplicant</label>
+        <locationX>536</locationX>
+        <locationY>194</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Whats_Next</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LoanApplicant</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>No_Next_Action</name>
+        <label>No Next Action</label>
+        <locationX>536</locationX>
+        <locationY>525</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>dispayText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;No actions available.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>410</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>GetApplicant</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Applicant_Financial_Validation_SubFlow</name>
+        <label>Applicant Financial Validation SubFlow</label>
+        <locationX>817</locationX>
+        <locationY>499</locationY>
+        <flowName>Applicant_Financial_Validation_SubFlow</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Consent_Idv_Credit_Check</name>
+        <label>Consent,Idv &amp; Credit Check</label>
+        <locationX>296</locationX>
+        <locationY>342</locationY>
+        <flowName>Consent_Idv_and_Credit_Check</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <outputAssignments>
+            <assignToReference>exitToFlow</assignToReference>
+            <name>exitToFlow</name>
+        </outputAssignments>
+    </subflows>
+    <variables>
+        <name>exitToFlow</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

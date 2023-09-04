@@ -1,0 +1,498 @@
+<!--
+ - Created by frans fourie on 2023/02/03.
+ -->
+
+<!-- Applicant Financial Details -->
+<template>
+    <template if:true={incomeMode}>
+        <div style='display: flex;justify-content: center;align-content: center' class='banner'>
+            <lightning-formatted-text class='slds-text-heading_medium'
+                                      value={applicantName}
+            ></lightning-formatted-text>
+        </div>
+        <div for:each={incomes} for:item='income' key={income.Name}>
+            <div style='display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr'>
+                <div style='justify-content: end; grid-column: span 1; padding-top: 20px; margin-right: 5px'>
+                    <lightning-formatted-text
+                            value={income.Name}
+                    ></lightning-formatted-text>
+                </div>
+                <div style='justify-content: start; grid-column: span 1' class={income.class}>
+                    <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                        <lightning-formatted-text
+                                value='R'
+                        ></lightning-formatted-text>
+                    </div>
+                    <lightning-input
+                            onchange={handleAmountChange}
+                            data-id={income.Name}
+                            onblur={handleInputBlur}
+                            label=' '
+                            value={income.MonthlyIncomeAmount}
+                            disabled={income.disabled}
+                    ></lightning-input>
+                </div>
+            </div>
+        </div>
+        <div style='display: grid; grid-template-columns: 50% 50%; padding-top: 20px'>
+            <div style='grid-column: span 1; font-weight: bold; font-size: medium'>
+                <lightning-formatted-text
+                        value='Total Income Amount: R'
+                ></lightning-formatted-text>
+                <lightning-formatted-number
+                        value={totalIncome}
+                ></lightning-formatted-number>
+            </div>
+
+            <div style='grid-column: span 1; font-weight: bold; font-size: medium'>
+                <lightning-formatted-text
+                        value='Total Income Amount RTI: R'
+                ></lightning-formatted-text>
+                <lightning-formatted-number
+                        value={totalRTI}
+                ></lightning-formatted-number>
+            </div>
+        </div>
+        <lightning-combobox
+                label='Payment Frequency'
+                options={paymentFrequencyOptions}
+                onchange={updateApplicant}
+                data-id='paymentFrequency'
+                value={paymentFrequencyCurrentValue}
+        ></lightning-combobox>
+        <lightning-combobox
+                label='Do you earn overtime every single month?'
+                options={genericOptions}
+                onchange={updateApplicant}
+                data-id='overtime'
+                value={overtimeCurrentValue}
+        ></lightning-combobox>
+        <lightning-combobox
+                label='Do you earn commission every month?'
+                options={genericOptions}
+                onchange={updateApplicant}
+                data-id='commission'
+                value={commissionCurrentValue}
+        ></lightning-combobox>
+        <lightning-combobox
+                label='Subsidy received on property purchased?'
+                options={genericOptions}
+                onchange={updateApplicant}
+                data-id='subsidy'
+                value={subsidyCurrentValue}
+        ></lightning-combobox>
+        <template if:true={showRunningNotes}>
+            <div style='padding-top: 12px' class={notes}>
+                <lightning-input
+                        label='Running Notes'
+                        value={internalRunningNotes}
+                        onchange={runningNotesChange}
+                        data-id="notes"
+                ></lightning-input>
+            </div>
+        </template>
+    </template>
+
+    <template if:true={deductionsMode}>
+        <div style='display: flex;justify-content: center;align-content: center' class='banner'>
+            <lightning-formatted-text class='slds-text-heading_medium'
+                                      value={applicantName}
+            ></lightning-formatted-text>
+        </div>
+        <div for:each={deductions} for:item='deduction' key={deduction.ExpenseType__c}>
+            <div style='display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr'>
+                <div style='justify-content: end; grid-column: span 1; padding-top: 20px; margin-right: 5px'>
+                    <lightning-formatted-text
+                            value={deduction.ExpenseType__c}
+                    ></lightning-formatted-text>
+                </div>
+                <div style='justify-content: start; grid-column: span 1'>
+                    <div style='justify-content: start; grid-column: span 1' class={deduction.class}>
+                        <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                            <lightning-formatted-text
+                                    value='R'
+                            ></lightning-formatted-text>
+                        </div>
+                        <lightning-input
+                                data-id={deduction.ExpenseType__c}
+                                onblur={handleInputBlur}
+                                label=' '
+                                value={deduction.Amount__c}
+                                disabled={deduction.disabled}
+                                onchange={handleAmountChange}
+                        ></lightning-input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style='display: grid; grid-template-columns: 50% 50%; padding-top: 20px'>
+            <div style='grid-column: span 1; font-weight: bold; font-size: medium'>
+                <lightning-formatted-text
+                        value='Total Deduction Amount: R'
+                ></lightning-formatted-text>
+                <lightning-formatted-number
+                        value={totalDeductions}
+                ></lightning-formatted-number>
+            </div>
+        </div>
+        <template if:true={showRunningNotes}>
+            <div style='padding-top: 12px'>
+                <lightning-input
+                        label='Running Notes'
+                        value={internalRunningNotes}
+                        onchange={runningNotesChange}
+                        data-id="notes"
+                ></lightning-input>
+            </div>
+        </template>
+    </template>
+
+
+    <template if:true={contractualExpensesMode}>
+        <div style='display: flex;justify-content: center;align-content: center' class='banner'>
+            <lightning-formatted-text class='slds-text-heading_medium'
+                                      value={applicantName}
+            ></lightning-formatted-text>
+        </div>
+        <div style='display: grid; grid-template-columns: 32% 32% 16% 16%;; gap: 10px '>
+            <div style=' grid-column: span 1'>
+                <lightning-input
+                        label='Description'
+                        disabled={temp}
+                        onchange={handleNewDescription}
+                        value={newDescription}
+                ></lightning-input>
+            </div>
+            <div style=' grid-column: span 1'>
+                <lightning-combobox
+                        options={contractualExpenseAccountTypes}
+                        label='Account Type'
+                        onchange={handleNewAccountType}
+                        disabled={temp}
+                        value={newAccountType}
+                ></lightning-combobox>
+            </div>
+            <div style='grid-column: span 1' class={newAmount.class}>
+                <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                    <lightning-formatted-text
+                            value='R'
+                    ></lightning-formatted-text>
+                </div>
+                <lightning-input
+                        label='Amount'
+                        disabled={temp}
+                        onchange={handleNewAmount}
+                        value={newAmount.amount}
+                ></lightning-input>
+            </div>
+            <div style='grid-column: span 1; padding-top: 20px'>
+                <lightning-button
+                        label='Add Expense'
+                        onclick={newContractualExpense}
+                        disabled={temp}
+                ></lightning-button>
+
+            </div>
+        </div>
+        <div for:each={deductions} for:item='deduction' key={deduction.Id}>
+            <div style='display: grid; grid-template-columns: 32% 32% 16% 16%; gap: 10px; row-gap: 8px '>
+                <div style='grid-column: span 1'>
+                    <lightning-input
+                            data-id={deduction.Id}
+                            value={deduction.Description__c}
+                            onblur={handleContractualInputBlur}
+                            data-fieldtype="description"
+                            disabled={deduction.disabled}
+                    ></lightning-input>
+                </div>
+                <div style='grid-column: span 1'>
+                    <lightning-combobox
+                            options={contractualExpenseAccountTypes}
+                            data-id={deduction.Id}
+                            data-fieldtype="accountType"
+                            onchange={handleContractualInputBlur}
+                            label=' '
+                            value={deduction.AccountType}
+                            disabled={deduction.disabled}
+                    ></lightning-combobox>
+                </div>
+                <div style='justify-content: start; grid-column: span 1' class={deduction.class}>
+                    <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                        <lightning-formatted-text
+                                value='R'
+                        ></lightning-formatted-text>
+                    </div>
+                    <lightning-input
+                            data-id={deduction.Id}
+                            onblur={handleContractualInputBlur}
+                            label=' '
+                            value={deduction.Monthly_Instalment_Amount__c}
+                            data-fieldtype="amount"
+                            disabled={deduction.disabled}
+                            onchange={handleAmountChange}
+                    ></lightning-input>
+                </div>
+                <div style='justify-content: start; grid-column: span 1;display: flex; align-items: end; gap: 6px'>
+
+                    <lightning-input
+                            disabled={deduction.settleDisable}
+                            class='checkbox'
+                            type='toggle'
+                            checked={deduction.Exclude_Expense_From_Calculation__c}
+                            message-toggle-active='Active'
+                            message-toggle-inactive='Settled'
+                            data-id={deduction.Id}
+                            onchange={handleContractualInputBlur}
+                            data-fieldtype="excluded"
+                    ></lightning-input>
+                    <lightning-button-icon
+                            data-id={deduction.Id}
+                            class='redBin'
+                            icon-name='utility:delete'
+                            onclick={handleDeleteContractualExpense}
+                    ></lightning-button-icon>
+                </div>
+
+            </div>
+        </div>
+        <div style='display: grid; grid-template-columns: 50% 50%; padding-top: 20px'>
+            <div style='grid-column: span 1; font-weight: bold; font-size: medium'>
+                <lightning-formatted-text
+                        value='Total Contractual Expenses: R'
+                ></lightning-formatted-text>
+                <lightning-formatted-number
+                        value={totalContractualExpenses}
+                ></lightning-formatted-number>
+            </div>
+        </div>
+        <template if:true={showRunningNotes}>
+            <div style='padding-top: 12px'>
+                <lightning-input
+                        label='Running Notes'
+                        value={internalRunningNotes}
+                        onchange={runningNotesChange}
+                        data-id="notes"
+                ></lightning-input>
+            </div>
+        </template>
+    </template>
+
+
+    <template if:true={existingExposureMode}>
+        <div style='display: flex;justify-content: center;align-content: center' class='banner'>
+            <lightning-formatted-text class='slds-text-heading_medium'
+                                      value={applicantName}
+            ></lightning-formatted-text>
+        </div>
+        <div style='display: grid; grid-template-columns: 2fr 1fr 1fr '>
+            <div style='grid-column: span 1'>
+                <template if:false={forceValues}>
+                    <lightning-combobox
+                            label='Do you own an existing property?'
+                            options={genericOptions}
+                            onchange={updateApplicant}
+                            data-id='existingProperty'
+                            value={ownExistingPropertyCurrentValue}
+                    ></lightning-combobox>
+                </template>
+                <template if:true={forceValues}>
+                    <lightning-combobox
+                            label='Do you own an existing property?'
+                            options={genericOptions}
+                            onchange={updateApplicant}
+                            data-id='existingProperty'
+                            value={ownExistingPropertyCurrentValue}
+                            read-only="true"
+                    ></lightning-combobox>
+                </template>
+                <template if:true={showSellingPropertyQuestion}>
+                    <lightning-combobox
+                            label='Will you be selling this property to buy?'
+                            options={genericOptions}
+                            onchange={updateApplicant}
+                            data-id='willYouBeSelling'
+                            value={willYouSellCurrentPropertyCurrentValue}
+                    ></lightning-combobox>
+
+                    <template if:true={showBondQuestions}>
+                        <template if:false={forceValues}>
+                            <lightning-combobox
+                                    label='Existing Bond Repayment?'
+                                    options={genericOptions}
+                                    onchange={updateApplicant}
+                                    data-id='existingBondRepayment'
+                                    value={existingBondRepaymentCurrentValue}
+                            ></lightning-combobox>
+                        </template>
+                        <template if:true={forceValues}>
+                            <lightning-combobox
+                                    label='Existing Bond Repayment?'
+                                    options={genericOptions}
+                                    onchange={updateApplicant}
+                                    data-id='existingBondRepayment'
+                                    value={existingBondRepaymentCurrentValue}
+                                    read-only="true"
+                            ></lightning-combobox>
+                        </template>
+                        <template if:true={showBondRepayment}>
+                            <template if:false={forceValues}>
+                                <div style='justify-content: start; grid-column: span 1'
+                                     class={bondRepaymentAmountCurrentValue.class}>
+                                    <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                                        <lightning-formatted-text
+                                                value='R'
+                                        ></lightning-formatted-text>
+                                    </div>
+                                    <lightning-input
+                                            label='Monthly Bond Repayment Amount'
+                                            onblur={updateApplicant}
+                                            data-id='bondRepaymentAmount'
+                                            value={bondRepaymentAmountCurrentValue.value}
+                                            onchange={handleAmountChange}
+                                    ></lightning-input>
+                                </div>
+                            </template>
+                            <template if:true={forceValues}>
+                                <div style='justify-content: start; grid-column: span 1'
+                                     class={bondRepaymentAmountCurrentValue.class}>
+                                    <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                                        <lightning-formatted-text
+                                                value='R'
+                                        ></lightning-formatted-text>
+                                    </div>
+                                    <lightning-input
+                                            label='Monthly Bond Repayment Amount'
+                                            onblur={updateApplicant}
+                                            data-id='bondRepaymentAmount'
+                                            value={bondRepaymentAmountCurrentValue.value}
+                                            onchange={handleAmountChange}
+                                            disabled="true"
+                                    ></lightning-input>
+                                </div>
+                            </template>
+                        </template>
+                        <template if:false={lockBondRepaymentQuestion}>
+                            <lightning-combobox
+                                    label='Existing Bond Repayment to be settled?'
+                                    options={genericOptions}
+                                    onchange={updateApplicant}
+                                    data-id='existingBondToSettle'
+                                    value={existingBondRepaymentToBeSettledCurrentValue}
+                            ></lightning-combobox>
+                        </template>
+                        <template if:true={lockBondRepaymentQuestion}>
+                            <lightning-combobox
+                                    label='Existing Bond Repayment to be settled?'
+                                    options={genericOptions}
+                                    onchange={updateApplicant}
+                                    data-id='existingBondToSettle'
+                                    value={existingBondRepaymentToBeSettledCurrentValue}
+                                    read-only="true"
+                            ></lightning-combobox>
+                        </template>
+                        <template if:true={showBondSettlementAmount}>
+                            <div style='justify-content: start; grid-column: span 1'
+                                 class={bondSettlementAmountCurrentValue.class}>
+                                <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                                    <lightning-formatted-text
+                                            value='R'
+                                    ></lightning-formatted-text>
+                                </div>
+                                <div class={fieldMandatory}>
+                                    <lightning-input
+                                            label='Monthly Bond Repayment Amount to be Settled'
+                                            data-id='bondSettlementAmount'
+                                            value={bondSettlementAmountCurrentValue.value}
+                                            onblur={handleSettlementAmountBlur}
+                                            onchange={handleSettlementAmountOnChange}
+                                    ></lightning-input>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
+                </template>
+            </div>
+        </div>
+        <template if:true={showRunningNotes}>
+            <div style='padding-top: 12px'>
+                <lightning-input
+                        label='Running Notes'
+                        value={internalRunningNotes}
+                        onchange={runningNotesChange}
+                        data-id="notes"
+                ></lightning-input>
+            </div>
+        </template>
+    </template>
+
+
+    <template if:true={livingExpensesMode}>
+        <div style='display: flex;justify-content: center;align-content: center' class='banner'>
+            <lightning-formatted-text class='slds-text-heading_medium'
+                                      value={applicantName}
+            ></lightning-formatted-text>
+        </div>
+        <div for:each={deductions} for:item='deduction' key={deduction.ExpenseType__c}>
+            <div style='display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr'>
+                <div style='justify-content: end; grid-column: span 1; padding-top: 20px; margin-right: 5px'>
+                    <lightning-formatted-text
+                            value={deduction.ExpenseType__c}
+                    ></lightning-formatted-text>
+                </div>
+                <div style='justify-content: start; grid-column: span 1'>
+                    <div style='justify-content: start; grid-column: span 1' class={deduction.class}>
+                        <div style='padding-top: 16px; font-size: 16px; font-weight: 300; padding-right: 4px'>
+                            <lightning-formatted-text
+                                    value='R'
+                            ></lightning-formatted-text>
+                        </div>
+                        <lightning-input
+                                data-id={deduction.ExpenseType__c}
+                                onblur={handleInputBlur}
+                                label=' '
+                                value={deduction.Amount__c}
+                                disabled={deduction.disabled}
+                                onchange={handleAmountChange}
+                        ></lightning-input>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style='display: grid; grid-template-columns: 50% 50%; padding-top: 20px'>
+            <div style='grid-column: span 1; font-weight: bold; font-size: medium'>
+                <lightning-formatted-text
+                        value='Total Living Expenses: R'
+                ></lightning-formatted-text>
+                <lightning-formatted-number
+                        value={totalLivingExpenses}
+                ></lightning-formatted-number>
+            </div>
+        </div>
+        <template if:true={showRunningNotes}>
+            <div style='padding-top: 12px'>
+                <lightning-input
+                        label='Running Notes'
+                        value={internalRunningNotes}
+                        onchange={runningNotesChange}
+                        data-id="notes"
+                ></lightning-input>
+            </div>
+        </template>
+    </template>
+    <template if:true={showNavigationButtons}>
+        <div style='display:flex; align-items: end;justify-content: end; gap: 6px; padding-top: 8px'>
+            <lightning-button
+                    label='Previous'
+                    onclick={handlePreviousClick}
+            ></lightning-button>
+            <template if:true={showNextButton}>
+                <lightning-button
+                        label='Next'
+                        variant="brand"
+                        onclick={handleNextClick}
+                ></lightning-button>
+            </template>
+        </div>
+    </template>
+
+</template>

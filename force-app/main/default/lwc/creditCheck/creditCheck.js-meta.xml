@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Credit Check</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Credit Check</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Loan Applicant Record Id"
+                      description="Loan Applicant Record Id"/>
+<!--            <property name="idTypeValue" type="String" label="Id Type"-->
+<!--                      description="Id type, Sa ID or passport, not required"/>-->
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

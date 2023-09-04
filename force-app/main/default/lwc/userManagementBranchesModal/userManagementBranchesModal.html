@@ -1,0 +1,157 @@
+<!--
+ - Created by frans fourie on 2023/06/21.
+ -->
+
+<!-- User Management Networks Modal -->
+
+<template>
+    <div>
+        <lightning-modal-header label="Create New Region, Branch or Sub-Branch"></lightning-modal-header>
+        <lightning-modal-body>
+            <template if:false={disableClose}>
+                <div style='padding-bottom: 20px'>
+                    <div style='display: flex;flex-direction: row; align-items: center'>
+                        <div style='padding-right: 6px; padding-top: 12px'>
+                            <lightning-formatted-text
+                                    value='Create a new : '
+                            ></lightning-formatted-text>
+                        </div>
+                        <lightning-combobox
+                                options={createNewComboboxOptions}
+                                placeholder='Please select an option'
+                                onchange={handleChange}
+                                value={selectedNewComboboxValue}
+                        ></lightning-combobox>
+                    </div>
+                    <template if:true={success}>
+                        <lightning-icon
+                                class='checkGreen'
+                                icon-name="utility:check"
+                                size="x-small"
+                        ></lightning-icon>
+                        <lightning-formatted-text
+                        value='Created Successfully'
+                        ></lightning-formatted-text>
+                    </template>
+                    <template if:true={failure}>
+                        <lightning-icon
+                                class='checkRed'
+                                icon-name="utility:error"
+                                size="x-small"
+                        ></lightning-icon>
+                        <lightning-formatted-text
+                                value='Created Successfully'
+                        ></lightning-formatted-text>
+                    </template>
+                </div>
+                <template if:true={createNewNetwork}>
+                    <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%'>
+                        <lightning-input
+                                label='New Region Name'
+                                onchange={handleNewNetworkName}
+                        ></lightning-input>
+                        <template if:true={enableSave}>
+                            <lightning-button
+                                    label='Save'
+                                    onclick={handleClickNewNetworkSaveButton}
+                            ></lightning-button>
+                        </template>
+                        <template if:false={enableSave}>
+                            <lightning-button
+                                    label='Save'
+                                    disabled
+                            ></lightning-button>
+                        </template>
+                    </div>
+                </template>
+                <template if:true={createNewAgency}>
+                    <div style='width: 40%'>
+                        <c-user-management-record-search
+                                label='Please select a region'
+                                account-mode={constantTrue}
+                                account-scope='Region'
+                                onrecordselected={networkSelected}
+                                onselectioncleared={handleSelectionCleared}
+                        ></c-user-management-record-search>
+                    </div>
+                    <template if:true={selectedNetworkName}>
+                        <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%'>
+                            <lightning-input
+                                    label='New Branch Name'
+                                    onchange={handleNewAgencyName}
+                            ></lightning-input>
+                            <template if:true={enableSave}>
+                                <lightning-button
+                                        label='Save'
+                                        onclick={handleClickNewAgencySaveButton}
+                                ></lightning-button>
+                            </template>
+                            <template if:false={enableSave}>
+                                <lightning-button
+                                        label='Save'
+                                        disabled
+                                ></lightning-button>
+                            </template>
+                        </div>
+                    </template>
+                </template>
+
+
+                <template if:true={createNewBranch}>
+                    <div style='width: 40%'>
+                        <c-user-management-record-search
+                                label='Please select a region'
+                                account-mode={constantTrue}
+                                account-scope='Region'
+                                onrecordselected={networkSelected}
+                                onselectioncleared={handleSelectionCleared}
+                        ></c-user-management-record-search>
+                    </div>
+                    <template if:true={selectedNetworkName}>
+                        <div style='width: 40%'>
+                            <c-user-management-record-search
+                                    label='Please select a branch'
+                                    account-mode={constantTrue}
+                                    account-scope='Branch'
+                                    onrecordselected={agencySelected}
+                                    onselectioncleared={handleSelectionCleared}
+                                    user-management-additional-search={selectedNetworkId}
+                            ></c-user-management-record-search>
+                        </div>
+                    </template>
+                    <template if:true={selectedAgencyName}>
+                        <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%'>
+                            <lightning-input
+                                    label='New Sub-Branch Name'
+                                    onchange={handleNewBranchName}
+                            ></lightning-input>
+                            <template if:true={enableSave}>
+                                <lightning-button
+                                        label='Save'
+                                        onclick={handleClickNewBranchSaveButton}
+                                ></lightning-button>
+                            </template>
+                            <template if:false={enableSave}>
+                                <lightning-button
+                                        label='Save'
+                                        disabled
+                                ></lightning-button>
+                            </template>
+                        </div>
+                    </template>
+
+                </template>
+
+
+            </template>
+            <template if:true={disableClose}>
+                <div style='position: relative; display: inline-block; margin-left: 50%; transform: translateX(-50%); width: 55px; vertical-align: middle; padding-top: 20px; white-space: nowrap;'>
+                    <lightning-spinner
+                            size="small"
+                            variant="brand"
+                    ></lightning-spinner>
+                </div>
+            </template>
+        </lightning-modal-body>
+    </div>
+</template>

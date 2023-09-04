@@ -1,0 +1,27 @@
+<!--
+ - Created by frans fourie on 2023/06/23.
+ -->
+
+<!-- User Management Networks -->
+<template>
+    <div style='margin-bottom: 12px;display: flex;flex-direction: row; gap: 8px;align-items: end'>
+        <div style='width: 50%'>
+        <lightning-input
+                label='Search'
+                placeholder='Search for Network, Agency, Branch or Agent'
+                onchange={handleSearchChange}
+        ></lightning-input>
+        </div>
+        <lightning-button
+                onclick={handleClick}
+                label="Create">
+        </lightning-button>
+    </div>
+    <div style=''>
+        <lightning-tree
+                header="Network Hierarchy"
+                items={finalResult}
+                onselect={handleSelect}
+        ></lightning-tree>
+    </div>
+</template>

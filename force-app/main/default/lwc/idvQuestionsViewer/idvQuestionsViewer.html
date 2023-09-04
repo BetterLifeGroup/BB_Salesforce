@@ -1,0 +1,310 @@
+<!--
+ - Created by frans fourie on 2022/10/19.
+ -->
+
+<!-- Idv Questions Viewer -->
+<template>
+    <template if:false={showManualConsentForm}>
+        <template if:false={idvCompletedWithManualConsent}>
+            <div style='display: flex; justify-content: space-around; align-items: end; padding-bottom: 60px'>
+                <template if:false={error}>
+
+                    <lightning-combobox
+                            label="Identification Type"
+                            options={idTypeOptions}
+                            onchange={handleIdTypeChange}
+                            value={idTypeValue}
+                    ></lightning-combobox>
+                    <div style='display: flex;align-items: end'>
+                        <template if:false={passportSelected}>
+                            <lightning-input
+                                    label="South African Identification Number"
+                                    onchange={idNumberInputChange}
+                                    onblur={verifyId}
+                            ></lightning-input>
+                            <template if:true={idValid}>
+                                <lightning-icon
+                                        icon-name="utility:check"
+                                        size="small"
+                                        class="checkGreen"
+                                ></lightning-icon>
+                            </template>
+                            <template if:true={idNotValid}>
+                                <lightning-icon
+                                        icon-name="utility:close"
+                                        size="small"
+                                        class="crossRed"
+                                ></lightning-icon>
+                            </template>
+                        </template>
+                        <template if:true={passportSelected}>
+                            <lightning-input
+                                    label="Passport Number"
+                                    onchange={passportNumberInputChange}
+                            ></lightning-input>
+                        </template>
+                    </div>
+                    <div style='display: flex;flex-direction: column; gap: 8px;align-items: center'>
+                        <template if:true={getQuestionsButtonEnabled}>
+                            <lightning-button
+                                    label="Get Questions"
+                                    onclick={getIdvQuestions}
+                                    variant="brand"
+                            ></lightning-button>
+                        </template>
+                        <template if:false={getQuestionsButtonEnabled}>
+                            <lightning-button
+                                    label="Get Questions"
+                                    onclick={getIdvQuestions}
+                                    disabled
+                                    variant="brand"
+                            ></lightning-button>
+                        </template>
+                        <lightning-button
+                                label="Back to consent"
+                                onclick={backToConsents}
+                                variant="brand"
+                        ></lightning-button>
+                    </div>
+                </template>
+                <template if:true={error}>
+                    <div style='display: flex; flex-direction: column; gap: 8px; align-items: center'>
+                        <lightning-button
+                                label="Back to consent"
+                                onclick={backToConsents}
+                                variant="brand"
+                        ></lightning-button>
+                        <lightning-button
+                                label='Send Manual Consent Form'
+                                onclick={sendManualConsentEmail}
+                                variant="brand"
+                        ></lightning-button>
+                    </div>
+                </template>
+            </div>
+            <template if:false={idvFailed}>
+                <template if:false={error}>
+                    <template if:true={showSpinner}>
+                        <lightning-spinner
+                                alternative-text="Loading..."
+                        ></lightning-spinner>
+                    </template>
+                    <template if:true={dataLoaded}>
+                        <lightning-card>
+                            <div for:each={questionList.questions} for:item="question" key={question.questionText}
+                                 style="margin-bottom: 15px">
+                                <div key={question.questionText}>
+                                    <div style="display: flex;justify-content: space-between">
+                                        <div>
+                                            <lightning-radio-group
+                                                    label={question.questionText}
+                                                    data-question-number={question.questionNumber}
+                                                    onchange={handleAnswerClick}
+                                                    required
+                                                    options={question.possibleAnswers}
+                                            ></lightning-radio-group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style='display: flex;justify-content: space-around'>
+                                <lightning-button
+                                        label='Send Manual Consent Form'
+                                        onclick={sendManualConsentEmail}
+                                        variant="brand"
+                                ></lightning-button>
+                                <lightning-button
+                                        label='Submit Answers'
+                                        onclick={handleSubmitAnswers}
+                                        variant="brand"
+                                ></lightning-button>
+                            </div>
+                        </lightning-card>
+                    </template>
+                </template>
+                <template if:true={error}>
+                    <lightning-card>
+                        <lightning-formatted-text
+                                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                                value="No ID verification questions returned by domain"
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                                value="This could be for the following reasons:"
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                                value="- Invalid ID Number"
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                                value="- More than 2 ID verification question requests in the last 24 hours"
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                                value="- The Consent Domain is currently experiencing difficulties"
+                        ></lightning-formatted-text>
+                    </lightning-card>
+                </template>
+                <template if:true={idvPassed}>
+                    <lightning-card>
+                        <lightning-formatted-text
+                                value="IDV complete, please continue"
+                        ></lightning-formatted-text>
+                    </lightning-card>
+
+                </template>
+                <template if:true={retryIdv}>
+                    <lightning-card>
+                        <lightning-formatted-text
+                                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                                value="Identification verification failed, please retry."
+                        ></lightning-formatted-text>
+                        <div style='display: flex;justify-content: space-around; padding-top: 12px'>
+                            <lightning-button
+                                    label='Send Manual Consent Form'
+                                    onclick={sendManualConsentEmail}
+                                    variant="brand"
+                            ></lightning-button>
+                            <lightning-button
+                                    label="Retry IDV Verification"
+                                    onclick={handleRetryIdvClick}
+                                    variant="brand"
+                            ></lightning-button>
+                        </div>
+
+                    </lightning-card>
+
+                </template>
+            </template>
+            <template if:true={idvFailed}>
+                <lightning-card>
+                    <lightning-formatted-text
+                            class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                            value="IDV failed, Please click 'Send Now' to send manual consent email to client"
+                    ></lightning-formatted-text>
+
+                    <div style="display: flex;justify-content: space-around;border-top: 1px solid lightgray; padding-top: 25px">
+                        <lightning-button
+                                label="Send Now"
+                                onclick={sendManualConsentEmail}
+                                variant="brand"
+                        ></lightning-button>
+                        <lightning-button
+                                label="Exit"
+                                onclick={exitFlow}
+                                variant="brand"
+                        ></lightning-button>
+                    </div>
+
+                </lightning-card>
+            </template>
+        </template>
+        <template if:true={idvCompletedWithManualConsent}>
+            <div style='display: flex; justify-content: space-around; align-items: end; padding-bottom: 60px'>
+
+                <lightning-combobox
+                        label="Identification Type"
+                        options={idTypeOptions}
+                        onchange={handleIdTypeChange}
+                        value={idTypeValue}
+                ></lightning-combobox>
+                <div style='display: flex;align-items: end'>
+                    <template if:false={passportSelected}>
+                        <lightning-input
+                                label="South African Identification Number"
+                                onchange={idNumberInputChange}
+                                onblur={verifyId}
+                        ></lightning-input>
+                        <template if:true={idValid}>
+                            <lightning-icon
+                                    icon-name="utility:check"
+                                    size="small"
+                                    class="checkGreen"
+                            ></lightning-icon>
+                        </template>
+                        <template if:true={idNotValid}>
+                            <lightning-icon
+                                    icon-name="utility:close"
+                                    size="small"
+                                    class="crossRed"
+                            ></lightning-icon>
+                        </template>
+                    </template>
+                    <template if:true={passportSelected}>
+                        <lightning-input
+                                label="Passport Number"
+                                onchange={passportNumberInputChange}
+                        ></lightning-input>
+                    </template>
+                </div>
+                <template if:true={getQuestionsButtonEnabled}>
+                    <lightning-button
+                            label="Continue to Credit Check"
+                            onclick={continueToCreditCheck}
+                            variant="brand"
+                    ></lightning-button>
+                </template>
+                <template if:false={getQuestionsButtonEnabled}>
+                    <lightning-button
+                            label="Continue to Credit Check"
+                            onclick={continueToCreditCheck}
+                            disabled
+                            variant="brand"
+                    ></lightning-button>
+                </template>
+            </div>
+
+        </template>
+    </template>
+    <template if:true={showManualConsentForm}>
+        <div>
+
+
+            <template if:true={showIdRequired}>
+                <lightning-input
+                        class={inputClass}
+                        onchange={handleInputChange}
+                        label='Please supply email address'
+                        onblur={handleEmailInput}
+                ></lightning-input>
+            </template>
+            <template if:true={showSendButton}>
+                <lightning-button
+                        label='Send Now'
+                        onclick={sendManualConsentEmailFinal}
+                ></lightning-button>
+            </template>
+            <template if:false={showSendButton}>
+                <lightning-button
+                        label='Send Now'
+                        disabled="true"
+                ></lightning-button>
+            </template>
+        </div>
+        <div class="slds-m-around_medium">
+            <img src={staticResource}>
+        </div>
+    </template>
+    <template if:true={showError}>
+        <div style='display: flex; flex-direction: column; gap: 8px; align-items: center'>
+            <div class='slds-text-heading_small slds-align_absolute-center' style='color: darkred'
+            >
+                <lightning-formatted-text
+                        value={errorMessage}
+                ></lightning-formatted-text>
+            </div>
+            <lightning-button
+                    label="Back to consent"
+                    onclick={backToConsents}
+                    variant="brand"
+            ></lightning-button>
+            <lightning-button
+                    label='Send Manual Consent Form'
+                    onclick={sendManualConsentEmail}
+                    variant="brand"
+            ></lightning-button>
+        </div>
+    </template>
+
+</template>

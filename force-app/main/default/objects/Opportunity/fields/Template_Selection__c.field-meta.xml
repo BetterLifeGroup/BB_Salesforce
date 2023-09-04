@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Template_Selection__c</fullName>
+    <externalId>false</externalId>
+    <label>Template Selection</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>PA - no answer</fullName>
+                <default>false</default>
+                <label>PA - no answer</label>
+            </value>
+            <value>
+                <fullName>PA - sending consent form (spoke to client)</fullName>
+                <default>false</default>
+                <label>PA - sending consent form (spoke to client)</label>
+            </value>
+            <value>
+                <fullName>Consent form reminder - follow up</fullName>
+                <default>false</default>
+                <label>Consent form reminder - follow up</label>
+            </value>
+            <value>
+                <fullName>Credit check positive - requesting docs to complete PA (Documents Required)</fullName>
+                <default>false</default>
+                <label>Credit check positive - requesting docs to complete PA (Documents Required)</label>
+            </value>
+            <value>
+                <fullName>Poor credit - post conversation</fullName>
+                <default>false</default>
+                <label>Poor credit - post conversation</label>
+            </value>
+            <value>
+                <fullName>PA requested - docs follow up</fullName>
+                <default>false</default>
+                <label>PA requested - docs follow up</label>
+            </value>
+            <value>
+                <fullName>PA issued - awaiting OTP (attach PA certificate)</fullName>
+                <default>false</default>
+                <label>PA issued - awaiting OTP (attach PA certificate)</label>
+            </value>
+            <value>
+                <fullName>FHB PA - no answer</fullName>
+                <default>false</default>
+                <label>FHB PA - no answer</label>
+            </value>
+            <value>
+                <fullName>FHB PA - sending consent form (spoke to client)</fullName>
+                <default>false</default>
+                <label>FHB PA - sending consent form (spoke to client)</label>
+            </value>
+            <value>
+                <fullName>FHB Consent form reminder - follow up</fullName>
+                <default>false</default>
+                <label>FHB Consent form reminder - follow up</label>
+            </value>
+            <value>
+                <fullName>FHB Credit check positive - requesting docs to complete PA (Documents Required)</fullName>
+                <default>false</default>
+                <label>FHB Credit check positive - requesting docs to complete PA (Documents Required)</label>
+            </value>
+            <value>
+                <fullName>FHB Poor credit - post conversation</fullName>
+                <default>false</default>
+                <label>FHB Poor credit - post conversation</label>
+            </value>
+            <value>
+                <fullName>FHB PA requested - docs follow up</fullName>
+                <default>false</default>
+                <label>FHB PA requested - docs follow up</label>
+            </value>
+            <value>
+                <fullName>FHB PA issued - awaiting OTP (attach PA certificate)</fullName>
+                <default>false</default>
+                <label>FHB PA issued - awaiting OTP (attach PA certificate)</label>
+            </value>
+            <value>
+                <fullName>No Answer</fullName>
+                <default>false</default>
+                <label>No Answer</label>
+            </value>
+            <value>
+                <fullName>Awaiting OTP (No Answer)</fullName>
+                <default>false</default>
+                <label>Awaiting OTP (No Answer)</label>
+            </value>
+            <value>
+                <fullName>Awaiting OTP (Spoke to client)</fullName>
+                <default>false</default>
+                <label>Awaiting OTP (Spoke to client)</label>
+            </value>
+            <value>
+                <fullName>Awaiting OTP (Follow-up)</fullName>
+                <default>false</default>
+                <label>Awaiting OTP (Follow-up)</label>
+            </value>
+            <value>
+                <fullName>Assign to expert Home Loan Consultant (No Answer)</fullName>
+                <default>false</default>
+                <label>Assign to expert Home Loan Consultant (No Answer)</label>
+            </value>
+            <value>
+                <fullName>Assign to expert Home Loan Consultant (Spoke to client)</fullName>
+                <default>false</default>
+                <label>Assign to expert Home Loan Consultant (Spoke to client)</label>
+            </value>
+            <value>
+                <fullName>FHB Awaiting OTP (No Answer)</fullName>
+                <default>false</default>
+                <label>FHB Awaiting OTP (No Answer)</label>
+            </value>
+            <value>
+                <fullName>FHB Awaiting OTP (Spoke to client)</fullName>
+                <default>false</default>
+                <label>FHB Awaiting OTP (Spoke to client)</label>
+            </value>
+            <value>
+                <fullName>FHB Awaiting OTP (Follow-up)</fullName>
+                <default>false</default>
+                <label>FHB Awaiting OTP (Follow-up)</label>
+            </value>
+            <value>
+                <fullName>FHB Assign to expert Home Loan Consultant (No Answer)</fullName>
+                <default>false</default>
+                <label>FHB Assign to expert Home Loan Consultant (No Answer)</label>
+            </value>
+            <value>
+                <fullName>FHB Assign to expert Home Loan Consultant (Spoke to client)</fullName>
+                <default>false</default>
+                <label>FHB Assign to expert Home Loan Consultant (Spoke to client)</label>
+            </value>
+            <value>
+                <fullName>Send DigiApp Link</fullName>
+                <default>false</default>
+                <label>Send DigiApp Link</label>
+            </value>
+            <value>
+                <fullName>Send DigiApp Link Follow-Up</fullName>
+                <default>false</default>
+                <label>Send DigiApp Link Follow-Up</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

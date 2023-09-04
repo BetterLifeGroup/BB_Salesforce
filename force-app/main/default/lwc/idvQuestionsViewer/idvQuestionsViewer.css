@@ -1,0 +1,26 @@
+/**
+ * Created by frans fourie on 2022/10/19.
+ */
+
+.checkGreen {
+
+    --lwc-colorTextIconDefault: #05c205;
+    --sds-c-icon-color-foreground-default: #05c205;
+    margin-left: 8px;
+}
+
+.crossRed {
+
+    --lwc-colorTextIconDefault: #b40000;
+    --sds-c-icon-color-foreground-default: #b40000;
+    margin-left: 8px;
+}
+
+.regexFailed {
+    margin-bottom: 8px;
+    color: red;
+}
+
+.regexPassed {
+    margin-bottom: 8px;
+}

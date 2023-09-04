@@ -1,0 +1,132 @@
+<!--
+ - Created by frans fourie on 2023/06/22.
+ -->
+
+<!-- User Management Agents -->
+<template>
+    <div style='margin-bottom: 80px'>
+        <template if:true={working}>
+            <lightning-spinner size='small'></lightning-spinner>
+        </template>
+        <div id="Networks" style='width: 40%'>
+            <c-user-management-record-search
+                    label='Search Real Estate Agents'
+                    account-mode={constantTrue}
+                    account-scope='agents'
+                    onrecordselected={contactSelected}
+                    onselectioncleared={handleSelectionCleared}
+                    additional-info-visible={constantTrue}
+            ></c-user-management-record-search>
+        </div>
+        <template if:true={agentSelected}>
+            <div>
+                <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+                    <lightning-input
+                            label='First Name'
+                            class='inputClass'
+                            value={agent.agent.FirstName}
+                            onchange={handleAgentFirstNameChange}
+                    ></lightning-input>
+                    <lightning-input
+                            label='Preferred Name'
+                            class='inputClass'
+                            value={agent.agent.FinServ__PreferredName__c}
+                            onchange={handleAgentPreferredNameChange}
+                    ></lightning-input>
+                    <lightning-input
+                            label='Last Name'
+                            class='inputClass'
+                            value={agent.agent.LastName}
+                            onchange={handleAgentLastNameChange}
+                            required
+                    ></lightning-input>
+                    <div style='display: flex;flex-direction: row;' class='searchClass'>
+                        <div style='display: flex;flex-direction: column'>
+                            <lightning-input
+                                    label='4DX Indicator'
+                                    type='Checkbox'
+                                    checked={agent.agent.X4DX_Indicator__c}
+                                    onchange={handle4dxChange}
+                            ></lightning-input>
+                            <lightning-input
+                                    label='P40 Indicator'
+                                    type='Checkbox'
+                                    checked={agent.agent.P40_Indicator__c}
+                                    onchange={handleP40Change}
+                            ></lightning-input>
+                        </div>
+                        <template if:false={disableUpdate}>
+                            <div style='display: flex;justify-content: start; align-items: end' class='inputClass'>
+                                <lightning-button
+                                        label='Update'
+                                        onclick={handleUpdate}
+                                ></lightning-button>
+                            </div>
+                        </template>
+                        <template if:true={disableUpdate}>
+                            <div style='display: flex;justify-content: start; align-items: end' class='inputClass'>
+                                <lightning-button
+                                        label='Update'
+                                        onclick={handleUpdate}
+                                        disabled
+                                ></lightning-button>
+                            </div>
+                        </template>
+                    </div>
+
+                </div>
+                <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+                    <lightning-input
+                            label='Email'
+                            class='inputClass'
+                            value={agent.agent.Email}
+                            onchange={handleAgentEmailChange}
+                            data-field="email"
+                            required
+                    ></lightning-input>
+                    <lightning-input
+                            label='Phone'
+                            class='inputClass'
+                            value={agent.agent.MobilePhone}
+                            onchange={handleAgentMobilePhoneChange}
+                            data-field="mobile"
+                    ></lightning-input>
+                    <c-searchable-combobox
+                            class='searchClass'
+                            label='Assigned Branch'
+                            options={branchOptions}
+                            onrecordselected={handleBranchSelected}
+                            selected-value={agent.branch}
+                    ></c-searchable-combobox>
+                </div>
+            </div>
+            <template if:true={showLinkedConsultants}>
+                <div for:each={linkedConsultants} for:item='consultant' key={consultant.Id}>
+
+                    <div style='display: flex;flex-direction: row;gap: 6px; padding-top: 6px;align-items: end'>
+                        <c-searchable-combobox
+                                class='inputClass'
+                                label='Linked Consultant'
+                                options={linkedConsultantOptions}
+                                onrecordselected={handleLinkedConsultantSelected}
+                                selected-value={consultant.FinServ__RelatedContact__r.Name}
+                                onrecordremoved={handleRemoveLinkedConsultant}
+                                data-id={consultant.Id}
+                        ></c-searchable-combobox>
+                        <lightning-button-icon
+                                icon-name="utility:delete"
+                                data-id={consultant.Id}
+                                onclick={handleRemoveLinkedConsultant}
+                                disabled={consultant.iconDisabled}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                                icon-name="utility:add"
+                                onclick={handleAddNewLinkedConsultant}
+                                disabled={consultant.iconDisabled}
+                        ></lightning-button-icon>
+                    </div>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

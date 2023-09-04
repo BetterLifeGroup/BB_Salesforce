@@ -1,0 +1,43 @@
+/**
+ * Created by frans fourie on 2023/05/02.
+ */
+
+:host {
+    --icon-fg-color: rgb(236, 137, 137);
+    --lwc-sizeXSmall: 80px;
+}
+
+.icon-color {
+    --sds-c-icon-color-foreground : var(--icon-fg-color);
+    --sds-c-icon-color-foreground-default : var(--icon-fg-color);
+}
+
+.listOverlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 80;
+    top: 0;
+    left: 0;
+}
+
+.iconDiv {
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+}
+
+.bottomPadding{
+    padding-bottom: 16px;
+}
+.topPadding{
+    padding-top: 16px;
+}
+
+.accountCard {
+    display: flex;
+    align-items: center;
+}

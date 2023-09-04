@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>Post_Chatter_to_Opportunity</name>
+        <label>Post Chatter to Opportunity</label>
+        <locationX>716</locationX>
+        <locationY>1209</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>chatterPostMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>blankEmailTrue</name>
+        <label>blankEmailTrue</label>
+        <locationX>1099</locationX>
+        <locationY>493</locationY>
+        <assignmentItems>
+            <assignToReference>emailBlankVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>emailBlankScr</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>selectedTemplate_0_0_0_0</name>
+        <label>selectedTemplate</label>
+        <locationX>715</locationX>
+        <locationY>748</locationY>
+        <assignmentItems>
+            <assignToReference>theselectedTemplate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>general_Template_select</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Email_Image_Viewer_0_0_0_0_0</targetReference>
+        </connector>
+    </assignments>
+    <choices>
+        <name>BB_Offline_General_Opportunity_No_Answer</name>
+        <choiceText>BB_Offline_General_Opportunity_No_Answer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>BB_Offline_General_Opportunity_No_Answer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Consent_form_reminder</name>
+        <choiceText>Consent form reminder - follow up</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Choice 2</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Consent_form_reminder_follow_up</name>
+        <choiceText>Consent form reminder - follow up</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Consent form reminder - follow up</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Copy_of_Identity_Document</name>
+        <choiceText>Copy of Identity Document</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Copy of Identity Document</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Copy_of_Smart_Card_Back</name>
+        <choiceText>Copy of Smart Card Back</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Copy of Smart Card Back</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Copy_of_Smart_Card_Front</name>
+        <choiceText>Copy of Smart Card Front</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Copy of Smart Card Front</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Credit_Check_Consent_Form</name>
+        <choiceText>Credit Check Consent Form</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Credit Check Consent Form</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Credit_check_positive_requesting_docs_to_complete_PA_Documents_Required</name>
+        <choiceText>Credit check positive - requesting docs to complete PA (Documents Required)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Credit check positive - requesting docs to complete PA (Documents Required)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_Consent_form_reminder_follow_up</name>
+        <choiceText>FHB Consent form reminder - follow up</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB Consent form reminder - follow up</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_Credit_check_positive_requesting_docs_to_complete_PA_Documents_Required</name>
+        <choiceText>FHB Credit check positive - requesting docs to complete PA (Documents Required)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB Credit check positive - requesting docs to complete PA (Documents Required)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_PA_issued_awaiting_OTP_attach_PA_certificate</name>
+        <choiceText>FHB PA issued - awaiting OTP (attach PA certificate)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB PA issued - awaiting OTP (attach PA certificate)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_PA_No_Answer</name>
+        <choiceText>FHB PA - No Answer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB PA - No Answer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_PA_requested_docs_follow_up</name>
+        <choiceText>FHB PA requested - docs follow up</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB PA requested - docs follow up</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_PA_sending_consent_form_spoke_to_client</name>
+        <choiceText>FHB PA - sending consent form (spoke to client)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB PA - sending consent form (spoke to client)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>FHB_Poor_credit_post_conversation</name>
+        <choiceText>FHB Poor credit - post conversation</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>FHB Poor credit - post conversation</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Latest_Payslip</name>
+        <choiceText>Latest Payslip</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Latest Payslip</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>ListofDocs</name>
+        <choiceText>1&lt;p&gt;2&lt;/p&gt;&lt;p&gt;3&lt;/p&gt;</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>No</name>
+        <choiceText>No</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>No_Answer</name>
+        <choiceText>No Answer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>No Answer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PA_issued_awaiting_OTP_attach_PA_certificate</name>
+        <choiceText>PA issued - awaiting OTP (attach PA certificate)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PA issued - awaiting OTP (attach PA certificate)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PA_no_answer</name>
+        <choiceText>PA - no answer</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PA - no answer</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PA_requested_docs_follow_up</name>
+        <choiceText>PA requested - docs follow up</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PA requested - docs follow up</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PA_sending_consent_form</name>
+        <choiceText>PA - sending consent form (spoke to client)</choiceText>
+        <dataType>String</dataType>
+    </choices>
+    <choices>
+        <name>PA_sending_consent_form_spoke_to_client</name>
+        <choiceText>PA - sending consent form (spoke to client)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>PA - sending consent form (spoke to client)</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>PA_succesful_credit_check</name>
+        <choiceText>Credit check positive - requesting docs to complete PA</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Choice 3</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Poor_credit_post_conversation</name>
+        <choiceText>Poor credit - post conversation</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Poor credit - post conversation</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Request_Pre_Approval_Documents</name>
+        <choiceText>Request Pre-Approval Documents</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Request Pre-Approval Documents</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X3_months_Payslips</name>
+        <choiceText>3 months Payslips</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>3 months Payslips</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>X6_months_Payslips</name>
+        <choiceText>6 months Payslips</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>6 months Payslips</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>Yes</name>
+        <choiceText>Yes</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>Yes</stringValue>
+        </value>
+    </choices>
+    <decisions>
+        <name>Is_Person_Email_Populated</name>
+        <label>Is Person Email Populated?</label>
+        <locationX>965</locationX>
+        <locationY>335</locationY>
+        <defaultConnector>
+            <targetReference>emailBlankScr</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Email Blank</defaultConnectorLabel>
+        <rules>
+            <name>Email_Populated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Person_Account.PersonEmail</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Person_Account.PersonEmail</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Campaign_Type</targetReference>
+            </connector>
+            <label>Email Populated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>New_Email_Populated</name>
+        <label>New Email Populated?</label>
+        <locationX>1303</locationX>
+        <locationY>584</locationY>
+        <defaultConnector>
+            <targetReference>blankEmailTrue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Blank Email</defaultConnectorLabel>
+        <rules>
+            <name>Populated_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Email_Field</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Email_Field</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Person_with_new_Email</targetReference>
+            </connector>
+            <label>Populated Email</label>
+        </rules>
+    </decisions>
+    <description>Flow Description: Triggers Marketing Cloud Comms for General Opportunities and is launched from the Wrap Up Opportunity H2 flow
+
+Front-End Access: Work Opportunity button on the Opportunity page.</description>
+    <dynamicChoiceSets>
+        <name>documentSelectionPick</name>
+        <dataType>Multipicklist</dataType>
+        <displayField xsi:nil="true"/>
+        <object xsi:nil="true"/>
+        <picklistField>Document_Selection__c</picklistField>
+        <picklistObject>Opportunity</picklistObject>
+    </dynamicChoiceSets>
+    <environments>Default</environments>
+    <formulas>
+        <name>accountFullName</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Person_Account.FirstName} + &quot; &quot; + {!Get_Person_Account.LastName}</expression>
+    </formulas>
+    <formulas>
+        <name>oppOwnerIdTrim</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!Get_Opportunity_Record.OwnerId},15)</expression>
+    </formulas>
+    <formulas>
+        <name>plusOne</name>
+        <dataType>Number</dataType>
+        <expression>{!Get_Opportunity_Record.Contact_Attempts__c} +1</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>sentTime</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime}</expression>
+    </formulas>
+    <formulas>
+        <name>smartServiceTemplateSelection</name>
+        <dataType>String</dataType>
+        <expression>CASE({!theselectedTemplate}, 
+&quot;PA - no answer&quot; , &quot;SSPA_E01_PAlead_noanswer&quot; ,
+&quot;PA - sending consent form (spoke to client)&quot; , &quot;SSPA_E02_PAlead_sendingconsentform_spoketoclient&quot; ,
+&quot;Consent form reminder - follow up&quot; , &quot;SSPA_E03_Consentformsent_followup&quot; ,
+&quot;Credit check positive - requesting docs to complete PA (Documents Required)&quot; , &quot;SSPA_E04_CreditCheckPositive_requestingdocsforPA&quot; ,
+&quot;PA requested - docs follow up&quot; , &quot;SSPA_E05_PArequested_awaitingdocsfollow_up&quot; ,
+&quot;FHB PA - No Answer&quot; , &quot;SSFHB_E01_PALead_Noanswer&quot; ,
+&quot;FHB PA - sending consent form (spoke to client)&quot; , &quot;SSFHB_E02_PALead_Spoketoclient&quot; ,
+&quot;FHB Consent form reminder - follow up&quot; , &quot;SSFHB_E03_PALead_Consentformsent_followup&quot; ,
+&quot;FHB Credit check positive - requesting docs to complete PA (Documents Required)&quot; , &quot;SSFHB_E04_CreditCheckPositive_requestingdocsforPA&quot; ,
+&quot;FHB PA requested - docs follow up&quot; , &quot;SSFHB_E05_PArequested_awaitingdocsfollow_up&quot; ,
+&quot;No Template Selected&quot; )</expression>
+    </formulas>
+    <formulas>
+        <name>templateSelection</name>
+        <dataType>String</dataType>
+        <expression>CASE({!theselectedTemplate}, 
+&quot;No Answer&quot; , &quot;BB_Offline_General_Opportunity_No_Answer&quot; ,
+&quot;No Template Selected&quot; )</expression>
+    </formulas>
+    <interviewLabel>MC Email Template Selection - Multi select picklist (General) {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>MC Email Template Selection - Multi select picklist (General)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Campaign_Type</name>
+        <label>Get Campaign Type</label>
+        <locationX>715</locationX>
+        <locationY>446</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Display_Person_Account_0_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_Record.BLG_Campaign__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>BLG_Campaign__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity_Record</name>
+        <label>Get Opportunity Record</label>
+        <locationX>715</locationX>
+        <locationY>169</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Person_Account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Person_Account</name>
+        <label>Get Person Account</label>
+        <locationX>715</locationX>
+        <locationY>326</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Person_Email_Populated</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Updated_Person_Account</name>
+        <label>Get Updated Person Account</label>
+        <locationX>946</locationX>
+        <locationY>634</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Campaign_Type</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Person_Account.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Updates the &apos;emailSendTrigger&apos; checkbox, which launches journey in MC to send selected email</description>
+        <name>Update_MC_Trigger_on_Opp</name>
+        <label>Update MC Trigger on Opp</label>
+        <locationX>715</locationX>
+        <locationY>1068</locationY>
+        <connector>
+            <targetReference>Post_Chatter_to_Opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>emailSendTrigger__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Person_with_new_Email</name>
+        <label>Update Person with new Email</label>
+        <locationX>1099</locationX>
+        <locationY>634</locationY>
+        <connector>
+            <targetReference>Get_Updated_Person_Account</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Person_Account.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>PersonEmail</field>
+            <value>
+                <elementReference>Email_Field</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <screens>
+        <name>Display_Person_Account_0_0_0_0</name>
+        <label>Select Email Template</label>
+        <locationX>715</locationX>
+        <locationY>580</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>selectedTemplate_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>mcEmail_0_0_0_0</name>
+            <extensionName>c:flowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue> Marketing Cloud Email Send</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Display_Person_Account_0_0_0_0_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Display_Person_Account_0_0_0_0_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>accountTxt_Info</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Opportunity: &lt;/strong&gt;{!Get_Opportunity_Record.Name}&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;﻿Account: &lt;/strong&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!accountFullName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;Campaign Type: &lt;/strong&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Campaign_Type.Type_of_Campaign__c} Campaign&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Display_Person_Account_0_0_0_0_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>general_Template_select</name>
+            <choiceReferences>No_Answer</choiceReferences>
+            <dataType>String</dataType>
+            <fieldText>Please select an Email Template</fieldText>
+            <fieldType>DropdownBox</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Email_Image_Viewer_0_0_0_0_0</name>
+        <label>Email Template Display</label>
+        <locationX>715</locationX>
+        <locationY>899</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Update_MC_Trigger_on_Opp</targetReference>
+        </connector>
+        <fields>
+            <name>ProceedGreeting6</name>
+            <fieldText>&lt;p&gt;Hi &lt;strong&gt;{!Get_Opportunity_Record.Owner.FirstName}!&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Below is the preview of the selected email template to send. Upon confirmation, this mail will be sent to: &lt;strong&gt;{!accountFullName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>generalComms</name>
+            <extensionName>flowruntime:image</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>imageName</name>
+                <value>
+                    <elementReference>templateSelection</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>horizontalAlignment</name>
+                <value>
+                    <stringValue>Center</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>imageWidth</name>
+                <value>
+                    <stringValue>45%</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Proceed6</name>
+            <fieldText>&lt;p&gt;Would you like to proceed?&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Send Mail</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>emailBlankScr</name>
+        <label>emailBlankScr</label>
+        <locationX>1211</locationX>
+        <locationY>336</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>New_Email_Populated</targetReference>
+        </connector>
+        <fields>
+            <name>labelMissingEmail</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Missing Email Address</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 7px</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>blankEmailDisplay</name>
+            <fieldText>&lt;p&gt;The email address has not been populated for the following customer: &lt;strong&gt;{!Get_Person_Account.FirstName} {!Get_Person_Account.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>emailBlankScr_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>emailBlankScr_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>captureMissingEmail</name>
+                    <fieldText>&lt;p&gt;Please capture the missing information in order to continue with the email send:&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Email_Field</name>
+                    <dataType>String</dataType>
+                    <fieldText>Email</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;Please enter a valid email address.&lt;/p&gt;</errorMessage>
+                        <formulaExpression>REGEX({!Email_Field},{!$Label.EmailRegex})</formulaExpression>
+                    </validationRule>
+                </fields>
+                <fields>
+                    <name>emailBlankError</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;The Email field is required to continue with the email send.&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>emailBlankVar</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>emailBlankScr_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <nextOrFinishButtonLabel>Continue Email Send</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>589</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Opportunity_Record</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>chatterPost</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;﻿Email Template:&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt; {!templateSelection}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Sent To: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!accountFullName}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Sent From:&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt; {!$User.Id}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Sent Date:&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt; {!$Flow.CurrentDateTime}&lt;/span&gt;&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>chatterPostMessage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;---- Customer Email Sent ----&gt;
+Template Selection: {!theselectedTemplate}
+Sent To: {!accountFullName}
+Sent From: @[{!$User.Id}]
+Sent Date: {!sentTime}</text>
+    </textTemplates>
+    <variables>
+        <name>account</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>ApplicantColumns</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ApplicantIds</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>columnText</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue>Applicant</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>creditReportAvailable_Co</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>creditReportAvailable_Main</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>DocNamesCollection</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>DocNamesCount</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>DocNamesList</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>emailBlankVar</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>pcs_document_requests_Co</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>pcs_document_requests_Main</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recColl_LoanApplicant</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recSingleLoanApplicant</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
+        <name>tableColumns</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>theselectedTemplate</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

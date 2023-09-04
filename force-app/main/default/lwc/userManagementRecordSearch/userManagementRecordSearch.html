@@ -1,0 +1,421 @@
+<template>
+    <template if:false={accountMode}>
+        <template if:false={contactMode}>
+            <div>
+                <lightning-formatted-text
+                        class='slds-item_label'
+                        value={label}
+                ></lightning-formatted-text>
+                <template if:false={selectedValue}>
+                    <div>
+                        <div data-key="searchdiv"
+                             class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                             role="none"
+                             style='width: 35%'>
+                            <lightning-input type="text" value={searchKey}
+                                             onchange={handleKeyChange} class="slds-combobox__input "
+                                             placeholder="Start typing to search..."
+                                             onfocus={handleSearchFocus}
+                                             oncommit={handleSearchEscape}
+                            ></lightning-input>
+                            <div
+                                    style='margin-top: 0'
+                                    class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                                <lightning-icon icon-name="utility:search" size="xx-small"
+                                                class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                                aria-hidden="true"></lightning-icon>
+                            </div>
+                            <!--            </span>-->
+                        </div>
+
+                        <template if:true={showSearchResults}>
+                            <template if:true={dataHasLoaded}>
+                                <template if:true={recordsList}>
+                                    <!--                    <div style='display: flex;align-items: start; justify-content: start'>-->
+                                    <div id="listbox-id-2-venu" data-key="dropdownresult"
+                                         class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                         role="listbox"
+                                         style='display: block;align-items: start; justify-content: start; left: 25%; width: 35%; transform: translateX(0); position: inherit'>
+                                        <!--                    </div>-->
+                                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                            <template if:true={message}>
+                                                <center> {message}</center>
+                                            </template>
+                                            <template for:each={recordsList} for:item="record">
+                                                <div onclick={onRecordSelection} data-name={record.Name} data-key={record.Id} key={record.Id}>
+                                                    <li id={record.Id} key={record.Id}
+                                                        role="presentation"
+                                                        class="slds-listbox__item">
+                                                        <div data-key={record.Id} data-name={record.Name}
+                                                             class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                             role="option"
+                                                        >
+                  <span class="slds-media__figure slds-listbox__option-icon"
+                        data-key={record.Id} data-name={record.Name}>
+                    <span class="slds-icon_container" data-key={record.Id}
+                          data-name={record.Name}>
+                      <lightning-icon icon-name={iconName} size="small" data-key={record.Id}
+                                      data-name={record.Name}></lightning-icon>
+                    </span>
+                  </span>
+                                                            <span class="slds-media__body"
+                                                                  data-key={record.Id} data-name={record.Name}>
+                    <span data-key={record.Id} data-name={record.Name}
+                          class="slds-listbox__option-text slds-listbox__option-text_entity">{record.Name} {space} {record.Profile.Name} </span>
+                                            <span data-key={record.Id} data-name={record.Name}
+                                                  class="slds-listbox__option-text slds-listbox__option-text_entity"> </span>
+                  </span>
+                                                        </div>
+                                                    </li>
+                                                </div>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </template>
+                        </template>
+                    </div>
+                </template>
+
+                <!-- -------------------------------------------------selected a record-------------------------- -->
+                <template if:true={selectedValue}>
+
+                    <lightning-card>
+                        <div data-key="pilldiv"
+                             class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                             role="none"
+                             style='display: block;align-items: start; justify-content: start;width: 35%'>
+            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                  title="object">
+              <div class="slds-icon slds-icon_small" aria-hidden="true">
+              <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+              </div>
+              <span class="slds-assistive-text">Record</span>
+            </span>
+                            <div style='border: #d0d0d0 solid 1px; border-radius: 4px;'
+                            >
+                                <input type="text"
+                                       class="slds-input slds-combobox__input slds-combobox__input-value"
+                                       id="combobox-id-52"
+                                       aria-controls="listbox-id-5" role="textbox" placeholder="Select an Option"
+                                       readonly
+                                       value={selectedValue}/>
+                            </div>
+                            <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                    onclick={removeRecordOnLookup}
+                                    title="Remove selected option">
+              <span class="slds-button__icon" aria-hidden="true">
+              <lightning-icon icon-name="utility:close"
+                              size="xx-small" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"
+                              aria-hidden="true"></lightning-icon>
+              </span>
+                                <span class="slds-assistive-text">Remove selected option</span>
+                            </button>
+                        </div>
+                    </lightning-card>
+                </template>
+            </div>
+        </template>
+    </template>
+    <template if:true={accountMode}>
+        <div>
+            <lightning-formatted-text
+                    class='slds-item_label'
+                    value={label}
+            ></lightning-formatted-text>
+            <template if:false={selectedValue}>
+                <div>
+                    <div data-key="searchdiv"
+                         class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                         role="none"
+                         style='width: 100%'>
+                        <lightning-input type="text" value={searchKey}
+                                         onchange={handleKeyChange} class="slds-combobox__input "
+                                         id="combobox-id-23"
+                                         aria-autocomplete="list" aria-controls="listbox-id-23"
+                                         placeholder="Start typing to search..."
+                                         onfocus={handleSearchFocus}
+                                         oncommit={handleSearchEscape}
+                        ></lightning-input>
+                        <!--            <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">-->
+                        <div
+                                style='margin-top: 0'
+                                class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                            <lightning-icon icon-name="utility:search" size="xx-small"
+                                            class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                            aria-hidden="true"></lightning-icon>
+                        </div>
+                        <!--            </span>-->
+                    </div>
+
+                    <template if:true={showSearchResults}>
+                        <template if:true={dataHasLoaded}>
+                            <template if:true={recordsList}>
+                                <!--                    <div style='display: flex;align-items: start; justify-content: start'>-->
+                                <div id="listbox-id-23-venu" data-key="dropdownresult"
+                                     class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                     role="listbox"
+                                     style='display: block;align-items: start; justify-content: start; left: 25%; width:100%; transform: translateX(0); position: inherit'>
+                                    <!--                    </div>-->
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template if:true={message}>
+                                            <center> {message}</center>
+                                        </template>
+                                        <template for:each={recordsList} for:item="accountRecord">
+                                            <div onclick={onRecordSelection} data-name={accountRecord.Name} data-key={accountRecord.Id} key={accountRecord.Id}>
+                                                <li id={accountRecord.Id} key={accountRecord.Id}
+                                                    role="presentation"
+                                                    class="slds-listbox__item">
+                                                    <div data-key={accountRecord.Id} data-name={accountRecord.Name}
+                                                         class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                         role="option">
+                  <span class="slds-media__figure slds-listbox__option-icon">
+                    <span class="slds-icon_container">
+                      <lightning-icon icon-name={iconName} size="small"
+                                      data-key={accountRecord.Id} data-name={accountRecord.Name}></lightning-icon>
+                    </span>
+                  </span>
+                                                        <span class="slds-media__body">
+                                                         <template if:false={additionalInfoVisible}>
+                    <span data-key={accountRecord.Id} data-name={accountRecord.Name}
+                          class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Name} </span>
+                                                                </template>
+                                                    <template if:true={additionalInfoVisible}>
+                                                        <template if:true={accountRecord.FinServ__PreferredName__c}>
+                                                        <div>
+                                            <span data-key={accountRecord.Id} data-name={accountRecord.Name}
+                                                  class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Name} ({accountRecord.FinServ__PreferredName__c}) </span>
+                                                        </div>
+                                                            </template>
+                                                         <template if:false={accountRecord.FinServ__PreferredName__c}>
+                                                                                 <span data-key={accountRecord.Id}
+                                                                                       data-name={accountRecord.Name}
+                                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Name} </span>
+                                                         </template>
+                                                    </template>
+                                                        <template if:true={accountRecord.Email}>
+                                                            <template if:true={accountRecord.MobilePhone}>
+                                                                 <span data-key={accountRecord.Id}
+                                                                       data-name={accountRecord.Name}
+                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.MobilePhone} - {accountRecord.Email} </span>
+                                                            </template>
+                                                            <template if:false={accountRecord.MobilePhone}>
+                                                                 <span data-key={accountRecord.Id}
+                                                                       data-name={accountRecord.Name}
+                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Email} </span>
+                                                            </template>
+
+                                                        </template>
+                                                                    <template if:false={accountRecord.Email}>
+                                                            <template if:true={accountRecord.MobilePhone}>
+                                                                 <span data-key={accountRecord.Id}
+                                                                       data-name={accountRecord.Name}
+                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.MobilePhone} </span>
+                                                            </template>
+
+                                                        </template>
+                                                    <span data-key={accountRecord.Id} data-name={accountRecord.Name}
+                                                          class="slds-listbox__option-text slds-listbox__option-text_entity"> </span>
+                                                    </span>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </template>
+                        </template>
+                    </template>
+                </div>
+            </template>
+
+            <!-- -------------------------------------------------selected a record-------------------------- -->
+            <template if:true={selectedValue}>
+
+                <lightning-card>
+                    <div data-key="pilldiv"
+                         class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                         role="none"
+                         style='width: 100%'>
+            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                  title="object">
+              <div class="slds-icon slds-icon_small" aria-hidden="true">
+              <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+              </div>
+              <span class="slds-assistive-text">Record</span>
+            </span>
+                        <div style='border: #d0d0d0 solid 1px; border-radius: 4px;'
+                        >
+                            <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value"
+                                   id="combobox-id-523"
+                                   aria-controls="listbox-id-5" role="textbox" placeholder="Select an Option"
+                                   readonly
+                                   value={selectedValue}/>
+                        </div>
+                        <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                onclick={removeRecordOnLookup}
+                                title="Remove selected option">
+              <span class="slds-button__icon" aria-hidden="true">
+              <lightning-icon icon-name="utility:close"
+                              size="xx-small" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default "
+                              aria-hidden="true"></lightning-icon>
+              </span>
+                            <span class="slds-assistive-text">Remove selected option</span>
+                        </button>
+                    </div>
+                </lightning-card>
+            </template>
+        </div>
+    </template>
+    <template if:true={agentMode}>
+        <div>
+            <lightning-formatted-text
+                    class='slds-item_label'
+                    value={label}
+            ></lightning-formatted-text>
+            <template if:false={selectedValue}>
+                <div style='position: relative'>
+                    <div data-key="searchdiv"
+                         class="slds-combobox__form-element "
+                         role="none"
+                         style='width: 100%'>
+                        <input type="text" value={searchKey}
+                               oninput={handleOnInputChange}
+                               id="combobox-id-232"
+                               aria-autocomplete="list" aria-controls="listbox-id-23"
+                               placeholder="Start typing to search..."
+                               onfocus={handleSearchFocus}
+                               oncommit={handleSearchEscape}
+                               class="slds-input slds-combobox__input slds-combobox__input-value slds-input-has-icon_right"
+                        ></input>
+                        <!--            <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">-->
+                        <!--                        <div-->
+                        <!--                                style='margin-top: 0'-->
+                        <!--                                class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">-->
+                        <!--                            <lightning-icon icon-name="utility:search" size="xx-small"-->
+                        <!--                                            class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"-->
+                        <!--                                            aria-hidden="true"></lightning-icon>-->
+                        <!--                        </div>-->
+                        <!--            </span>-->
+                    </div>
+
+                    <template if:true={showSearchResults}>
+                        <template if:true={dataHasLoaded}>
+                            <template if:true={recordsList}>
+                                <!--                    <div style='display: flex;align-items: start; justify-content: start'>-->
+                                <div id="listbox-id-232-venu" data-key="dropdownresult"
+                                     class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                                     role="listbox"
+                                     style='display: block;align-items: start; justify-content: start;position: absolute'>
+                                    <!--                    </div>-->
+                                    <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                        <template if:true={message}>
+                                            <center> {message}</center>
+                                        </template>
+                                        <template for:each={recordsList} for:item="accountRecord">
+                                            <div onclick={onRecordSelection} data-name={accountRecord.Name} data-key={accountRecord.Id} key={accountRecord.Id}>
+                                                <li id={accountRecord.Id} key={accountRecord.Id}
+                                                    role="presentation"
+                                                    class="slds-listbox__item">
+                                                    <div data-key={accountRecord.Id} data-name={accountRecord.Name}
+                                                         class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                         role="option">
+                  <span class="slds-media__figure slds-listbox__option-icon">
+                    <span class="slds-icon_container">
+                      <lightning-icon icon-name={iconName} size="small"
+                                      data-key={accountRecord.Id} data-name={accountRecord.Name}></lightning-icon>
+                    </span>
+                  </span>
+                                                        <span class="slds-media__body">
+                                                         <template if:false={additionalInfoVisible}>
+                    <span data-key={accountRecord.Id} data-name={accountRecord.Name}
+                          class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Name} </span>
+                                                                </template>
+                                                    <template if:true={additionalInfoVisible}>
+                                                        <template if:true={accountRecord.FinServ__PreferredName__c}>
+                                                        <div>
+                                            <span data-key={accountRecord.Id} data-name={accountRecord.Name}
+                                                  class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Name} ({accountRecord.FinServ__PreferredName__c}) </span>
+                                                        </div>
+                                                            </template>
+                                                         <template if:false={accountRecord.FinServ__PreferredName__c}>
+                                                                                 <span data-key={accountRecord.Id}
+                                                                                       data-name={accountRecord.Name}
+                                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Name} </span>
+                                                         </template>
+                                                    </template>
+                                                        <template if:true={accountRecord.Email}>
+                                                            <template if:true={accountRecord.MobilePhone}>
+                                                                 <span data-key={accountRecord.Id}
+                                                                       data-name={accountRecord.Name}
+                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.MobilePhone} - {accountRecord.Email} </span>
+                                                            </template>
+                                                            <template if:false={accountRecord.MobilePhone}>
+                                                                 <span data-key={accountRecord.Id}
+                                                                       data-name={accountRecord.Name}
+                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.Email} </span>
+                                                            </template>
+
+                                                        </template>
+                                                                    <template if:false={accountRecord.Email}>
+                                                            <template if:true={accountRecord.MobilePhone}>
+                                                                 <span data-key={accountRecord.Id}
+                                                                       data-name={accountRecord.Name}
+                                                                       class="slds-listbox__option-text slds-listbox__option-text_entity">{accountRecord.MobilePhone} </span>
+                                                            </template>
+
+                                                        </template>
+                                                    <span data-key={accountRecord.Id} data-name={accountRecord.Name}
+                                                          class="slds-listbox__option-text slds-listbox__option-text_entity"> </span>
+                                                    </span>
+                                                    </div>
+                                                </li>
+                                            </div>
+                                        </template>
+                                    </ul>
+                                </div>
+                            </template>
+                        </template>
+                    </template>
+                </div>
+            </template>
+
+            <!-- -------------------------------------------------selected a record-------------------------- -->
+            <template if:true={selectedValue}>
+
+                <!--                <lightning-card>-->
+                <div data-key="pilldiv"
+                     class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                     role="none"
+                     style='width: 100%'>
+            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                  title="object">
+              <div class="slds-icon slds-icon_small" aria-hidden="true">
+              <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+              </div>
+              <span class="slds-assistive-text">Record</span>
+            </span>
+                    <div style='border: #d0d0d0 solid 1px; border-radius: 4px;'
+                    >
+                        <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value"
+                               id="combobox-id-5232"
+                               aria-controls="listbox-id-5" role="textbox" placeholder="Select an Option"
+                               readonly
+                               value={selectedValue}/>
+                    </div>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                            onclick={removeRecordOnLookup}
+                            title="Remove selected option">
+              <span class="slds-button__icon" aria-hidden="true">
+              <lightning-icon icon-name="utility:close"
+                              size="xx-small" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"
+                              aria-hidden="true"></lightning-icon>
+              </span>
+                        <span class="slds-assistive-text">Remove selected option</span>
+                    </button>
+                </div>
+                <!--                </lightning-card>-->
+            </template>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Wrap_Up_Reason_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(OR(ISCHANGED(StageName), ISCHANGED(Status__c)), NOT(ISCHANGED(Wrap_Up_Reason__c)), Wrap_Up_Reason__c &lt;&gt; &apos;Automated&apos;)</errorConditionFormula>
+    <errorDisplayField>Wrap_Up_Reason__c</errorDisplayField>
+    <errorMessage>You must complete a Wrap Up Reason</errorMessage>
+</ValidationRule>

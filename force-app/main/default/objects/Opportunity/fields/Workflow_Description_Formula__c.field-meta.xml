@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workflow_Description_Formula__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(	Status__c,
+					
+							/* Attempting Contact */
+					
+					 &quot;Profile Created&quot;, &quot;Attempting Contact&quot;,
+					 &quot;Contact details invalid&quot;, &quot;Attempting Contact&quot;,
+					 &quot;No Contact&quot;, &quot;Attempting Contact&quot;,
+					&quot;Attempting Contact&quot;,&quot;Attempting Contact&quot;,
+					
+					/* Pre-Approval Consent */
+					 
+				  &quot;PA Requested - awaiting consent&quot;, &quot;Pre-Approval Consent&quot;,
+					 &quot;PA Requested - IDV Failed&quot;,&quot;Pre-Approval Consent&quot;,
+      &quot;PA Requested - IDV Failed - awaiting consent&quot;,&quot;Pre-Approval Consent&quot;,
+					 &quot;PA requested - credit check error&quot;, &quot;Pre-Approval Consent&quot;,
+					
+					/* Pre-Approval Documents */
+					
+					 &quot;PA requested - awaiting documents&quot; , &quot;Pre-Approval Documents&quot;,
+					
+						/* Pre-Approval Verification */
+		
+					/*&quot;PA requested - IDV failed&quot;, &quot;Pre-Approval Verification&quot;,
+     */
+     &quot;PA requested - ready for verification&quot;, &quot;Pre-Approval Verification&quot;,
+     &quot;PA requested - verification in progress&quot;, &quot;Pre-Approval Verification&quot;,
+					&quot;PA Requested - Verification complete&quot; , &quot;Pre-Approval Verification&quot;,
+					
+					/* Pre-approval OTP nurturing */
+					&quot;PA issued - awaiting OTP&quot;, &quot;Pre-approval OTP nurturing&quot;,
+     &quot;PA issued - no OTP received&quot;, &quot;Pre-approval OTP nurturing&quot;,
+					
+					/* Bond - Awaiting OTP */
+					&quot;Awaiting OTP&quot;, &quot;Awaiting OTP&quot;,
+					
+					/* Bond - OTP Received */
+					&quot;OTP received&quot;, &quot;OTP received&quot;,
+					
+					/*Bond - OTP Received Awating Docs
+					
+     /* Catch */
+					&quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Workflow Description Formula</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>External Resource Cat Loader</description>
+    <isExposed>true</isExposed>
+    <masterLabel>External Resource Cat Loader</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="RecordId"
+                      description="RecordId"/>
+        </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="opportunityScope" type="Boolean" label="opportunityScope"
+                      description="opportunityScope"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

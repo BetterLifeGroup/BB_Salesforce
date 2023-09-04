@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Check_current_count</name>
+        <label>Check current count</label>
+        <locationX>768</locationX>
+        <locationY>377</locationY>
+        <defaultConnector>
+            <targetReference>MC_Nurture_Counter_Increment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Nurture - Increment</defaultConnectorLabel>
+        <rules>
+            <name>No_OTP_Received_First_Time</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PA Issued - No OTP Received</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MC_Counter_NoOTPReceived__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MC_Counter_NoOTPReceived__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MC_No_OTP_Counter_1</targetReference>
+            </connector>
+            <label>No OTP Received - First Time</label>
+        </rules>
+        <rules>
+            <name>No_OTP_Increment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PA Issued - No OTP Received</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MC_No_OTP_Received_Counter_Increment</targetReference>
+            </connector>
+            <label>No OTP - Increment</label>
+        </rules>
+        <rules>
+            <name>Nurture_Update_for_the_first_time</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MC_Counter_Nurture__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MC_Counter_Nurture__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>0.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>MC_Nurture_Counter_1</targetReference>
+            </connector>
+            <label>Nurture - Update for the first time</label>
+        </rules>
+    </decisions>
+    <description>Flow Description: Used for Marketing Cloud campaigns. Counts duration that Opportunity is in No OTP Received status. When 31 days reached, the campaign kicks off. 
+
+No Front-End Access - Flow is record triggered based on the entry criteria.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>incrementCounterNoOTP</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.MC_Counter_NoOTPReceived__c} + 1</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>incrementCounterNurture</name>
+        <dataType>Number</dataType>
+        <expression>{!$Record.MC_Counter_Nurture__c} + 1</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>MC Nurture Counter Increment {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>MC Nurture Counter Increment</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>MC_No_OTP_Counter_1</name>
+        <label>MC No OTP Counter 1</label>
+        <locationX>378</locationX>
+        <locationY>366</locationY>
+        <inputAssignments>
+            <field>MC_Counter_NoOTPReceived__c</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MC_No_OTP_Received_Counter_Increment</name>
+        <label>MC No OTP Received Counter Increment</label>
+        <locationX>637</locationX>
+        <locationY>587</locationY>
+        <inputAssignments>
+            <field>MC_Counter_NoOTPReceived__c</field>
+            <value>
+                <elementReference>incrementCounterNurture</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MC_Nurture_Counter_1</name>
+        <label>MC Nurture Counter 1</label>
+        <locationX>1174</locationX>
+        <locationY>367</locationY>
+        <inputAssignments>
+            <field>MC_Counter_Nurture__c</field>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>MC_Nurture_Counter_Increment</name>
+        <label>MC Nurture Counter Increment</label>
+        <locationX>912</locationX>
+        <locationY>582</locationY>
+        <inputAssignments>
+            <field>MC_Counter_Nurture__c</field>
+            <value>
+                <elementReference>incrementCounterNurture</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Check_current_count</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Nurture</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>PA Issued - No OTP Received</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

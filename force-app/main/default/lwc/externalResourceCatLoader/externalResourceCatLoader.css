@@ -1,0 +1,8 @@
+/**
+ * Created by frans fourie on 2022/09/21.
+ */
+.checkGreen {
+
+    --lwc-colorTextIconDefault: #05c205;
+    padding-right: 8px;
+}

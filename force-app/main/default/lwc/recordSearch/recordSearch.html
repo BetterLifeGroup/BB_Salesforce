@@ -1,0 +1,213 @@
+<template>
+    <template if:true={contactMode}>
+        <div style={paddingControl}>
+            <template if:false={selectedValue}>
+                <div style='position: relative'>
+                    <div
+                            class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                    >
+                        <lightning-input type="text" value={searchKey}
+                                         onchange={handleKeyChange} class="slds-combobox__input"
+                                         placeholder="Start typing to search..."
+                                         onfocus={handleSearchFocus}
+                                         oncommit={handleSearchEscape}
+                                         label={label}
+                        ></lightning-input>
+                        <div
+                                style='padding-top: 10px'
+                                class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                            <lightning-icon icon-name="utility:search" size="xx-small"
+                                            class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                            ></lightning-icon>
+                        </div>
+                    </div>
+
+                    <template if:true={showSearchResults}>
+                        <template if:true={recordsList}>
+                            <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid dropdown-value-container"
+                                 style=''>
+                                <ul class="slds-listbox slds-listbox_vertical">
+                                    <template if:true={message}>
+                                        {message}
+                                    </template>
+                                    <template for:each={recordsList} for:item="record">
+                                        <div onclick={onRecordSelection} data-name={record.Name} data-key={record.Id}
+                                             key={record.Id}>
+                                            <li id={record.Id} key={record.Id}
+                                                class="slds-listbox__item">
+                                                <div data-key={record.Id} data-name={record.Name}
+                                                     class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+                                                >
+                  <span class="slds-media__figure slds-listbox__option-icon">
+                    <span class="slds-icon_container">
+                      <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+                    </span>
+                  </span>
+                                                    <span class="slds-media__body">
+                    <span data-key={record.Id} data-name={record.Name}
+                          class="slds-listbox__option-text slds-listbox__option-text_entity">{record.Name} {space} {record.Phone} </span>
+                                            <span data-key={record.Id} data-name={record.Name}
+                                                  class="slds-listbox__option-text slds-listbox__option-text_entity">{record.PersonEmail} </span>
+                  </span>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>
+
+            <!-- -------------------------------------------------selected a record-------------------------- -->
+            <template if:true={selectedValue}>
+
+                <div style='padding:4px 0 4px 0; font-size: 12px '>
+                    <lightning-formatted-text
+                            class='slds-item_label'
+                            value={label}
+                    ></lightning-formatted-text>
+                </div>
+                <div
+                        class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                        style='margin-top: 18px'>
+            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                  title="object">
+              <lightning-icon icon-name={iconName} size="small" class="slds-icon slds-icon_small"></lightning-icon>
+              <span class="slds-assistive-text">Record</span>
+            </span>
+                    <div style='border: #d0d0d0 solid 1px; border-radius: 6px; margin-top: -20px'>
+                        <label>
+                            <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value"
+                                   placeholder="Select an Option"
+                                   readonly
+                                   value={selectedValue}>
+                        </label>
+                    </div>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                            onclick={removeRecordOnLookup}
+                            title="Remove selected option">
+              <span class="slds-button__icon">
+              <lightning-icon icon-name="utility:close"
+                              size="xx-small" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"
+              ></lightning-icon>
+              </span>
+                        <span class="slds-assistive-text">Remove selected option</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+    </template>
+
+
+    <template if:false={contactMode}>
+        <div style={paddingControl}>
+            <template if:false={selectedValue}>
+                <div style='position: relative'>
+                    <div
+                            class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right">
+                        <lightning-input type="text" value={searchKey}
+                                         onchange={handleKeyChange} class=" "
+                                         placeholder="Start typing to search..."
+                                         oncommit= {handleSearchEscape}
+                                         onfocus={handleSearchFocus}
+                                         label={label}
+                        ></lightning-input>
+                        <div
+                                style='padding-top: 10px'
+                                class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                            <lightning-icon icon-name="utility:search" size="xx-small"
+                                            class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                            ></lightning-icon>
+                        </div>
+                    </div>
+
+                    <template if:true={showSearchResults}>
+                        <template if:true={recordsList}>
+                            <div
+                                    class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid dropdown-value-container"
+                                    style=''>
+                                <ul class="slds-listbox slds-listbox_vertical">
+                                    <template if:true={message}>
+                                        {message}
+                                    </template>
+                                    <template for:each={recordsList} for:item="records">
+                                        <div onclick={onRecordSelection} data-name={records.Name} data-key={records.Id}
+                                             key={records.Id}>
+                                            <li id={records.Id} key={records.Id}
+                                                class="slds-listbox__item">
+                                                <div
+                                                        class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta"
+
+                                                >
+                  <span class="slds-media__figure slds-listbox__option-icon">
+                    <span class="slds-icon_container">
+                      <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+                    </span>
+                  </span>
+                                                    <span class="slds-media__body">
+                                                    <template if:false={records.accountExists}>
+                    <span
+                            class="slds-listbox__option-text slds-listbox__option-text_entity">{records.Name} </span>
+                                                        </template>
+                                                    <template if:true={records.accountExists}>
+                    <span
+                            class="slds-listbox__option-text slds-listbox__option-text_entity">{records.Name} - {records.Account.Name} </span>
+                                                        </template>
+
+                  </span>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </template>
+                                </ul>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+            </template>
+
+            <!-- -------------------------------------------------selected a record-------------------------- -->
+            <template if:true={selectedValue}>
+
+                <div style='padding:4px 0 4px 0; font-size: 12px '>
+                    <lightning-formatted-text
+                            class='slds-item_label'
+                            value={label}
+                    ></lightning-formatted-text>
+                </div>
+                <div
+                        class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+                        style='margin-top: 18px'>
+            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                  title="object">
+              <lightning-icon icon-name={iconName} size="small" class="slds-icon slds-icon_small"></lightning-icon>
+              <span class="slds-assistive-text">Record</span>
+            </span>
+                    <div style='border: #d0d0d0 solid 1px; border-radius: 6px; margin-top: -20px'>
+
+                        <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value"
+                               placeholder="Select an Option"
+                               readonly
+                               value={selectedValue}/>
+                    </div>
+                    <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                            onclick={removeRecordOnLookup}
+                            title="Remove selected option">
+              <span class="slds-button__icon">
+              <lightning-icon icon-name="utility:close"
+                              size="xx-small" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"
+              ></lightning-icon>
+              </span>
+                        <span class="slds-assistive-text">Remove selected option</span>
+                    </button>
+                </div>
+            </template>
+        </div>
+        <template if:true={paddingBottom}>
+            <div style="padding-bottom: 160px">
+            </div>
+        </template>
+    </template>
+</template>

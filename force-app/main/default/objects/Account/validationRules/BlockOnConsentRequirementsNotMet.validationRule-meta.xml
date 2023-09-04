@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BlockOnConsentRequirementsNotMet</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ConsentRequirementsMet__c = false, Credit_check_complete__pc = true)</errorConditionFormula>
+    <errorMessage>Consent Requirements not met, unable to proceed.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ready_For_Verification</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISPICKVAl(PRIORVALUE(StageName),&quot;Ready For Validation&quot;) &amp;&amp; Information_Verified__c  &lt;&gt; True &amp;&amp; OR(ISPICKVAL(StageName,&quot;Closed Won&quot;),ISPICKVAL(StageName,&quot;Closed Lost&quot;))</errorConditionFormula>
+    <errorMessage>Please verify captured information to continue.</errorMessage>
+</ValidationRule>

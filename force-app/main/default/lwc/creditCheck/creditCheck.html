@@ -1,0 +1,317 @@
+<!--
+ - Created by frans fourie on 2022/10/24.
+ -->
+
+<!-- Credit Check -->
+<template>
+    <template if:true={showHtmlErrorToast}>
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_error" role="status" style='justify-content: center'>
+                <span class="slds-assistive-text">error</span>
+                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top"
+                      title="Description of icon when needed">
+<svg class="slds-icon slds-icon_small" aria-hidden="true">
+<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error"></use>
+</svg>
+</span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                            onclick={handleCloseToast}>
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+
+    <template if:true={showHtmlSuccessToast}>
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_success" role="status" style='justify-content: center'>
+                <span class="slds-assistive-text">success</span>
+                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                      title="Description of icon when needed">
+<svg class="slds-icon slds-icon_small" aria-hidden="true">
+<use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#success"></use>
+</svg>
+</span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                            onclick={handleCloseToast}>
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template if:true={showHtmlWarningToast}>
+        <div class="slds-notify_container slds-is-relative">
+            <div class="slds-notify slds-notify_toast slds-theme_warning" role="status" style='justify-content: center'>
+                <span class="slds-assistive-text">warning</span>
+                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+                      title="Description of icon when needed">
+      <svg class="slds-icon slds-icon_small" aria-hidden="true">
+        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#warning"></use>
+      </svg>
+    </span>
+                <div class="slds-notify__content">
+                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                </div>
+                <div class="slds-notify__close">
+                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                            onclick={handleCloseToast}>
+                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                        </svg>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+    <lightning-card>
+        <template if:true={refreshDisabled}>
+            <div style='display: flex;justify-content: end'>
+                <lightning-button
+                        label='Request Credit Check'
+                        disabled
+                ></lightning-button>
+            </div>
+        </template>
+        <template if:false={refreshDisabled}>
+            <div style='display: flex;justify-content: end'>
+                <lightning-button
+                        label='Request Credit Check'
+                        onclick={doCreditCheck}
+                ></lightning-button>
+            </div>
+        </template>
+        <div style='display: flex; justify-content: center; align-items: center; font-size: larger; font-weight: bold'>
+            <lightning-formatted-rich-text
+                    value='Credit Check'
+            ></lightning-formatted-rich-text>
+
+        </div>
+    </lightning-card>
+    <lightning-card>
+        <template if:true={loading}>
+            <lightning-spinner
+                    alternative-text="Loading..."
+            ></lightning-spinner>
+        </template>
+        <template if:false={loading}>
+            <template if:false={idvPassed}>
+                <lightning-card>
+                    <div style='display: flex; padding-left: 5px; justify-content: flex-start;gap: 10px;align-items: center'>
+                        <lightning-icon
+                                icon-name='utility:close'
+                                variant="error"
+                        ></lightning-icon>
+                        <lightning-formatted-text
+                                value="Identification Verification Outstanding"
+                        ></lightning-formatted-text>
+                    </div>
+                </lightning-card>
+
+            </template>
+            <template if:true={idvPassed}>
+                <lightning-card>
+                    <div style='display: flex; padding-left: 5px; justify-content: flex-start;gap: 10px;align-items: center'>
+                        <lightning-icon
+                                icon-name='utility:check'
+                                variant="success"
+                        ></lightning-icon>
+                        <lightning-formatted-text
+                                value="Identification Verification Complete"
+                        ></lightning-formatted-text>
+                    </div>
+                    <div style='background-color: #c9c9c9 ;height: 2px; margin: 10px 10%;'></div>
+                    <div class='lineItem'>
+                        <div>
+                            <lightning-formatted-text
+                                    value='Score and RAG Status'
+                            ></lightning-formatted-text>
+
+                        </div>
+                        <div class={scoreClass}>
+                            {resultData.creditCheckScore__c}
+                        </div>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Deceased'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckDeceased__c}
+                        ></lightning-formatted-text>
+                    </div>
+
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Judgements'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckJudgements__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Debt Review'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckDebtReview__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Debt Review Requested'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckDebtReviewRequested__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Debt Review Granted'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckDebtReviewGranted__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Thin File'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckThinFile__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Dispute'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckDispute__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Notices'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckNotices__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Adverse'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckAdverse__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Arrears'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-number
+                                value={resultData.creditCheckArrears__c}
+                        ></lightning-formatted-number>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Overdue Balances'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-number
+                                value={resultData.creditCheckOverdueBalances__c}
+                        ></lightning-formatted-number>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Sequestration'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={resultData.creditCheckSequestration__c}
+                        ></lightning-formatted-text>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Months in Arrears'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-number
+                                value={resultData.creditCheckMonthsInArrears__c}
+                        ></lightning-formatted-number>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Number Adverse Judgements 1 Year'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-number
+                                value={resultData.creditCheckNumberAdverseJudgements1Year__c}
+                        ></lightning-formatted-number>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Number Judgements Last 5 Years'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-number
+                                value={resultData.creditCheckNumberJudgementsLast5Years__c}
+                        ></lightning-formatted-number>
+                    </div>
+                    <div class='divider'></div>
+                    <div class='lineItem'>
+                        <lightning-formatted-text
+                                value='Monthly Installments'
+                        ></lightning-formatted-text>
+                        <lightning-formatted-number
+                                value={resultData.creditCheckTotalValueMonthlyInstallments__c}
+                        ></lightning-formatted-number>
+                    </div>
+                    <div style='display:flex; align-items: end;justify-content: end; gap: 4px; margin-right: 6px'>
+                        <div style='gap: 6px; margin-top: 6px;'>
+
+                            <lightning-button
+                                    class="margin"
+                                    label='Next'
+                                    variant="brand"
+                                    onclick={handleNextClick}
+                            ></lightning-button>
+                        </div>
+                    </div>
+
+
+                </lightning-card>
+            </template>
+
+
+        </template>
+
+    </lightning-card>
+</template>

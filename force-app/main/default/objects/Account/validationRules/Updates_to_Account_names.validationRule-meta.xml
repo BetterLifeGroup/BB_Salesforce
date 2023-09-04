@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Updates_to_Account_names</fullName>
+    <active>true</active>
+    <description>Prevent updates to account names (Excluding Person and BetterBond Contact Accounts) where the user is not a system Admin</description>
+    <errorConditionFormula>AND(ISCHANGED(Name),
+RecordType.Name &lt;&gt; &quot;Person Account&quot;,   
+$Profile.Name &lt;&gt; &quot;System Administrator&quot;)</errorConditionFormula>
+    <errorMessage>You do not have the necessary permissions to update this Account&apos;s Name</errorMessage>
+</ValidationRule>

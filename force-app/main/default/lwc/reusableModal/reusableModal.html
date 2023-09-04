@@ -1,0 +1,30 @@
+<!--
+ - Created by frans fourie on 2023/06/21.
+ -->
+
+<!-- Reusable Modal -->
+<template>
+    <lightning-modal-header label="My Modal Heading"></lightning-modal-header>
+    <lightning-modal-body>
+        <div>
+            Let's make some buttons!
+            <template for:each={options} for:item="option">
+                <lightning-button
+                        onclick={handleOptionClick}
+                        data-id={option.id}
+                        key={option.id}
+                        label={option.label}
+                >
+
+                </lightning-button>
+
+            </template>
+            <lightning-button
+                    onclick={handleOkay}
+                    label="Okay"
+            >
+
+            </lightning-button>
+        </div>
+    </lightning-modal-body>
+</template>

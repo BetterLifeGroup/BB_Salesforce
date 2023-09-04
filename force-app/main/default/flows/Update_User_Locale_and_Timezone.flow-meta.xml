@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <description>Flow Description: Updates User record with timezone, locale and language.
+
+No Front-End Access - Flow is record triggered based on the entry criteria.</description>
+    <environments>Default</environments>
+    <interviewLabel>Update User Locale and Timezone {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update User Locale and Timezone</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_User</name>
+        <label>Update User</label>
+        <locationX>539</locationX>
+        <locationY>311</locationY>
+        <inputAssignments>
+            <field>LanguageLocaleKey</field>
+            <value>
+                <stringValue>en_US</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LocaleSidKey</field>
+            <value>
+                <stringValue>en_ZA</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>TimeZoneSidKey</field>
+            <value>
+                <stringValue>Africa/Johannesburg</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>413</locationX>
+        <locationY>45</locationY>
+        <connector>
+            <targetReference>Update_User</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>TimeZoneSidKey</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Africa/Johannesburg</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>LocaleSidKey</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>en_ZA</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>LanguageLocaleKey</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>en_US</stringValue>
+            </value>
+        </filters>
+        <object>User</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

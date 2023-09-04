@@ -1,0 +1,98 @@
+<!--
+ - Created by frans fourie on 2022/09/20.
+ -->
+
+<!-- External Resource Manager -->
+<template>
+    {dataHasChanged}
+    <template if:true={loading}>
+        <div>
+            <lightning-progress-bar
+                    value={progressBarPercentage}
+            ></lightning-progress-bar>
+        </div>
+
+    </template>
+    <div style="display: flex">
+        <template if:true={spinnerOn}>
+            <lightning-spinner
+                    alternative-text=Uploading...
+            ></lightning-spinner>
+        </template>
+        <template if:false={spinnerOn}>
+            <template if:false={fileAvailable}>
+                <div style="margin-left: 5px">
+                    No files in this category
+                </div>
+            </template>
+            <div>
+                <template if:true={fileViewMode}>
+                    <template if:true={fileAvailable}>
+                        <div for:each={categoryFiles} for:item='files' key={files}>
+                            <lightning-card>
+                                <lightning-tile>
+                                    <div style="flex-grow: 3; margin: 5px">
+                                        <div style="display: flex; align-items: center; justify-content: space-between">
+                                            <div
+                                                    style="margin-right: 5px;display: flex"
+                                                    class={fileClass}
+                                            >
+                                                <img src={files.thumbUrl}
+                                                     onclick={handleFileNameClick}
+                                                     data-id={files.documentId}
+                                                     style='width: 50px; height: 50px; margin-right: 6px'/>
+                                                <div style='display: flex;flex-direction: column; justify-content: center'>
+                                                    <div style='color: #197ed5'>
+                                                        <lightning-formatted-text
+                                                                onclick={handleFileNameClick}
+                                                                value={files.name}
+                                                                data-id={files.documentId}
+                                                        ></lightning-formatted-text>
+                                                    </div>
+                                                    <div style='display: flex; flex-direction: row'>
+                                                        <lightning-formatted-date-time
+                                                                onclick={handleFileNameClick}
+                                                                value={files.date}
+                                                                data-id={files.documentId}
+                                                        ></lightning-formatted-date-time>
+                                                        <div style='padding-left: 5px; padding-right: 5px'>
+                                                            <lightning-icon
+                                                                    icon-name='utility:record'
+                                                                    size="xx-small"
+                                                            ></lightning-icon>
+                                                        </div>
+                                                        <lightning-formatted-text
+                                                                onclick={handleFileNameClick}
+                                                                value={files.size}
+                                                                data-id={files.documentId}
+                                                        ></lightning-formatted-text>
+                                                        <div style='padding-left: 5px; padding-right: 5px'>
+                                                            <lightning-icon
+                                                                    icon-name='utility:record'
+                                                                    size="xx-small"
+                                                            ></lightning-icon>
+                                                        </div>
+                                                        <lightning-formatted-text
+                                                                onclick={handleFileNameClick}
+                                                                value={files.extension}
+                                                                data-id={files.documentId}
+                                                        ></lightning-formatted-text>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="margin: 5px; display: flex">
+                                                <template if:false={working}>
+                                                </template>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </lightning-tile>
+                            </lightning-card>
+                        </div>
+                    </template>
+                </template>
+            </div>
+        </template>
+    </div>
+</template>

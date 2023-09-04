@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <description>Applicant Financial Details</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Applicant Financial Details</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="mode" type="String" label="mode"
+                      description="income OR deductions OR contractualExpenses OR existingExposure"/>
+            <property name="loanApplicantId" type="String" label="Loan Applicant Record Id"
+                      description="LoanApplicantRecordId"/>
+            <property name="recordId" type="String" label="recordId"
+                      description="LoanApplicantRecordId"/>
+            <property name="runningNotes" type="String" label="Running Notes"
+                      description="Running Notes"/>
+            <property name="showRunningNotes" type="Boolean" label="Show Running Notes"
+                      description=" ShowRunning Notes"/>
+            <property name="channelName" type="String" />
+        </targetConfig>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="mode" type="String" label="mode"
+                      description="income OR deductions OR contractualExpenses OR existingExposure"/>
+            <property name="loanApplicantId" type="String" label="Loan Applicant Record Id"
+                      description="LoanApplicantRecordId"/>
+            <property name="recordId" type="String" label="recordId"
+                      description="LoanApplicantRecordId"/>
+            <property name="runningNotes" type="String" label="Running Notes"
+                      description="Running Notes"/>
+            <property name="showRunningNotes" type="Boolean" label="Show Running Notes"
+                      description=" ShowRunning Notes"/>
+            <property name="channelName" type="String" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

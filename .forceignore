@@ -1,0 +1,104 @@
+# List files or directories below to ignore them when running force:source:push, force:source:pull, and force:source:status
+# More information: https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_exclude_source.htm
+#
+
+package.xml
+Opportunity_Capture_Progress.pathAssistant
+DONOTDEPLOY.apexClass
+getApplicantWithoutSharing.class
+Trail Tracker Only Interim Profile.profile
+Trail Tracker Integration Profile.profile
+Trail Tracker Administrator Profile.profile
+Standard User.profile
+Solution Manager.profile
+Manager.profile
+Senior Manager.profile
+Salesforce API Only System Integrations.profile
+Read Only.profile
+National Manager.profile
+Marketing User.profile
+Integration User.profile
+Identity User.profile
+Executive Sponsor.profile
+End User.profile
+CPQ Integration User.profile
+Contract Manager.profile
+Chatter Moderator User.profile
+Chatter Free User.profile
+Chatter External User.profile
+*.listView
+FinServ__Households_Dashboards.reportType
+FinServ__Households.reportType
+FinServ__Clients.reportType
+BetterBond_Reporting_Opportunities_Follow_ups.reportType
+Contacts_with_Related_Accounts.reportType
+Betterbond_Reporting_Opportunities.reportType
+BetterBond_Reporting_Opportunities_Cases.reportType
+Opportunities_with_Cases.reportType
+FinServ__Clients_Dashboards.reportType
+NewOpportunity.quickAction
+Bond_Opportunity.animationRule
+Integration_Parameter.Subscription_Key.customMetadata
+FinServ__FeatureFlagSettings.FinServ__QueryOptimization.customMetadata
+DMS_Integration_Detail.DMSIntegrationDetail.customMetadata
+apexEmailNotifications.apexEmailNotifications
+Opportunity.MC_Nurture_Counter__c.customField
+Opportunity.MC_Counter_Nurture__c.customField
+Opportunity.PA_Issued__c.customField
+Opportunity.Application_Type__c.customField
+ResidentialLoanApplication.OTP_Signed_Date__c.customField
+ResidentialLoanApplication.Bond_OTP_Signed_Date__c.customField
+ResidentialLoanApplication.OTP_Expiry_Date__c.customField
+ResidentialLoanApplication.Bond_OTP_Expiry_Date__c.customField
+Opportunity.OTP_Expiry_Date__c.customField
+Opportunity.Bond_OTP_Expiry_Date__c.customField
+ResidentialLoanApplication-Bond Application.layout
+Opportunity-Bond Opportunity.layout
+
+*.picklistValue
+*.ProfilePasswordPolicy
+*.ProfileSessionSetting
+TestFlow.flow
+Wrap_Up_Opportunity_SubflowPA.flow
+Capture_Applicant_Income.flow
+Sync_Related_Tasks.flow
+UID_Populate_On_Master_Task_Record.flow
+BLG_Create_Initial_Task_Based_on_Opportunity_Stage_Update.flow
+Opportunity_Auto_Assign.flow
+Scheduled_Case_Assign_Mon_Fri.flow
+Scheduled_Case_Assign_Sat.flow
+Scheduled_Opportunity_Assign_Mon_Fri.flow
+Scheduled_Opportunity_Assign_Sat.flow
+Opportunity_Assign_Owner.flow
+Case_Auto_Assign.flow
+Create_Opp_Team_Tasks.flow
+Case_Assign_Owner_Sub_flow.flow
+Update_Related_Tasks.flow
+Create_General_Opportunity_Workflow.flow
+Opportunity_Workflow.flow
+Capture_Applicant_Expenses.flow
+Capture_Applicant_Expenses.flow
+Capture_Applicant_Contractual_Expense.flow
+Capture_Applicant_Existing_Exposure.flow
+Capture_Applicant_Financial_Information.flow
+Capture_Applicant_Gross_Income.flow
+DO_NOT_DEPLOY.flow
+NC_Mesh.namedCredential
+TestFlow.flow
+DO_NOT_DEPLOY.flow
+Consent_IDV_and_Credit_Check_H2.flow
+Applicant_Next_Step_H2.flow
+Nav_Test_DO_NOT_DEPLOY.flow
+Bond_Opportunity_Assigned_OTPs_hK8.report
+**/objects/Opportunity/fields/MC_Nurture_Counter__c.field-meta.xml
+
+*.apexEmailNotifications
+createTestData.ApexClass
+*.namedCredential
+
+# LWC configuration files
+**/jsconfig.json
+**/.eslintrc.json
+
+# LWC Jest
+**/__tests__/**

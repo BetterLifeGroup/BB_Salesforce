@@ -1,0 +1,48 @@
+/**
+ * Created by frans fourie on 2022/10/24.
+ */
+
+.Red {
+    background-color: #bb0707;
+    font-size: large;
+    width: fit-content;
+    padding: 6px;
+    margin-left: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.Amber {
+    background-color: darkorange;
+    font-size: large;
+    width: fit-content;
+    padding: 6px;
+    margin-left: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.Green {
+    background-color: #069806;
+    font-size: large;
+    width: fit-content;
+    padding: 6px;
+    margin-left: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+
+.divider{
+    background-color: #c9c9c9;
+    height: 1px;
+    margin: 10px 20% 10px;
+}
+
+.lineItem{
+display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 15px;
+    margin-left: 5px;
+    align-items: center
+}

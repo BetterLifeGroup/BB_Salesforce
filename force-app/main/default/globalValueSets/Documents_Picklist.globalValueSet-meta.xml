@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Copy of ID</fullName>
+        <default>false</default>
+        <label>Copy of ID</label>
+    </customValue>
+    <customValue>
+        <fullName>ID Card Back</fullName>
+        <default>false</default>
+        <label>ID Card Back</label>
+    </customValue>
+    <customValue>
+        <fullName>ID Card Front</fullName>
+        <default>false</default>
+        <label>ID Card Front</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest Payslip</fullName>
+        <default>false</default>
+        <label>Latest Payslip</label>
+    </customValue>
+    <customValue>
+        <fullName>1 Payslip</fullName>
+        <default>false</default>
+        <label>1 Payslip</label>
+    </customValue>
+    <customValue>
+        <fullName>2 Payslips</fullName>
+        <default>false</default>
+        <label>2 Payslips</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest 3 Months Payslips</fullName>
+        <default>false</default>
+        <label>Latest 3 Months Payslips</label>
+    </customValue>
+    <customValue>
+        <fullName>4 Payslips</fullName>
+        <default>false</default>
+        <label>4 Payslips</label>
+    </customValue>
+    <customValue>
+        <fullName>5 Payslips</fullName>
+        <default>false</default>
+        <label>5 Payslips</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest 6 Months Payslips</fullName>
+        <default>false</default>
+        <label>Latest 6 Months Payslips</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest Bank Statement</fullName>
+        <default>false</default>
+        <label>Latest Bank Statement</label>
+    </customValue>
+    <customValue>
+        <fullName>1 Months Bank Statement</fullName>
+        <default>false</default>
+        <label>1 Months Bank Statement</label>
+    </customValue>
+    <customValue>
+        <fullName>2 Months Bank Statements</fullName>
+        <default>false</default>
+        <label>2 Months Bank Statements</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest 3 Months Bank Statements</fullName>
+        <default>false</default>
+        <label>Latest 3 Months Bank Statements</label>
+    </customValue>
+    <customValue>
+        <fullName>4 Months Bank Statements</fullName>
+        <default>false</default>
+        <label>4 Months Bank Statements</label>
+    </customValue>
+    <customValue>
+        <fullName>5 Months Bank Statements</fullName>
+        <default>false</default>
+        <label>5 Months Bank Statements</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest 6 Months Bank Statements</fullName>
+        <default>false</default>
+        <label>Latest 6 Months Bank Statements</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest Invoice</fullName>
+        <default>false</default>
+        <label>Latest Invoice</label>
+    </customValue>
+    <customValue>
+        <fullName>1 Months Invoice</fullName>
+        <default>false</default>
+        <label>1 Months Invoice</label>
+    </customValue>
+    <customValue>
+        <fullName>2 Months Invoices</fullName>
+        <default>false</default>
+        <label>2 Months Invoices</label>
+    </customValue>
+    <customValue>
+        <fullName>3 Months Invoices</fullName>
+        <default>false</default>
+        <label>3 Months Invoices</label>
+    </customValue>
+    <customValue>
+        <fullName>4 Months Invoices</fullName>
+        <default>false</default>
+        <label>4 Months Invoices</label>
+    </customValue>
+    <customValue>
+        <fullName>5 Months Invoices</fullName>
+        <default>false</default>
+        <label>5 Months Invoices</label>
+    </customValue>
+    <customValue>
+        <fullName>Latest 6 Months Invoices</fullName>
+        <default>false</default>
+        <label>Latest 6 Months Invoices</label>
+    </customValue>
+    <customValue>
+        <fullName>Copy of Passport</fullName>
+        <default>false</default>
+        <label>Copy of Passport</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Bureau Letter</fullName>
+        <default>false</default>
+        <label>Credit Bureau Letter</label>
+    </customValue>
+    <customValue>
+        <fullName>Divorce Decree / Settlement</fullName>
+        <default>false</default>
+        <label>Divorce Decree / Settlement</label>
+    </customValue>
+    <customValue>
+        <fullName>HR Letter Confirming Contract Employment Terms</fullName>
+        <default>false</default>
+        <label>HR Letter Confirming Contract Employment Terms</label>
+    </customValue>
+    <customValue>
+        <fullName>HR Letter Confirming Employment Date</fullName>
+        <default>false</default>
+        <label>HR Letter Confirming Employment Date</label>
+    </customValue>
+    <customValue>
+        <fullName>HR Letter Confirming Salary Adjustment</fullName>
+        <default>false</default>
+        <label>HR Letter Confirming Salary Adjustment</label>
+    </customValue>
+    <customValue>
+        <fullName>Maintenance agreement</fullName>
+        <default>false</default>
+        <label>Maintenance agreement</label>
+    </customValue>
+    <customValue>
+        <fullName>Paid Up Letter</fullName>
+        <default>false</default>
+        <label>Paid Up Letter</label>
+    </customValue>
+    <customValue>
+        <fullName>Rental Agreement(s)</fullName>
+        <default>false</default>
+        <label>Rental Agreement(s)</label>
+    </customValue>
+    <customValue>
+        <fullName>Rescinded Letter</fullName>
+        <default>false</default>
+        <label>Rescinded Letter</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit Report</fullName>
+        <default>false</default>
+        <label>Credit Report</label>
+    </customValue>
+    <customValue>
+        <fullName>Preapproval</fullName>
+        <default>false</default>
+        <label>Pre-approval Certificate</label>
+    </customValue>
+    <customValue>
+        <fullName>Consent Document</fullName>
+        <default>false</default>
+        <label>Consent Document</label>
+    </customValue>
+    <customValue>
+        <fullName>Offer To Purchase</fullName>
+        <default>false</default>
+        <label>Offer To Purchase</label>
+    </customValue>
+    <description>Global list of all documents</description>
+    <masterLabel>Documents Picklist</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

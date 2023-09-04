@@ -1,0 +1,63 @@
+<!--
+ - Created by frans fourie on 2023/05/23.
+ -->
+
+<!-- Suburb Region Mapper -->
+<template>
+    <template if:false={provincesHasLoaded}>
+        <lightning-spinner></lightning-spinner>
+    </template>
+    <div>
+        <lightning-input
+                class='validate'
+                label='Address Line 1'
+                required="true"
+                max-length='250'
+                onchange={handleAddLineOneChange}
+                value={addressLineOne}
+        ></lightning-input>
+    </div>
+    <div>
+        <lightning-input
+                label='Address Line 2'
+                max-length='250'
+                onchange={handleAddLineTwoChange}
+                value={addressLineTwo}
+        ></lightning-input>
+    </div>
+    <div>
+        <c-record-search
+                label='Search for suburb'
+                suburb-scope={constantTrue}
+                onselectioncleared={handleRecordCleared}
+                onrecordselected={handleSuburbSelected}
+                onrecordselectedname={handleSuburbSelectedName}
+                selected-value={selectedValue}
+                queried-record-id={queriedRecordId}
+        ></c-record-search>
+    </div>
+    <template if:true={completeSuburb}>
+        <div style='color: #ea0e24; font-weight: 400; font-size: inherit'>
+            <lightning-formatted-text
+                    value='Complete this field.'
+            ></lightning-formatted-text>
+        </div>
+    </template>
+    <lightning-input
+            label='Selected region'
+            value={selectedRegion}
+            disabled
+    ></lightning-input>
+
+    <div style='display:flex; align-items: end;justify-content: end; gap: 4px; margin-right: 6px'>
+        <div style='gap: 6px; margin-top: 6px;'>
+
+            <lightning-button
+                    class="margin"
+                    label='Next'
+                    variant="brand"
+                    onclick={isInputValid}
+            ></lightning-button>
+        </div>
+    </div>
+</template>

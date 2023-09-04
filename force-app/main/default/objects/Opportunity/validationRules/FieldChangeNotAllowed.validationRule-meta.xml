@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FieldChangeNotAllowed</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISCHANGED(Name),
+ (PRIORVALUE(Name) +&quot; - (Repeat)&quot; != Name)  )</errorConditionFormula>
+    <errorDisplayField>Name</errorDisplayField>
+    <errorMessage>The Opportunity Name field is not allowed to be updated.</errorMessage>
+</ValidationRule>

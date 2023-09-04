@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LockGenOpp</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(IF(Wrap_Up_Reason__c = &apos;Automated&apos;, false, true),
+				IF(AND(PRIORVALUE(Wrap_Up_Reason__c) = &apos;Automated&apos;,Wrap_Up_Reason__c = &apos;Locked&apos;),false,true),
+				ISPICKVAL(StageName,&quot;Pre-Approval&quot;),
+				RecordType.Name = &apos;General Opportunity&apos;
+			)</errorConditionFormula>
+    <errorMessage>This opportunity is locked for editing due to current stage</errorMessage>
+</ValidationRule>

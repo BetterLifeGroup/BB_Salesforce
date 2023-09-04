@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Bond_Application</fullName>
+    <active>true</active>
+    <label>Bond Application</label>
+    <picklistValues>
+        <picklist>AmortizationType</picklist>
+        <values>
+            <fullName>Adjustable Rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fixed Rate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Application_Type__c</picklist>
+        <values>
+            <fullName>Bond an Unbonded Property %28Have a Title Deed%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Building Loan and Vacant Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Further Advance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Further Advance - Building Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Normal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vacant Land</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Are_any_of_the_applicants_Self_Employed__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>EstateHoldType</picklist>
+        <values>
+            <fullName>Fee Simple</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Leasehold</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>MortgageLienType</picklist>
+        <values>
+            <fullName>First Lien</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subordinate Lien</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NativeLandTenure</picklist>
+        <values>
+            <fullName>Alaska Native Corporation Land</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fee Simple %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Individual Trust Land %28Allotted%2FRestricted%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tribal Trust Land %28Off Reservation%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tribal Trust Land %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ProjectType</picklist>
+        <values>
+            <fullName>Condominium</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cooperative</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Planned Unit Development%28PUD%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property is not located in a project</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RefinanceProgramType</picklist>
+        <values>
+            <fullName>Full Documentation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interest Rate Reduction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Streamlined without Appraisal</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RefinanceType</picklist>
+        <values>
+            <fullName>Cash Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Limited Cash Out</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Cash Out</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Completed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pending</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TitleType</picklist>
+        <values>
+            <fullName>Joint Tenancy with Right of Survivorship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life Estate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Sole Ownership</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tenancy by the Entirety</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tenancy in Common</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>TrustTitleType</picklist>
+        <values>
+            <fullName>Title Will be Held by a Land Trust</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Title Will be Held by an Inter Vivos %28Living%29 Trust</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -1,0 +1,33 @@
+<!--
+ - Created by frans fourie on 2023/01/13.
+ -->
+
+<!-- Work Flow Manager -->
+<template>
+
+    <div if:true={showBar}>
+        <div for:each={loanApplicants} for:item='loanApp' key={loanApp.Id} style='margin-bottom: 12px; pointer-events: none'>
+            <div style='margin-bottom: 2px'>
+                <lightning-formatted-text
+                        value={loanApp.loanApplicant.Name}
+                ></lightning-formatted-text>
+            </div>
+            <lightning-progress-indicator
+                    type="path"
+                    variant="shaded"
+                    current-step={loanApp.loanApplicant.Status__c}
+            >
+                <lightning-progress-step for:each={loanApp.pickListValues}
+                                         for:item='options'
+                                         key={options}
+                                         label={options}
+                                         value={options}
+                                         data-id={loanApp.loanApplicant.Id}
+                                         onclick={handleClick}
+                ></lightning-progress-step>
+
+            </lightning-progress-indicator>
+        </div>
+    </div>
+
+</template>

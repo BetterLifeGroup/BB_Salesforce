@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Overdue__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Due_Date_Time__c &lt;  NOW() &amp;&amp; ISBLANK(CompletedDateTime), TRUE , IF(CompletedDateTime &gt; Due_Date_Time__c, TRUE, FALSE))</formula>
+    <label>Overdue</label>
+    <type>Checkbox</type>
+</CustomField>

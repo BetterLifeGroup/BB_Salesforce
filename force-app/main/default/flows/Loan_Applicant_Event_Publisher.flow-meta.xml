@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Did_status_change</name>
+        <label>Did status change?</label>
+        <locationX>813</locationX>
+        <locationY>138</locationY>
+        <defaultConnectorLabel>Not changed</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior.Status__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Status__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Event_Record</targetReference>
+            </connector>
+            <label>Yes,Changed</label>
+        </rules>
+    </decisions>
+    <description>Flow Description: Live/Background update of Applicant Status Path. Purpose - Ending a flow does not automatically refresh custom components on the page. Publishes a platform event loanapplicantevent__e.
+
+Front-End Access: Applicant Status Summary on the Opportunity record page</description>
+    <environments>Default</environments>
+    <interviewLabel>Loan Applicant Event Publisher {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Loan Applicant Event Publisher</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Event_Record</name>
+        <label>Create Event Record</label>
+        <locationX>986</locationX>
+        <locationY>136</locationY>
+        <inputAssignments>
+            <field>recordId__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicantEvent__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>400</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Did_status_change</targetReference>
+        </connector>
+        <object>LoanApplicant</object>
+        <recordTriggerType>Update</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

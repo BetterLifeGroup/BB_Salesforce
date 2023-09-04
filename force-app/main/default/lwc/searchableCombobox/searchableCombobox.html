@@ -1,0 +1,75 @@
+<!--
+ - Created by frans fourie on 2023/05/15.
+ -->
+
+<!-- Searchable Combobox -->
+<template>
+    <template if:false={recordSelected}>
+        <div style='position: relative'>
+            <!--            <label class="slds-form-element__label">{label}</label>-->
+            <div class="slds-form-element__control">
+                <div class="slds-combobox_container">
+                    <lightning-input
+                            placeholder={placeHolder}
+                            label={label}
+                            onchange={handleInputChange} onblur={handleInputBlur} onfocus={handleFocus}
+                            disabled={disabled}
+                    ></lightning-input>
+                    <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+</span>
+                </div>
+                <template if:true={showOptions}>
+                    <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid"
+                         role="listbox">
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                            <div for:each={filteredOptions} for:item='option' key={option.id}
+                                 onclick={handleRecordSelect} data-id={option.id} data-name={option.label}>
+                                <li role="presentation" class="slds-listbox__item">
+                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small"
+                                         role="option">
+                                        <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+                                        <span class="slds-media__figure slds-listbox__option-icon"></span>
+                                        <span class="slds-media__body">
+                                                <span class="slds-truncate">{option.label}</span>
+</span>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </template>
+    <template if:true={recordSelected}>
+        <label class="slds-form-element__label">{label}</label>
+        <div data-key="pilldiv"
+             class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_left-right"
+             role="none"
+             style='display: block;align-items: start; justify-content: start'>
+            <span class="slds-icon_container slds-icon-standard-account slds-combobox__input-entity-icon"
+                  title="object">
+              <div class="slds-icon slds-icon_small" style='background-color: white'>
+              <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+              </div>
+              <span class="slds-assistive-text">Record</span>
+            </span>
+            <div style='border: #d0d0d0 solid 1px; border-radius: 6px;'
+            >
+                <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value inputClass"
+                       role="textbox" placeholder="Select an Option" readonly
+                       value={selectedValue}/>
+            </div>
+            <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                    onclick={removeSelectedRecord}
+                    title="Remove selected option">
+              <span class="slds-button__icon">
+              <lightning-icon icon-name="utility:close"
+                              size="xx-small" class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default"
+              ></lightning-icon>
+              </span>
+                <span class="slds-assistive-text">Remove selected option</span>
+            </button>
+        </div>
+    </template>
+</template>

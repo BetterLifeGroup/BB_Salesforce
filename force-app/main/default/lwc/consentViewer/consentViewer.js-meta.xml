@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Consent Viewer</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Consent Viewer</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="personId" type="String" label="Current Account DomainId"
+                      description="People Domain Id of the current account record"/>
+            <property name="scopes" type="String[]" label="Scopes"
+                      description="Scopes to filter on"/>
+            <property name="consentsIncomplete" type="boolean" label="consents Incomplete"
+                      description="Consents incomplete, flow variable"/>
+            <property name="recordId" type="String" label="Applicant ID"
+                      description="Applicant ID"/>
+            <property name="exitFlow" type="Boolean" label="Exit flow"
+                      description="Exit flow"/>
+            <property name="consentRefused" type="Boolean" label="consentRefused"
+                      description="consentRefused"/>
+            <property name="exitToFlow" type="Boolean" label="exitToFlow"
+                      description="exitToFlow"/>
+
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

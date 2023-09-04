@@ -1,0 +1,427 @@
+<!--
+ - Created by frans fourie on 2023/04/24.
+ -->
+
+<!-- User Management Main -->
+<template>
+    <lightning-card>
+
+        <lightning-tabset
+                variant="vertical">
+            <div class='cardClass' style='min-height: 60vh; '>
+                <lightning-tab
+                        label='Betterbond Users'
+                >
+                    <lightning-tabset
+                            variant="scoped">
+                        <lightning-tab
+                                label='Manage Existing User'>
+                            <div class='tabMargin'>
+                                <div class='slds-align_absolute-center'
+                                     style='padding-top: 12px;font-size: large;font-weight: 300;padding-bottom: 8px'>
+                                    Manage an existing user
+                                </div>
+                                <div style='display: flex;flex-direction: row'>
+                                    <div style='width: 100%'>
+                                        <c-user-management-record-search
+                                                user-scope={constantTrue}
+                                                onrecordselected={onDataBubbles}
+                                                onselectioncleared={handleSelectionCleared}
+                                        ></c-user-management-record-search>
+                                    </div>
+                                    <div style='width: 10%'></div>
+                                    <div style='width: 45%;display: flex;align-items: center;justify-content: end;padding-right: 38px;padding-top: 12px;'>
+                                        <template if:true={showUserDetails}>
+                                            <template if:true={userDetailsChanged}>
+                                                <template if:true={updateAllowedForConsultant}>
+                                                    <div style='display: flex;align-items: end'>
+                                                        <lightning-button
+                                                                label='Update'
+                                                                onclick={updateUser}
+                                                        ></lightning-button>
+                                                    </div>
+                                                </template>
+                                                <template if:false={updateAllowedForConsultant}>
+                                                    <div style='display: flex;align-items: end'>
+                                                        <lightning-button
+                                                                label='Update'
+                                                                onclick={updateUser}
+                                                                disabled
+                                                        ></lightning-button>
+                                                    </div>
+                                                </template>
+                                            </template>
+                                            <template if:false={userDetailsChanged}>
+                                                <div style='display: flex;align-items: end'>
+                                                    <lightning-button
+                                                            label='Update'
+                                                            disabled
+                                                    ></lightning-button>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </div>
+                                </div>
+                                <template if:true={showUserDetails}>
+                                    <div style='gap: 3px; border-bottom: 1px #d0d0d0 solid;padding-bottom: 9px'
+                                         for:each={users} for:item='user' key={user.Id}>
+                                        <div style='padding-right: 12px; gap: 4px' class='grid-containerEightWide'>
+
+                                            <div class='spanThree'>
+                                                <lightning-combobox
+                                                        label='User Profile'
+                                                        options={profileComboboxOptions}
+                                                        value={user.ProfileId}
+                                                        onchange={handleProfileChange}
+                                                        required
+                                                ></lightning-combobox>
+                                            </div>
+                                            <div class='spanThree'>
+                                                <lightning-combobox
+                                                        required
+                                                        label='User Role'
+                                                        options={roleComboboxOptions}
+                                                        value={user.UserRoleId}
+                                                        onchange={handleRoleChange}
+                                                ></lightning-combobox>
+                                            </div>
+
+
+                                            <div class='spanThree'>
+                                                <lightning-input
+                                                        required
+                                                        value={user.FirstName}
+                                                        label='Name'
+                                                        onchange={handleFirstNameChange}
+                                                ></lightning-input>
+                                            </div>
+                                            <div class='spanThree'>
+                                                <lightning-input
+                                                        required
+                                                        value={user.LastName}
+                                                        label='Surname'
+                                                        onchange={handleLastNameChange}
+                                                ></lightning-input>
+                                            </div>
+                                            <div class='spanTwo'
+                                                 style='display: flex;align-items: end; padding-bottom: 6px'>
+                                                <lightning-input
+                                                        label='Permission Sets'
+                                                        type='checkbox'
+                                                        checked={permissionSetAssigned}
+                                                        onchange={handlePermissionChange}
+                                                ></lightning-input>
+                                            </div>
+                                        </div>
+                                        <div style='padding-right: 12px; gap: 4px' class='grid-containerEightWide'>
+                                            <div class='spanThree'>
+                                                <lightning-input
+                                                        required
+                                                        value={user.Email}
+                                                        label='Email'
+                                                        onchange={handleEmailChange}
+                                                        data-field="email"
+                                                ></lightning-input>
+                                            </div>
+                                            <div class='spanThree'>
+                                                <lightning-input
+                                                        required
+                                                        value={user.MobilePhone}
+                                                        label='Mobile Number'
+                                                        onchange={handleMobileChange}
+                                                        data-field="mobile"
+                                                ></lightning-input>
+                                            </div>
+                                            <div class='spanSix'>
+                                                <lightning-input
+                                                        label='DigiApp Link'
+                                                        onchange={handleDigiAppLinkChange}
+                                                        data-field="digiapp"
+                                                        value={digiAppLink}
+                                                        required={isConsultant}
+                                                ></lightning-input>
+                                            </div>
+
+
+                                            <template if:true={showSpinner}>
+                                                <div class='spanTwo' style='display: flex;align-items: end'>
+                                                    <lightning-spinner
+                                                            size='small'
+                                                    ></lightning-spinner>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <template if:true={displayError}>
+                                            <div class='spanOne'>
+                                                {error}
+                                            </div>
+                                        </template>
+                                    </div>
+                                    <template if:true={showBranch}>
+                                        <div style='padding-bottom: 80px '>
+                                            <div style='display: flex;flex-direction: row'>
+                                                <div class='slds-align_absolute-center'
+                                                     style='padding-top: 12px;font-size: large;font-weight: 300; padding-bottom: 16px'>
+                                                    Region Relationships
+                                                </div>
+                                            </div>
+                                            <div for:each={assignedSubBranches} for:item='assignedSubBranch'
+                                                 key={assignedSubBranch.Id}>
+                                                <div class='fontWeight'
+                                                     style='border-bottom: solid 1px black; margin-bottom: 8px'>
+                                                    <div style='display: flex;flex-direction: row; gap: 8px;align-items: end;padding-bottom: 12px;'>
+                                                        <div style='width: 35%'>
+                                                            <div>
+                                                                <lightning-input
+                                                                        label='Commission Entity Id'
+                                                                        value={assignedSubBranch.commissionEntityId}
+                                                                        onblur={handleCommissionEntityIdBlur}
+                                                                        data-id={assignedSubBranch.subBranchId}
+                                                                        required={isConsultant}
+                                                                        data-field='subbranch'
+                                                                ></lightning-input>
+                                                            </div>
+                                                            <template if:true={assignedSubBranch.commissionIdAvailable}>
+                                                                <template
+                                                                        if:true={assignedSubBranch.deleteRelationshipDisabled}>
+                                                                    <div>
+                                                                        <c-searchable-combobox
+                                                                                label='Sub-Branch'
+                                                                                options={subBranchOptions}
+                                                                                onrecordselected={handleRecordSelected}
+                                                                                additional-variable={assignedSubBranch.subBranchId}
+                                                                                selected-value={assignedSubBranch.subBranchName}
+                                                                        ></c-searchable-combobox>
+                                                                    </div>
+                                                                </template>
+                                                                <template
+                                                                        if:false={assignedSubBranch.deleteRelationshipDisabled}>
+                                                                    <div>
+                                                                        <c-searchable-combobox
+                                                                                label='Sub-Branch'
+                                                                                options={subBranchOptions}
+                                                                                onrecordselected={handleAdditionalRecordSelected}
+                                                                                additional-variable={assignedSubBranch.subBranchId}
+                                                                                selected-value={assignedSubBranch.subBranchName}
+                                                                        ></c-searchable-combobox>
+                                                                    </div>
+                                                                </template>
+                                                            </template>
+                                                            <template
+                                                                    if:false={assignedSubBranch.commissionIdAvailable}>
+                                                                <template
+                                                                        if:true={assignedSubBranch.deleteRelationshipDisabled}>
+                                                                    <div>
+                                                                        <c-searchable-combobox
+                                                                                label='Sub-Branch'
+                                                                                options={subBranchOptions}
+                                                                                onrecordselected={handleRecordSelected}
+                                                                                additional-variable={assignedSubBranch.subBranchId}
+                                                                                selected-value={assignedSubBranch.subBranchName}
+                                                                                disabled={constantTrue}
+                                                                                place-holder='Please supply Commission Entity Id first'
+                                                                        ></c-searchable-combobox>
+                                                                    </div>
+                                                                </template>
+                                                                <template
+                                                                        if:false={assignedSubBranch.deleteRelationshipDisabled}>
+                                                                    <div>
+                                                                        <c-searchable-combobox
+                                                                                label='Sub-Branch'
+                                                                                options={subBranchOptions}
+                                                                                onrecordselected={handleAdditionalRecordSelected}
+                                                                                additional-variable={assignedSubBranch.subBranchId}
+                                                                                selected-value={assignedSubBranch.subBranchName}
+                                                                                disabled={constantTrue}
+                                                                                place-holder='Please supply Commission Entity Id first'
+                                                                        ></c-searchable-combobox>
+                                                                    </div>
+                                                                </template>
+                                                            </template>
+                                                            <div>
+                                                                <lightning-input
+                                                                        label='Branch'
+                                                                        value={assignedSubBranch.branchName}
+                                                                        disabled
+                                                                ></lightning-input>
+                                                            </div>
+                                                            <div>
+                                                                <lightning-input
+                                                                        label='Region'
+                                                                        value={assignedSubBranch.regionName}
+                                                                        disabled
+                                                                ></lightning-input>
+                                                            </div>
+                                                            <div style='display: flex;flex-direction: row;gap: 6px; padding-top: 6px; padding-bottom: 1px'>
+                                                                <lightning-button-icon
+                                                                        class='onePadding'
+                                                                        icon-name="utility:delete"
+                                                                        data-id={assignedSubBranch.subBranchId}
+                                                                        onclick={handleDeleteSubBranch}
+                                                                        disabled={assignedSubBranch.deleteRelationshipDisabled}
+                                                                ></lightning-button-icon>
+                                                                <lightning-button-icon
+                                                                        class='onePadding'
+                                                                        icon-name="utility:add"
+                                                                        onclick={handleAddNewSubBranch}
+                                                                        disabled={assignedSubBranch.addRelationshipDisabled}
+                                                                ></lightning-button-icon>
+                                                            </div>
+                                                        </div>
+                                                        <div style='width: 10%'></div>
+                                                        <div style='width: 55%'>
+                                                            <lightning-dual-listbox
+                                                                    label='Skill Groups'
+                                                                    options={multiSelectOptions}
+                                                                    selected-label='Assigned'
+                                                                    source-label='Available'
+                                                                    value={assignedSubBranch.skills}
+                                                                    onchange={handleSkillsChange}
+                                                                    data-id={assignedSubBranch.subBranchId}
+                                                            ></lightning-dual-listbox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!---------------------------------------------------------------------------------------------------------------->
+                                        <!--                                        </div>-->
+                                    </template>
+                                    <template if:true={isConsultant}>
+                                        <div class='slds-align_absolute-center slds-text-heading_small'
+                                             style='padding-bottom: 6px'>
+                                            <lightning-formatted-text
+                                                    value='Linked Real Estate Agents'
+                                            ></lightning-formatted-text>
+                                        </div>
+                                        <div style='display: flex;flex-wrap: wrap; gap: 8px'>
+                                            <div for:each={linkedAgents} for:item='agent' key={agent.Id}
+                                                 style='min-width: 30%'>
+
+                                                <div style='display: flex;flex-direction: row;gap: 6px; padding-top: 6px;align-items: end'>
+                                                    <div style='width: 75%'>
+                                                        <c-user-management-record-search
+                                                                label='Linked Agent'
+                                                                onrecordselected={handleLinkedAgentSelected}
+                                                                onselectioncleared={handleRemoveLinkedAgent}
+                                                                data-id={agent.Id}
+                                                                selected-value={agent.FinServ__RelatedContact__r.Name}
+                                                                queried-object-type='Contact'
+                                                                query-filter={queryFilter}
+                                                                search-field='Name'
+                                                                agent-mode={constantTrue}
+                                                                contact-mode={constantTrue}
+                                                        ></c-user-management-record-search>
+                                                    </div>
+                                                    <lightning-button-icon
+                                                            class='onePadding'
+                                                            icon-name="utility:delete"
+                                                            data-id={agent.Id}
+                                                            onclick={handleRemoveLinkedAgent}
+                                                            disabled={agent.iconDisabled}
+                                                    ></lightning-button-icon>
+                                                    <lightning-button-icon
+                                                            class='onePadding'
+                                                            icon-name="utility:add"
+                                                            onclick={handleAddNewLinkedAgent}
+                                                            disabled={agent.iconDisabled}
+                                                    ></lightning-button-icon>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div style='display: flex;flex-direction: row'>
+                                            <div class='slds-align_absolute-center'
+                                                 style='padding-top: 12px;font-size: large;font-weight: 300'>
+                                                Default Opportunity Team Members
+                                            </div>
+                                            <lightning-button
+                                                    class='buttonClass'
+                                                    label='Manage'
+                                                    onmouseup={handleManageAdmin}
+                                            ></lightning-button>
+                                        </div>
+                                        <div style='display: flex;flex-direction: row;padding-bottom: 50px'>
+                                            <div>
+                                                <div for:each={admins} for:item='admin' key={admin.Id}
+                                                     style='padding-top: 6px'>
+                                                    <div style='display:flex;flex-direction: row' class='fontWeight'>
+                                                        <lightning-input
+                                                                value={admin.user.Name}
+                                                                label='Name'
+                                                                read-only
+                                                        ></lightning-input>
+                                                        <lightning-input
+                                                                value={admin.role}
+                                                                label='Role'
+                                                                read-only
+                                                        ></lightning-input>
+                                                        <lightning-input
+                                                                value={admin.accessLevel}
+                                                                label='Opportunity Access'
+                                                                read-only
+                                                        ></lightning-input>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </lightning-tab>
+
+                        <lightning-tab
+                                label='Add New User'>
+
+                            <div class='tabMargin'>
+                                <c-user-management-add-user>
+
+                                </c-user-management-add-user>
+                            </div>
+
+                        </lightning-tab>
+
+
+                        <lightning-tab
+                                label='Deactivate User'>
+
+                            <div class='tabMargin'>
+                                <c-user-management-delete-user>
+
+                                </c-user-management-delete-user>
+                            </div>
+
+                        </lightning-tab>
+                    </lightning-tabset>
+                </lightning-tab>
+                <lightning-tab
+                        label='Betterbond Branches'>
+                    <div class='tabMargin'>
+                        <c-user-management-branches>
+
+
+                        </c-user-management-branches>
+                    </div>
+                </lightning-tab>
+                <lightning-tab
+                        label='Real Estate Agents'>
+                    <div class='tabMargin'>
+                        <c-user-management-r-e-agents
+
+                        ></c-user-management-r-e-agents>
+                    </div>
+                </lightning-tab>
+                <lightning-tab
+                        label='Real Estate Networks'>
+                    <div class='tabMargin'>
+                        <c-user-management-networks>
+
+
+                        </c-user-management-networks>
+                    </div>
+                </lightning-tab>
+            </div>
+        </lightning-tabset>
+    </lightning-card>
+</template>

@@ -1,0 +1,169 @@
+<!--
+ - Created by frans fourie on 2022/09/21.
+ -->
+
+<!-- External_Resource_Cat_Loader -->
+<template>
+
+
+    <!--        <div>-->
+    <!--            <template for:each={categories} for:item='category'>-->
+    <!--                <lightning-tab label={category} key={category}>-->
+    <div style='display: flex; margin-bottom: 6px'>
+        <!--        <div style='margin-right: 3px'>-->
+        <!--            <lightning-button-icon-->
+
+        <!--                    variant="border-filled"-->
+        <!--                    onclick={handleFileViewModeChange}-->
+        <!--                    icon-name={buttonIcon}-->
+        <!--            >-->
+        <!--            </lightning-button-icon>-->
+        <!--        </div>-->
+        <template if:false={uploadButtonDisabled}>
+            <div>
+                <lightning-button
+                        label='Upload Files'
+                        onclick={handleUploadFileButton}
+                >
+
+                </lightning-button>
+            </div>
+        </template>
+    </div>
+    <lightning-tabset variant="scoped">
+
+        <div for:each={categories} for:item="category" key={category.category}
+        >
+            <lightning-tab
+
+                    label={category.category}
+            >
+
+
+                <lightning-card>
+                    <div style="margin-bottom: 4px">
+                        <c-external-resource-manager
+                                category={category}
+                                file-view-mode={fileViewMode}
+                                files-list={filesList}
+                                categories={categories}
+                                refresh-var={refreshVar}
+                                record-id={recordId}
+                                opportunity-scope={opportunityScope}
+                        >
+                        </c-external-resource-manager>
+                    </div>
+                </lightning-card>
+            </lightning-tab>
+        </div>
+        <!--                </lightning-tab>-->
+        <!--            </template>-->
+        <!--        </div>-->
+
+    </lightning-tabset>
+
+    <template if:true={showModal} id='modal'>
+
+        <div id={modal}>
+
+            <section role="dialog" tabindex="-1" aria-modal="true"
+                     class="slds-modal slds-fade-in-open slds-modal_small">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                        <div style='margin-top: 5%;margin-left: 50%; transform: translateX(-50%) ; height: 60vh'>
+                            <lightning-combobox
+                                    label='Category'
+                                    options={categoryOptions}
+                                    onchange={handleCategoryChange}
+                            ></lightning-combobox>
+
+                            <lightning-combobox
+                                    label="File Name"
+                                    options={fileNameOptions}
+                                    disabled={fileNameOptionsDisabled}
+                                    onchange={handleFileNameChange}
+                            ></lightning-combobox>
+                            <!--                            <lightning-input-->
+                            <!--                                    type='file'-->
+                            <!--                                    label=' '-->
+                            <!--                                    onchange={handleUploadFinished}-->
+                            <!--                                    disabled={fileUploadDisabled}-->
+                            <!--                            ></lightning-input>-->
+                            <lightning-file-upload
+                                    label=' '
+                                    name='File uploader'
+                                    record-id={recordId}
+                                    onuploadfinished={handleLightningUpload}
+                                    disabled={fileUploadDisabled}
+                            ></lightning-file-upload>
+                            <div class='slds-text-heading_small' style='margin-top: 8px'>
+                                <lightning-formatted-text
+                                        value='Requested Documents'
+                                ></lightning-formatted-text>
+                            </div>
+                            <div for:each={requestedDocsMutated} for:item='docs' key={docs.name}
+                                 style='margin-top: 8px'>
+                                <template if:true={docs.received}>
+                                    <!--                                    <div >-->
+                                    <lightning-icon
+                                            class='checkGreen'
+                                            icon-name="utility:check"
+                                            size="x-small"
+                                    ></lightning-icon>
+                                    <!--                                    </div>-->
+                                </template>
+                                <lightning-formatted-text
+                                        value={docs.name}
+                                ></lightning-formatted-text>
+                            </div>
+                            <div class='slds-text-heading_small' style='margin-top: 8px'>
+                                <lightning-formatted-text
+                                        value='Additional Documents Uploaded'
+                                ></lightning-formatted-text>
+                            </div>
+                            <div for:each={notRequestedReceivedDocs} for:item='docs' key={docs.name}
+                                 style='margin-top: 8px'>
+                                <template if:true={docs.received}>
+                                    <!--                                    <div >-->
+                                    <lightning-icon
+                                            class='checkGreen'
+                                            icon-name="utility:check"
+                                            size="x-small"
+                                    ></lightning-icon>
+                                    <!--                                    </div>-->
+                                </template>
+                                <lightning-formatted-text
+                                        value={docs.name}
+                                ></lightning-formatted-text>
+                            </div>
+                            <template if:true={showProgressBar}>
+                                <div style='margin-top: 8px'>
+                                    <lightning-progress-bar
+                                            value={progressBarPercentage}
+                                    ></lightning-progress-bar>
+
+                                </div>
+
+                            </template>
+                            <!--                            <lightning-file-upload-->
+                            <!--                                    onuploadfinished={handleUploadFinished}-->
+                            <!--                            ></lightning-file-upload>-->
+
+                        </div>
+                    </div>
+                    <div class="slds-modal__footer">
+                        <!--                        <button onclick={handleModalCancelClick} class="slds-button slds-button_neutral"-->
+                        <!--                                aria-label="Cancel and close">Cancel-->
+                        <!--                        </button>-->
+                        <button class="slds-button slds-button_brand"
+                                onclick={handleModalCancelClick}>Close
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </div>
+    </template>
+
+</template>

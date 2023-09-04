@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Idv Questions Viewer</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Idv Questions Viewer</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Loan applicant record id"
+                      description="Loan applicant record id"/>
+            <property name="mustExitFlow" type="Boolean" label="Must exit flow?"
+                      description="Must exit flow?"/>
+            <property name="consentRefused" type="Boolean" label="consentRefused"
+                      description="consentRefused"/>
+<!--            <property name="idTypeValue" type="String" label="Id Type"-->
+<!--                      description="Id type, Sa ID or passport"/>-->
+<!--            <property name="applicantId" type="String" label="Loan Applicant record Id"-->
+<!--                      description="Loan Applicant record Id"/>-->
+
+<!--            <property name="idvFinalScore" type="Integer" label="IDV Final Score"-->
+<!--                      description="IDV Final Score, Output"/>-->
+<!--            <property name="idvResponseStatus" type="String" label="IDV Response Status"-->
+<!--                      description="IDV Response Status, Output"/>-->
+<!--            <property name="idvVerificationRequestNumber" type="String" label="IDV Verification Number"-->
+<!--                      description="IDV Verification Number, Output"/>-->
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
