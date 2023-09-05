@@ -3,12 +3,13 @@ public without sharing class lwcLookupController {
     @AuraEnabled
     public static List<SObject> getSobjectRecords(String searchKey, String objectName, String queryFilter, String searchField) {
         String searchAcc = '\'%' + String.escapeSingleQuotes(searchKey) + '%\'';
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         if (queryFilter == null) {
             queryFilter = '';
         }
 
-        String query = 'SELECT Id, Name FROM ' + objectName + ' WHERE ' + searchField + ' LIKE ' + searchAcc + ' ' + queryFilter + ' LIMIT 10';
+        String query = 'SELECT Id, Name FROM ' + objectName + ' WHERE ' + searchField + ' LIKE ' + searchAcc + ' ' + queryFilter + ' LIMIT 20';
         System.debug(Database.query(query));
         return Database.query(query);
     }
@@ -20,6 +21,7 @@ public without sharing class lwcLookupController {
         if (queryFilter == null) {
             queryFilter = '';
         }
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         System.debug(searchKey.length());
             String query = 'SELECT Id, Name, Account.Name FROM ' + objectName + ' WHERE ' + searchField + ' LIKE ' + searchAcc + ' ' + queryFilter + ' LIMIT 5';
@@ -34,6 +36,7 @@ public without sharing class lwcLookupController {
         if (queryFilter == null) {
             queryFilter = '';
         }
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         List<Contact> contactList = new List<Contact>();
         try {
@@ -47,9 +50,9 @@ public without sharing class lwcLookupController {
                 ccr.add(str);
             }
 //            contactList = [SELECT Id, Name FROM Contact WHERE Id IN :ccr AND Name LIKE :searchAcc];
-            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 10];
+            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 1];
         } catch (Exception e) {
-            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 10]; // TODO - temp fix to show all and not related
+            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 1]; // TODO - temp fix to show all and not related
             return contactList;
         }
         return contactList;
@@ -65,6 +68,7 @@ public without sharing class lwcLookupController {
         if (queryFilter == null) {
             queryFilter = '';
         }
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         List<Contact> contactList = new List<Contact>();
         System.debug(userId);
@@ -90,6 +94,7 @@ public without sharing class lwcLookupController {
     @AuraEnabled
     public static List<SObject> getCustomers(String searchKey, String objectName, String queryFilter, String searchField, String userId) {
         String searchAcc = '%' + String.escapeSingleQuotes(searchKey) + '%';
+        searchAcc = searchAcc.replaceAll(' ','%');
 
 
         return [
@@ -105,6 +110,7 @@ public without sharing class lwcLookupController {
     public static List<User> getUsers(String searchKey) {
         String searchAcc = '%' + String.escapeSingleQuotes(searchKey) + '%';
         System.debug(searchAcc);
+        searchAcc = searchAcc.replaceAll(' ','%');
         return [SELECT Id, Name, Profile.Name FROM User WHERE IsActive = TRUE AND Name LIKE :searchAcc AND ((NOT Name LIKE '%Exah%') AND (NOT Name LIKE 'Automated Process') AND (NOT Name LIKE '%System%')) ORDER BY Name LIMIT 6];
     }
 
@@ -114,6 +120,7 @@ public without sharing class lwcLookupController {
         String searchAcc = '%' + String.escapeSingleQuotes(searchKey) + '%';
 
         System.debug(accountScope + ' ' + parentId + ' ' + searchAcc);
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         switch on accountScope {
             when 'Region' {
@@ -147,6 +154,7 @@ public without sharing class lwcLookupController {
     @AuraEnabled
     public static List<Region_Suburb__c> getAllRegionSuburbs(String searchKey) {
         String searchAcc = '%' + String.escapeSingleQuotes(searchKey) + '%';
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         return [SELECT Id, Name, Province__c, City__c, Suburb__c, Region__c FROM Region_Suburb__c WHERE Suburb__c LIKE :searchAcc LIMIT 10];
     }

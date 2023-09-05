@@ -2,22 +2,6 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>57.0</apiVersion>
     <assignments>
-        <name>Set_Error_True</name>
-        <label>Set Error True</label>
-        <locationX>737</locationX>
-        <locationY>783</locationY>
-        <assignmentItems>
-            <assignToReference>showError</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Close_Lost_Screen</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Set_Error_Trues</name>
         <label>Set Error True</label>
         <locationX>1682</locationX>
@@ -31,6 +15,38 @@
         </assignmentItems>
         <connector>
             <targetReference>Close_Won_Screen_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Error_Trues_0</name>
+        <label>Set Error True</label>
+        <locationX>1294</locationX>
+        <locationY>684</locationY>
+        <assignmentItems>
+            <assignToReference>showError</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Close_Lost_PA_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Error_Trues_0_0</name>
+        <label>Set Error True</label>
+        <locationX>777</locationX>
+        <locationY>725</locationY>
+        <assignmentItems>
+            <assignToReference>showError</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Close_Lost_Bond_Screen</targetReference>
         </connector>
     </assignments>
     <choices>
@@ -50,31 +66,6 @@
         </value>
     </choices>
     <decisions>
-        <name>Check_if_Lost_Stage_Populated</name>
-        <label>Check if Lost Stage Populated</label>
-        <locationX>512</locationX>
-        <locationY>686</locationY>
-        <defaultConnector>
-            <targetReference>Set_Error_True</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Not Closed Lost</defaultConnectorLabel>
-        <rules>
-            <name>Populated_Lost</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>closeLostPick.topValue</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Closed Lost</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Complete_Task</targetReference>
-            </connector>
-            <label>Populated Lost</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Check_if_Status_Populated</name>
         <label>Check if Status Populated</label>
         <locationX>1566</locationX>
@@ -85,6 +76,52 @@
         <defaultConnectorLabel>Status Empty</defaultConnectorLabel>
         <rules>
             <name>Populated</name>
+            <conditionLogic>(1 AND 2) OR (3 AND 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVar</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVar</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVarIssued</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVarIssued</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Complete_Task_0_0_0</targetReference>
+            </connector>
+            <label>Populated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_if_Status_Populated_0</name>
+        <label>Check if Status Populated</label>
+        <locationX>1178</locationX>
+        <locationY>786</locationY>
+        <defaultConnector>
+            <targetReference>Set_Error_Trues_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Status Empty</defaultConnectorLabel>
+        <rules>
+            <name>Populated_0</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>selectedStatusOutputVar</leftValueReference>
@@ -101,7 +138,39 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Complete_Task_0_0_0</targetReference>
+                <targetReference>Complete_Task_0_0_0_0</targetReference>
+            </connector>
+            <label>Populated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_if_Status_Populated_0_0</name>
+        <label>Check if Status Populated</label>
+        <locationX>661</locationX>
+        <locationY>827</locationY>
+        <defaultConnector>
+            <targetReference>Set_Error_Trues_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Status Empty</defaultConnectorLabel>
+        <rules>
+            <name>Populated_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVar</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVar</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Complete_Task_0_0_0_0_0</targetReference>
             </connector>
             <label>Populated</label>
         </rules>
@@ -138,8 +207,15 @@
             <label>Bond Opp OTP Received</label>
         </rules>
         <rules>
-            <name>Closed_Lost</name>
-            <conditionLogic>(1 AND 2) OR 3</conditionLogic>
+            <name>Closed_Lost_PA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pre_Approval_Opportunity</stringValue>
+                </rightValue>
+            </conditions>
             <conditions>
                 <leftValueReference>Get_Opportunity_to_Close.StageName</leftValueReference>
                 <operator>NotEqualTo</operator>
@@ -154,6 +230,14 @@
                     <stringValue>PA Requested - Verification complete</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Close_Lost_PA_Screen</targetReference>
+            </connector>
+            <label>Closed Lost PA</label>
+        </rules>
+        <rules>
+            <name>Closed_Lost_Bond</name>
+            <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
@@ -162,9 +246,9 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Close_Lost_Screen</targetReference>
+                <targetReference>Close_Lost_Bond_Screen</targetReference>
             </connector>
-            <label>Closed Lost</label>
+            <label>Closed Lost Bond</label>
         </rules>
     </decisions>
     <decisions>
@@ -217,9 +301,7 @@
             <label>Bond - Won</label>
         </rules>
     </decisions>
-    <description>DB: 7 aug
-
-Flow Description: Closes a Pre-Approval or Bond Opportunity as Won or Lost. Launched from Wrap Up Opportunity H2 and Wrap up Bond Subflow.
+    <description>Flow Description: Closes a Pre-Approval or Bond Opportunity as Won or Lost. Launched from Wrap Up Opportunity H2 and Wrap up Bond Subflow.
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <environments>Default</environments>
@@ -317,36 +399,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>Complete_Task</name>
-        <label>Complete Task</label>
-        <locationX>380</locationX>
-        <locationY>806</locationY>
-        <connector>
-            <targetReference>Update_Opportunity_Closed_Lost</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Latest_Open_Task.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Completed</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>locked__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>Task</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Complete_Task_0_0</name>
         <label>Complete Task</label>
         <locationX>1672</locationX>
@@ -407,10 +459,70 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Task</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Opportunity_Closed_Lost</name>
-        <label>Update Opportunity Closed Lost</label>
-        <locationX>380</locationX>
-        <locationY>926</locationY>
+        <name>Complete_Task_0_0_0_0</name>
+        <label>Complete Task</label>
+        <locationX>1453</locationX>
+        <locationY>860</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Closed_Lost_PA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Open_Task.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Task_0_0_0_0_0</name>
+        <label>Complete Task</label>
+        <locationX>669</locationX>
+        <locationY>1026</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Closed_Lost_PA_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Open_Task.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Closed_Lost_PA</name>
+        <label>Update Opportunity Closed Lost PA</label>
+        <locationX>1596</locationX>
+        <locationY>860</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -428,13 +540,52 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <inputAssignments>
             <field>StageName</field>
             <value>
-                <elementReference>closeLostPick.topValue</elementReference>
+                <stringValue>Closed Lost</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Status__c</field>
             <value>
-                <elementReference>closeLostPick.middleValue</elementReference>
+                <elementReference>selectedStatusOutputVar</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Closed_Lost_PA_0</name>
+        <label>Update Opportunity Closed Lost PA</label>
+        <locationX>669</locationX>
+        <locationY>1182</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Closed Lost</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>selectedStatusOutputVar</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -563,18 +714,18 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Opportunity</object>
     </recordUpdates>
     <screens>
-        <name>Close_Lost_Screen</name>
-        <label>Close Lost Screen</label>
-        <locationX>528</locationX>
-        <locationY>536</locationY>
+        <name>Close_Lost_Bond_Screen</name>
+        <label>Close Lost Bond Screen</label>
+        <locationX>559</locationX>
+        <locationY>725</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Check_if_Lost_Stage_Populated</targetReference>
+            <targetReference>Check_if_Status_Populated_0_0</targetReference>
         </connector>
         <fields>
-            <name>openTaskHeading</name>
+            <name>openTaskWonHeading_0_0_0</name>
             <extensionName>c:customFlowBanner</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -594,28 +745,28 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>Close_Lost_Screen_Section1</name>
+            <name>Close_Lost_Bond_Screen_Section1</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>Close_Lost_Screen_Section1_Column1</name>
+                <name>Close_Lost_Bond_Screen_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>custName</name>
+                    <name>Copy_1_of_custName_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Customer Name: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.FirstName} {!Get_Opportunity_to_Close.Account.LastName}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>stickyNote</name>
+                    <name>Copy_1_of_stickyNote_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Comment/Sticky Note: &lt;/strong&gt;{!Get_Opportunity_to_Close.Comment__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>stageCurr</name>
+                    <name>Copy_1_of_stageCurr_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Current Stage: &lt;/strong&gt;{!Get_Opportunity_to_Close.StageName}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>statusCurr</name>
+                    <name>Copy_1_of_statusCurr_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_Opportunity_to_Close.Status__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
@@ -628,35 +779,25 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>Close_Lost_Screen_Section1_Column2</name>
+                <name>Close_Lost_Bond_Screen_Section1_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>slaDeadline</name>
+                    <name>Copy_1_of_slaDeadline_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;SLA Deadline: &lt;/strong&gt;{!Get_Opportunity_to_Close.SLA_Deadline__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>callback</name>
+                    <name>Copy_1_of_callback_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Call Back Date Time: &lt;/strong&gt;{!Get_Latest_Open_Task.Due_Date_Time__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
-                    <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
-                        <conditions>
-                            <leftValueReference>Get_Latest_Open_Task.Subject</leftValueReference>
-                            <operator>Contains</operator>
-                            <rightValue>
-                                <stringValue>Call Back</stringValue>
-                            </rightValue>
-                        </conditions>
-                    </visibilityRule>
                 </fields>
                 <fields>
-                    <name>email</name>
+                    <name>Copy_1_of_email_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Email: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.PersonEmail}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>contactNumber</name>
+                    <name>Copy_1_of_contactNumber_0_0_0</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Contact Number: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.Phone}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
@@ -672,49 +813,72 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
-            <name>closeLostPick</name>
-            <extensionName>flowruntime:dependentPicklists</extensionName>
+            <name>statusClosedWonNoPAIssued_0_0</name>
+            <extensionName>c:flowFilteredDependantPicklist</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>dependencyWrapperApiName</name>
+                <name>excludedValues</name>
                 <value>
-                    <stringValue>Opportunity</stringValue>
+                    <stringValue>No PA Consent Received;No PA Documents Received</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>topPicklistApiName</name>
-                <value>
-                    <stringValue>StageName</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middlePicklistApiName</name>
-                <value>
-                    <stringValue>Status__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topLabel</name>
-                <value>
-                    <stringValue>New Stage</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topValue</name>
+                <name>selectedStage</name>
                 <value>
                     <stringValue>Closed Lost</stringValue>
                 </value>
             </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>selectedStatusOutputVar</assignToReference>
+                <name>selectedStatus</name>
+            </outputParameters>
+        </fields>
+        <fields>
+            <name>notWonError_0_0_0</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Please select a status.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>showError</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <nextOrFinishButtonLabel>Close off</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Close_Lost_PA_Screen</name>
+        <label>Close Lost PA Screen</label>
+        <locationX>1076</locationX>
+        <locationY>684</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_if_Status_Populated_0</targetReference>
+        </connector>
+        <fields>
+            <name>openTaskWonHeading_0_0</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>middleLabel</name>
+                <name>label</name>
                 <value>
-                    <stringValue>New Status</stringValue>
+                    <elementReference>Get_Latest_Open_Task.Subject</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>middleRequired</name>
+                <name>cssCustomStyle</name>
                 <value>
-                    <booleanValue>true</booleanValue>
+                    <stringValue>margin-bottom: 8px</stringValue>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -722,8 +886,99 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>notLostError</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;The Stage must be Closed Lost for this outcome.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <name>Close_Lost_PA_Screen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Close_Lost_PA_Screen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Copy_1_of_custName_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Customer Name: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.FirstName} {!Get_Opportunity_to_Close.Account.LastName}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_stickyNote_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Comment/Sticky Note: &lt;/strong&gt;{!Get_Opportunity_to_Close.Comment__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_stageCurr_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Current Stage: &lt;/strong&gt;{!Get_Opportunity_to_Close.StageName}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_statusCurr_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_Opportunity_to_Close.Status__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Close_Lost_PA_Screen_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Copy_1_of_slaDeadline_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;SLA Deadline: &lt;/strong&gt;{!Get_Opportunity_to_Close.SLA_Deadline__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_callback_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Call Back Date Time: &lt;/strong&gt;{!Get_Latest_Open_Task.Due_Date_Time__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_email_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Email: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.PersonEmail}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_contactNumber_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Contact Number: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.Phone}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>statusClosedWonNoPAIssued_0</name>
+            <extensionName>c:flowFilteredDependantPicklist</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>excludedValues</name>
+                <value>
+                    <stringValue>No OTP Received;OTP Received - No Documents Received</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectedStage</name>
+                <value>
+                    <stringValue>Closed Lost</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <outputParameters>
+                <assignToReference>selectedStatusOutputVar</assignToReference>
+                <name>selectedStatus</name>
+            </outputParameters>
+        </fields>
+        <fields>
+            <name>notWonError_0_0</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Please select a status.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -865,7 +1120,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Close_Won_Screen_0</name>
         <label>Close Won Screen</label>
-        <locationX>1362</locationX>
+        <locationX>1358</locationX>
         <locationY>479</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -1008,7 +1263,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <outputParameters>
-                <assignToReference>selectedStatusOutputVar</assignToReference>
+                <assignToReference>selectedStatusOutputVarIssued</assignToReference>
                 <name>selectedStatus</name>
             </outputParameters>
             <visibilityRule>
@@ -1072,6 +1327,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </variables>
     <variables>
         <name>selectedStatusOutputVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>selectedStatusOutputVarIssued</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
