@@ -1816,21 +1816,6 @@
             <label>Office Admin</label>
         </rules>
         <rules>
-            <name>Manual_Context</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>manualContext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Create_Pre_Approval_OR_Bond_Opp_0</targetReference>
-            </connector>
-            <label>Manual Context</label>
-        </rules>
-        <rules>
             <name>Bond_No_PA</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1851,6 +1836,28 @@
                 <targetReference>Create_Pre_Approval_OR_Bond_Opp</targetReference>
             </connector>
             <label>Bond No PA</label>
+        </rules>
+        <rules>
+            <name>Manual_Context</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>manualContext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_General_Opportunity.PreApprovalOpportunity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Pre_Approval_OR_Bond_Opp</targetReference>
+            </connector>
+            <label>Manual Context</label>
         </rules>
     </decisions>
     <decisions>
