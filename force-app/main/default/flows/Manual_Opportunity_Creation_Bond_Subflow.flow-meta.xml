@@ -32,10 +32,12 @@
                 <elementReference>nowFormula</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>DateTimeUtility</nameSegment>
         <outputParameters>
             <assignToReference>assignmentDate</assignToReference>
             <name>result</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <assignments>
@@ -1970,7 +1972,7 @@ Requirement change - A new General Opportunity for the Bond is no longer created
             <targetReference>Get_General_Opp_Record_Type_Id</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Obsolete</status>
     <subflows>
         <name>Region_Branch_Sub</name>
         <label>Region/Branch Sub</label>
