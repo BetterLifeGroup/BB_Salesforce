@@ -231,13 +231,6 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>loanApplicant.What_type_of_bond_are_you_applying_for__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue></stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
             <assignToReference>loanApplicant.Do_you_own_an_existing_property__c</assignToReference>
             <operator>Assign</operator>
             <value>
@@ -793,21 +786,7 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>loanApplicant.In_what_capacity_are_you_buying__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.Do_you_have_a_South_African_ID_number__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.What_is_your_employment_status__c</leftValueReference>
+                <leftValueReference>loanApplicant.Are_you_buying_your_first_home__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue></stringValue>
@@ -1568,11 +1547,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>missingQuestions</name>
         <dataType>String</dataType>
         <expression>IF(ISPICKVAL({!loanApplicant.Marital_agreement__c}, &quot;&quot;), &quot;Marital Agreement&quot; + BR(), null) +
-IF(ISPICKVAL({!loanApplicant.In_what_capacity_are_you_buying__c}, &quot;&quot;), &quot;In what capacity are you buying&quot;+ BR(), null) +
-IF(ISPICKVAL({!loanApplicant.Do_you_have_a_South_African_ID_number__c}, &quot;&quot;), &quot;Do you have a South African ID&quot;+ BR(), null) +
-IF(ISPICKVAL({!loanApplicant.Nationality__c}, &quot;&quot;), &quot;Nationality&quot; + BR(), null)  +
-IF(ISPICKVAL({!loanApplicant.What_is_your_employment_status__c}, &quot;&quot;), &quot;Employment Status&quot; + BR(), null)  +
-IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quot;Credit Status&quot; + BR(), null)</expression>
+IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), &quot;Are you buying your first home&quot; + BR(), null)</expression>
     </formulas>
     <formulas>
         <name>todayF</name>
@@ -2306,7 +2281,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <name>Get_Main_Applicant</name>
         <label>Get Main Applicant</label>
         <locationX>849</locationX>
-        <locationY>566</locationY>
+        <locationY>565</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Applicant_Count</targetReference>
@@ -2445,7 +2420,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>What_type_of_bond_are_you_applying_for__c</field>
             <value>
-                <elementReference>loanApplicant.What_type_of_bond_are_you_applying_for__c</elementReference>
+                <elementReference>Get_Main_Applicant.What_type_of_bond_are_you_applying_for__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2460,7 +2435,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <name>Update_Co_Applicant_Questions_0</name>
         <label>Update Co-Applicant Questions</label>
         <locationX>2541</locationX>
-        <locationY>4754</locationY>
+        <locationY>4755</locationY>
         <connector>
             <targetReference>Get_Last_Created_Applicant</targetReference>
         </connector>
@@ -2529,7 +2504,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>What_type_of_bond_are_you_applying_for__c</field>
             <value>
-                <elementReference>loanApplicant.What_type_of_bond_are_you_applying_for__c</elementReference>
+                <elementReference>Get_Main_Applicant.What_type_of_bond_are_you_applying_for__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3224,6 +3199,11 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     </visibilityRule>
                 </fields>
                 <fields>
+                    <name>bondTypeReadOnly</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;What type of bond are you applying for?: &lt;/strong&gt;{!Get_Main_Applicant.What_type_of_bond_are_you_applying_for__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
                     <fieldType>ObjectProvided</fieldType>
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
@@ -3257,12 +3237,6 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <objectFieldReference>loanApplicant.In_what_capacity_are_you_buying__c</objectFieldReference>
-                </fields>
-                <fields>
-                    <fieldType>ObjectProvided</fieldType>
-                    <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>false</isRequired>
-                    <objectFieldReference>loanApplicant.What_type_of_bond_are_you_applying_for__c</objectFieldReference>
                 </fields>
                 <fields>
                     <fieldType>ObjectProvided</fieldType>
