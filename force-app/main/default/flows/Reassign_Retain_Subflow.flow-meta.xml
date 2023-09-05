@@ -5133,7 +5133,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         </fields>
         <fields>
             <name>directReassignWG_0</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;{!Get_Bond_Opportunity.Name} &lt;/strong&gt;has been reassigned to the following owner: &lt;strong&gt;{!Get_Round_Robin_Consultant_Contact_Region.FirstName}{!Get_Round_Robin_Consultant_Contact_Region.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;{!Get_Bond_Opportunity.Name} &lt;/strong&gt;has been reassigned to the following owner: &lt;strong&gt;{!Get_Round_Robin_Consultant_Contact_Region.FirstName} {!Get_Round_Robin_Consultant_Contact_Region.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
