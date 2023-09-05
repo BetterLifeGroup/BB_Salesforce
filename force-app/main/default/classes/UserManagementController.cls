@@ -14,6 +14,7 @@ public with sharing class UserManagementController {
     public static List<SObject> getAccountsForUserManagement(String accountScope, String searchKey, String parentId) {
 
         String searchAcc = '%' + String.escapeSingleQuotes(searchKey) + '%';
+        searchAcc = searchAcc.replaceAll(' ','%');
 
         System.debug(accountScope + ' ' + parentId + ' ' + searchAcc);
 
@@ -513,12 +514,10 @@ public with sharing class UserManagementController {
     @AuraEnabled
     public static List<User> officeAdminCanBeDeleted(String userId) {
 
-//        try {
 
             User userRecord = [SELECT Id, Profile.Name FROM User WHERE Id = :userId];
 
             if (userRecord.Profile.Name == 'Office Administrator') {
-                // Check if the user is the only admin on any Consultant's opportunity team
 
                 List<UserTeamMember> allTeamsAdminIsAPartOff = [SELECT Id, OwnerId FROM UserTeamMember WHERE UserId = :userId];
 
@@ -837,6 +836,7 @@ public with sharing class UserManagementController {
 
         String searchKey = '%' + String.escapeSingleQuotes(searchString) + '%';
         System.debug(searchKey);
+        searchKey = searchKey.replaceAll(' ','%');
 
         LwcResult res = new LwcResult();
         List<String> contactParentIds = new List<String>();
