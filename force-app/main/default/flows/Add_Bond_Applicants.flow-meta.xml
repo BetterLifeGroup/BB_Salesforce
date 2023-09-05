@@ -793,35 +793,7 @@
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>loanApplicant.In_what_capacity_are_you_buying__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.Do_you_have_a_South_African_ID_number__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
                 <leftValueReference>loanApplicant.What_is_your_employment_status__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.Nationality__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.What_is_your_credit_status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue></stringValue>
@@ -1568,11 +1540,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>missingQuestions</name>
         <dataType>String</dataType>
         <expression>IF(ISPICKVAL({!loanApplicant.Marital_agreement__c}, &quot;&quot;), &quot;Marital Agreement&quot; + BR(), null) +
-IF(ISPICKVAL({!loanApplicant.In_what_capacity_are_you_buying__c}, &quot;&quot;), &quot;In what capacity are you buying&quot;+ BR(), null) +
-IF(ISPICKVAL({!loanApplicant.Do_you_have_a_South_African_ID_number__c}, &quot;&quot;), &quot;Do you have a South African ID&quot;+ BR(), null) +
-IF(ISPICKVAL({!loanApplicant.Nationality__c}, &quot;&quot;), &quot;Nationality&quot; + BR(), null)  +
-IF(ISPICKVAL({!loanApplicant.What_is_your_employment_status__c}, &quot;&quot;), &quot;Employment Status&quot; + BR(), null)  +
-IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quot;Credit Status&quot; + BR(), null)</expression>
+IF(ISPICKVAL({!loanApplicant.What_is_your_employment_status__c}, &quot;&quot;), &quot;Employment Status&quot; + BR(), null)</expression>
     </formulas>
     <formulas>
         <name>todayF</name>
@@ -3606,7 +3574,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid email address.&lt;/p&gt;</errorMessage>
-                        <formulaExpression>REGEX ( UPPER ( {!Email_Field} ) ,&quot;^[a-zA-Z0-9.!#$%&amp;+_=|-]+@[a-zA-Z0-9]+[.]{1}(([a-zA-Z0-9]{3}$|[a-zA-Z0-9]{6}$)|[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]{2})&quot;)</formulaExpression>
+                        <formulaExpression>REGEX({!Email_Field},{!$Label.EmailRegex})</formulaExpression>
                     </validationRule>
                 </fields>
                 <fields>
