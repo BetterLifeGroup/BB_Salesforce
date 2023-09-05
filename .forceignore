@@ -50,7 +50,6 @@ ResidentialLoanApplication.OTP_Signed_Date__c.customField
 ResidentialLoanApplication.Bond_OTP_Signed_Date__c.customField
 ResidentialLoanApplication.OTP_Expiry_Date__c.customField
 ResidentialLoanApplication.Bond_OTP_Expiry_Date__c.customField
-Opportunity.OTP_Expiry_Date__c.customField
 Opportunity.Bond_OTP_Expiry_Date__c.customField
 ResidentialLoanApplication-Bond Application.layout
 Opportunity-Bond Opportunity.layout
