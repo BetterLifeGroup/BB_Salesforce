@@ -60,6 +60,7 @@ Opportunity-Bond Opportunity.layout
 *.ProfileSessionSetting
 TestFlow.flow
 Wrap_Up_Opportunity_SubflowPA.flow
+Manual_Opportunity_Creation_Bond_Subflow.flow
 Capture_Applicant_Income.flow
 Sync_Related_Tasks.flow
 UID_Populate_On_Master_Task_Record.flow
