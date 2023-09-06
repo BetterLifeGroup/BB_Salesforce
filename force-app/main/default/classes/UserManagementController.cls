@@ -1006,14 +1006,16 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static List<FinServ__ContactContactRelation__c> getAllLinkedAgents(String consultantUserId) {
-                List<FinServ__ContactContactRelation__c> ccrList = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :[SELECT Id from Contact where Consultant__c = :consultantUserId limit 1].Id ORDER BY FinServ__RelatedContact__r.Name];
-        return ccrList;
+        List<FinServ__ContactContactRelation__c> results = new List<FinServ__ContactContactRelation__c>();
+                results = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :[SELECT Id from Contact where Consultant__c = :consultantUserId limit 1].Id ORDER BY FinServ__RelatedContact__r.Name];
+        return results;
     }
 
     @AuraEnabled
     public static List<FinServ__ContactContactRelation__c> getAllLinkedConsultants(String agentContactId) {
-                List<FinServ__ContactContactRelation__c> ccrList = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :agentContactId ORDER BY FinServ__RelatedContact__r.Name];
-        return ccrList;
+        List<FinServ__ContactContactRelation__c> results = new List<FinServ__ContactContactRelation__c>();
+                results = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :agentContactId ORDER BY FinServ__RelatedContact__r.Name];
+        return results;
     }
 
     public class LwcResult {
