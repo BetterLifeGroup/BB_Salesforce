@@ -29,8 +29,8 @@
     <decisions>
         <name>Is_there_something_to_Deselect_0</name>
         <label>Is there something to Deselect?</label>
-        <locationX>768</locationX>
-        <locationY>1291</locationY>
+        <locationX>963</locationX>
+        <locationY>1281</locationY>
         <defaultConnectorLabel>Nothing</defaultConnectorLabel>
         <rules>
             <name>Yes_Deselect_Co_App</name>
@@ -98,8 +98,8 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
     <recordLookups>
         <name>Get_Co_Applicant_Trigger_True</name>
         <label>Get Co Applicant Trigger True</label>
-        <locationX>606</locationX>
-        <locationY>1110</locationY>
+        <locationX>971</locationX>
+        <locationY>1102</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_there_something_to_Deselect_0</targetReference>
@@ -168,8 +168,8 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
     <recordUpdates>
         <name>Deselect_Co_Applicant_trigger_to_false</name>
         <label>Deselect Co Applicant trigger to false</label>
-        <locationX>778</locationX>
-        <locationY>1498</locationY>
+        <locationX>972</locationX>
+        <locationY>1481</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -192,7 +192,7 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
         <locationX>776</locationX>
         <locationY>1103</locationY>
         <connector>
-            <targetReference>Is_there_something_to_Deselect_0</targetReference>
+            <targetReference>Get_Co_Applicant_Trigger_True</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -228,7 +228,7 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
     </recordUpdates>
     <start>
         <locationX>650</locationX>
-        <locationY>48</locationY>
+        <locationY>47</locationY>
         <connector>
             <targetReference>Opp_trigger_Selected</targetReference>
         </connector>

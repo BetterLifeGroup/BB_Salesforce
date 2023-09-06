@@ -16,7 +16,6 @@ public with sharing class UserManagementController {
         String searchAcc = '%' + String.escapeSingleQuotes(searchKey) + '%';
         searchAcc = searchAcc.replaceAll(' ','%');
 
-        System.debug(accountScope + ' ' + parentId + ' ' + searchAcc);
 
         switch on accountScope {
             when 'Region' {
@@ -55,12 +54,10 @@ public with sharing class UserManagementController {
         for (UserTeamMember ust : teamMembers) {
             teamMembersMap.put(ust.UserId, ust);
         }
-        System.debug(teamMembersMap);
         List<Admin> adminList = new List<Admin>();
         try {
             List<User> admins = [SELECT Id, Name FROM User WHERE Id IN (SELECT UserId FROM UserTeamMember WHERE OwnerId = :userId) ORDER BY Name];
             for (User us : admins) {
-                System.debug(us.Id);
                 Admin ad = new Admin();
                 ad.user = us;
                 ad.accessLevel = teamMembersMap.get(us.Id).OpportunityAccessLevel;
@@ -98,7 +95,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static Boolean updateUserDetails(User updatedUser) {
-        System.debug(updatedUser);
         try {
 
             Contact ct = [SELECT Id FROM Contact WHERE Consultant__c = :updatedUser.Id LIMIT 1];
@@ -134,7 +130,6 @@ public with sharing class UserManagementController {
     }
     @AuraEnabled
     public static Boolean updateUserDetailsPartTwo(User updatedUser, String digiAppLink) {
-        System.debug(updatedUser);
         try {
             updatedUser.DigiApp_Link__c = digiAppLink;
             update updatedUser;
@@ -149,8 +144,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static User insertUser(User newUser, String subBranch, String digiAppLink) {
-        System.debug(newUser);
-        System.debug(digiAppLink);
         try {
             newUser.Username = newUser.Email;
             newUser.TimeZoneSidKey = 'Africa/Johannesburg';
@@ -172,7 +165,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static String insertUserPartTwo(User newUser, String subBranch, String commissionEntityId, List<String> assignedSkills) {
-        System.debug(newUser);
         try {
 
             Contact ct = new Contact();
@@ -252,7 +244,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static Boolean assignPermissionAssignment(String userId) {
-        System.debug(userId);
 
         try {
             PermissionSetAssignment perAssign = new PermissionSetAssignment();
@@ -1006,14 +997,16 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static List<FinServ__ContactContactRelation__c> getAllLinkedAgents(String consultantUserId) {
-                List<FinServ__ContactContactRelation__c> ccrList = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :[SELECT Id from Contact where Consultant__c = :consultantUserId limit 1].Id ORDER BY FinServ__RelatedContact__r.Name];
-        return ccrList;
+        List<FinServ__ContactContactRelation__c> results = new List<FinServ__ContactContactRelation__c>();
+                results = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :[SELECT Id from Contact where Consultant__c = :consultantUserId limit 1].Id ORDER BY FinServ__RelatedContact__r.Name];
+        return results;
     }
 
     @AuraEnabled
     public static List<FinServ__ContactContactRelation__c> getAllLinkedConsultants(String agentContactId) {
-                List<FinServ__ContactContactRelation__c> ccrList = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :agentContactId ORDER BY FinServ__RelatedContact__r.Name];
-        return ccrList;
+        List<FinServ__ContactContactRelation__c> results = new List<FinServ__ContactContactRelation__c>();
+                results = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :agentContactId ORDER BY FinServ__RelatedContact__r.Name];
+        return results;
     }
 
     public class LwcResult {
