@@ -5,12 +5,12 @@
         <name>Assign_Owner_Var</name>
         <label>Assign Owner Var</label>
         <locationX>1502</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>ownerTrimVar</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Get_Opportunity.OwnerId</elementReference>
+                <elementReference>Get_PA_Opportunity.OwnerId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -69,7 +69,7 @@
         <name>Is_running_user_and_Opp_Owner_match</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>1502</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <defaultConnector>
             <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0</targetReference>
         </defaultConnector>
@@ -94,7 +94,7 @@
         <name>Reopen_Convert_or_Cancel</name>
         <label>Reopen Convert or Cancel</label>
         <locationX>1832</locationX>
-        <locationY>458</locationY>
+        <locationY>566</locationY>
         <defaultConnectorLabel>Cancel</defaultConnectorLabel>
         <rules>
             <name>Convert_to_Bond</name>
@@ -131,7 +131,7 @@
         <name>Reopen_Convert_or_Cancel_0</name>
         <label>Reopen Convert or Cancel</label>
         <locationX>842</locationX>
-        <locationY>458</locationY>
+        <locationY>566</locationY>
         <defaultConnectorLabel>Cancel</defaultConnectorLabel>
         <rules>
             <name>Convert_to_Bond_0</name>
@@ -169,7 +169,7 @@
         <name>Reopen_Convert_or_Cancel_0_0</name>
         <label>Reopen Convert or Cancel</label>
         <locationX>50</locationX>
-        <locationY>458</locationY>
+        <locationY>566</locationY>
         <defaultConnectorLabel>Cancel</defaultConnectorLabel>
         <rules>
             <name>Convert_to_Bond_0_0</name>
@@ -207,7 +207,7 @@
         <name>Reopen_PA_Opp</name>
         <label>Reopen PA Opp</label>
         <locationX>1370</locationX>
-        <locationY>242</locationY>
+        <locationY>350</locationY>
         <defaultConnector>
             <targetReference>errorScr_ReopenNotAllow</targetReference>
         </defaultConnector>
@@ -216,7 +216,7 @@
             <name>Awaiting_Consent</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Opportunity.Status__c</leftValueReference>
+                <leftValueReference>Get_PA_Opportunity.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No PA consent received</stringValue>
@@ -231,7 +231,7 @@
             <name>Awaiting_Documents</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Opportunity.Status__c</leftValueReference>
+                <leftValueReference>Get_PA_Opportunity.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>No PA documents received</stringValue>
@@ -246,14 +246,14 @@
             <name>Awaiting_OTP_No_OTP</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Opportunity.Status__c</leftValueReference>
+                <leftValueReference>Get_PA_Opportunity.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>PA Issued - No OTP Received</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>Get_Opportunity.Status__c</leftValueReference>
+                <leftValueReference>Get_PA_Opportunity.Status__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>PA Issued - awaiting OTP</stringValue>
@@ -268,7 +268,7 @@
             <name>OTP_Received_and_No_Bond</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <leftValueReference>Get_PA_Opportunity.StageName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Closed Won</stringValue>
@@ -281,9 +281,7 @@
             <label>Closed Won</label>
         </rules>
     </decisions>
-    <description>DB: 18 july - compartmentalise
-
-Flow Description: Flow to Reopen a Closed Pre-Approval or Convert the Closed PA to a Bond, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
+    <description>Flow Description: Flow to Reopen a Closed Pre-Approval or Convert the Closed PA to a Bond, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <dynamicChoiceSets>
@@ -298,12 +296,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <formulas>
         <name>bondOppIdVar</name>
         <dataType>String</dataType>
-        <expression>{!Get_Opportunity.Bond_Opportunity__c}</expression>
+        <expression>{!Get_PA_Opportunity.Bond_Opportunity__c}</expression>
     </formulas>
     <formulas>
         <name>caseSubject</name>
         <dataType>String</dataType>
-        <expression>&quot;Ready for Verification - &quot;+ {!Get_Opportunity.Name}</expression>
+        <expression>&quot;Ready for Verification - &quot;+ {!Get_PA_Opportunity.Name}</expression>
     </formulas>
     <formulas>
         <name>Link_Bond</name>
@@ -350,7 +348,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <formulas>
         <name>wrapUpHeading</name>
         <dataType>String</dataType>
-        <expression>{!Get_Opportunity.Name} + &quot;: &quot; + {!outcomeSelected}</expression>
+        <expression>{!Get_PA_Opportunity.Name} + &quot;: &quot; + {!outcomeSelected}</expression>
     </formulas>
     <interviewLabel>Reopen or Convert Closed PA Subflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Reopen or Convert Closed PA Subflow</label>
@@ -377,7 +375,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Last_Available_Task</name>
         <label>Get Last Available Task</label>
         <locationX>1370</locationX>
-        <locationY>1466</locationY>
+        <locationY>1574</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Task_Call_Outcome_No_Contact_Made_0</targetReference>
@@ -387,7 +385,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <field>WhatId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_PA_Opportunity.Id</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -397,13 +395,34 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Opportunity</name>
-        <label>Get Opportunity</label>
+        <name>Get_PA_Application</name>
+        <label>Get PA Application</label>
+        <locationX>1370</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Reopen_PA_Opp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OpportunityId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_PA_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ResidentialLoanApplication</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_PA_Opportunity</name>
+        <label>Get PA Opportunity</label>
         <locationX>1370</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Reopen_PA_Opp</targetReference>
+            <targetReference>Get_PA_Application</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -421,7 +440,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Updated_Gen_Opportunity_0</name>
         <label>Get Updated Gen Opportunity</label>
         <locationX>1502</locationX>
-        <locationY>974</locationY>
+        <locationY>1082</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Bond_Wrap_Up_0_0</targetReference>
@@ -431,7 +450,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.General_Opportunity__c</elementReference>
+                <elementReference>Get_PA_Opportunity.General_Opportunity__c</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -442,16 +461,16 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Applicant_Consent</name>
         <label>Update Applicant Consent</label>
         <locationX>50</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Get_Last_Available_Task</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>SourceOpportunity__c</field>
+            <field>LoanApplicationId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_PA_Application.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -466,16 +485,16 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Applicant_Documents</name>
         <label>Update Applicant Documents</label>
         <locationX>842</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Get_Last_Available_Task</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>SourceOpportunity__c</field>
+            <field>LoanApplicationId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_PA_Application.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -487,10 +506,34 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <object>LoanApplicant</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Applicant_Verification</name>
+        <label>Update Applicant Verification</label>
+        <locationX>1898</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>Get_Last_Available_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LoanApplicationId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_PA_Application.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Awaiting Verification</stringValue>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Opp_Consent</name>
         <label>Update Opp Consent</label>
         <locationX>50</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Update_Applicant_Consent</targetReference>
         </connector>
@@ -499,7 +542,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_PA_Opportunity.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -532,7 +575,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opp_Documents</name>
         <label>Update Opp Documents</label>
         <locationX>842</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Update_Applicant_Documents</targetReference>
         </connector>
@@ -541,7 +584,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_PA_Opportunity.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -574,16 +617,16 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opp_OTP</name>
         <label>Update Opp OTP</label>
         <locationX>1898</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <connector>
-            <targetReference>Get_Last_Available_Task</targetReference>
+            <targetReference>Update_Applicant_Verification</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_PA_Opportunity.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -616,7 +659,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_No_Contact_Made_0</name>
         <label>Update Task Call Outcome - No Contact Made</label>
         <locationX>1370</locationX>
-        <locationY>1574</locationY>
+        <locationY>1682</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -644,7 +687,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>errorScr_ReopenNotAllow</name>
         <label>errorScr_ReopenNotAllow</label>
         <locationX>2690</locationX>
-        <locationY>350</locationY>
+        <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -670,7 +713,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </fields>
         <fields>
             <name>reopenBlock</name>
-            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Opportunity.Name} &lt;/strong&gt;cannot be re-opened due to the stage and status at close off:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Stage:&lt;/strong&gt; {!Get_Opportunity.StageName}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_Opportunity.Status__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please create a new General Opportunity for this customer.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_PA_Opportunity.Name} &lt;/strong&gt;cannot be re-opened due to the stage and status at close off:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Stage:&lt;/strong&gt; {!Get_PA_Opportunity.StageName}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_PA_Opportunity.Status__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please create a new General Opportunity for this customer.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Finish</nextOrFinishButtonLabel>
@@ -681,7 +724,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>reopenConsent</name>
         <label>reopenConsent</label>
         <locationX>50</locationX>
-        <locationY>350</locationY>
+        <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -710,7 +753,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </fields>
         <fields>
             <name>reopenClosedOpp_0_0</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Option 1: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_Opportunity.General_Opportunity__r.Name} &lt;/strong&gt;with the following stage and status and Convert to a Bond:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;Bond&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; PA Issued - OTP Received&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The Pre-Approval Opportunity will be auto closed.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;A new Bond Opportunity will be created.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Option 2: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage:&lt;/strong&gt; Working&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; Awaiting consent&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Would you like to reopen &lt;strong&gt;{!Get_Opportunity.Name} &lt;/strong&gt;with the following stage and status?&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Stage: &lt;/strong&gt;{!Get_Opportunity.StageName}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_Opportunity.Status__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage:&lt;/strong&gt; Working&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; Awaiting Consent&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Option 1: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_PA_Opportunity.General_Opportunity__r.Name} &lt;/strong&gt;with the following stage and status and Convert to a Bond:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;Bond&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; PA Issued - OTP Received&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The Pre-Approval Opportunity will be auto closed.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;A new Bond Opportunity will be created.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Option 2: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_PA_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage:&lt;/strong&gt; Working&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; Awaiting consent&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Would you like to reopen &lt;strong&gt;{!Get_PA_Opportunity.Name} &lt;/strong&gt;with the following stage and status?&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Stage: &lt;/strong&gt;{!Get_PA_Opportunity.StageName}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_PA_Opportunity.Status__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage:&lt;/strong&gt; Working&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; Awaiting Consent&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -745,6 +788,12 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <name>cancelConsentBtn</name>
             <extensionName>runtime_industries_lending:flowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>buttonLabel</name>
+                <value>
+                    <stringValue>Cancel</stringValue>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -757,7 +806,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>reopenDocs</name>
         <label>reopenDocs</label>
         <locationX>842</locationX>
-        <locationY>350</locationY>
+        <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -786,7 +835,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </fields>
         <fields>
             <name>reopenClosedOpp_0_0_0</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Option 1: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_Opportunity.General_Opportunity__r.Name} &lt;/strong&gt;with the following stage and status and Convert to a Bond:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;Bond&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status&lt;/strong&gt;: PA Issued - OTP Received&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The Pre-Approval Opportunity will be auto closed.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;A new Bond Opportunity will be created.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Option 2: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Working&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; Awaiting documents&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Option 1: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_PA_Opportunity.General_Opportunity__r.Name} &lt;/strong&gt;with the following stage and status and Convert to a Bond:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;Bond&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status&lt;/strong&gt;: PA Issued - OTP Received&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The Pre-Approval Opportunity will be auto closed.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;A new Bond Opportunity will be created.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Option 2: &lt;/strong&gt;Reopen &lt;strong&gt;{!Get_PA_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Working&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; Awaiting documents&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -839,7 +888,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>reopenGeneral_0</name>
         <label>reopenPAorConvertBond</label>
         <locationX>1832</locationX>
-        <locationY>350</locationY>
+        <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -868,7 +917,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </fields>
         <fields>
             <name>reopenClosedOpp_0_0_0_0_0</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Option 1:&lt;/strong&gt; Reopen &lt;strong&gt;{!Get_Opportunity.General_Opportunity__r.Name}&lt;/strong&gt; with the following stage and status and Convert to a Bond:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;New Stage:&lt;/strong&gt; Bond&lt;/li&gt;&lt;li&gt;&lt;strong&gt;New Status:&lt;/strong&gt; PA Issued - OTP Received&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The Pre-Approval Opportunity will be auto closed.&lt;/p&gt;&lt;p&gt;A new Bond Opportunity will be created.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Option 2:&lt;/strong&gt; Reopen &lt;strong&gt;{!Get_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;New Stage:&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt; Nurture&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;New Status: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;PA Issued - awaiting OTP&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Option 1:&lt;/strong&gt; Reopen &lt;strong&gt;{!Get_PA_Opportunity.General_Opportunity__r.Name}&lt;/strong&gt; with the following stage and status and Convert to a Bond:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;New Stage:&lt;/strong&gt; Bond&lt;/li&gt;&lt;li&gt;&lt;strong&gt;New Status:&lt;/strong&gt; PA Issued - OTP Received&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;The Pre-Approval Opportunity will be auto closed.&lt;/p&gt;&lt;p&gt;A new Bond Opportunity will be created.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Option 2:&lt;/strong&gt; Reopen &lt;strong&gt;{!Get_PA_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;New Stage:&lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt; Nurture&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;New Status: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;PA Issued - awaiting OTP&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -921,7 +970,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <locationX>1244</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Opportunity</targetReference>
+            <targetReference>Get_PA_Opportunity</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -929,7 +978,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Bond_Wrap_Up_0_0</name>
         <label>Bond - Wrap Up</label>
         <locationX>1502</locationX>
-        <locationY>1082</locationY>
+        <locationY>1190</locationY>
         <flowName>Wrap_Up_Opportunity_Bond_Subflow</flowName>
         <inputAssignments>
             <name>bypassBlock</name>
@@ -948,7 +997,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>1370</locationX>
-        <locationY>782</locationY>
+        <locationY>890</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opportunity_0</targetReference>
         </connector>
@@ -962,7 +1011,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <inputAssignments>
             <name>recordId</name>
             <value>
-                <elementReference>Get_Opportunity.General_Opportunity__c</elementReference>
+                <elementReference>Get_PA_Opportunity.General_Opportunity__c</elementReference>
             </value>
         </inputAssignments>
     </subflows>
@@ -970,7 +1019,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>1634</locationX>
-        <locationY>782</locationY>
+        <locationY>890</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opportunity_0</targetReference>
         </connector>
@@ -990,7 +1039,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <inputAssignments>
             <name>recordId</name>
             <value>
-                <elementReference>Get_Opportunity.General_Opportunity__c</elementReference>
+                <elementReference>Get_PA_Opportunity.General_Opportunity__c</elementReference>
             </value>
         </inputAssignments>
     </subflows>
