@@ -50,6 +50,7 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
     @track permissionSetAssigned = false;
     @track emailChanged = false;
     @track showBranch = false;
+    @track showSkillGroups = false;
     @track updateAllowedForConsultant = false;
     @track users;
     @track error;
@@ -269,6 +270,7 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
         }
         updateUserDetails({updatedUser: this.users[0]}).then(result => {
             updateUserDetailsPartTwo({updatedUser: this.users[0], digiAppLink: this.digiAppLink}).then(result => {
+                this.getUser();
                 this.showSpinner = false;
             })
         }).catch(error => {
@@ -334,12 +336,14 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
             this.showUserDetails = true;
             this.showSpinner = false;
             if (result[0].Profile.Name === 'Consultant') {
+                this.showSkillGroups = true;
                 // todo, hide button if consultant and digiapp empty
                 getAdmins({userId: this.selectedUserId}).then(result => {
                     this.admins = result;
                     this.isConsultant = true;
                 })
             } else {
+                this.showSkillGroups = false;
                 this.isConsultant = false;
             }
 
