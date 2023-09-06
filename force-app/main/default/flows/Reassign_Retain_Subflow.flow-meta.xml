@@ -23,6 +23,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -31,6 +32,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Copy_1_of_Copy_1_of_Copy_1_of_Get_Branc_subbranch</name>
@@ -55,6 +57,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -63,6 +66,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Copy_1_of_Copy_1_of_Get_Branc_subbranch</name>
@@ -87,6 +91,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -95,6 +100,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Copy_1_of_Get_Branch_SubBranch</name>
@@ -119,6 +125,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -127,6 +134,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Copy_2_of_Copy_1_of_Get_Branc_subbranch</name>
@@ -151,6 +159,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -159,6 +168,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Copy_2_of_Get_Branch_SubBranch</name>
@@ -183,6 +193,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -191,6 +202,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0_0_0</name>
@@ -216,7 +228,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Get_Branc_subbranch</name>
@@ -241,6 +255,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -249,6 +264,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Get_Branch_SubBranch</name>
@@ -273,6 +289,7 @@
                 <elementReference>regionAccountId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
         <outputParameters>
             <assignToReference>branchAccountIdFromApex</assignToReference>
             <name>branch</name>
@@ -281,6 +298,7 @@
             <assignToReference>subBranchAccountIdFromApex</assignToReference>
             <name>subBranch</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Navigate</name>
@@ -302,7 +320,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>OpportunityReassign_0</name>
@@ -339,6 +359,7 @@
                 <booleanValue>false</booleanValue>
             </value>
         </inputParameters>
+        <nameSegment>OpportunityReassign</nameSegment>
         <outputParameters>
             <assignToReference>apexErrorMessage</assignToReference>
             <name>errorMessage</name>
@@ -351,6 +372,7 @@
             <assignToReference>newOwnerID</assignToReference>
             <name>newOwnerId</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>OpportunityReassign_0_0_0</name>
@@ -387,6 +409,7 @@
                 <booleanValue>false</booleanValue>
             </value>
         </inputParameters>
+        <nameSegment>OpportunityReassign</nameSegment>
         <outputParameters>
             <assignToReference>apexErrorMessage</assignToReference>
             <name>errorMessage</name>
@@ -395,6 +418,7 @@
             <assignToReference>newOwnerID</assignToReference>
             <name>newOwnerId</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>OpportunityReassign_0_0_0_0</name>
@@ -431,6 +455,7 @@
                 <booleanValue>true</booleanValue>
             </value>
         </inputParameters>
+        <nameSegment>OpportunityReassign</nameSegment>
         <outputParameters>
             <assignToReference>apexErrorMessage</assignToReference>
             <name>errorMessage</name>
@@ -439,6 +464,7 @@
             <assignToReference>newOwnerID</assignToReference>
             <name>newOwnerId</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>OpportunityReassign_0_0_0_0_0</name>
@@ -475,6 +501,7 @@
                 <booleanValue>true</booleanValue>
             </value>
         </inputParameters>
+        <nameSegment>OpportunityReassign</nameSegment>
         <outputParameters>
             <assignToReference>apexErrorMessage</assignToReference>
             <name>errorMessage</name>
@@ -483,6 +510,7 @@
             <assignToReference>newOwnerID</assignToReference>
             <name>newOwnerId</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Post_Scenario_Var_to_Chatter</name>
@@ -507,7 +535,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Send_Custom_Notification</name>
@@ -550,6 +580,8 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>customNotificationAction</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <assignments>
@@ -1916,7 +1948,7 @@
             <label>No</label>
         </rules>
     </decisions>
-    <description>DB: 16 aug
+    <description>FF: 05Sep
 
 Flow Description: This flow is launched as a subflow from Wrap Up Opportunity Bond Subflow to handle business logic regarding retaining and reassigning of Bond opportunities.
 
@@ -4278,12 +4310,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>Get_Updated_Application.Loan_Amount__c</elementReference>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <field>OTP_Expiry_Date__c</field>
-            <value>
-                <elementReference>Get_Updated_Application.OTP_Expiry_Date__c</elementReference>
-            </value>
-        </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
@@ -4306,12 +4332,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>Loan_Amount__c</field>
             <value>
                 <elementReference>Get_Updated_Application_Region.Loan_Amount__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OTP_Expiry_Date__c</field>
-            <value>
-                <elementReference>Get_Updated_Application_Region.OTP_Expiry_Date__c</elementReference>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -5113,7 +5133,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         </fields>
         <fields>
             <name>directReassignWG_0</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;{!Get_Bond_Opportunity.Name} &lt;/strong&gt;has been reassigned to the following owner: &lt;strong&gt;{!Get_Round_Robin_Consultant_Contact_Region.FirstName}{!Get_Round_Robin_Consultant_Contact_Region.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;{!Get_Bond_Opportunity.Name} &lt;/strong&gt;has been reassigned to the following owner: &lt;strong&gt;{!Get_Round_Robin_Consultant_Contact_Region.FirstName} {!Get_Round_Robin_Consultant_Contact_Region.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -5583,7 +5603,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <targetReference>Get_Bond_Opportunity</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>MC_Email_Template</name>
         <label>MC Email Template</label>

@@ -32,10 +32,12 @@
                 <elementReference>nowFormula</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>DateTimeUtility</nameSegment>
         <outputParameters>
             <assignToReference>assignmentDate</assignToReference>
             <name>result</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <assignments>
