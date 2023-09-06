@@ -792,20 +792,6 @@
                     <stringValue></stringValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.Nationality__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>loanApplicant.What_is_your_credit_status__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue></stringValue>
-                </rightValue>
-            </conditions>
             <connector>
                 <targetReference>Assign_Question_Var_True</targetReference>
             </connector>
@@ -3580,7 +3566,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid email address.&lt;/p&gt;</errorMessage>
-                        <formulaExpression>REGEX ( UPPER ( {!Email_Field} ) ,&quot;^[a-zA-Z0-9.!#$%&amp;+_=|-]+@[a-zA-Z0-9]+[.]{1}(([a-zA-Z0-9]{3}$|[a-zA-Z0-9]{6}$)|[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]{2})&quot;)</formulaExpression>
+                        <formulaExpression>REGEX({!Email_Field},{!$Label.EmailRegex})</formulaExpression>
                     </validationRule>
                 </fields>
                 <fields>
