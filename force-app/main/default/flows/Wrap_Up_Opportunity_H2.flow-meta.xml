@@ -20,7 +20,9 @@
                 <elementReference>Get_Updated_Gen_Opportunity.Bond_Opportunity__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>
@@ -280,46 +282,6 @@
             <targetReference>Get_Case_Verify</targetReference>
         </connector>
     </assignments>
-    <choices>
-        <name>Myself</name>
-        <choiceText>Myself</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Myself</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>No</name>
-        <choiceText>No</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>No</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Opportunity_Owner</name>
-        <choiceText>Opportunity Owner</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Opportunity Owner</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Override</name>
-        <choiceText>Override</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Override</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Verification_Team</name>
-        <choiceText>Verification Team</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Verification Team</stringValue>
-        </value>
-    </choices>
     <choices>
         <name>Yes_issue</name>
         <choiceText>Yes</choiceText>
@@ -1153,6 +1115,35 @@
         </defaultConnector>
         <defaultConnectorLabel>Not Bond</defaultConnectorLabel>
         <rules>
+            <name>Reopen_Bond</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Bond</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Lost</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Won</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reopen_Closed_Bond_Subflow</targetReference>
+            </connector>
+            <label>Reopen Bond</label>
+        </rules>
+        <rules>
             <name>Bond</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1634,11 +1625,6 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
         <expression>{!Get_Opportunity.Bond_Opportunity__c}</expression>
     </formulas>
     <formulas>
-        <name>caseSubject</name>
-        <dataType>String</dataType>
-        <expression>&quot;Ready for Verification - &quot;+ {!Get_Opportunity.Name}</expression>
-    </formulas>
-    <formulas>
         <name>closeOffDateDocs</name>
         <dataType>DateTime</dataType>
         <expression>{!$Flow.CurrentDateTime} + {!Get_Docs_BLG_Workflow.Close_off_Days__c}</expression>
@@ -1679,11 +1665,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>theTemplate</name>
         <dataType>String</dataType>
         <expression>&quot;PA Issued - Awaiting OTP (Attach Certificate)&quot;</expression>
-    </formulas>
-    <formulas>
-        <name>userProfileVar</name>
-        <dataType>String</dataType>
-        <expression>{!$Profile.Name}</expression>
     </formulas>
     <formulas>
         <name>wrapUpHeading</name>
@@ -5118,6 +5099,19 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>Reopen_Closed_Bond_Subflow</name>
+        <label>Reopen Closed Bond Subflow</label>
+        <locationX>2366</locationX>
+        <locationY>626</locationY>
+        <flowName>Reopen_Closed_Bond_Subflow</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>Reopen_or_Convert_Closed_PA_Subflow</name>
         <label>Reopen or Convert Closed PA Subflow</label>
         <locationX>2242</locationX>
@@ -5194,15 +5188,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </value>
         </inputAssignments>
     </subflows>
-    <textTemplates>
-        <name>chatterPostMessage</name>
-        <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>&lt;---- Customer Email Sent ----&gt;
-Template Selection: {!theTemplate}
-Sent To: {!applicantFullName}
-Sent From: @[{!$User.Id}]
-Sent Date: {!sentTime}</text>
-    </textTemplates>
     <variables>
         <name>blankCallBack</name>
         <dataType>Boolean</dataType>
@@ -5242,30 +5227,6 @@ Sent Date: {!sentTime}</text>
         </value>
     </variables>
     <variables>
-        <name>ConsentRefused</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>convertPAToBondStatus</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>convertToBondBool</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>currentStage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -5273,38 +5234,7 @@ Sent Date: {!sentTime}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>emailBlank</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>exitToFlow</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>followUpHeading</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>forceRegenCert</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>gitVariable2</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -5351,22 +5281,8 @@ Sent Date: {!sentTime}</text>
         </value>
     </variables>
     <variables>
-        <name>newGeneralOppVar</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>opportunityVar</name>
         <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>oppTeamBlank</name>
-        <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
@@ -5384,16 +5300,6 @@ Sent Date: {!sentTime}</text>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>paExistVar</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
     </variables>
     <variables>
         <name>paIdOppVar</name>
@@ -5431,13 +5337,6 @@ Sent Date: {!sentTime}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>referenceNo2</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>SelectedApplicantId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -5457,14 +5356,6 @@ Sent Date: {!sentTime}</text>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>taskVar</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Task</objectType>
     </variables>
     <variables>
         <name>verificationAssignment</name>
