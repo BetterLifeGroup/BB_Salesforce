@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type_of_Lead__c</fullName>
+    <externalId>false</externalId>
+    <label>Type of Lead</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Type_of_Campaign__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Pre-qualify me - no signed OTP</fullName>
+                <default>false</default>
+                <label>Pre-qualify me - no signed OTP</label>
+            </value>
+            <value>
+                <fullName>Pre-qualify me - signed OTP</fullName>
+                <default>false</default>
+                <label>Pre-qualify me - signed OTP</label>
+            </value>
+            <value>
+                <fullName>I need a bond - no signed OTP</fullName>
+                <default>false</default>
+                <label>I need a bond - no signed OTP</label>
+            </value>
+            <value>
+                <fullName>I need a bond - signed OTP</fullName>
+                <default>false</default>
+                <label>I need a bond - signed OTP</label>
+            </value>
+            <value>
+                <fullName>General Enquiry</fullName>
+                <default>false</default>
+                <label>General Enquiry</label>
+            </value>
+            <value>
+                <fullName>FHB</fullName>
+                <default>false</default>
+                <label>FHB</label>
+            </value>
+            <value>
+                <fullName>Manual</fullName>
+                <default>false</default>
+                <label>Manual</label>
+            </value>
+            <value>
+                <fullName>Pre-approval</fullName>
+                <default>false</default>
+                <label>Pre-approval</label>
+            </value>
+            <value>
+                <fullName>Bond</fullName>
+                <default>false</default>
+                <label>Bond</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+            <value>
+                <fullName>General Opportunity</fullName>
+                <default>false</default>
+                <label>General Opportunity</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Smart Service</controllingFieldValue>
+            <valueName>FHB</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Smart Service</controllingFieldValue>
+            <controllingFieldValue>Create lead/manual</controllingFieldValue>
+            <controllingFieldValue>Website/URL</controllingFieldValue>
+            <valueName>Pre-approval</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Smart Service</controllingFieldValue>
+            <controllingFieldValue>Website/URL</controllingFieldValue>
+            <valueName>Bond</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <valueName>Pre-qualify me - no signed OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <valueName>Pre-qualify me - signed OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <valueName>I need a bond - no signed OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <valueName>I need a bond - signed OTP</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <valueName>General Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <controllingFieldValue>Website/URL</controllingFieldValue>
+            <valueName>General Opportunity</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Create lead/manual</controllingFieldValue>
+            <valueName>Manual</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Create lead/manual</controllingFieldValue>
+            <controllingFieldValue>Auto create</controllingFieldValue>
+            <controllingFieldValue>N/A</controllingFieldValue>
+            <valueName>N/A</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
