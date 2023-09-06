@@ -244,7 +244,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static Boolean assignPermissionAssignment(String userId) {
-        System.debug(userId);
 
         try {
             PermissionSetAssignment perAssign = new PermissionSetAssignment();
