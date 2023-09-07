@@ -71,6 +71,7 @@ Scheduled_Opportunity_Assign_Sat.flow
 Opportunity_Assign_Owner.flow
 Case_Auto_Assign.flow
 Create_Opp_Team_Tasks.flow
+Manual_Opportunity_Creation_Bond_Subflow.flow
 Case_Assign_Owner_Sub_flow.flow
 Update_Related_Tasks.flow
 Create_General_Opportunity_Workflow.flow
