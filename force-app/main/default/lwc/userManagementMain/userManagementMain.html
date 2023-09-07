@@ -21,13 +21,21 @@
                                      style='padding-top: 12px;font-size: large;font-weight: 300;padding-bottom: 8px'>
                                     Manage an existing user
                                 </div>
-                                <div style='display: flex;flex-direction: row'>
+                                <div style='display: flex;flex-direction: column-reverse'>
                                     <div style='width: 100%'>
                                         <c-user-management-record-search
                                                 user-scope={constantTrue}
                                                 onrecordselected={onDataBubbles}
                                                 onselectioncleared={handleSelectionCleared}
+                                                include-inactive-users={includeInactiveUsers}
                                         ></c-user-management-record-search>
+                                    </div>
+                                    <div>
+                                        <lightning-input
+                                                type='checkbox'
+                                                label='Include inactive users'
+                                                onchange={handleInactiveUserChange}
+                                        ></lightning-input>
                                     </div>
                                     <div style='width: 10%'></div>
                                     <div style='width: 45%;display: flex;align-items: center;justify-content: end;padding-right: 38px;padding-top: 12px;'>
@@ -62,6 +70,12 @@
                                         </template>
                                     </div>
                                 </div>
+                                <template if:true={isInactiveUser}>
+                                    <lightning-button
+                                            label='Reactivate User'
+                                            onclick={handleReactiveUserClick}
+                                    ></lightning-button>
+                                </template>
                                 <template if:true={showUserDetails}>
                                     <div style='gap: 3px; border-bottom: 1px #d0d0d0 solid;padding-bottom: 9px'
                                          for:each={users} for:item='user' key={user.Id}>
