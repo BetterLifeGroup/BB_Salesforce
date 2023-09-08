@@ -4,7 +4,7 @@
         <name>Post_Chatter_to_Opportunity</name>
         <label>Post Chatter to Opportunity</label>
         <locationX>1300</locationX>
-        <locationY>2396</locationY>
+        <locationY>2587</locationY>
         <actionName>chatterPost</actionName>
         <actionType>chatterPost</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -672,13 +672,37 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Update_Loan_Applicant_Template_Selection</name>
+        <label>Update Loan Applicant Template Selection</label>
+        <locationX>1300</locationX>
+        <locationY>2420</locationY>
+        <connector>
+            <targetReference>Post_Chatter_to_Opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LoanApplicationId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Loan_Application.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>MC_Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
+    <recordUpdates>
         <description>Updates the &apos;emailSendTrigger&apos; checkbox, which launches journey in MC to send selected email</description>
         <name>Update_MC_Trigger_on_Opp</name>
         <label>Update MC Trigger on Opp</label>
         <locationX>1300</locationX>
         <locationY>2253</locationY>
         <connector>
-            <targetReference>Post_Chatter_to_Opportunity</targetReference>
+            <targetReference>Update_Loan_Applicant_Template_Selection</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
