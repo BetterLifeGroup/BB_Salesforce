@@ -53,7 +53,7 @@ public with sharing class LwcLookupControllerTest {
         Assert.isNotNull(lwcLookupController.getAgents('test69', 'Account', null, 'Name', [SELECT Id FROM User WHERE Username = 'ser@testorg4.com'].Id));
         Assert.isNotNull(lwcLookupController.getCampaigns('test69', 'Account', '', 'Name', [SELECT Id FROM Contact WHERE FirstName = 'test69'].Id));
         Assert.isNotNull(lwcLookupController.getCustomers('test69', 'Account', '', 'null', null));
-        Assert.isNotNull(lwcLookupController.getUsers(''));
+        Assert.isNotNull(lwcLookupController.getUsers('',true));
         Assert.isNotNull(lwcLookupController.getAccountsForUserManagement('Region','',''));
         Assert.isNotNull(lwcLookupController.getAccountsForUserManagement('Real Estate Network','',''));
         Assert.isNotNull(lwcLookupController.getAccountsForUserManagement('Network','',''));
