@@ -1457,6 +1457,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </value>
         </filters>
         <inputAssignments>
+            <field>MC_Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>emailSendTrigger_Applicant__c</field>
             <value>
                 <booleanValue>true</booleanValue>
@@ -1469,7 +1475,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Update_MC_Trigger_on_Applicant_Main</name>
         <label>Update MC Trigger on Applicant Main</label>
         <locationX>974</locationX>
-        <locationY>3234</locationY>
+        <locationY>3235</locationY>
         <connector>
             <targetReference>Update_Main_Applicant_MC_Doc_Request</targetReference>
         </connector>
@@ -1488,6 +1494,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <booleanValue>true</booleanValue>
             </value>
         </filters>
+        <inputAssignments>
+            <field>MC_Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>emailSendTrigger_Applicant__c</field>
             <value>
@@ -1513,6 +1525,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>Get_Loan_Application.Id</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>MC_Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>emailSendTrigger_Applicant__c</field>
             <value>
@@ -1586,7 +1604,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Update_Template_Selection_for_MC</name>
         <label>Update Template Selection for MC</label>
         <locationX>1372</locationX>
-        <locationY>2607</locationY>
+        <locationY>2608</locationY>
         <connector>
             <targetReference>Documentation_Requests</targetReference>
         </connector>
