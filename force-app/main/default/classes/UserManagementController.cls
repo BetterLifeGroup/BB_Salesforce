@@ -7,7 +7,18 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static List<User> getUserDetails(String userId) {
-        return [SELECT Id, Name, FirstName, LastName, Profile.Name, UserRole.Name, Email, MobilePhone FROM User WHERE Id = :userId LIMIT 1];
+        List<User> userDetails = [SELECT Id, Name, FirstName, LastName, Profile.Name, UserRole.Name, Email, IsActive, MobilePhone FROM User WHERE Id = :userId LIMIT 1];
+        try {
+            Contact userContact = [SELECT Id FROM Contact WHERE Consultant__c = :userId AND RecordType.Name = 'Betterbond Contact' LIMIT 1];
+        } catch (Exception e) {
+            insert new Contact(Consultant__c = userId,
+                    FirstName = userDetails[0].FirstName,
+                    LastName = userDetails[0].LastName,
+                    Email = userDetails[0].Email,
+                    MobilePhone = userDetails[0].MobilePhone,
+                    RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Betterbond Contact' AND SobjectType = 'Contact' LIMIT 1].Id);
+        }
+        return userDetails;
     }
 
     @AuraEnabled
@@ -614,13 +625,22 @@ public with sharing class UserManagementController {
                 delete oldAcrs;
             }
 
-            Contact userContact = [SELECT Id FROM Contact WHERE Consultant__c = :userId LIMIT 1];
+            Contact userContact = [SELECT Id,AccountId FROM Contact WHERE Consultant__c = :userId LIMIT 1];
 
+            AccountContactRelation subBranchAcr = new AccountContactRelation();
             Account subBranch = [SELECT Id, ParentId, Parent.ParentId FROM Account WHERE Id = :subBranchId LIMIT 1];
+
+            if(userContact.AccountId == null){
+                userContact.AccountId = subBranchId;
+                update userContact;
+            } else {
+                subBranchAcr = new AccountContactRelation(ContactId = userContact.Id, AccountId = subBranch.Id);
+            }
+
 
             List<AccountContactRelation> newAcrs = new List<AccountContactRelation>();
 
-            AccountContactRelation subBranchAcr = new AccountContactRelation(ContactId = userContact.Id, AccountId = subBranch.Id);
+
             AccountContactRelation branchAcr = new AccountContactRelation(ContactId = userContact.Id, AccountId = subBranch.ParentId);
             AccountContactRelation regionAcr = new AccountContactRelation(ContactId = userContact.Id, AccountId = subBranch.Parent.ParentId, commissionEntityId__c = commissionEntityId);
             newAcrs.add(subBranchAcr);

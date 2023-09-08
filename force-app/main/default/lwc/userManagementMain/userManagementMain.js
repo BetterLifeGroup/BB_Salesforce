@@ -296,30 +296,51 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
         this.digiAppLink = '';
         this.permissionSetAssigned = false;
         getUserDetails({userId: this.selectedUserId}).then(result => {
-            getUserAssignedSubBranches({userId: this.selectedUserId}).then(result => {
-                this.assignedSubBranches = result
-                console.log('assignedbranches', this.assignedSubBranches)
-                this.assignedSubBranches.map(asb => asb.commissionIdAvailable = true);
-                if (result.length < 1) {
-                    addAdditionalSubBranch = true;
-                } else {
-                    this.assignedSubBranches.map(re => {
-                        re.deleteRelationshipDisabled = false , re.addRelationshipDisabled = true , re.subBranchName = this.subBranches.find(sb => sb.id === re.subBranchId).label
-                    });
-                    this.assignedSubBranches[0].deleteRelationshipDisabled = true;
-                    this.assignedSubBranches[this.assignedSubBranches.length - 1].addRelationshipDisabled = false;
-                }
+            if (!result[0].IsActive) {
+                this.isInactiveUser = true;
+            } else {
+                this.isInactiveUser = false;
+                getUserAssignedSubBranches({userId: this.selectedUserId}).then(result => {
+                    this.assignedSubBranches = result
+                    this.assignedSubBranches.map(asb => asb.commissionIdAvailable = true);
+                    if (result.length < 1) {
+                        addAdditionalSubBranch = true;
+                    } else {
+                        this.assignedSubBranches.map(re => {
+                            re.deleteRelationshipDisabled = false , re.addRelationshipDisabled = true , re.subBranchName = this.subBranches.find(sb => sb.id === re.subBranchId).label
+                        });
+                        this.assignedSubBranches[0].deleteRelationshipDisabled = true;
+                        this.assignedSubBranches[this.assignedSubBranches.length - 1].addRelationshipDisabled = false;
+                    }
 
 
-                if (addAdditionalSubBranch === true) {
-                    this.assignedSubBranches.push({
-                        'branchName': '',
-                        'addRelationshipDisabled': true,
-                        'deleteRelationshipDisabled': false,
-                        'subBranchId': '',
-                        'regionName': '',
-                        'subBranchName': '',
-                        'commissionIdAvailable': !this.isConsultant
+                    if (addAdditionalSubBranch === true) {
+                        this.assignedSubBranches.push({
+                            'branchName': '',
+                            'addRelationshipDisabled': true,
+                            'deleteRelationshipDisabled': false,
+                            'subBranchId': '',
+                            'regionName': '',
+                            'subBranchName': '',
+                            'commissionIdAvailable': !this.isConsultant
+                        })
+                        this.showBranch = true;
+                        this.showSpinner = false;
+                    } else {
+                        this.showBranch = true;
+                        this.showSpinner = false;
+                    }
+                }).catch(error => {
+                })
+                this.modifiedUserId = result[0].Id.substring(0, 15);
+                this.users = result;
+                this.showUserDetails = true;
+                this.showSpinner = false;
+                if (result[0].Profile.Name === 'Consultant') {
+                    this.showSkillGroups = true;
+                    getAdmins({userId: this.selectedUserId}).then(result => {
+                        this.admins = result;
+                        this.isConsultant = true;
                     })
                     this.showBranch = true;
                     this.showSpinner = false;
