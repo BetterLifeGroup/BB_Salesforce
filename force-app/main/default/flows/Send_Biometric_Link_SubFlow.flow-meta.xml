@@ -20,7 +20,9 @@
                 <elementReference>recordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>58.0</apiVersion>
     <assignments>
@@ -399,6 +401,12 @@
             </value>
         </filters>
         <inputAssignments>
+            <field>MC_Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>emailSendTrigger_Applicant__c</field>
             <value>
                 <booleanValue>true</booleanValue>
@@ -429,6 +437,12 @@
                 <elementReference>Get_Loan_Application.Id</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>MC_Template_Selection__c</field>
+            <value>
+                <elementReference>theselectedTemplate</elementReference>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>emailSendTrigger_Applicant__c</field>
             <value>
@@ -736,7 +750,7 @@
             <targetReference>Get_Opportunity_Record</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>chatterPostMessage</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
