@@ -9,9 +9,6 @@
         <assignmentItems>
             <assignToReference>Get_User_Contact.AccountId</assignToReference>
             <operator>Assign</operator>
-            <value>
-                <stringValue></stringValue>
-            </value>
         </assignmentItems>
         <connector>
             <targetReference>Update_Contact</targetReference>
