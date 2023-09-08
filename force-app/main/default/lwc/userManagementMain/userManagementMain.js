@@ -25,6 +25,7 @@ import getPicklistValues from '@salesforce/apex/UserManagementController.getPick
 import getAllLinkedAgents from '@salesforce/apex/UserManagementController.getAllLinkedAgents'
 import deleteCCRById from '@salesforce/apex/UserManagementController.deleteCCRById'
 import createCCRByConsultant from '@salesforce/apex/UserManagementController.createCCRByConsultant'
+import reactivateUser from '@salesforce/apex/UserManagementController.reactivateUser'
 import {NavigationMixin} from "lightning/navigation";
 import {ShowToastEvent} from "lightning/platformShowToastEvent";
 import emailRegex from '@salesforce/label/c.EmailRegex';
@@ -50,7 +51,10 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
     @track permissionSetAssigned = false;
     @track emailChanged = false;
     @track showBranch = false;
+    @track includeInactiveUsers = false;
+    @track showSkillGroups = false;
     @track updateAllowedForConsultant = false;
+    @track isInactiveUser = false;
     @track users;
     @track error;
     @track admins;
@@ -69,6 +73,9 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
         this.getUser();
     }
 
+    handleInactiveUserChange(event) {
+        this.includeInactiveUsers = event.target.checked;
+    }
 
 
     handleSelectionCleared() {
@@ -133,8 +140,6 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
     }
 
     connectedCallback() {
-        console.log('main con fired')
-        console.log('regex',this.regex)
         getOrgBaseUrl({}).then(result => {
             this.baseUrl = result;
         })
@@ -179,9 +184,6 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
 
     handleAdditionalSubBranch(payload) {
 
-        console.log('payload.id', payload.id)
-        console.log('payload.additionalVariable', payload.additionalVariable)
-        console.log('This.selectedUserId', this.selectedUserId)
         let isNew;
         this.showSpinner = true;
         isNew = payload.additionalVariable === '';
@@ -269,6 +271,7 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
         }
         updateUserDetails({updatedUser: this.users[0]}).then(result => {
             updateUserDetailsPartTwo({updatedUser: this.users[0], digiAppLink: this.digiAppLink}).then(result => {
+                this.getUser();
                 this.showSpinner = false;
             })
         }).catch(error => {
@@ -283,6 +286,29 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
         this.digiAppLink = event.target.value;
         this.userDetailsChanged = true;
         this.canUpdate();
+    }
+
+    handleReactiveUserClick() {
+        this.isInactiveUser = false;
+        this.showSpinner = true;
+        reactivateUser({userId: this.selectedUserId}).then(result => {
+            if (result === 'true') {
+                this.getUser();
+                this.showSpinner = false;
+            } else {
+                this.isInactiveUser = true;
+                this.showSpinner = false;
+                console.log(result)
+                this.showSpinner = false;
+                this.showToast('Unable to reactivate', result, 'error');
+
+            }
+        }).catch(error => {
+            console.log(error)
+            this.showSpinner = false;
+            this.showToast('Unable to reactivate', error.message, 'error');
+        })
+
     }
 
 
@@ -342,28 +368,11 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
                         this.admins = result;
                         this.isConsultant = true;
                     })
-                    this.showBranch = true;
-                    this.showSpinner = false;
                 } else {
-                    this.showBranch = true;
-                    this.showSpinner = false;
+                    this.showSkillGroups = false;
+                    this.isConsultant = false;
                 }
-            }).catch(error => {
-            })
-            this.modifiedUserId = result[0].Id.substring(0, 15);
-            this.users = result;
-            this.showUserDetails = true;
-            this.showSpinner = false;
-            if (result[0].Profile.Name === 'Consultant') {
-                // todo, hide button if consultant and digiapp empty
-                getAdmins({userId: this.selectedUserId}).then(result => {
-                    this.admins = result;
-                    this.isConsultant = true;
-                })
-            } else {
-                this.isConsultant = false;
             }
-
         }).catch(error => {
             console.log('error', error)
         })

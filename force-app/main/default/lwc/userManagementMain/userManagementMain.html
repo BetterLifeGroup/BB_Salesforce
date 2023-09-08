@@ -34,9 +34,9 @@
                                                 user-scope={constantTrue}
                                                 onrecordselected={onDataBubbles}
                                                 onselectioncleared={handleSelectionCleared}
+                                                include-inactive-users={includeInactiveUsers}
                                         ></c-user-management-record-search>
                                     </div>
-
                                     <div style='width: 10%'></div>
                                     <div style='width: 45%;display: flex;align-items: center;justify-content: end;padding-right: 38px;padding-top: 12px;'>
                                         <template if:true={showUserDetails}>
@@ -70,6 +70,12 @@
                                         </template>
                                     </div>
                                 </div>
+                                <template if:true={isInactiveUser}>
+                                    <lightning-button
+                                            label='Reactivate User'
+                                            onclick={handleReactiveUserClick}
+                                    ></lightning-button>
+                                </template>
                                 <template if:true={showUserDetails}>
                                     <div style='gap: 3px; border-bottom: 1px #d0d0d0 solid;padding-bottom: 9px'
                                          for:each={users} for:item='user' key={user.Id}>
@@ -277,17 +283,19 @@
                                                             </div>
                                                         </div>
                                                         <div style='width: 10%'></div>
-                                                        <div style='width: 55%'>
-                                                            <lightning-dual-listbox
-                                                                    label='Skill Groups'
-                                                                    options={multiSelectOptions}
-                                                                    selected-label='Assigned'
-                                                                    source-label='Available'
-                                                                    value={assignedSubBranch.skills}
-                                                                    onchange={handleSkillsChange}
-                                                                    data-id={assignedSubBranch.subBranchId}
-                                                            ></lightning-dual-listbox>
-                                                        </div>
+                                                        <template if:true={showSkillGroups}>
+                                                            <div style='width: 55%'>
+                                                                <lightning-dual-listbox
+                                                                        label='Skill Groups'
+                                                                        options={multiSelectOptions}
+                                                                        selected-label='Assigned'
+                                                                        source-label='Available'
+                                                                        value={assignedSubBranch.skills}
+                                                                        onchange={handleSkillsChange}
+                                                                        data-id={assignedSubBranch.subBranchId}
+                                                                ></lightning-dual-listbox>
+                                                            </div>
+                                                        </template>
                                                     </div>
                                                 </div>
                                             </div>

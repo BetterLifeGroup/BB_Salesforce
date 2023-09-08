@@ -44,6 +44,7 @@ export default class UserManagementAddUser extends NavigationMixin(LightningElem
     @track showBranch = false;
     @track showSaveButton = false;
     @track dataHasLoaded = false;
+    @track showSkillGroups = false;
     @track users = [];
     @track error;
     @track admins;
@@ -291,6 +292,10 @@ export default class UserManagementAddUser extends NavigationMixin(LightningElem
         this.displayError = false;
         this.users[0].ProfileId = event.target.value;
         this.forceCommissionEntityId = this.profiles.find(pr => pr.value === event.target.value).label === 'Consultant';
+        this.showSkillGroups = this.profiles.find(pr => pr.value === event.target.value).label === 'Consultant';
+        if(!this.showSkillGroups){
+            this.selectedSkills = '';
+        }
         this.showOrHideSaveButton();
     }
 
