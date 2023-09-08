@@ -1169,6 +1169,11 @@
             <field>Template_Selection__c</field>
             <table>ResidentialLoanApplication.LoanApplicants</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MC_Template_Selection__c</field>
+            <table>ResidentialLoanApplication.LoanApplicants</table>
+        </columns>
         <masterLabel>Applicants</masterLabel>
     </sections>
     <sections>
