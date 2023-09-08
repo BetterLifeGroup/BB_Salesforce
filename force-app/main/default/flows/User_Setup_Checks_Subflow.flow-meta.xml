@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
+    <assignments>
+        <name>User_Passed</name>
+        <label>User Passed?</label>
+        <locationX>1062</locationX>
+        <locationY>2006</locationY>
+        <assignmentItems>
+            <assignToReference>passed</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+    </assignments>
     <decisions>
         <name>Check_Profile</name>
         <label>Check Profile</label>
-        <locationX>1386</locationX>
+        <locationX>1260</locationX>
         <locationY>890</locationY>
         <defaultConnector>
             <targetReference>invalidProfileScr</targetReference>
@@ -57,8 +70,11 @@
     <decisions>
         <name>Check_Profile_Contact</name>
         <label>Check Profile Contact</label>
-        <locationX>1139</locationX>
+        <locationX>1062</locationX>
         <locationY>998</locationY>
+        <defaultConnector>
+            <targetReference>User_Passed</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Pass</defaultConnectorLabel>
         <rules>
             <name>Do_Contact_Checks</name>
@@ -100,7 +116,7 @@
     <decisions>
         <name>Does_Contact_with_Account_Exist</name>
         <label>Does Contact with Account Exist?</label>
-        <locationX>908</locationX>
+        <locationX>842</locationX>
         <locationY>1322</locationY>
         <defaultConnector>
             <targetReference>invalidProfileScr_0</targetReference>
@@ -125,7 +141,7 @@
     <decisions>
         <name>Is_Account_a_Sub_Branch</name>
         <label>Is Account a Sub-Branch?</label>
-        <locationX>710</locationX>
+        <locationX>666</locationX>
         <locationY>1430</locationY>
         <defaultConnector>
             <targetReference>invalidAccountID</targetReference>
@@ -141,13 +157,16 @@
                     <stringValue>Sub-Branch</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>User_Passed</targetReference>
+            </connector>
             <label>Yes</label>
         </rules>
     </decisions>
     <decisions>
         <name>Linked_to_Role_and_Profile</name>
         <label>Linked to Role and Profile?</label>
-        <locationX>450</locationX>
+        <locationX>418</locationX>
         <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Get_Mortgage_Permission_Set</targetReference>
@@ -179,7 +198,7 @@
     <decisions>
         <name>Permission_Sets_Linked</name>
         <label>Permission Sets Linked?</label>
-        <locationX>850</locationX>
+        <locationX>787</locationX>
         <locationY>782</locationY>
         <defaultConnector>
             <targetReference>Check_Profile</targetReference>
@@ -208,7 +227,7 @@
             <label>Permission Sets Missing</label>
         </rules>
     </decisions>
-    <description>DB: 23 july
+    <description>FF: 06Sep
 
 Flow Description: Subflow that checks that the running user data setup is in order to prevent unhandled flow errors due to incorrect/missing running user data setup, launched from Wrap Up Opportunity H2, Applicant Validation flow (case), Manual Opportunity Creation flow.
 
@@ -238,7 +257,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_BetterBond_Contact_Record_Type</name>
         <label>Get BetterBond Contact Record Type</label>
-        <locationX>908</locationX>
+        <locationX>842</locationX>
         <locationY>1106</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -266,7 +285,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_Contact_Linked_to_User_with_AccountId</name>
         <label>Get Contact Linked to User with AccountId</label>
-        <locationX>908</locationX>
+        <locationX>842</locationX>
         <locationY>1214</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -301,7 +320,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_Fin_Services_Permission_Assignment</name>
         <label>Get Fin Services Permission Assignment</label>
-        <locationX>850</locationX>
+        <locationX>787</locationX>
         <locationY>674</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -329,7 +348,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_Fin_Services_Permission_Set</name>
         <label>Get Fin Services Permission Set</label>
-        <locationX>850</locationX>
+        <locationX>787</locationX>
         <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -350,7 +369,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_Mortgage_Permission_Assignment</name>
         <label>Get Mortgage Permission Assignment</label>
-        <locationX>850</locationX>
+        <locationX>787</locationX>
         <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -378,7 +397,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_Mortgage_Permission_Set</name>
         <label>Get Mortgage Permission Set</label>
-        <locationX>850</locationX>
+        <locationX>787</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -399,7 +418,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <recordLookups>
         <name>Get_the_Running_User</name>
         <label>Get the Running User</label>
-        <locationX>450</locationX>
+        <locationX>418</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -421,7 +440,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <screens>
         <name>invalidAccountID</name>
         <label>invalidAccountID</label>
-        <locationX>842</locationX>
+        <locationX>754</locationX>
         <locationY>1538</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -457,7 +476,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <screens>
         <name>invalidProfileScr</name>
         <label>invalidProfileScr</label>
-        <locationX>1634</locationX>
+        <locationX>1458</locationX>
         <locationY>998</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -493,7 +512,7 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
     <screens>
         <name>invalidProfileScr_0</name>
         <label>invalidProfileScr</label>
-        <locationX>1106</locationX>
+        <locationX>1018</locationX>
         <locationY>1430</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -721,11 +740,21 @@ Front-End Access: Work Opportunity button on the Opportunity page/Create Manual 
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>324</locationX>
+        <locationX>292</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_the_Running_User</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
+    <variables>
+        <name>passed</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
 </Flow>
