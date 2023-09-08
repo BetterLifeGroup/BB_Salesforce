@@ -271,6 +271,7 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
         }
         updateUserDetails({updatedUser: this.users[0]}).then(result => {
             updateUserDetailsPartTwo({updatedUser: this.users[0], digiAppLink: this.digiAppLink}).then(result => {
+                this.getUser();
                 this.showSpinner = false;
             })
         }).catch(error => {
@@ -373,7 +374,6 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
                     this.isConsultant = false;
                 }
             }
-
         }).catch(error => {
             console.log('error', error)
         })
