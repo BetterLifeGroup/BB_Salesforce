@@ -4,7 +4,7 @@
         <name>DetailPageNavigation_Bond</name>
         <label>DetailPageNavigation</label>
         <locationX>4109</locationX>
-        <locationY>4086</locationY>
+        <locationY>4306</locationY>
         <actionName>c:DetailPageNavigation</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -20,14 +20,16 @@
                 <elementReference>Get_Updated_Gen_Opportunity.Bond_Opportunity__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>
         <name>Assign_Current_Stage_Var</name>
         <label>Assign Current Stage Var</label>
         <locationX>2607</locationX>
-        <locationY>2107</locationY>
+        <locationY>2327</locationY>
         <assignmentItems>
             <assignToReference>currentStage</assignToReference>
             <operator>Assign</operator>
@@ -50,7 +52,7 @@
         <name>Assign_Heading</name>
         <label>Assign Heading</label>
         <locationX>2607</locationX>
-        <locationY>1683</locationY>
+        <locationY>1903</locationY>
         <assignmentItems>
             <assignToReference>followUpHeading</assignToReference>
             <operator>Assign</operator>
@@ -66,7 +68,7 @@
         <name>Assign_Hide_Cancel_True</name>
         <label>Assign Hide Cancel True</label>
         <locationX>3224</locationX>
-        <locationY>5031</locationY>
+        <locationY>5251</locationY>
         <assignmentItems>
             <assignToReference>cancelHide</assignToReference>
             <operator>Assign</operator>
@@ -82,7 +84,7 @@
         <name>Assign_Opp_ID</name>
         <label>Assign Opp ID</label>
         <locationX>2228</locationX>
-        <locationY>5332</locationY>
+        <locationY>5552</locationY>
         <assignmentItems>
             <assignToReference>opportunityVar</assignToReference>
             <operator>Assign</operator>
@@ -98,7 +100,7 @@
         <name>Assign_Selected_Stage_Var</name>
         <label>Assign Selected Stage Var</label>
         <locationX>3092</locationX>
-        <locationY>4137</locationY>
+        <locationY>4357</locationY>
         <assignmentItems>
             <assignToReference>selectedStage</assignToReference>
             <operator>Assign</operator>
@@ -114,7 +116,7 @@
         <name>blankCommentFalse</name>
         <label>blankCommentFalse</label>
         <locationX>2993</locationX>
-        <locationY>3880</locationY>
+        <locationY>4100</locationY>
         <assignmentItems>
             <assignToReference>blankComment</assignToReference>
             <operator>Assign</operator>
@@ -137,7 +139,7 @@
         <name>blankCommentTrue</name>
         <label>blankCommentTrue</label>
         <locationX>2834</locationX>
-        <locationY>3812</locationY>
+        <locationY>4032</locationY>
         <assignmentItems>
             <assignToReference>blankComment</assignToReference>
             <operator>Assign</operator>
@@ -153,7 +155,7 @@
         <name>callBackDateBlank</name>
         <label>callBackDateBlank</label>
         <locationX>3076</locationX>
-        <locationY>3397</locationY>
+        <locationY>3617</locationY>
         <assignmentItems>
             <assignToReference>blankCallBack</assignToReference>
             <operator>Assign</operator>
@@ -176,7 +178,7 @@
         <name>callOutcomeBlank</name>
         <label>callOutcomeBlank</label>
         <locationX>2941</locationX>
-        <locationY>3532</locationY>
+        <locationY>3752</locationY>
         <assignmentItems>
             <assignToReference>blankOutcome</assignToReference>
             <operator>Assign</operator>
@@ -192,7 +194,7 @@
         <name>callOutcomeBlank_0</name>
         <label>callOutcomeBlank</label>
         <locationX>2730</locationX>
-        <locationY>3588</locationY>
+        <locationY>3808</locationY>
         <assignmentItems>
             <assignToReference>blankOutcome</assignToReference>
             <operator>Assign</operator>
@@ -222,7 +224,7 @@
         <name>ID_Present_Clear_out_Var</name>
         <label>ID Present Clear out Var</label>
         <locationX>3227</locationX>
-        <locationY>2576</locationY>
+        <locationY>2796</locationY>
         <assignmentItems>
             <assignToReference>mainMissingID</assignToReference>
             <operator>Assign</operator>
@@ -235,7 +237,7 @@
         <name>Outcome_Selected_Comment_Var_Assign</name>
         <label>Outcome Selected/Comment Var Assign</label>
         <locationX>3092</locationX>
-        <locationY>3988</locationY>
+        <locationY>4208</locationY>
         <assignmentItems>
             <assignToReference>outcomeSelected</assignToReference>
             <operator>Assign</operator>
@@ -258,7 +260,7 @@
         <name>Payslip_Present_Clear_out_Var</name>
         <label>Payslip Present Clear out Var</label>
         <locationX>3230</locationX>
-        <locationY>2774</locationY>
+        <locationY>2994</locationY>
         <assignmentItems>
             <assignToReference>mainMissingPayslip</assignToReference>
             <operator>Assign</operator>
@@ -271,7 +273,7 @@
         <name>Statement_Present_Clear_out_Var</name>
         <label>Statement Present Clear out Var</label>
         <locationX>3139</locationX>
-        <locationY>3017</locationY>
+        <locationY>3237</locationY>
         <assignmentItems>
             <assignToReference>mainMissingBankS</assignToReference>
             <operator>Assign</operator>
@@ -280,46 +282,6 @@
             <targetReference>Get_Case_Verify</targetReference>
         </connector>
     </assignments>
-    <choices>
-        <name>Myself</name>
-        <choiceText>Myself</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Myself</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>No</name>
-        <choiceText>No</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>No</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Opportunity_Owner</name>
-        <choiceText>Opportunity Owner</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Opportunity Owner</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Override</name>
-        <choiceText>Override</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Override</stringValue>
-        </value>
-    </choices>
-    <choices>
-        <name>Verification_Team</name>
-        <choiceText>Verification Team</choiceText>
-        <dataType>String</dataType>
-        <value>
-            <stringValue>Verification Team</stringValue>
-        </value>
-    </choices>
     <choices>
         <name>Yes_issue</name>
         <choiceText>Yes</choiceText>
@@ -332,7 +294,7 @@
         <name>Back_to_Consent_or_Close</name>
         <label>Back to Consent or Close?</label>
         <locationX>2963</locationX>
-        <locationY>1091</locationY>
+        <locationY>1311</locationY>
         <defaultConnector>
             <targetReference>Close_Opportunity_Lost_or_Won_Subflow_Rehab</targetReference>
         </defaultConnector>
@@ -357,7 +319,7 @@
         <name>Call_Outcome_Check</name>
         <label>Call Outcome Check</label>
         <locationX>3086</locationX>
-        <locationY>4800</locationY>
+        <locationY>5020</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Regenerate_PA_Cert</name>
@@ -595,7 +557,7 @@
         <name>Call_Outcomes</name>
         <label>Call Outcome?</label>
         <locationX>2723</locationX>
-        <locationY>3407</locationY>
+        <locationY>3627</locationY>
         <defaultConnector>
             <targetReference>callOutcomeBlank_0</targetReference>
         </defaultConnector>
@@ -649,7 +611,7 @@
         <name>Comment_blank</name>
         <label>Comment blank?</label>
         <locationX>2823</locationX>
-        <locationY>3648</locationY>
+        <locationY>3868</locationY>
         <defaultConnector>
             <targetReference>blankCommentFalse</targetReference>
         </defaultConnector>
@@ -681,7 +643,7 @@
         <name>Convert_or_Cancel</name>
         <label>Convert or Cancel</label>
         <locationX>1646</locationX>
-        <locationY>1096</locationY>
+        <locationY>1316</locationY>
         <defaultConnectorLabel>Cancel</defaultConnectorLabel>
         <rules>
             <name>Convert_to_Bond_Close_PA</name>
@@ -703,7 +665,7 @@
         <name>Convert_or_Wrap_Up_or_Close</name>
         <label>Convert or Wrap Up or Close?</label>
         <locationX>3084</locationX>
-        <locationY>4421</locationY>
+        <locationY>4641</locationY>
         <defaultConnector>
             <targetReference>Call_Outcome_Check</targetReference>
         </defaultConnector>
@@ -780,7 +742,7 @@
         <name>Crucial_Checks_to_Continue</name>
         <label>Crucial Checks to Continue</label>
         <locationX>3127</locationX>
-        <locationY>1963</locationY>
+        <locationY>2183</locationY>
         <defaultConnector>
             <targetReference>Assign_Current_Stage_Var</targetReference>
         </defaultConnector>
@@ -855,7 +817,7 @@
         <name>Current_Stage_Checks</name>
         <label>Current Stage Checks</label>
         <locationX>2599</locationX>
-        <locationY>1086</locationY>
+        <locationY>1306</locationY>
         <defaultConnector>
             <targetReference>Is_there_a_latest_open_task</targetReference>
         </defaultConnector>
@@ -966,7 +928,7 @@
         <name>Custom_Button_Checks</name>
         <label>Custom Button Checks</label>
         <locationX>3090</locationX>
-        <locationY>5348</locationY>
+        <locationY>5568</locationY>
         <defaultConnectorLabel>Close</defaultConnectorLabel>
         <rules>
             <name>Assign_Verification</name>
@@ -1119,10 +1081,32 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Did_User_Setup_pass</name>
+        <label>Did User Setup pass?</label>
+        <locationX>2598</locationX>
+        <locationY>374</locationY>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Passed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>passed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Opportunity</targetReference>
+            </connector>
+            <label>Yes - Passed</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>General_or_PA_Opp</name>
         <label>General or PA Opp</label>
         <locationX>2110</locationX>
-        <locationY>5017</locationY>
+        <locationY>5237</locationY>
         <defaultConnector>
             <targetReference>MC_Email_Template_Selection_Multi_select_picklist_0_0_0</targetReference>
         </defaultConnector>
@@ -1147,11 +1131,40 @@
         <name>Is_Bond_Opportunity</name>
         <label>Is Bond Opportunity?</label>
         <locationX>2598</locationX>
-        <locationY>628</locationY>
+        <locationY>848</locationY>
         <defaultConnector>
             <targetReference>Get_Open_Cases_on_Opp</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Not Bond</defaultConnectorLabel>
+        <rules>
+            <name>Reopen_Bond</name>
+            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Bond</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Lost</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Won</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Reopen_Closed_Bond_Subflow</targetReference>
+            </connector>
+            <label>Reopen Bond</label>
+        </rules>
         <rules>
             <name>Bond</name>
             <conditionLogic>and</conditionLogic>
@@ -1201,7 +1214,7 @@
         <name>Is_Cancel_Clicked</name>
         <label>Is Cancel Clicked?</label>
         <locationX>2722</locationX>
-        <locationY>3212</locationY>
+        <locationY>3432</locationY>
         <defaultConnector>
             <targetReference>Call_Outcomes</targetReference>
         </defaultConnector>
@@ -1223,7 +1236,7 @@
         <name>Is_Current_Stage_verification</name>
         <label>Is Current Stage verification?</label>
         <locationX>2599</locationX>
-        <locationY>2265</locationY>
+        <locationY>2485</locationY>
         <defaultConnector>
             <targetReference>Is_Opp_on_Awaiting_Docs_Ready_Ver</targetReference>
         </defaultConnector>
@@ -1255,7 +1268,7 @@
         <name>Is_Opp_on_Awaiting_Docs_Ready_Ver</name>
         <label>Is Opp on Awaiting Docs/Ready Ver?</label>
         <locationX>2599</locationX>
-        <locationY>2478</locationY>
+        <locationY>2698</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Verify</targetReference>
         </defaultConnector>
@@ -1287,7 +1300,7 @@
         <name>Is_running_user_and_Opp_Owner_match_0</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>1645</locationX>
-        <locationY>1292</locationY>
+        <locationY>1512</locationY>
         <defaultConnector>
             <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0_0_0_0_0</targetReference>
         </defaultConnector>
@@ -1312,7 +1325,7 @@
         <name>Is_running_user_and_Opp_Owner_match_0_0_0</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>3972</locationX>
-        <locationY>4236</locationY>
+        <locationY>4456</locationY>
         <defaultConnector>
             <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0_0</targetReference>
         </defaultConnector>
@@ -1337,7 +1350,7 @@
         <name>Is_there_a_latest_open_task</name>
         <label>Is there a latest open task</label>
         <locationX>2600</locationX>
-        <locationY>1323</locationY>
+        <locationY>1543</locationY>
         <defaultConnector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0</targetReference>
         </defaultConnector>
@@ -1362,7 +1375,7 @@
         <name>Is_there_a_Open_Case</name>
         <label>Is there a Open Case</label>
         <locationX>2600</locationX>
-        <locationY>963</locationY>
+        <locationY>1183</locationY>
         <defaultConnector>
             <targetReference>Current_Stage_Checks</targetReference>
         </defaultConnector>
@@ -1387,7 +1400,7 @@
         <name>Is_there_a_Open_Case_0</name>
         <label>Is there a Open Case</label>
         <locationX>2093</locationX>
-        <locationY>1095</locationY>
+        <locationY>1315</locationY>
         <defaultConnector>
             <targetReference>Get_PA_Linked_Gen</targetReference>
         </defaultConnector>
@@ -1412,7 +1425,7 @@
         <name>Main_Missing_ID</name>
         <label>Main Missing ID</label>
         <locationX>3002</locationX>
-        <locationY>2476</locationY>
+        <locationY>2696</locationY>
         <defaultConnector>
             <targetReference>Main_Payslip_Missing</targetReference>
         </defaultConnector>
@@ -1437,7 +1450,7 @@
         <name>Main_Payslip_Missing</name>
         <label>Main Payslip Missing</label>
         <locationX>3007</locationX>
-        <locationY>2693</locationY>
+        <locationY>2913</locationY>
         <defaultConnector>
             <targetReference>Main_Statement_Missing</targetReference>
         </defaultConnector>
@@ -1462,7 +1475,7 @@
         <name>Main_Statement_Missing</name>
         <label>Main Statement Missing</label>
         <locationX>3006</locationX>
-        <locationY>2886</locationY>
+        <locationY>3106</locationY>
         <defaultConnector>
             <targetReference>Get_Case_Verify</targetReference>
         </defaultConnector>
@@ -1487,7 +1500,7 @@
         <name>Required_Field_Missing</name>
         <label>Required Field Missing?</label>
         <locationX>2599</locationX>
-        <locationY>3977</locationY>
+        <locationY>4197</locationY>
         <defaultConnector>
             <targetReference>Outcome_Selected_Comment_Var_Assign</targetReference>
         </defaultConnector>
@@ -1526,7 +1539,7 @@
         <name>Send_Mail_or_Schedule_Follow_Up</name>
         <label>Send Mail or Schedule Follow Up</label>
         <locationX>2476</locationX>
-        <locationY>4839</locationY>
+        <locationY>5059</locationY>
         <defaultConnector>
             <targetReference>Close_Opportunity_Lost_or_Won_Subflow</targetReference>
         </defaultConnector>
@@ -1634,11 +1647,6 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
         <expression>{!Get_Opportunity.Bond_Opportunity__c}</expression>
     </formulas>
     <formulas>
-        <name>caseSubject</name>
-        <dataType>String</dataType>
-        <expression>&quot;Ready for Verification - &quot;+ {!Get_Opportunity.Name}</expression>
-    </formulas>
-    <formulas>
         <name>closeOffDateDocs</name>
         <dataType>DateTime</dataType>
         <expression>{!$Flow.CurrentDateTime} + {!Get_Docs_BLG_Workflow.Close_off_Days__c}</expression>
@@ -1681,11 +1689,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <expression>&quot;PA Issued - Awaiting OTP (Attach Certificate)&quot;</expression>
     </formulas>
     <formulas>
-        <name>userProfileVar</name>
-        <dataType>String</dataType>
-        <expression>{!$Profile.Name}</expression>
-    </formulas>
-    <formulas>
         <name>wrapUpHeading</name>
         <dataType>String</dataType>
         <expression>{!Get_Opportunity.Name} + &quot;: &quot; + {!outcomeSelected}</expression>
@@ -1715,7 +1718,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_BLG_Workflow_Rule</name>
         <label>Get BLG Workflow Rule</label>
         <locationX>2607</locationX>
-        <locationY>1532</locationY>
+        <locationY>1752</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Heading</targetReference>
@@ -1736,7 +1739,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Case_Verify</name>
         <label>Get Case Verify</label>
         <locationX>2606</locationX>
-        <locationY>2932</locationY>
+        <locationY>3152</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Open_Cases_on_PA</targetReference>
@@ -1759,7 +1762,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Co_Applicant_Docs</name>
         <label>Get Co Applicant Docs</label>
         <locationX>2607</locationX>
-        <locationY>1954</locationY>
+        <locationY>2174</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Loan_Application_for_Checks</targetReference>
@@ -1794,7 +1797,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Docs_BLG_Workflow</name>
         <label>Get Docs BLG Workflow</label>
         <locationX>3352</locationX>
-        <locationY>4653</locationY>
+        <locationY>4873</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Opportunity_Dependancies_Docs_Move_0</targetReference>
@@ -1815,7 +1818,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_General_Opp_Linked_to_PA_Opp</name>
         <label>Get General Opp Linked to PA Opp</label>
         <locationX>2365</locationX>
-        <locationY>5332</locationY>
+        <locationY>5552</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Opp_ID</targetReference>
@@ -1836,7 +1839,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Latest_Open_Task</name>
         <label>Get Latest Open Task</label>
         <locationX>2606</locationX>
-        <locationY>471</locationY>
+        <locationY>691</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Bond_Opportunity</targetReference>
@@ -1866,7 +1869,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Loan_Application_for_Checks</name>
         <label>Get Loan Application for Checks</label>
         <locationX>2743</locationX>
-        <locationY>1954</locationY>
+        <locationY>2174</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Crucial_Checks_to_Continue</targetReference>
@@ -1887,7 +1890,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Loan_Application_WU</name>
         <label>Get Loan Application WU</label>
         <locationX>3367</locationX>
-        <locationY>5240</locationY>
+        <locationY>5460</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>ManageApplicant</targetReference>
@@ -1908,7 +1911,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Main_Applicant_Docs</name>
         <label>Get Main Applicant Docs</label>
         <locationX>2607</locationX>
-        <locationY>1809</locationY>
+        <locationY>2029</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Co_Applicant_Docs</targetReference>
@@ -1936,7 +1939,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Open_Cases_on_Opp</name>
         <label>Get Open Cases on Opp</label>
         <locationX>2606</locationX>
-        <locationY>828</locationY>
+        <locationY>1048</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_there_a_Open_Case</targetReference>
@@ -1980,7 +1983,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Open_Cases_on_Opp_for_PA</name>
         <label>Get Open Cases on Opp for PA</label>
         <locationX>2242</locationX>
-        <locationY>1093</locationY>
+        <locationY>1313</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_there_a_Open_Case_0</targetReference>
@@ -2024,7 +2027,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Open_Cases_on_PA</name>
         <label>Get Open Cases on PA</label>
         <locationX>2606</locationX>
-        <locationY>3066</locationY>
+        <locationY>3286</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>theBigMainScreen</targetReference>
@@ -2068,7 +2071,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Opportunity</name>
         <label>Get Opportunity</label>
         <locationX>2605</locationX>
-        <locationY>354</locationY>
+        <locationY>574</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Opportunity</targetReference>
@@ -2092,7 +2095,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_PA_Linked_Gen</name>
         <label>Get PA Linked Gen</label>
         <locationX>1944</locationX>
-        <locationY>1094</locationY>
+        <locationY>1314</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>uploadOTPConvertBond</targetReference>
@@ -2131,7 +2134,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Updated_Gen_Opp_0</name>
         <label>Get Updated Gen Opp</label>
         <locationX>1655</locationX>
-        <locationY>1437</locationY>
+        <locationY>1657</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Bond_Wrap_Up_0_0_0_0</targetReference>
@@ -2152,7 +2155,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Updated_Gen_Opportunity</name>
         <label>Get Updated Gen Opportunity</label>
         <locationX>3950</locationX>
-        <locationY>4086</locationY>
+        <locationY>4306</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>DetailPageNavigation_Bond</targetReference>
@@ -2173,7 +2176,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Updated_General</name>
         <label>Get Updated General</label>
         <locationX>4285</locationX>
-        <locationY>4234</locationY>
+        <locationY>4454</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Bond_Wrap_Up_0_0_0</targetReference>
@@ -2194,7 +2197,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Get_Updated_Opp_back_to_Docs_0</name>
         <label>Get Updated Opp back to Docs</label>
         <locationX>3748</locationX>
-        <locationY>4653</locationY>
+        <locationY>4873</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Task_Call_Outcome_NoAttempt_0_0_0_0_0_0</targetReference>
@@ -2215,7 +2218,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Applicant_Back_to_Docs</name>
         <label>Update Applicant - Back to Docs</label>
         <locationX>3616</locationX>
-        <locationY>4653</locationY>
+        <locationY>4873</locationY>
         <connector>
             <targetReference>Get_Updated_Opp_back_to_Docs_0</targetReference>
         </connector>
@@ -2239,7 +2242,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Applicant_Consent_0</name>
         <label>Update Applicant Consent</label>
         <locationX>3342</locationX>
-        <locationY>1018</locationY>
+        <locationY>1238</locationY>
         <connector>
             <targetReference>Update_Task_Call_Outcome_No_Contact_Made</targetReference>
         </connector>
@@ -2263,7 +2266,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Applicant_Poor_Credit</name>
         <label>Update Applicant Poor Credit</label>
         <locationX>3656</locationX>
-        <locationY>1961</locationY>
+        <locationY>2181</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -2284,7 +2287,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_General_Opp_Stage_to_Bond</name>
         <label>Update General Opp Stage to Bond</label>
         <locationX>3808</locationX>
-        <locationY>4086</locationY>
+        <locationY>4306</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opportunity</targetReference>
         </connector>
@@ -2320,7 +2323,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opp_Consent_0</name>
         <label>Update Opp Consent</label>
         <locationX>3201</locationX>
-        <locationY>1018</locationY>
+        <locationY>1238</locationY>
         <connector>
             <targetReference>Update_Applicant_Consent_0</targetReference>
         </connector>
@@ -2362,7 +2365,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opp_to_Closed_Poor_Credit</name>
         <label>Update Opp to Closed Poor Credit</label>
         <locationX>3518</locationX>
-        <locationY>1961</locationY>
+        <locationY>2181</locationY>
         <connector>
             <targetReference>Update_Applicant_Poor_Credit</targetReference>
         </connector>
@@ -2398,7 +2401,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opportunity</name>
         <label>Update Opportunity</label>
         <locationX>2773</locationX>
-        <locationY>362</locationY>
+        <locationY>582</locationY>
         <connector>
             <targetReference>Get_Latest_Open_Task</targetReference>
         </connector>
@@ -2425,7 +2428,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opportunity_Dependancies_0</name>
         <label>Update Opportunity Dependancies</label>
         <locationX>2855</locationX>
-        <locationY>5157</locationY>
+        <locationY>5377</locationY>
         <connector>
             <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0</targetReference>
         </connector>
@@ -2473,7 +2476,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opportunity_Dependancies_Docs_Move_0</name>
         <label>Update Opportunity Dependancies Docs Move</label>
         <locationX>3484</locationX>
-        <locationY>4653</locationY>
+        <locationY>4873</locationY>
         <connector>
             <targetReference>Update_Applicant_Back_to_Docs</targetReference>
         </connector>
@@ -2521,7 +2524,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opportunity_Wrap_Up</name>
         <label>Update Opportunity Wrap Up</label>
         <locationX>1642</locationX>
-        <locationY>5030</locationY>
+        <locationY>5250</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2</targetReference>
         </connector>
@@ -2545,7 +2548,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Opportunity_Wrap_Up_Reason</name>
         <label>Update Opportunity Wrap Up Reason</label>
         <locationX>1839</locationX>
-        <locationY>4829</locationY>
+        <locationY>5049</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2</targetReference>
         </connector>
@@ -2569,7 +2572,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome</name>
         <label>Update Task Call Outcome</label>
         <locationX>3385</locationX>
-        <locationY>4951</locationY>
+        <locationY>5171</locationY>
         <connector>
             <targetReference>Update_WrapUpComment</targetReference>
         </connector>
@@ -2605,7 +2608,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>2846</locationX>
-        <locationY>5561</locationY>
+        <locationY>5781</locationY>
         <connector>
             <targetReference>MC_Email_Template_Selection_Multi_select_picklist_0_0_0_0_0_0</targetReference>
         </connector>
@@ -2635,7 +2638,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>1770</locationX>
-        <locationY>5030</locationY>
+        <locationY>5250</locationY>
         <connector>
             <targetReference>Update_Opportunity_Wrap_Up</targetReference>
         </connector>
@@ -2665,7 +2668,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>2714</locationX>
-        <locationY>5157</locationY>
+        <locationY>5377</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</targetReference>
         </connector>
@@ -2695,7 +2698,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>2048</locationX>
-        <locationY>4829</locationY>
+        <locationY>5049</locationY>
         <connector>
             <targetReference>Update_Opportunity_Wrap_Up_Reason</targetReference>
         </connector>
@@ -2725,7 +2728,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>3101</locationX>
-        <locationY>5572</locationY>
+        <locationY>5792</locationY>
         <connector>
             <targetReference>Update_Wrap_Up</targetReference>
         </connector>
@@ -2755,7 +2758,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>2659</locationX>
-        <locationY>5520</locationY>
+        <locationY>5740</locationY>
         <connector>
             <targetReference>Send_Biometric_Link_SubFlow_DigiApp</targetReference>
         </connector>
@@ -2785,7 +2788,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_No_Contact_Made</name>
         <label>Update Task Call Outcome - No Contact Made</label>
         <locationX>3485</locationX>
-        <locationY>1018</locationY>
+        <locationY>1238</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -2812,7 +2815,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_NoAttempt_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>3875</locationX>
-        <locationY>4653</locationY>
+        <locationY>4873</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0</targetReference>
         </connector>
@@ -2842,7 +2845,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Wrap_Up</name>
         <label>Update Wrap Up</label>
         <locationX>3101</locationX>
-        <locationY>5728</locationY>
+        <locationY>5948</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0</targetReference>
         </connector>
@@ -2866,7 +2869,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_WrapUpComment</name>
         <label>Update WrapUpComment</label>
         <locationX>3519</locationX>
-        <locationY>4951</locationY>
+        <locationY>5171</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -2888,7 +2891,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>crucialChecks</name>
         <label>crucialChecks</label>
         <locationX>3131</locationX>
-        <locationY>1805</locationY>
+        <locationY>2025</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2928,7 +2931,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>crucialChecks_0_0</name>
         <label>crucialChecks</label>
         <locationX>3401</locationX>
-        <locationY>1961</locationY>
+        <locationY>2181</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2968,7 +2971,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>errorScr_0_0</name>
         <label>errorScr</label>
         <locationX>2834</locationX>
-        <locationY>961</locationY>
+        <locationY>1181</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3014,7 +3017,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>errorScr_0_0_0</name>
         <label>errorScr</label>
         <locationX>2102</locationX>
-        <locationY>1297</locationY>
+        <locationY>1517</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3060,7 +3063,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>errorScr_BondInProgress</name>
         <label>errorScr_BondInProgress</label>
         <locationX>2970</locationX>
-        <locationY>634</locationY>
+        <locationY>854</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3097,7 +3100,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>faultScreen_0_0</name>
         <label>faultScreen</label>
         <locationX>2935</locationX>
-        <locationY>361</locationY>
+        <locationY>581</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3133,7 +3136,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>faultScreen_0_0_0</name>
         <label>faultScreen</label>
         <locationX>2416</locationX>
-        <locationY>354</locationY>
+        <locationY>574</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3169,7 +3172,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>moveRehabToConsent</name>
         <label>moveRehabToConsent</label>
         <locationX>2832</locationX>
-        <locationY>1089</locationY>
+        <locationY>1309</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3217,7 +3220,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>sendEmailGeneralOpp</name>
         <label>sendEmailGeneralOpp</label>
         <locationX>2604</locationX>
-        <locationY>4723</locationY>
+        <locationY>4943</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -3323,7 +3326,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>theBigMainScreen</name>
         <label>theBigMainScreen</label>
         <locationX>2606</locationX>
-        <locationY>3210</locationY>
+        <locationY>3430</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4172,7 +4175,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>uploadOTPConvertBond</name>
         <label>uploadOTPConvertBond</label>
         <locationX>1797</locationX>
-        <locationY>1094</locationY>
+        <locationY>1314</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4240,7 +4243,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>wrapUpButtons</name>
         <label>wrapUpButtons</label>
         <locationX>3098</locationX>
-        <locationY>5031</locationY>
+        <locationY>5251</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4549,7 +4552,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>1642</locationX>
-        <locationY>4829</locationY>
+        <locationY>5049</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4568,7 +4571,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>3265</locationX>
-        <locationY>5589</locationY>
+        <locationY>5809</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4587,7 +4590,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2_0_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>2747</locationX>
-        <locationY>5903</locationY>
+        <locationY>6123</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4606,7 +4609,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>2484</locationX>
-        <locationY>4627</locationY>
+        <locationY>4847</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4625,7 +4628,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>4009</locationX>
-        <locationY>4653</locationY>
+        <locationY>4873</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4644,7 +4647,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>2750</locationX>
-        <locationY>1322</locationY>
+        <locationY>1542</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4657,7 +4660,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
         <locationX>2584</locationX>
-        <locationY>5157</locationY>
+        <locationY>5377</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4676,7 +4679,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Add_Applicants_PA</name>
         <label>Add Applicants PA</label>
         <locationX>3131</locationX>
-        <locationY>1671</locationY>
+        <locationY>1891</locationY>
         <flowName>Add_Applicants</flowName>
         <inputAssignments>
             <name>manageApplicant</name>
@@ -4695,7 +4698,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Assign_To_Verification_Subflow</name>
         <label>Assign To Verification Subflow</label>
         <locationX>2970</locationX>
-        <locationY>4985</locationY>
+        <locationY>5205</locationY>
         <flowName>Assign_To_Verification_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4714,7 +4717,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Assign_To_Verification_Subflow_0</name>
         <label>Assign To Verification Subflow</label>
         <locationX>2399</locationX>
-        <locationY>5471</locationY>
+        <locationY>5691</locationY>
         <flowName>Assign_To_Verification_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4733,7 +4736,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Bond_Wrap_Up</name>
         <label>Bond - Wrap Up</label>
         <locationX>2969</locationX>
-        <locationY>513</locationY>
+        <locationY>733</locationY>
         <flowName>Wrap_Up_Opportunity_Bond_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4752,7 +4755,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Bond_Wrap_Up_0_0_0</name>
         <label>Bond - Wrap Up</label>
         <locationX>4397</locationX>
-        <locationY>4234</locationY>
+        <locationY>4454</locationY>
         <flowName>Wrap_Up_Opportunity_Bond_Subflow</flowName>
         <inputAssignments>
             <name>bypassBlock</name>
@@ -4771,7 +4774,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Bond_Wrap_Up_0_0_0_0</name>
         <label>Bond - Wrap Up</label>
         <locationX>1654</locationX>
-        <locationY>1589</locationY>
+        <locationY>1809</locationY>
         <flowName>Wrap_Up_Opportunity_Bond_Subflow</flowName>
         <inputAssignments>
             <name>bypassBlock</name>
@@ -4790,7 +4793,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Close_Opportunity_Lost_or_Won_Subflow</name>
         <label>Close Opportunity Lost or Won - Subflow</label>
         <locationX>2274</locationX>
-        <locationY>4684</locationY>
+        <locationY>4904</locationY>
         <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4803,7 +4806,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Close_Opportunity_Lost_or_Won_Subflow_0_0_0_0</name>
         <label>Close Opportunity Lost or Won - Subflow</label>
         <locationX>3733</locationX>
-        <locationY>5341</locationY>
+        <locationY>5561</locationY>
         <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4816,7 +4819,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Close_Opportunity_Lost_or_Won_Subflow_0_0_0_0_0_0_0_0_0</name>
         <label>Close Opportunity Lost or Won - Subflow</label>
         <locationX>2854</locationX>
-        <locationY>4321</locationY>
+        <locationY>4541</locationY>
         <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4829,7 +4832,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Close_Opportunity_Lost_or_Won_Subflow_Rehab</name>
         <label>Close Opportunity Lost or Won - Subflow</label>
         <locationX>3204</locationX>
-        <locationY>1176</locationY>
+        <locationY>1396</locationY>
         <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4842,7 +4845,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Convert_to_Pre_Approval_Subflow</name>
         <label>Convert to Pre-Approval Subflow</label>
         <locationX>2540</locationX>
-        <locationY>4428</locationY>
+        <locationY>4648</locationY>
         <flowName>Convert_to_Pre_Approval_Subflow</flowName>
         <inputAssignments>
             <name>callOutcomeInputVar</name>
@@ -4867,7 +4870,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Convert_to_Pre_Approval_Subflow_0</name>
         <label>Convert to Pre-Approval Subflow</label>
         <locationX>2088</locationX>
-        <locationY>5332</locationY>
+        <locationY>5552</locationY>
         <flowName>Convert_to_Pre_Approval_Subflow</flowName>
         <inputAssignments>
             <name>callOutcomeInputVar</name>
@@ -4898,7 +4901,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>3660</locationX>
-        <locationY>4086</locationY>
+        <locationY>4306</locationY>
         <connector>
             <targetReference>Update_General_Opp_Stage_to_Bond</targetReference>
         </connector>
@@ -4920,7 +4923,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>4158</locationX>
-        <locationY>4234</locationY>
+        <locationY>4454</locationY>
         <connector>
             <targetReference>Get_Updated_General</targetReference>
         </connector>
@@ -4948,7 +4951,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>4076</locationX>
-        <locationY>4438</locationY>
+        <locationY>4658</locationY>
         <connector>
             <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0</targetReference>
         </connector>
@@ -4976,7 +4979,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>1450</locationX>
-        <locationY>1368</locationY>
+        <locationY>1588</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opp_0</targetReference>
         </connector>
@@ -5004,7 +5007,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0_0_0_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>1883</locationX>
-        <locationY>1367</locationY>
+        <locationY>1587</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opp_0</targetReference>
         </connector>
@@ -5032,7 +5035,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>ManageApplicant</name>
         <label>Manage Applicants</label>
         <locationX>3367</locationX>
-        <locationY>5127</locationY>
+        <locationY>5347</locationY>
         <connector>
             <targetReference>Assign_Hide_Cancel_True</targetReference>
         </connector>
@@ -5048,7 +5051,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>MC_Email_Template_Selection_Multi_select_picklist_0_0_0</name>
         <label>MC Email Template Selection - Multi select picklist</label>
         <locationX>1921</locationX>
-        <locationY>5086</locationY>
+        <locationY>5306</locationY>
         <connector>
             <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0</targetReference>
         </connector>
@@ -5064,7 +5067,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>MC_Email_Template_Selection_Multi_select_picklist_0_0_0_0_0_0</name>
         <label>MC Email Template Selection - Multi select picklist</label>
         <locationX>2846</locationX>
-        <locationY>5731</locationY>
+        <locationY>5951</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0</targetReference>
         </connector>
@@ -5080,7 +5083,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>MC_Email_Template_Selection_Multi_select_picklist_General</name>
         <label>MC Email Template Selection - Multi select picklist (General)</label>
         <locationX>1925</locationX>
-        <locationY>4968</locationY>
+        <locationY>5188</locationY>
         <connector>
             <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0</targetReference>
         </connector>
@@ -5096,7 +5099,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Regenerate_PA_Certificate_Subflow</name>
         <label>Regenerate PA Certificate Subflow</label>
         <locationX>3832</locationX>
-        <locationY>4800</locationY>
+        <locationY>5020</locationY>
         <flowName>Regenerate_PA_Certificate_Subflow</flowName>
         <inputAssignments>
             <name>callOutcomeInputVar</name>
@@ -5118,10 +5121,23 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>Reopen_Closed_Bond_Subflow</name>
+        <label>Reopen Closed Bond Subflow</label>
+        <locationX>2366</locationX>
+        <locationY>846</locationY>
+        <flowName>Reopen_Closed_Bond_Subflow</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>Reopen_or_Convert_Closed_PA_Subflow</name>
         <label>Reopen or Convert Closed PA Subflow</label>
         <locationX>2242</locationX>
-        <locationY>901</locationY>
+        <locationY>1121</locationY>
         <flowName>Reopen_or_Convert_Closed_PA_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -5134,17 +5150,21 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Running_User_Setup_Checks_Subflow</name>
         <label>Running User Setup Checks - Subflow</label>
         <locationX>2605</locationX>
-        <locationY>196</locationY>
+        <locationY>225</locationY>
         <connector>
-            <targetReference>Get_Opportunity</targetReference>
+            <targetReference>Did_User_Setup_pass</targetReference>
         </connector>
         <flowName>User_Setup_Checks_Subflow</flowName>
+        <outputAssignments>
+            <assignToReference>passed</assignToReference>
+            <name>passed</name>
+        </outputAssignments>
     </subflows>
     <subflows>
         <name>Send_Biometric_Link_SubFlow_DigiApp</name>
         <label>Send Biometric Link SubFlow (DigiApp)</label>
         <locationX>2659</locationX>
-        <locationY>5731</locationY>
+        <locationY>5951</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0</targetReference>
         </connector>
@@ -5160,7 +5180,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Upload_PA_Documents_Subflow</name>
         <label>Upload PA Documents Subflow</label>
         <locationX>3629</locationX>
-        <locationY>5500</locationY>
+        <locationY>5720</locationY>
         <flowName>Upload_PA_Documents_Subflow</flowName>
         <inputAssignments>
             <name>callOutcomeInputVar</name>
@@ -5185,7 +5205,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Verification_Issue_PA_Subflow</name>
         <label>Verification - Issue PA Subflow</label>
         <locationX>2286</locationX>
-        <locationY>2264</locationY>
+        <locationY>2484</locationY>
         <flowName>Verification_Issue_PA_Subflow</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -5194,15 +5214,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </value>
         </inputAssignments>
     </subflows>
-    <textTemplates>
-        <name>chatterPostMessage</name>
-        <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>&lt;---- Customer Email Sent ----&gt;
-Template Selection: {!theTemplate}
-Sent To: {!applicantFullName}
-Sent From: @[{!$User.Id}]
-Sent Date: {!sentTime}</text>
-    </textTemplates>
     <variables>
         <name>blankCallBack</name>
         <dataType>Boolean</dataType>
@@ -5242,30 +5253,6 @@ Sent Date: {!sentTime}</text>
         </value>
     </variables>
     <variables>
-        <name>ConsentRefused</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>convertPAToBondStatus</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>convertToBondBool</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>currentStage</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -5273,38 +5260,7 @@ Sent Date: {!sentTime}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>emailBlank</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>exitToFlow</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>followUpHeading</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>forceRegenCert</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>gitVariable2</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -5351,22 +5307,8 @@ Sent Date: {!sentTime}</text>
         </value>
     </variables>
     <variables>
-        <name>newGeneralOppVar</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>opportunityVar</name>
         <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>oppTeamBlank</name>
-        <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
@@ -5386,21 +5328,21 @@ Sent Date: {!sentTime}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>paExistVar</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
         <name>paIdOppVar</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>passed</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>true</booleanValue>
+        </value>
     </variables>
     <variables>
         <name>paStageVar</name>
@@ -5431,13 +5373,6 @@ Sent Date: {!sentTime}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>referenceNo2</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
         <name>SelectedApplicantId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
@@ -5457,14 +5392,6 @@ Sent Date: {!sentTime}</text>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>taskVar</name>
-        <dataType>SObject</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>Task</objectType>
     </variables>
     <variables>
         <name>verificationAssignment</name>

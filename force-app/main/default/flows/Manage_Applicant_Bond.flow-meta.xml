@@ -52,8 +52,8 @@
     <assignments>
         <name>Assign_Active_cop_true</name>
         <label>Assign Active cop true</label>
-        <locationX>2966</locationX>
-        <locationY>1940</locationY>
+        <locationX>2959</locationX>
+        <locationY>1934</locationY>
         <assignmentItems>
             <assignToReference>activeCOPBool</assignToReference>
             <operator>Assign</operator>
@@ -78,7 +78,39 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Get_Remaining_Non_COP_InActive</targetReference>
+            <targetReference>remainingActiveNotCOP</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Active_Not_COP</name>
+        <label>Assign Active Not COP</label>
+        <locationX>3397</locationX>
+        <locationY>2627</locationY>
+        <assignmentItems>
+            <assignToReference>activeNotCOP</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>remainingActiveNotCOP.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>remainingActiveNotCOP</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Active_Not_COP_0</name>
+        <label>Assign Active Not COP</label>
+        <locationX>2853</locationX>
+        <locationY>2823</locationY>
+        <assignmentItems>
+            <assignToReference>inactiveNotCOP</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>remainingInActiveNotCOP.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>remainingInActiveNotCOP</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -185,8 +217,8 @@
     <assignments>
         <name>Assign_Main_Applicant</name>
         <label>Assign Main Applicant</label>
-        <locationX>1612</locationX>
-        <locationY>952</locationY>
+        <locationX>1615</locationX>
+        <locationY>909</locationY>
         <assignmentItems>
             <assignToReference>applicantCollectionMain</assignToReference>
             <operator>Add</operator>
@@ -265,8 +297,8 @@
     <assignments>
         <name>Assign_Remaining_2_3_4</name>
         <label>Assign Remaining 2,3,4</label>
-        <locationX>1552</locationX>
-        <locationY>1283</locationY>
+        <locationX>1596</locationX>
+        <locationY>1235</locationY>
         <assignmentItems>
             <assignToReference>remainingApplicantCollection</assignToReference>
             <operator>Add</operator>
@@ -281,8 +313,8 @@
     <assignments>
         <name>Assign_Remaining_3_4</name>
         <label>Assign Remaining 3,4</label>
-        <locationX>2738</locationX>
-        <locationY>1283</locationY>
+        <locationX>2410</locationX>
+        <locationY>1235</locationY>
         <assignmentItems>
             <assignToReference>remainingApplicantCollection</assignToReference>
             <operator>Add</operator>
@@ -313,7 +345,7 @@
     <assignments>
         <name>Assign_Remaining_Non_COP</name>
         <label>Assign Remaining Non COP</label>
-        <locationX>2802</locationX>
+        <locationX>2819</locationX>
         <locationY>2321</locationY>
         <assignmentItems>
             <assignToReference>remainingNonCOP</assignToReference>
@@ -329,7 +361,7 @@
     <assignments>
         <name>Clear_Out_Collections_Vars</name>
         <label>Clear Out Collections/Vars</label>
-        <locationX>1103</locationX>
+        <locationX>1102</locationX>
         <locationY>202</locationY>
         <assignmentItems>
             <assignToReference>applicantCollectionMain</assignToReference>
@@ -396,6 +428,18 @@
                 <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>applicantList</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>activeNotCOP</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>inactiveNotCOP</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
         <connector>
             <targetReference>Get_Loan_Application</targetReference>
         </connector>
@@ -403,8 +447,8 @@
     <assignments>
         <name>Inactive_COP</name>
         <label>Inactive COP</label>
-        <locationX>3104</locationX>
-        <locationY>2232</locationY>
+        <locationX>3102</locationX>
+        <locationY>2237</locationY>
         <assignmentItems>
             <assignToReference>inactiveCOPBool</assignToReference>
             <operator>Assign</operator>
@@ -419,8 +463,8 @@
     <assignments>
         <name>Inactive_Non_COPs</name>
         <label>Inactive Non COP</label>
-        <locationX>3149</locationX>
-        <locationY>2880</locationY>
+        <locationX>3233</locationX>
+        <locationY>2791</locationY>
         <assignmentItems>
             <assignToReference>inactiveNonCOPBool</assignToReference>
             <operator>Assign</operator>
@@ -429,14 +473,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Add_Remove</targetReference>
+            <targetReference>remainingInActiveNotCOP</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>vColumns_Length</name>
         <label>vColumns Length</label>
-        <locationX>2130</locationX>
-        <locationY>1282</locationY>
+        <locationX>1988</locationX>
+        <locationY>1234</locationY>
         <assignmentItems>
             <assignToReference>vColumnsLentgh</assignToReference>
             <operator>AssignCount</operator>
@@ -648,7 +692,7 @@
         <name>InActive_COP_Exist</name>
         <label>InActive COP Exist</label>
         <locationX>3093</locationX>
-        <locationY>2075</locationY>
+        <locationY>2071</locationY>
         <defaultConnector>
             <targetReference>Get_Remaining_Non_COP</targetReference>
         </defaultConnector>
@@ -672,8 +716,8 @@
     <decisions>
         <name>InActive_Non_COP_Exist</name>
         <label>InActive Non COP Exist</label>
-        <locationX>3139</locationX>
-        <locationY>2724</locationY>
+        <locationX>3495</locationX>
+        <locationY>2738</locationY>
         <defaultConnector>
             <targetReference>Add_Remove</targetReference>
         </defaultConnector>
@@ -983,8 +1027,8 @@
     <decisions>
         <name>Remaining_Non_COP_Exists</name>
         <label>Remaining Non COP Exist?</label>
-        <locationX>2329</locationX>
-        <locationY>2211</locationY>
+        <locationX>2330</locationX>
+        <locationY>2214</locationY>
         <defaultConnector>
             <targetReference>Assign_Non_COP_False</targetReference>
         </defaultConnector>
@@ -1005,9 +1049,7 @@
             <label>Non COP Exist</label>
         </rules>
     </decisions>
-    <description>DB: 23 july
-
-Flow Description: Add/Activate/Deactivate Bond Applicants and is launched from the Wrap Up Opportunity Bond Subflow which is ultimately launched from the Wrap Up Opportunity H2 flow
+    <description>Flow Description: Add/Activate/Deactivate Bond Applicants and is launched from the Wrap Up Opportunity Bond Subflow which is ultimately launched from the Wrap Up Opportunity H2 flow
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <environments>Default</environments>
@@ -1045,7 +1087,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Loop_Main_Only</name>
         <label>Loop Main Only</label>
         <locationX>1779</locationX>
-        <locationY>952</locationY>
+        <locationY>910</locationY>
         <collectionReference>Get_Main_Only</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1058,8 +1100,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <loops>
         <name>Loop_Remaining_2_3_4</name>
         <label>Loop Remaining 2,3,4</label>
-        <locationX>1778</locationX>
-        <locationY>1283</locationY>
+        <locationX>1779</locationX>
+        <locationY>1235</locationY>
         <collectionReference>Get_Remaining_Applicants_2_3_4</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1072,8 +1114,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <loops>
         <name>Loop_Remaining_3_4</name>
         <label>Loop Remaining 3,4</label>
-        <locationX>2552</locationX>
-        <locationY>1283</locationY>
+        <locationX>2216</locationX>
+        <locationY>1235</locationY>
         <collectionReference>Get_Remaining_Applicants_3_and_or_4</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -1109,6 +1151,34 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         </nextValueConnector>
         <noMoreValuesConnector>
             <targetReference>Get_Remaining_Non_COP_Active</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>remainingActiveNotCOP</name>
+        <label>remainingActiveNotCOP</label>
+        <locationX>3108</locationX>
+        <locationY>2619</locationY>
+        <collectionReference>Get_Remaining_Non_COP_Active</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Active_Not_COP</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Get_Remaining_Non_COP_InActive</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <name>remainingInActiveNotCOP</name>
+        <label>remainingInActiveNotCOP</label>
+        <locationX>3077</locationX>
+        <locationY>2791</locationY>
+        <collectionReference>Get_Remaining_Non_COP_InActive</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_Active_Not_COP_0</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Add_Remove</targetReference>
         </noMoreValuesConnector>
     </loops>
     <processMetadataValues>
@@ -1431,8 +1501,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Opp_Linked_to_Application</name>
         <label>Get Opp Linked to Application</label>
-        <locationX>2093</locationX>
-        <locationY>319</locationY>
+        <locationX>2086</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Applicant_Count_All</targetReference>
@@ -1473,8 +1543,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Remaining_Applicants_2_3_4</name>
         <label>Get Remaining Applicants 2,3,4</label>
-        <locationX>1778</locationX>
-        <locationY>1119</locationY>
+        <locationX>1779</locationX>
+        <locationY>1088</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Remaining_2_3_4</targetReference>
@@ -1501,8 +1571,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Remaining_Applicants_3_and_or_4</name>
         <label>Get Remaining Applicants 3 and/or 4</label>
-        <locationX>2551</locationX>
-        <locationY>1134</locationY>
+        <locationX>2216</locationX>
+        <locationY>1073</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Remaining_3_4</targetReference>
@@ -1599,8 +1669,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Remaining_COP_InActive</name>
         <label>Get Remaining COP InActive</label>
-        <locationX>3118</locationX>
-        <locationY>1845</locationY>
+        <locationX>3101</locationX>
+        <locationY>1878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>InActive_COP_Exist</targetReference>
@@ -1662,7 +1732,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Remaining_Non_COP_Active</name>
         <label>Get Remaining Non COP Active</label>
-        <locationX>2604</locationX>
+        <locationX>2606</locationX>
         <locationY>2515</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1697,8 +1767,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Remaining_Non_COP_InActive</name>
         <label>Get Remaining Non COP InActive</label>
-        <locationX>3147</locationX>
-        <locationY>2515</locationY>
+        <locationX>3503</locationX>
+        <locationY>2517</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>InActive_Non_COP_Exist</targetReference>
@@ -1853,7 +1923,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Activate_Applicant</name>
         <label>Activate Applicant</label>
         <locationX>1331</locationX>
-        <locationY>2119</locationY>
+        <locationY>2117</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1904,7 +1974,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <inputParameters>
                         <name>inputRecordIds</name>
                         <value>
-                            <elementReference>remainingNonCOP</elementReference>
+                            <elementReference>inactiveNotCOP</elementReference>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -2303,7 +2373,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Deactivate_Applicant</name>
         <label>Deactivate Applicant</label>
         <locationX>1103</locationX>
-        <locationY>2428</locationY>
+        <locationY>2427</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -2354,7 +2424,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <inputParameters>
                         <name>inputRecordIds</name>
                         <value>
-                            <elementReference>remainingNonCOP</elementReference>
+                            <elementReference>activeNotCOP</elementReference>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -2519,7 +2589,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </screens>
     <start>
         <locationX>1817</locationX>
-        <locationY>50</locationY>
+        <locationY>83</locationY>
         <connector>
             <targetReference>Get_Loan_Application</targetReference>
         </connector>
@@ -2576,6 +2646,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <value>
             <booleanValue>false</booleanValue>
         </value>
+    </variables>
+    <variables>
+        <name>activeNotCOP</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>applicantCollectionMain</name>
@@ -2638,6 +2715,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <value>
             <booleanValue>false</booleanValue>
         </value>
+    </variables>
+    <variables>
+        <name>inactiveNotCOP</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>nonCOPBool</name>

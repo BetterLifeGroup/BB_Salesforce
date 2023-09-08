@@ -39,7 +39,7 @@ public with sharing class UserManagementControllerTest {
         insert blg;
 
         Opportunity opp = new Opportunity();
-        opp.CloseDate = Date.newInstance(2022,2,2);
+        opp.CloseDate = Date.newInstance(2022, 2, 2);
         opp.StageName = 'Prospecting';
         opp.Name = 'test67';
         opp.BLG_Campaign__c = blg.Id;
@@ -47,7 +47,7 @@ public with sharing class UserManagementControllerTest {
         insert opp;
 
         Opportunity opp1 = new Opportunity();
-        opp1.CloseDate = Date.newInstance(2022,2,2);
+        opp1.CloseDate = Date.newInstance(2022, 2, 2);
         opp1.StageName = 'Prospecting';
         opp1.Name = 'test67';
         opp1.BLG_Campaign__c = blg.Id;
@@ -55,7 +55,7 @@ public with sharing class UserManagementControllerTest {
         insert opp1;
 
         Opportunity opp2 = new Opportunity();
-        opp2.CloseDate = Date.newInstance(2022,2,2);
+        opp2.CloseDate = Date.newInstance(2022, 2, 2);
         opp2.StageName = 'Prospecting';
         opp2.Name = 'test68';
         opp2.BLG_Campaign__c = blg.Id;
@@ -63,7 +63,7 @@ public with sharing class UserManagementControllerTest {
         insert opp2;
 
         Opportunity opp3 = new Opportunity();
-        opp3.CloseDate = Date.newInstance(2022,2,2);
+        opp3.CloseDate = Date.newInstance(2022, 2, 2);
         opp3.StageName = 'Prospecting';
 //        opp.AccountId = acc.Id;
         opp3.Name = 'test69';
@@ -146,17 +146,11 @@ public with sharing class UserManagementControllerTest {
         Test.startTest();
         us.Id = null;
         us.Email = 'ThisOneMustAlsoBeUnique@test.com';
-        User newUser = UserManagementController.insertUser(us, subBranch.Id,'fakeid');
+        User newUser = UserManagementController.insertUser(us, subBranch.Id, 'fakeid');
         try {
-            Assert.isNotNull(UserManagementController.insertUser(us, 'fakeId','fakeid2'));
+            Assert.isNotNull(UserManagementController.insertUser(us, 'fakeId', 'fakeid2'));
         } catch (Exception e) {
         }
-
-
-
-
-
-
 
         UserManagementController.assignPermissionAssignment(us.Id);
         try {
@@ -201,7 +195,7 @@ public with sharing class UserManagementControllerTest {
 
         try {
             us.FirstName = 'abc';
-            UserManagementController.insertUserPartTwo(us,subBranch.Id,'fake ID',new List<String>());
+            UserManagementController.insertUserPartTwo(us, subBranch.Id, 'fake ID', new List<String>());
         } catch (Exception e) {
             System.debug(e.getMessage());
         }
@@ -222,7 +216,7 @@ public with sharing class UserManagementControllerTest {
         Assert.isNotNull(UserManagementController.getRoles());
         Assert.isNotNull(UserManagementController.getSelectedSubBranchDetails(subBranch.Id));
         Assert.isNotNull(UserManagementController.getUserAssignedSubBranches(us.Id));
-        Assert.isNotNull(UserManagementController.getUserDetails(us.Id));
+//        Assert.isNotNull(UserManagementController.getUserDetails(us.Id));
         try {
             UserManagementController.removePermissionAssignment('fakeId');
         } catch (Exception e) {
@@ -254,7 +248,11 @@ public with sharing class UserManagementControllerTest {
             System.debug(e.getMessage());
         }
         try {
-            UserManagementController.reassignBulkOpps(new List<String>{[SELECT Id FROM Opportunity WHERE Name LIKE '%test69%' LIMIT 1].Id}, new List<String>{us.Id});
+            UserManagementController.reassignBulkOpps(new List<String>{
+                    [SELECT Id FROM Opportunity WHERE Name LIKE '%test69%' LIMIT 1].Id
+            }, new List<String>{
+                    us.Id
+            });
         } catch (Exception e) {
             System.debug(e.getMessage());
         }
@@ -311,10 +309,31 @@ public with sharing class UserManagementControllerTest {
         } catch (Exception e) {
             System.debug(e.getMessage());
         }
-        Assert.isNotNull(UserManagementController.getAccountsForUserManagement('Region','',''));
-        Assert.isNotNull(UserManagementController.getAccountsForUserManagement('Real Estate Network','',''));
-        Assert.isNotNull(UserManagementController.getAccountsForUserManagement('Network','',''));
+        Assert.isNotNull(UserManagementController.getAccountsForUserManagement('Region', '', ''));
+        Assert.isNotNull(UserManagementController.getAccountsForUserManagement('Real Estate Network', '', ''));
+        Assert.isNotNull(UserManagementController.getAccountsForUserManagement('Network', '', ''));
         Test.stopTest();
 
+
+    }
+    @IsTest
+    public static void testStandardMethodsPartTwo() {
+        User us = [SELECT Id, FirstName, LastName, MobilePhone, ProfileId, Email, TimeZoneSidKey, LocaleSidKey, EmailEncodingKey, LanguageLocaleKey FROM User WHERE FirstName = 'testClassUser69' LIMIT 1];
+        us.DigiApp_Link__c = 'testLink';
+        update us;
+
+        Assert.isNotNull(UserManagementController.getUserDetails(us.Id));
+        try {
+            Assert.isNotNull(UserManagementController.reactivateUser(us.Id));
+        } catch (Exception e) {
+        }
+        try {
+            Assert.isNotNull(UserManagementController.getUserDigiAppLink(us.Id));
+        } catch (Exception e) {
+        }
+        try {
+            Assert.isNotNull(UserManagementController.officeAdminCanBeDeleted(us.Id));
+        } catch (Exception e) {
+        }
     }
 }

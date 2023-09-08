@@ -20,7 +20,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0</name>
@@ -42,7 +44,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0</name>
@@ -64,7 +68,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0</name>
@@ -86,7 +92,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0</name>
@@ -108,7 +116,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0</name>
@@ -130,7 +140,9 @@
                 <elementReference>Get_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0</name>
@@ -152,7 +164,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0_0</name>
@@ -174,7 +188,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0_0_0</name>
@@ -196,7 +212,9 @@
                 <elementReference>Get_PA_Linked.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0_0_0_0</name>
@@ -218,12 +236,14 @@
                 <elementReference>Get_Updated_Gen_Opp_Convert.Bond_Opportunity__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0_0_0_0_0</name>
         <label>DetailPageNavigation</label>
-        <locationX>999</locationX>
+        <locationX>997</locationX>
         <locationY>2426</locationY>
         <actionName>c:DetailPageNavigation</actionName>
         <actionType>component</actionType>
@@ -237,10 +257,12 @@
         <inputParameters>
             <name>recordId</name>
             <value>
-                <elementReference>Get_Updated_Gen.Bond_Opportunity__c</elementReference>
+                <elementReference>Get_Updated_Gen.PreApprovalOpportunity__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>

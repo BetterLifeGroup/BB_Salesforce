@@ -4,14 +4,29 @@
     <decisions>
         <name>Is_Bond_Reopen_Allowed</name>
         <label>Is Bond Reopen Allowed?</label>
-        <locationX>182</locationX>
+        <locationX>314</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>errorScr_ReopenNotAllow</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Cannot be Reopened</defaultConnectorLabel>
         <rules>
-            <name>Reopen_Bond</name>
+            <name>Reopen_Bond_OTP_Received</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Bond_Opportunity.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>OTP Received - No Documents Received</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>reopenBondOTPReceived</targetReference>
+            </connector>
+            <label>Reopen Bond OTP Received</label>
+        </rules>
+        <rules>
+            <name>Reopen_Bond_Awaiting_OTP</name>
             <conditionLogic>(1 OR 2) AND 3</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Bond_Opportunity.StageName</leftValueReference>
@@ -37,7 +52,7 @@
             <connector>
                 <targetReference>reopenBond</targetReference>
             </connector>
-            <label>Reopen Bond</label>
+            <label>Reopen Bond Awaiting OTP</label>
         </rules>
     </decisions>
     <description>Flow Description: Flow to Reopen a Closed Bond Opportunity, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
@@ -68,7 +83,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Bond_Application</name>
         <label>Get Bond Application</label>
-        <locationX>182</locationX>
+        <locationX>314</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -89,7 +104,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Bond_Opportunity</name>
         <label>Get Bond Opportunity</label>
-        <locationX>182</locationX>
+        <locationX>314</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -110,7 +125,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Last_Available_Task</name>
         <label>Get Last Available Task</label>
-        <locationX>50</locationX>
+        <locationX>314</locationX>
         <locationY>782</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -130,10 +145,33 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Last_Task_Available</name>
+        <label>Get Last Task Available</label>
+        <locationX>50</locationX>
+        <locationY>782</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Task_Call_Outcome2</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Task</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Update_Bond_Applicant_Status</name>
         <label>Update Bond Applicant Status</label>
-        <locationX>50</locationX>
+        <locationX>314</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Get_Last_Available_Task</targetReference>
@@ -155,9 +193,33 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>LoanApplicant</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Bond_Applicant_Status_OTP_Received</name>
+        <label>Update Bond Applicant Status OTP Received</label>
+        <locationX>50</locationX>
+        <locationY>674</locationY>
+        <connector>
+            <targetReference>Get_Last_Task_Available</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LoanApplicationId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Application.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>OTP Received</stringValue>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Bond_Opp_Awaiting_OTP</name>
         <label>Update Bond Opp Awaiting OTP</label>
-        <locationX>50</locationX>
+        <locationX>314</locationX>
         <locationY>566</locationY>
         <connector>
             <targetReference>Update_Bond_Applicant_Status</targetReference>
@@ -197,7 +259,76 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Bond_Opp_OTP_Received</name>
+        <label>Update Bond Opp OTP Received</label>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>Update_Bond_Applicant_Status_OTP_Received</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Working (Bond)</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>OTP received</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Task_Call_Outcome</name>
+        <label>Update Task Call Outcome</label>
+        <locationX>314</locationX>
+        <locationY>890</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Last_Available_Task.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Call_Outcome__c</field>
+            <value>
+                <stringValue>No Contact Attempt Made</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Task_Call_Outcome2</name>
         <label>Update Task Call Outcome</label>
         <locationX>50</locationX>
         <locationY>890</locationY>
@@ -226,7 +357,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>errorScr_ReopenNotAllow</name>
         <label>errorScr_ReopenNotAllow</label>
-        <locationX>314</locationX>
+        <locationX>578</locationX>
         <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -262,7 +393,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>reopenBond</name>
         <label>reopenBond</label>
-        <locationX>50</locationX>
+        <locationX>314</locationX>
         <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -326,8 +457,75 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
     </screens>
+    <screens>
+        <name>reopenBondOTPReceived</name>
+        <label>reopenBondOTPReceived</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Update_Bond_Opp_OTP_Received</targetReference>
+        </connector>
+        <fields>
+            <name>Copy_1_of_reopenBondTxtMsg</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Reopen Bond</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 9px</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Copy_1_of_reopenBondTxt</name>
+            <fieldText>&lt;p&gt;Reopen &lt;strong&gt;{!Get_Bond_Opportunity.Name}&lt;/strong&gt; with the following stage and status:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Stage: &lt;/strong&gt;Bond&lt;/p&gt;&lt;p&gt;&lt;strong&gt;New Status:&lt;/strong&gt; OTP Received&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Copy_1_of_reopenBondBtn</name>
+            <extensionName>runtime_industries_lending:flowButton</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>buttonLabel</name>
+                <value>
+                    <stringValue>Reopen Bond Opportunity</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Copy_1_of_cancelBtn</name>
+            <extensionName>runtime_industries_lending:flowButton</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>buttonLabel</name>
+                <value>
+                    <stringValue>Cancel</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <start>
-        <locationX>56</locationX>
+        <locationX>188</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Bond_Opportunity</targetReference>
