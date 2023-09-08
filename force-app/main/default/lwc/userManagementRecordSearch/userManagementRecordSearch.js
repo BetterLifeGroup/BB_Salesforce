@@ -32,6 +32,7 @@ export default class userManagementRecordSearch extends LightningElement {
     @track space = ' - '
     @api userManagementAdditionalSearch;
     @api additionalInfoVisible = false;
+    @api includeInactiveUsers = false;
 
 
     connectedCallback() {
@@ -56,7 +57,7 @@ export default class userManagementRecordSearch extends LightningElement {
         //
         setTimeout(() => {
             this.showSearchResults = false;
-        }, 1500)
+        }, 800)
     }
 
     handleSearchFocus() {
@@ -111,6 +112,7 @@ export default class userManagementRecordSearch extends LightningElement {
             });
         } else if (this.userScope === true) {
             getUsers({
+                includeInactive: this.includeInactiveUsers,
                 searchKey: this.searchKey,
                 objectName: this.queriedObjectType,
                 queryFilter: this.queryFilter,

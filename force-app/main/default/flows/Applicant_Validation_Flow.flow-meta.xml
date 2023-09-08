@@ -35,10 +35,12 @@
                 <elementReference>nowF</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>DateTimeUtility</nameSegment>
         <outputParameters>
             <assignToReference>var_nextdate</assignToReference>
             <name>result</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Send_Custom_Notification</name>
@@ -81,6 +83,8 @@
                 <elementReference>get_case.Opportunity__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>customNotificationAction</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>57.0</apiVersion>
     <assignments>
@@ -1003,6 +1007,28 @@
                 <targetReference>Get_All_Applicants</targetReference>
             </connector>
             <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>User_Setup_passed</name>
+        <label>User Setup passed?</label>
+        <locationX>680</locationX>
+        <locationY>1789</locationY>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Passed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>passed</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Opportunity_Context</targetReference>
+            </connector>
+            <label>Yes - Passed</label>
         </rules>
     </decisions>
     <decisions>
@@ -2361,22 +2387,26 @@ Front-End Access: Work Case button on the Case page.</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>374</locationX>
+        <locationX>51</locationX>
         <locationY>1772</locationY>
         <connector>
             <targetReference>User_Setup_Checks_Subflow</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <subflows>
         <name>User_Setup_Checks_Subflow</name>
         <label>User Setup Checks - Subflow</label>
-        <locationX>753</locationX>
-        <locationY>1789</locationY>
+        <locationX>500</locationX>
+        <locationY>1787</locationY>
         <connector>
-            <targetReference>Opportunity_Context</targetReference>
+            <targetReference>User_Setup_passed</targetReference>
         </connector>
         <flowName>User_Setup_Checks_Subflow</flowName>
+        <outputAssignments>
+            <assignToReference>passed</assignToReference>
+            <name>passed</name>
+        </outputAssignments>
     </subflows>
     <variables>
         <name>affordabilityAmountText</name>
@@ -2472,6 +2502,16 @@ Front-End Access: Work Case button on the Case page.</description>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>passed</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
             <booleanValue>false</booleanValue>
