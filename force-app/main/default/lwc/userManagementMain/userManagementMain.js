@@ -364,7 +364,6 @@ export default class UserManagementMain extends NavigationMixin(LightningElement
                 this.showSpinner = false;
                 if (result[0].Profile.Name === 'Consultant') {
                     this.showSkillGroups = true;
-                    // todo, hide button if consultant and digiapp empty
                     getAdmins({userId: this.selectedUserId}).then(result => {
                         this.admins = result;
                         this.isConsultant = true;
