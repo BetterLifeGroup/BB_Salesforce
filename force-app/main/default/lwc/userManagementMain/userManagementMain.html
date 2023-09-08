@@ -269,17 +269,19 @@
                                                             </div>
                                                         </div>
                                                         <div style='width: 10%'></div>
-                                                        <div style='width: 55%'>
-                                                            <lightning-dual-listbox
-                                                                    label='Skill Groups'
-                                                                    options={multiSelectOptions}
-                                                                    selected-label='Assigned'
-                                                                    source-label='Available'
-                                                                    value={assignedSubBranch.skills}
-                                                                    onchange={handleSkillsChange}
-                                                                    data-id={assignedSubBranch.subBranchId}
-                                                            ></lightning-dual-listbox>
-                                                        </div>
+                                                        <template if:true={showSkillGroups}>
+                                                            <div style='width: 55%'>
+                                                                <lightning-dual-listbox
+                                                                        label='Skill Groups'
+                                                                        options={multiSelectOptions}
+                                                                        selected-label='Assigned'
+                                                                        source-label='Available'
+                                                                        value={assignedSubBranch.skills}
+                                                                        onchange={handleSkillsChange}
+                                                                        data-id={assignedSubBranch.subBranchId}
+                                                                ></lightning-dual-listbox>
+                                                            </div>
+                                                        </template>
                                                     </div>
                                                 </div>
                                             </div>
