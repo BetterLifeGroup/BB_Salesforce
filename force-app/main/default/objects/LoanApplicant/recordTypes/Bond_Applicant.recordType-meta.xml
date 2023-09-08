@@ -2221,6 +2221,117 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>MC_Template_Selection__c</picklist>
+        <values>
+            <fullName>Assign to expert Home Loan Consultant %28No Answer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Assign to expert Home Loan Consultant %28Spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting OTP %28Follow-up%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting OTP %28No Answer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting OTP %28Spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consent form reminder - follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit check positive - requesting docs to complete PA %28Documents Required%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Assign to expert Home Loan Consultant %28No Answer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Assign to expert Home Loan Consultant %28Spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Awaiting OTP %28Follow-up%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Awaiting OTP %28No Answer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Awaiting OTP %28Spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Consent form reminder - follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Credit check positive - requesting docs to complete PA %28Documents Required%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA - no answer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA - sending consent form %28spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA issued - awaiting OTP %28attach PA certificate%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB PA requested - docs follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FHB Poor credit - post conversation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Answer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA - no answer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA - sending consent form %28spoke to client%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA issued - awaiting OTP %28attach PA certificate%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PA requested - docs follow up</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor credit - post conversation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send DigiApp Link</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Send DigiApp Link Follow-Up</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>MaritalStatus</picklist>
         <values>
             <fullName>Married</fullName>
