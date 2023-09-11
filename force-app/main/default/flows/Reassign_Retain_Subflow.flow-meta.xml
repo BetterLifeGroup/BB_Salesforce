@@ -1425,10 +1425,10 @@
             <name>Yes9</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>bondOppOwnerId15Digits</leftValueReference>
+                <leftValueReference>GetRegionLinkedConsultantContactCaseSafe</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>applicableUserId</elementReference>
+                    <elementReference>bondOppOwnerCaseSafeId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1450,10 +1450,10 @@
             <name>Yes2</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>bondOppOwnerId15Digits</leftValueReference>
+                <leftValueReference>newOwnerIdCaseSafe</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>applicableUserId</elementReference>
+                    <elementReference>bondOppOwnerCaseSafeId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1475,10 +1475,10 @@
             <name>Yes3</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>bondOppOwnerId15Digits</leftValueReference>
+                <leftValueReference>newOwnerIdCaseSafe</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>applicableUserId</elementReference>
+                    <elementReference>bondOppOwnerCaseSafeId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1500,10 +1500,10 @@
             <name>Yes4</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>bondOppOwnerId15Digits</leftValueReference>
+                <leftValueReference>bondOppOwnerCaseSafeId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>applicableUserId</elementReference>
+                    <elementReference>GetRegionLinkedConsultantContactCaseSafe</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1525,10 +1525,10 @@
             <name>Yes5</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>bondOppOwnerId15Digits</leftValueReference>
+                <leftValueReference>bondOppOwnerCaseSafeId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>applicableUserId</elementReference>
+                    <elementReference>newOwnerIdCaseSafe</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1550,10 +1550,10 @@
             <name>Yes_6</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>bondOppOwnerId15Digits</leftValueReference>
+                <leftValueReference>GetLinkedConsultantContactCaseSafeId</leftValueReference>
                 <operator>NotEqualTo</operator>
                 <rightValue>
-                    <elementReference>applicableUserId</elementReference>
+                    <elementReference>bondOppOwnerCaseSafeId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -1948,7 +1948,7 @@
             <label>No</label>
         </rules>
     </decisions>
-    <description>FF: 05Sep
+    <description>FF: 11Sep - CaseSafeIds
 
 Flow Description: This flow is launched as a subflow from Wrap Up Opportunity Bond Subflow to handle business logic regarding retaining and reassigning of Bond opportunities.
 
@@ -1995,6 +1995,11 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
 + &quot; &quot; + TEXT(Year(TODAY()))</expression>
     </formulas>
     <formulas>
+        <name>bondOppOwnerCaseSafeId</name>
+        <dataType>String</dataType>
+        <expression>CASESAFEID({!Get_Bond_Opportunity.OwnerId})</expression>
+    </formulas>
+    <formulas>
         <name>bondOppOwnerId15Digits</name>
         <dataType>String</dataType>
         <expression>LEFT({!Get_Bond_Opportunity.OwnerId}, 15)</expression>
@@ -2008,6 +2013,21 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>emailSubjectAgent</name>
         <dataType>String</dataType>
         <expression>&quot;Unregistered Agent Details for Opportunity: &quot; + {!Get_Bond_Opportunity.Name}</expression>
+    </formulas>
+    <formulas>
+        <name>GetLinkedConsultantContactCaseSafeId</name>
+        <dataType>String</dataType>
+        <expression>CASESAFEID({!Get_Linked_Consultant_Contact.Consultant__c})</expression>
+    </formulas>
+    <formulas>
+        <name>GetRegionLinkedConsultantContactCaseSafe</name>
+        <dataType>String</dataType>
+        <expression>CASESAFEID({!Get_Region_Linked_Consultant_Contact.Consultant__c})</expression>
+    </formulas>
+    <formulas>
+        <name>newOwnerIdCaseSafe</name>
+        <dataType>String</dataType>
+        <expression>CASESAFEID({!newOwnerID})</expression>
     </formulas>
     <formulas>
         <name>nowFormula</name>
