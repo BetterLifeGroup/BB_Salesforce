@@ -1021,36 +1021,7 @@
             <label>Biometric Link Send (DigiApp)</label>
         </rules>
         <rules>
-            <name>Schedule_Follow_Up_Manual</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
-            <conditions>
-                <leftValueReference>scheduleNextFollowUp.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Latest_Open_Task.Subject</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Manual Follow Up</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Opportunity.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>autoFollowUpNotExist</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0</targetReference>
-            </connector>
-            <label>Schedule Follow Up Manual</label>
-        </rules>
-        <rules>
-            <name>Schedule_Automated_Follow_Up</name>
+            <name>Schedule_Follow_Up</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>scheduleNextFollowUp.renderNext</leftValueReference>
@@ -1062,7 +1033,7 @@
             <connector>
                 <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0</targetReference>
             </connector>
-            <label>Schedule Automated Follow Up</label>
+            <label>Schedule Follow Up</label>
         </rules>
         <rules>
             <name>Mailcustomer</name>
@@ -1544,35 +1515,6 @@
             <targetReference>Close_Opportunity_Lost_or_Won_Subflow</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Close</defaultConnectorLabel>
-        <rules>
-            <name>Schedule_Manual_Follow_Up</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
-            <conditions>
-                <leftValueReference>scheduleFollowUpButton.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Latest_Open_Task.Subject</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Manual Follow Up</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Opportunity.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>autoFollowUpNotExist</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0</targetReference>
-            </connector>
-            <label>Schedule Manual Follow Up</label>
-        </rules>
         <rules>
             <name>Schedule_Auto_Follow_Up</name>
             <conditionLogic>and</conditionLogic>
@@ -2727,8 +2669,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
-        <locationX>3101</locationX>
-        <locationY>5792</locationY>
+        <locationX>3100</locationX>
+        <locationY>5780</locationY>
         <connector>
             <targetReference>Update_Wrap_Up</targetReference>
         </connector>
@@ -2844,8 +2786,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_Wrap_Up</name>
         <label>Update Wrap Up</label>
-        <locationX>3101</locationX>
-        <locationY>5948</locationY>
+        <locationX>3100</locationX>
+        <locationY>5941</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0</targetReference>
         </connector>
@@ -4570,8 +4512,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <subflows>
         <name>Accept_or_Override_Follow_Up_H2_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
-        <locationX>3265</locationX>
-        <locationY>5809</locationY>
+        <locationX>3100</locationX>
+        <locationY>6094</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -4591,25 +4533,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <label>Accept or Override Follow Up H2</label>
         <locationX>2747</locationX>
         <locationY>6123</locationY>
-        <flowName>Accept_or_Override_Follow_Up_H2</flowName>
-        <inputAssignments>
-            <name>recordId</name>
-            <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>wrapUpInput</name>
-            <value>
-                <elementReference>wrapUpCommentVar</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0</name>
-        <label>Accept or Override Follow Up H2</label>
-        <locationX>2484</locationX>
-        <locationY>4847</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
