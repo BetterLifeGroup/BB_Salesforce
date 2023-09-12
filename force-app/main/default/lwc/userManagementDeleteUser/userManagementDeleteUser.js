@@ -41,6 +41,7 @@ export default class UserManagementDeleteUser extends LightningElement {
     @track deactivateErrorMessage = '';
     @track isDeactivateDisabled = true;
     @track errorMessage = '';
+    selectedUserId;
 
     baseUrl;
     totalNumberOfBatches;
@@ -66,7 +67,7 @@ export default class UserManagementDeleteUser extends LightningElement {
         if (this.searchKeywordOpp.length > 0) {
             this.selectedOpportunityIds = this.selectedOpportunityIds.filter((option) =>
                 option.label.toLowerCase().includes(this.searchKeywordOpp.toLowerCase()) || selectedIdsSet.has(option.value)).map(opportunity => opportunity.value);
-        }else {
+        } else {
             this.selectedOpportunityIds = this.formattedOpenOpps.map(opportunity => opportunity.value)
         }
         this.hasSelectedOpportunities = true;
@@ -98,11 +99,6 @@ export default class UserManagementDeleteUser extends LightningElement {
         })
     }
 
-    // handleUrlClick(event){
-    //     let url = '/lightning/setup/ManageUsers/page?address=%2F' + event.target.dataset.id + '%3Fnoredirect%3D1%26isUserEntityOverride%3D1%26appLayout%3Dsetup%26tour%3D%26sfdcIFrameOrigin%3Dhttps%253A%252F%252F' + this.baseUrl + '%26sfdcIFrameHost%3Dweb%26nonce%3D3405d520bb7ca5a1d468d15b0a4c924ea35d70195c7d9d4375397fd749e72ea2%26ltn_app_id%3D06m8d000001OuAhAAK%26clc%3D1';
-    //     window.open(url);
-    // }
-
     handleUserDeactivationOnLoad() {
         this.showSpinner = true;
         this.userCanBeDeactivated = false;
@@ -122,7 +118,6 @@ export default class UserManagementDeleteUser extends LightningElement {
                         })
                     }
                 }
-                console.log('deactivating user', result)
                 // Handle successful deactivation here (if needed)
                 this.userCanBeDeactivated = resultBool;
                 this.isDeactivateDisabled = !resultBool; // Enable/disable the button based on the result
@@ -137,17 +132,6 @@ export default class UserManagementDeleteUser extends LightningElement {
                 console.error('Error while checking user deactivation:', error);
                 this.isDeactivateDisabled = true; // Disable the button in case of an error
                 this.showSpinner = false;
-
-                // Check if the error message is for the custom scenario
-                // if (error.body && error.body.message) {
-                //     // Show custom error message for Office Administrator scenario
-                //     this.deactivateErrorMessage = 'Cannot deactivate the user. They are the only admin on at least one Consultant\'s opportunity team.';
-                //
-                //
-                // } else {
-                // Show a generic error message for other scenarios
-                // this.deactivateErrorMessage = 'An error occurred while checking user deactivation.';
-                // }
             });
     }
 
@@ -187,7 +171,6 @@ export default class UserManagementDeleteUser extends LightningElement {
 
     getUserOpps() {
         getUserOpenOpps({userId: this.selectedUserId}).then(currentOpenOpps => {
-            console.log(currentOpenOpps);
             this.openOpps = [];
             this.openOpps = currentOpenOpps;
             this.openOpps.map(oo => {
@@ -207,6 +190,11 @@ export default class UserManagementDeleteUser extends LightningElement {
 
             // Set the default selected region to 'All Regions' if availableRegions is not empty
             if (this.availableRegions.length > 0) {
+                // this.selectedRegion = 'All Regions';
+            }
+
+            if (!this.selectedRegion) {
+
                 this.selectedRegion = 'All Regions';
             }
 
@@ -215,7 +203,6 @@ export default class UserManagementDeleteUser extends LightningElement {
                 this.noOpenOpps = false;
                 consultantsAvailable({userId: this.selectedUserId}).then(result => {
                     this.consultants = result;
-                    console.log('consultants list', result);
                     this.availableConsultantsList = [];
                     for (let i = 0; i < result.length; i++) {
                         this.availableConsultantsList.push({
@@ -224,8 +211,8 @@ export default class UserManagementDeleteUser extends LightningElement {
                             regionName: result[i].Account?.Parent?.Parent?.Name ? result[i].Account?.Parent?.Parent?.Name : 'Not Applicable'
                         })
                     }
+                    this.recalculateAvailableConsultants();
 
-                    console.log('1', JSON.parse(JSON.stringify(this.availableConsultantsList)))
                     this.openoppsExists = true;
                     this.showSpinner = false;
                 })
@@ -248,21 +235,13 @@ export default class UserManagementDeleteUser extends LightningElement {
         }
         if (this.selectedRegion === 'All Regions') {
             this.availableConsultantsList = this.availableConsultantsList.filter((acl) => acl.label.toLowerCase().includes(this.searchKeywordConsultant.toLowerCase()))
-            console.log('1.1', JSON.parse(JSON.stringify(this.availableConsultantsList)));
             return;
         }
         if (this.selectedRegion) {
-            console.log('before', JSON.parse(JSON.stringify(this.availableConsultantsList)))
-            console.log('2', this.availableConsultantsList[0].regionName)
-            console.log('2.1', this.selectedRegion)
-            console.log('2.2', this.searchKeywordConsultant)
-            // this.availableConsultantsList = this.availableConsultantsList.filter((acl) => (acl.regionName.toLowerCase().includes(this.selectedRegion.toLowerCase() && acl.regionName.toLowerCase().includes(this.searchKeywordConsultant.toLowerCase())) || selectedIdsSet.has(acl.value)))
             this.availableConsultantsList = this.availableConsultantsList.filter((acl) => (acl.regionName.toLowerCase().includes(this.selectedRegion.toLowerCase())))
             if (this.searchKeywordConsultant.length > 0) {
                 this.availableConsultantsList = this.availableConsultantsList.filter((acl) => (acl.label.toLowerCase().includes(this.searchKeywordConsultant.toLowerCase())))
             }
-            console.log('1.2', JSON.parse(JSON.stringify(this.availableConsultantsList)));
-            console.log('after', JSON.parse(JSON.stringify(this.availableConsultantsList)))
         }
     }
 
@@ -280,28 +259,14 @@ export default class UserManagementDeleteUser extends LightningElement {
         const filteredOptions = this.formattedOpenOpps.filter((option) =>
             option.label.toLowerCase().includes(this.searchKeywordOpp.toLowerCase()) || selectedIdsSet.has(option.value)
         );
-        // this.availableConsultantsList = [];
-        // for (let i = 0; i < this.consultants.length; i++) {
-        //     this.availableConsultantsList.push({label: this.consultants[i].Name, value: this.consultants[i].Consultant__c,regionName:this.consultants[i].Account?.Parent?.Parent?.Name ? this.consultants[i].Account?.Parent?.Parent?.Name : 'Not Applicable'})
-        // }
 
         // If "All Regions" is selected, show all open opportunities without filtering
         if (this.selectedRegion === 'All Regions') {
-            // this.availableConsultantsList = this.availableConsultantsList.filter((acl) => acl.label.toLowerCase().includes(this.searchKeywordConsultant.toLowerCase()) || selectedIdsSet.has(acl.value))
-            // console.log('1.1',JSON.parse(JSON.stringify(this.availableConsultantsList)));
-            // this.filteredConsultantOptions;
             return filteredOptions;
         }
         // Apply the region filter only when a specific region is selected
 
         if (this.selectedRegion) {
-            // console.log('before',JSON.parse(JSON.stringify(this.availableConsultantsList)))
-            // console.log('2',this.availableConsultantsList[0].regionName)
-            // console.log('2.1',this.selectedRegion)
-            // console.log('2.2',this.searchKeywordConsultant)
-            // this.availableConsultantsList = this.availableConsultantsList.filter((acl) => (acl.regionName.toLowerCase().includes(this.selectedRegion.toLowerCase() && acl.regionName.toLowerCase().includes(this.searchKeywordConsultant.toLowerCase())) || selectedIdsSet.has(acl.value)))
-            // console.log('1.2',JSON.parse(JSON.stringify(this.availableConsultantsList)));
-            // console.log('after',JSON.parse(JSON.stringify(this.availableConsultantsList)))
             return filteredOptions.filter((option) => option.label.toLowerCase().includes(this.selectedRegion.toLowerCase()));
         } else {
             return filteredOptions;
@@ -309,6 +274,7 @@ export default class UserManagementDeleteUser extends LightningElement {
     }
 
     bulkReassign(oppIdsList) {
+        this.showSpinner = true;
         this.batchNumber++;
         this.progress = (this.batchNumber / this.totalNumberOfBatches) * 100
         this.showProgress = true;
@@ -326,6 +292,7 @@ export default class UserManagementDeleteUser extends LightningElement {
         if (oppIdsList.length > 0) {
             this.bulkReassign(oppIdsList);
         } else {
+            this.showSpinner = false;
             this.showProgress = false;
             this.showToast('Success', 'Opportunities Reassigned Successfully', 'success');
             this.showSpinner = false;
@@ -350,7 +317,6 @@ export default class UserManagementDeleteUser extends LightningElement {
             this.bulkReassign(oppIdsToReassign);
         } else {
             this.showSpinner = true;
-            console.log('opps to deactivate', JSON.parse(JSON.stringify(oppIdsToReassign)));
             // Call the Apex method to reassign the opportunities to consultants.
             reassignBulkOpps({oppIds: oppIdsToReassign, newUserIdList: newUserIdList})
                 .then(result => {
@@ -378,50 +344,6 @@ export default class UserManagementDeleteUser extends LightningElement {
         this.openoppsExists = false;
         this.getUserOpps();
     }
-
-    // handleDeactivateUser() {
-    //     this.userCanBeDeactivated = false;
-    //     this.hideForm = true;
-    //     this.showSpinner = true;
-    //     this.noOpenOpps = false;
-    //     console.log('selectedUserId', this.selectedUserId);
-    //     deactivateUser({userId: this.selectedUserId}).then(result => {
-    //         this.showSpinner = false;
-    //         this.showToast('User Deactivated', 'User Deactivated', 'success')
-    //         setTimeout(() => {
-    //             this.hideForm = false;
-    //         }, 500)
-    //     })
-    // }
-
-    // handleDeactivateUser() {
-    //     this.userCanBeDeactivated = false;
-    //     this.hideForm = true;
-    //     this.showSpinner = true;
-    //     this.noOpenOpps = false;
-    //     console.log('selectedUserId', this.selectedUserId);
-    //     deactivateUser({ userId: this.selectedUserId })
-    //         .then((result) => {
-    //
-    //             this.showSpinner = false;
-    //             this.showToast('User Deactivated', 'User Deactivated', 'success');
-    //             setTimeout(() => {
-    //                 this.hideForm = false;
-    //             }, 500);
-    //         })
-    //         .catch((error) => {
-    //             // Handle errors here
-    //             console.error('Error while deactivating user:', error);
-    //             this.showSpinner = false;
-    //             this.hideForm = false;
-    //
-    //             if (error.body && error.body.message) {
-    //                 this.showToast('Error', error.body.message, 'error');
-    //             } else {
-    //                 this.showToast('Error', 'An error occurred while deactivating the user.', 'error');
-    //             }
-    //         });
-    // }
 
 
     handleSelectionCleared() {
