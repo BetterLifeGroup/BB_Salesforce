@@ -309,8 +309,18 @@ public with sharing class UserManagementController {
         List<AccountContactRelation> acrs = [SELECT Id, Account.Name, Contact.Name, AccountId, Account.Parent.Name, Account.Parent.Parent.Name, Account.Parent.ParentId FROM AccountContactRelation WHERE Account.RecordType.Name = 'Sub-Branch' AND ContactId IN (SELECT Id FROM Contact WHERE Consultant__c = :userId) ORDER BY IsDirect DESC];
 
         for (AccountContactRelation acr : acrs) {
-            AccountContactRelation regionAcr = [SELECT Id, CommissionEntityId__c, SkillGroup__c FROM AccountContactRelation WHERE Account.RecordType.Name = 'Region' AND AccountId = :acr.Account.Parent.ParentId AND ContactId IN (SELECT Id FROM Contact WHERE Consultant__c = :userId) ORDER BY CreatedDate LIMIT 1];
-            System.debug(acr);
+            AccountContactRelation regionAcr = new AccountContactRelation();
+            try {
+                regionAcr = [SELECT Id, CommissionEntityId__c, SkillGroup__c FROM AccountContactRelation WHERE Account.RecordType.Name = 'Region' AND AccountId = :acr.Account.Parent.ParentId AND ContactId IN (SELECT Id FROM Contact WHERE Consultant__c = :userId AND RecordType.Name = 'Betterbond Contact') ORDER BY CreatedDate LIMIT 1];
+            } catch (Exception e) {
+//                try{
+//                    delete acr;
+//                } catch (Exception ex) {
+//                    delete [SELECT Id, Account.Name, Contact.Name, AccountId, Account.Parent.Name, Account.Parent.Parent.Name, Account.Parent.ParentId FROM AccountContactRelation WHERE ContactId IN (SELECT Id FROM Contact WHERE Consultant__c = :userId AND RecordType.Name = 'Betterbond Contact') AND IsDirect = FALSE];
+//                    update new Contact(Id = acr.ContactId , AccountId = null);
+//                }
+//                continue;
+            }
             SubBranch sb = new SubBranch();
             sb.subBranchId = acr.AccountId;
             sb.branchName = acr.Account.Parent.Name;
@@ -437,11 +447,9 @@ public with sharing class UserManagementController {
         List<Contact> sameSubBranchConsultantsContacts = [SELECT Id, Name, Consultant__c FROM Contact WHERE Consultant__r.IsActive = TRUE AND Consultant__c != :userId AND Id IN :contactIds ORDER BY Name];
 
         for (Contact ct : sameSubBranchConsultantsContacts) {
-            System.debug(ct);
             String str = ct.Consultant__c;
             consultantIdsList.add(str);
         }
-        System.debug(consultantIdsList);
         List<Contact> sameSubBranchConsultants = [SELECT Id, Name, Consultant__c, Account.Parent.Parent.Name FROM Contact WHERE Consultant__r.IsActive = TRUE AND Consultant__r.Profile.Name = 'Consultant' AND Consultant__c IN :consultantIdsList ORDER BY Name];
         if (sameSubBranchConsultants.size() == 0) {
             return [SELECT Id, Name, Consultant__c, Account.Parent.Parent.Name FROM Contact WHERE Consultant__r.IsActive = TRUE AND Consultant__r.Profile.Name = 'Consultant' ORDER BY Name];
@@ -452,7 +460,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static Boolean reassignBulkOpps(List<String> oppIds, List<String> newUserIdList) {
-        System.debug(oppIds);
         try {
             // Fetch Contact records based on newUserIdList
             List<Contact> newUserContacts = [SELECT Id, AccountId, Account.ParentId, Account.Parent.ParentId FROM Contact WHERE Consultant__c IN :newUserIdList];
@@ -610,8 +617,6 @@ public with sharing class UserManagementController {
     @AuraEnabled
     public static Boolean addAdditionalSubBranch(String userId, String subBranchId, String oldSubBranch, Boolean isNew, String commissionEntityId) {
 
-        System.debug('userId ' + userId + ' subBranchId ' + subBranchId + ' oldSub - ' + oldSubBranch + ' isNew - ' + isNew + ' CommId - ' + commissionEntityId);
-
         try {
 
             if (!isNew) {
@@ -626,12 +631,12 @@ public with sharing class UserManagementController {
                 delete oldAcrs;
             }
 
-            Contact userContact = [SELECT Id,AccountId FROM Contact WHERE Consultant__c = :userId LIMIT 1];
+            Contact userContact = [SELECT Id, AccountId FROM Contact WHERE Consultant__c = :userId LIMIT 1];
 
             AccountContactRelation subBranchAcr = new AccountContactRelation();
             Account subBranch = [SELECT Id, ParentId, Parent.ParentId FROM Account WHERE Id = :subBranchId LIMIT 1];
 
-            if(userContact.AccountId == null){
+            if (userContact.AccountId == null) {
                 userContact.AccountId = subBranchId;
                 update userContact;
             } else {
@@ -723,13 +728,11 @@ public with sharing class UserManagementController {
         Schema.DescribeSObjectResult objSchema = AccountContactRelation.SObjectType.getDescribe();
         Map<String, Schema.SObjectField> fieldMap = objSchema.fields.getMap();
         List<Schema.PicklistEntry>fld = fieldMap.get ('SkillGroup__c').getDescribe().getPicklistValues();
-        System.debug('fld' + fld);
         List<String> pickListValues = new List<String>();
 
         for (Schema.PicklistEntry pl : fld) {
             pickListValues.add(pl.getValue());
         }
-        System.debug('pickList' + pickListValues);
 
         return pickListValues;
     }
@@ -737,14 +740,12 @@ public with sharing class UserManagementController {
     @AuraEnabled
     public static Boolean updateSkills(String userId, List<String> selectedSkills, String subBranchId) {
 
-        System.debug(selectedSkills);
         try {
             Account subBranch = [SELECT Id, Parent.ParentId FROM Account WHERE Id = :subBranchId LIMIT 1];
             Contact userContact = [SELECT Id FROM Contact WHERE Consultant__c = :userId LIMIT 1];
             AccountContactRelation acr = [SELECT Id FROM AccountContactRelation WHERE ContactId = :userContact.Id AND AccountId = :subBranch.Parent.ParentId LIMIT 1];
             acr.SkillGroup__c = String.join (selectedSkills, ';');
 
-            System.debug(acr);
             update acr;
             return true;
 
@@ -856,7 +857,6 @@ public with sharing class UserManagementController {
     public static LwcResult userManagementNetworks(String searchString, Boolean reState) {
 
         String searchKey = '%' + String.escapeSingleQuotes(searchString) + '%';
-        System.debug(searchKey);
         searchKey = searchKey.replaceAll(' ', '%');
 
         LwcResult res = new LwcResult();
@@ -879,7 +879,6 @@ public with sharing class UserManagementController {
         }
         if (reState) {
             res.accounts = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE (Name LIKE :searchKey AND (RecordType.Name = 'Real Estate Network' OR RecordType.Name = 'Real Estate Agency' OR RecordType.Name = 'Real Estate Branch')) OR (Id IN :contactParentIds) LIMIT 50];
-            System.debug('restate' + searchKey);
         } else {
             res.accounts = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE (Name LIKE :searchKey AND (RecordType.Name = 'Region' OR RecordType.Name = 'Branch' OR RecordType.Name = 'Sub-Branch')) OR (Id IN :contactParentIds) LIMIT 50];
         }
@@ -951,7 +950,6 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static Boolean deleteCCRById(Id ccrId) {
-        System.debug(ccrId);
         try {
             delete new FinServ__ContactContactRelation__c(Id = ccrId);
             return true;
@@ -989,8 +987,6 @@ public with sharing class UserManagementController {
             FinServ__ContactContactRelation__c ccr = new FinServ__ContactContactRelation__c();
             FinServ__ReciprocalRole__c role = [SELECT Id FROM FinServ__ReciprocalRole__c WHERE Name = 'Consultant' LIMIT 1];
 
-//            System.debug(consultantUserId);
-//            System.debug([SELECT Id, Name FROM Contact WHERE Consultant__c = :consultantUserId LIMIT 1].Name);
             ccr.FinServ__Role__c = role.Id;
             ccr.FinServ__Contact__c = consultantContactId;
             ccr.FinServ__RelatedContact__c = agentContactId;
@@ -1028,7 +1024,7 @@ public with sharing class UserManagementController {
     @AuraEnabled
     public static List<FinServ__ContactContactRelation__c> getAllLinkedAgents(String consultantUserId) {
         List<FinServ__ContactContactRelation__c> results = new List<FinServ__ContactContactRelation__c>();
-        results = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :[SELECT Id from Contact where Consultant__c = :consultantUserId limit 1].Id ORDER BY FinServ__RelatedContact__r.Name];
+        results = [SELECT Id, Name, FinServ__RelatedContact__r.Name FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :[SELECT Id from Contact where Consultant__c = :consultantUserId AND RecordType.Name = 'Betterbond Contact' limit 1].Id ORDER BY FinServ__RelatedContact__r.Name];
         return results;
     }
 
