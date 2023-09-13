@@ -185,6 +185,21 @@
         </defaultConnector>
         <defaultConnectorLabel>Closed Won PA</defaultConnectorLabel>
         <rules>
+            <name>Closed_General</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General_Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Lost_Bond_Screen_0</targetReference>
+            </connector>
+            <label>Closed General</label>
+        </rules>
+        <rules>
             <name>Bond_Opp_OTP_Received</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -399,6 +414,45 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>CloseGeneralOpportunity</name>
+        <label>Close General Opportunity</label>
+        <locationX>10</locationX>
+        <locationY>433</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <elementReference>generalClose.topValue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>generalClose.middleValue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Complete_Task_0_0</name>
         <label>Complete Task</label>
         <locationX>1672</locationX>
@@ -495,6 +549,36 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>1026</locationY>
         <connector>
             <targetReference>Update_Opportunity_Closed_Lost_PA_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Open_Task.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Task_0_0_0_0_0_0</name>
+        <label>Complete Task</label>
+        <locationX>167</locationX>
+        <locationY>433</locationY>
+        <connector>
+            <targetReference>CloseGeneralOpportunity</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -849,6 +933,159 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     </rightValue>
                 </conditions>
             </visibilityRule>
+        </fields>
+        <nextOrFinishButtonLabel>Close off</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Close_Lost_Bond_Screen_0</name>
+        <label>Close Lost Bond Screen</label>
+        <locationX>305</locationX>
+        <locationY>433</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Complete_Task_0_0_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>openTaskWonHeading_0_0_0_0</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <elementReference>Get_Latest_Open_Task.Subject</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 8px</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Close_Lost_Bond_Screen_0_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Close_Lost_Bond_Screen_0_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Copy_1_of_custName_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Customer Name: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.FirstName} {!Get_Opportunity_to_Close.Account.LastName}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_stickyNote_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Comment/Sticky Note: &lt;/strong&gt;{!Get_Opportunity_to_Close.Comment__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_stageCurr_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Current Stage: &lt;/strong&gt;{!Get_Opportunity_to_Close.StageName}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_statusCurr_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_Opportunity_to_Close.Status__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Close_Lost_Bond_Screen_0_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Copy_1_of_slaDeadline_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;SLA Deadline: &lt;/strong&gt;{!Get_Opportunity_to_Close.SLA_Deadline__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_callback_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Call Back Date Time: &lt;/strong&gt;{!Get_Latest_Open_Task.Due_Date_Time__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_email_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Email: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.PersonEmail}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_contactNumber_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Contact Number: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.Phone}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>generalClose</name>
+            <extensionName>flowruntime:dependentPicklists</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>dependencyWrapperApiName</name>
+                <value>
+                    <stringValue>Opportunity</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topPicklistApiName</name>
+                <value>
+                    <stringValue>StageName</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middlePicklistApiName</name>
+                <value>
+                    <stringValue>Status__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topLabel</name>
+                <value>
+                    <stringValue>Stage</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middleLabel</name>
+                <value>
+                    <stringValue>Status</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middleRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topValue</name>
+                <value>
+                    <stringValue>Closed Lost</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <nextOrFinishButtonLabel>Close off</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
