@@ -21,7 +21,7 @@
         <name>Is_Manual_follow_up</name>
         <label>Is Manual follow up?</label>
         <locationX>769</locationX>
-        <locationY>778</locationY>
+        <locationY>777</locationY>
         <defaultConnector>
             <targetReference>Override_allowed</targetReference>
         </defaultConnector>
@@ -103,7 +103,7 @@
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Opportunity_Related_to_Task.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
+                <operator>GreaterThan</operator>
                 <rightValue>
                     <elementReference>autoFollowUpNotExist</elementReference>
                 </rightValue>
@@ -201,9 +201,7 @@
             <label>Ready Verification Status - Not Allowed</label>
         </rules>
     </decisions>
-    <description>DB: 23 may
-
-Flow Description:
+    <description>Flow Description:
 This flow handles follow-up tasks for Opportunities by either accepting them or applying overrides based on different decisions. Launched from Wrap Up Opportunity H2 flow.
 
 Front-End Access: Work Opportunity button on the Opportunity page.

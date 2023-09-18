@@ -29,10 +29,12 @@
                 <elementReference>Get_Bond_OTP_File.relatedFilesIds__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StringToList</nameSegment>
         <outputParameters>
             <assignToReference>bondRelatedFiles</assignToReference>
             <name>returnedStringList</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0</name>
@@ -54,7 +56,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0</name>
@@ -76,7 +80,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>DetailPageNavigation_0_0_0_0</name>
@@ -98,7 +104,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>c:DetailPageNavigation</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>PA_StringToList</name>
@@ -129,10 +137,12 @@
                 <elementReference>Get_PA_Related_Files.relatedFilesIds__c</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>StringToList</nameSegment>
         <outputParameters>
             <assignToReference>paRelatedFiles</assignToReference>
             <name>returnedStringList</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>Post_to_Chatter_Unregistered_Agent</name>
@@ -157,7 +167,9 @@
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
         <name>StringToList_Final</name>
@@ -188,10 +200,12 @@
                 <stringValue>ListToString</stringValue>
             </value>
         </inputParameters>
+        <nameSegment>StringToList</nameSegment>
         <outputParameters>
             <assignToReference>finalRelatedFiles</assignToReference>
             <name>returnedDelimitedString</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>58.0</apiVersion>
     <assignments>
@@ -1193,7 +1207,7 @@
         <name>Wrap_Up_Button_Selected</name>
         <label>Wrap Up Button Selected</label>
         <locationX>3579</locationX>
-        <locationY>1904</locationY>
+        <locationY>1903</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Manage_Applicant</name>
@@ -1209,35 +1223,6 @@
                 <targetReference>Get_Loan_Application</targetReference>
             </connector>
             <label>Manage Applicant</label>
-        </rules>
-        <rules>
-            <name>Schedule_Follow_Up_Manual</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>scheduleNextBtn.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Latest_Open_Task.Subject</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Manual Follow Up</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Bond_Opportunity.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>autoFollowUpNotExist</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Accept_or_Override_Follow_Up_H2</targetReference>
-            </connector>
-            <label>Schedule Follow Up Manual</label>
         </rules>
         <rules>
             <name>Schedule_Follow_Up_Auto</name>
@@ -1297,9 +1282,7 @@
             <label>Send Cust Email</label>
         </rules>
     </decisions>
-    <description>DB: 2 aug
-
-Flow Description: Launched from Wrap Up Opportunity H2 to Work a Bond Opportunity/progress the Bond Opportunity.
+    <description>Flow Description: Launched from Wrap Up Opportunity H2 to Work a Bond Opportunity/progress the Bond Opportunity.
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <dynamicChoiceSets>
@@ -2242,10 +2225,10 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Task_Call_Outcome</name>
         <label>Update Task Call Outcome</label>
-        <locationX>3588</locationX>
-        <locationY>2109</locationY>
+        <locationX>3874</locationX>
+        <locationY>2029</locationY>
         <connector>
-            <targetReference>Accept_or_Override_Follow_Up_H2</targetReference>
+            <targetReference>Update_Wrap_Up_Comment_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2393,6 +2376,30 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>2042</locationY>
         <connector>
             <targetReference>Update_Task_Call_Outcome_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <elementReference>wrapUpFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Wrap_Up_Comment_0</name>
+        <label>Update Wrap Up Comment</label>
+        <locationX>3875</locationX>
+        <locationY>2184</locationY>
+        <connector>
+            <targetReference>Accept_or_Override_Follow_Up_H2</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -3587,8 +3594,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Accept_or_Override_Follow_Up_H2</name>
         <label>Accept or Override Follow Up H2</label>
-        <locationX>3822</locationX>
-        <locationY>1912</locationY>
+        <locationX>3874</locationX>
+        <locationY>2365</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
