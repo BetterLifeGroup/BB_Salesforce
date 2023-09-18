@@ -87,7 +87,7 @@
         <locationX>1428</locationX>
         <locationY>304</locationY>
         <defaultConnector>
-            <targetReference>Update_Applicant_Status_Path</targetReference>
+            <targetReference>Get_Application_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>All done</defaultConnectorLabel>
         <rules>
@@ -514,7 +514,7 @@
         <name>Rag_Outcome_Check</name>
         <label>Rag Outcome Check</label>
         <locationX>1622</locationX>
-        <locationY>1541</locationY>
+        <locationY>1540</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Proceed_with_PA</name>
@@ -670,6 +670,27 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>UpdatedApplicantRecord_0.LoanApplicationId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ResidentialLoanApplication</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Application_0</name>
+        <label>Get Application</label>
+        <locationX>1716</locationX>
+        <locationY>235</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Opportunity_Awaiting_Docs_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ApplicantRecord.LoanApplicationId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1093,6 +1114,48 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Working</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>PA Requested - awaiting documents</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Awaiting_Docs_0</name>
+        <label>Update Opportunity Awaiting Docs</label>
+        <locationX>1876</locationX>
+        <locationY>234</locationY>
+        <connector>
+            <targetReference>Update_Applicant_Status_Path</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Application_0.OpportunityId</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -1899,8 +1962,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Update_Applicant_Status_Path</name>
         <label>Update Applicant Status Path</label>
-        <locationX>2036</locationX>
-        <locationY>294</locationY>
+        <locationX>2025</locationX>
+        <locationY>270</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>
