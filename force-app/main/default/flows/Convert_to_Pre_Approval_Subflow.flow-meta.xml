@@ -779,7 +779,7 @@
         <name>Manual_Consent_Sent</name>
         <label>Manual Consent Sent?</label>
         <locationX>2603</locationX>
-        <locationY>2426</locationY>
+        <locationY>2425</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>ConsentIDVCredit</name>
@@ -825,35 +825,6 @@
                 <targetReference>Get_Loan_Application_Post_Convert</targetReference>
             </connector>
             <label>Manage Applicant Post Convert</label>
-        </rules>
-        <rules>
-            <name>Schedule_Follow_Up</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
-            <conditions>
-                <leftValueReference>scheduleNextConsentFollowUp.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Latest_Open_PA_Task.Subject</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Manual Follow Up</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_PA_Linked.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>Get_BLG_Workflow_Rule_Linked_to_PA.Close_off_Contact_Attempts__c</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</targetReference>
-            </connector>
-            <label>Schedule Manual Follow Up</label>
         </rules>
         <rules>
             <name>Schedule_Automated</name>
@@ -1183,9 +1154,7 @@
             <label>Schedule Next Auto Follow Up</label>
         </rules>
     </decisions>
-    <description>DB: 10 aug
-
-Flow Description: Flow to Convert General op to Pre-Approval Opp, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
+    <description>Flow Description: Flow to Convert General op to Pre-Approval Opp, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <dynamicChoiceSets>
@@ -2281,8 +2250,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Wrap_Up_update_reason</name>
         <label>Wrap Up update reason</label>
-        <locationX>2879</locationX>
-        <locationY>2658</locationY>
+        <locationX>2800</locationX>
+        <locationY>2650</locationY>
         <connector>
             <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</targetReference>
         </connector>
