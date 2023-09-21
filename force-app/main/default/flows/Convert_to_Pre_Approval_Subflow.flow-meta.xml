@@ -1110,35 +1110,6 @@
             <label>Close Off Opportunity</label>
         </rules>
         <rules>
-            <name>Schedule_Next_follow_up_0</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
-            <conditions>
-                <leftValueReference>nextScheduling_0.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Latest_PA_Open_Task.Subject</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Manual Follow Up</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_PA_Linked.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>Get_BLG_Workflow_Rule_0.Close_off_Contact_Attempts__c</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0</targetReference>
-            </connector>
-            <label>Schedule Next Manual Follow Up</label>
-        </rules>
-        <rules>
             <name>Schedule_Next_Auto_Follow_Up</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1960,48 +1931,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <object>Task</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Awaiting_PA_Docs</name>
-        <label>Update Awaiting PA Docs</label>
-        <locationX>3204</locationX>
-        <locationY>3746</locationY>
-        <connector>
-            <targetReference>verificationButtonsPostDocs</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Updated_PA_Status.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Contact_Attempts__c</field>
-            <value>
-                <numberValue>0.0</numberValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <stringValue>Working</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>PA Requested - awaiting documents</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Update_Call_Outcome_Latest_Task_on_PA</name>
         <label>Update Call Outcome Latest Task on PA</label>
         <locationX>2624</locationX>
@@ -2030,6 +1959,42 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </value>
         </inputAssignments>
         <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Docs_Await</name>
+        <label>Update Docs Await</label>
+        <locationX>3203</locationX>
+        <locationY>3746</locationY>
+        <connector>
+            <targetReference>verificationButtonsPostDocs</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Updated_PA_Status.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Working</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>PA Requested - awaiting documents</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Main_App_Poor_Credit</name>
@@ -2143,7 +2108,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
         <locationX>4071</locationX>
-        <locationY>3886</locationY>
+        <locationY>3885</locationY>
         <connector>
             <targetReference>Wrap_up_Update</targetReference>
         </connector>
@@ -2779,7 +2744,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Update_Awaiting_PA_Docs</targetReference>
+            <targetReference>Update_Docs_Await</targetReference>
         </connector>
         <fields>
             <name>uploadDocsPostConsent</name>
@@ -3117,28 +3082,6 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </connector>
     </start>
     <status>Active</status>
-    <subflows>
-        <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0</name>
-        <label>Accept or Override Follow Up H2</label>
-        <locationX>3977</locationX>
-        <locationY>3683</locationY>
-        <connector>
-            <targetReference>DetailPageNavigation_0_0</targetReference>
-        </connector>
-        <flowName>Accept_or_Override_Follow_Up_H2</flowName>
-        <inputAssignments>
-            <name>recordId</name>
-            <value>
-                <elementReference>Get_PA_Linked.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>wrapUpInput</name>
-            <value>
-                <elementReference>wrapUpCommentVar</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
     <subflows>
         <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Accept or Override Follow Up H2</label>
