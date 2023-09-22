@@ -50,9 +50,9 @@ public without sharing class lwcLookupController {
                 ccr.add(str);
             }
 //            contactList = [SELECT Id, Name FROM Contact WHERE Id IN :ccr AND Name LIKE :searchAcc];
-            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 1];
+            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 10];
         } catch (Exception e) {
-            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 1]; // TODO - temp fix to show all and not related
+            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 10]; // TODO - temp fix to show all and not related
             return contactList;
         }
         return contactList;
