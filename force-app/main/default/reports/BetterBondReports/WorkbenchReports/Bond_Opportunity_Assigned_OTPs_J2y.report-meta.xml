@@ -16,6 +16,9 @@
         <field>Opportunity$Status__c</field>
     </columns>
     <columns>
+        <field>Opportunity$Submission_Status__c</field>
+    </columns>
+    <columns>
         <field>Opportunity$Real_Estate_Agent__c</field>
     </columns>
     <columns>
