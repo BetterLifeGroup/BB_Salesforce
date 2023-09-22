@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
     <columns>
-        <field>Opportunity$Name</field>
+        <field>Opportunity$Bond_Opportunity__c.MC_Previous_Opportunity_Name__c</field>
     </columns>
     <columns>
-        <field>Opportunity$MC_Previous_Opportunity_Name__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Owner</field>
     </columns>
     <columns>
-        <field>Opportunity$Owner_Name__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Consultant_Region_Name__c</field>
     </columns>
     <columns>
         <field>Opportunity$StageName</field>
@@ -16,20 +16,17 @@
         <field>Opportunity$Status__c</field>
     </columns>
     <columns>
-        <field>Opportunity$Submission_Status__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Real_Estate_Agent__c</field>
     </columns>
     <columns>
-        <field>Opportunity$Real_Estate_Agent__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Agency__c</field>
     </columns>
     <columns>
-        <field>Opportunity$Agency__c</field>
-    </columns>
-    <columns>
-        <field>Opportunity$applicationType__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Loan_Applicant__c.LoanApplication.Application_Type__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>Opportunity$Loan_Amount__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Loan_Applicant__c.LoanApplication.Loan_Amount__c</field>
     </columns>
     <columns>
         <field>Opportunity$Reference_Number_Text__c</field>
@@ -39,34 +36,31 @@
         <field>Opportunity$Affordability_Amount__c</field>
     </columns>
     <columns>
-        <field>Opportunity$CreatedDate</field>
+        <field>Opportunity$Bond_Opportunity__c.CreatedDate</field>
     </columns>
     <columns>
-        <field>Opportunity$Assignment_DateTime__c</field>
+        <field>Opportunity$Bond_Opportunity__c.Assignment_DateTime__c</field>
     </columns>
     <columns>
-        <field>Opportunity$LastModifiedDate</field>
+        <field>Opportunity$Submission_Status__c</field>
     </columns>
     <columns>
-        <field>Opportunity$LastModifiedBy</field>
-    </columns>
-    <columns>
-        <field>Opportunity$Id</field>
+        <field>Opportunity$Bond_Opportunity__c.Submission_Status__c</field>
     </columns>
     <filter>
         <criteriaItems>
             <column>Opportunity$RecordType</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>Opportunity.Bond</value>
+            <value>Opportunity.General_Opportunity</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Opportunity$Status__c</column>
+            <column>Opportunity$StageName</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
+            <isUnlocked>false</isUnlocked>
             <operator>equals</operator>
-            <value>OTP received</value>
+            <value>Bond</value>
         </criteriaItems>
     </filter>
     <format>Summary</format>
@@ -75,12 +69,12 @@
         <field>Opportunity$BLG_Campaign__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Bond Opportunity - Assigned OTPs</name>
+    <name>Bond Opportunities (Strawberry Fields)</name>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>BetterBond_Reporting_Bond_Opportunities__c</reportType>
+    <reportType>BetterBond_Reporting_Strawberry_Fields__c</reportType>
     <scope>salesteamteam</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
