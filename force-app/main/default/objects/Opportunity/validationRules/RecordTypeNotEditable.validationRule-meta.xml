@@ -3,6 +3,6 @@
     <fullName>RecordTypeNotEditable</fullName>
     <active>true</active>
     <errorConditionFormula>AND(NOT(ISNEW()),
-				ISCHANGED(RecordTypeId))</errorConditionFormula>
+ISCHANGED(RecordTypeId),NOT($Profile.Name = &quot;System Administrator&quot;))</errorConditionFormula>
     <errorMessage>The record type field is not allowed to be edited.</errorMessage>
 </ValidationRule>
