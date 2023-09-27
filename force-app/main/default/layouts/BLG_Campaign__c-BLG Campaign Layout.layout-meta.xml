@@ -162,6 +162,9 @@
         <actionListContext>Record</actionListContext>
     </platformActionList>
     <relatedLists>
+        <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
         <excludeButtons>NewEvent</excludeButtons>
         <excludeButtons>NewTask</excludeButtons>
         <fields>TASK.SUBJECT</fields>
