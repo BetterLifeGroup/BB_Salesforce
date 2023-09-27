@@ -5,6 +5,6 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EmailRegex</shortDescription>
-        <value>^[a-zA-Z0-9.!#$%&amp;+_=|-]+@[a-zA-Z0-9_-]+[.]{1}(([a-zA-Z0-9]{3}$|[a-zA-Z0-9]{6}$)|[a-zA-Z0-9]+[.]{1}[a-zA-Z0-9]{2}$)</value>
+        <value>^[a-zA-Z0-9.!#$%&amp;+_=|-]+@[a-zA-Z0-9_-]+\.[a-zA-Z0-9.!#$%&amp;+_=|-]+$</value>
     </labels>
 </CustomLabels>
