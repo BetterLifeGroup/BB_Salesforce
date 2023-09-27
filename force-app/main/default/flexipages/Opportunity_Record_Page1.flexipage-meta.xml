@@ -215,11 +215,18 @@
                     <valueList>
                         <valueListItems>
                             <value>Opportunity.Work_Opportunity</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Duplicate Opportunity</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Change_Owner_Manual</value>
                             <visibilityRule>
-                                <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                                <booleanFilter>(1 OR 2 OR 3) AND 4</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>EQUAL</operator>
@@ -234,6 +241,11 @@
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Team Lead</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Duplicate Opportunity</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -266,9 +278,31 @@
                         <valueListItems>
                             <value>Opportunity.Change_Real_Estate_Agent</value>
                             <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
                                     <operator>EQUAL</operator>
+                                    <rightValue>System Administrator</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Duplicate Opportunity</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Opportunity.Release_Opportunity</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.Name}</leftValue>
+                                    <operator>CONTAINS</operator>
+                                    <rightValue>Duplicate Opportunity</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>CONTAINS</operator>
                                     <rightValue>System Administrator</rightValue>
                                 </criteria>
                             </visibilityRule>
@@ -372,10 +406,16 @@
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.Name}</leftValue>
                         <operator>CONTAINS</operator>
                         <rightValue>General</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.Name}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Duplicate</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
