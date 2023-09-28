@@ -3834,6 +3834,24 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </value>
         </filters>
         <inputAssignments>
+            <field>ConsultantBranch__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ConsultantRegion__c</field>
+            <value>
+                <elementReference>regionAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ConsultantSubBranch__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>StageName</field>
             <value>
                 <stringValue>Working (Bond)</stringValue>
