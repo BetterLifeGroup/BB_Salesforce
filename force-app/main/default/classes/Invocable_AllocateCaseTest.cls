@@ -115,8 +115,8 @@ public class Invocable_AllocateCaseTest {
         Case ca2 = new Case(Subject='Test2',OwnerId=u2.Id);
         insert ca2;
 
-        Case ca3 = new Case(Subject='Test3',OwnerId=System.UserInfo.getUserId());
-        insert ca3;
+//        Case ca3 = new Case(Subject='Test3',OwnerId=System.UserInfo.getUserId());
+//        insert ca3;
 
         System.debug('collGroup' + collGroup);
 

@@ -46,6 +46,7 @@ global class Invocable_AllocateCase {
                 AND Member.AvailableforRouting__c = TRUE
                 AND Member.IsActive = TRUE
                 AND MemberId NOT IN (SELECT OwnerId FROM Case)
+                AND CollaborationRole != 'Admin'
         ];
 
         if (noLeadResults.size() > 0) {
@@ -71,6 +72,7 @@ global class Invocable_AllocateCase {
                             FROM CollaborationGroupMember
                             WHERE CollaborationGroup.Name IN :groups
                             AND Member.AvailableforRouting__c = TRUE AND Member.IsActive = TRUE
+                            AND CollaborationRole != 'Admin'
                     )
                     GROUP BY OwnerId
                     ORDER BY MAX(CreatedDate), COUNT(Id) ASC
