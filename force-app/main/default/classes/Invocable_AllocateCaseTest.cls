@@ -56,6 +56,8 @@ public class Invocable_AllocateCaseTest {
 
     @IsTest
     public static void allocateCaseTestNegative() {
+        delete [SELECT Id FROM Case WHERE OwnerId IN :[SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1]];
+
 
 
         CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup LIMIT 1];
@@ -80,6 +82,9 @@ public class Invocable_AllocateCaseTest {
     }
     @IsTest
     public static void allocateCaseTestPositive() {
+
+        delete [SELECT Id FROM Case WHERE OwnerId IN :[SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1]];
+
 
         CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup WHERE Name = 'TestCase Team' LIMIT 1];
         System.debug('collGroup' + collGroup);
@@ -122,6 +127,41 @@ public class Invocable_AllocateCaseTest {
 
         Invocable_AllocateCase.Request req = new Invocable_AllocateCase.Request();
         req.caseGroup = collGroup.Name;
+
+        List<Invocable_AllocateCase.Request> reqList = new List<Invocable_AllocateCase.Request>();
+        reqList.add(req);
+
+        Test.startTest();
+        List<Invocable_AllocateCase.Result> result = Invocable_AllocateCase.allocateCase(reqList);
+        Test.stopTest();
+
+        System.debug('collGroup' + collGroup);
+        System.debug('req' + req);
+        System.debug('reqList' + reqList);
+        // System.debug('result' + result);
+
+    }
+    @IsTest
+    public static void allocateCaseTestFail() {
+
+        CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup WHERE Name = 'TestCase Team' LIMIT 1];
+//        User u = [SELECT Id FROM User WHERE LastName = 'Testing' LIMIT 1];
+//
+//        Case ca = new Case(Subject='Test',OwnerId=u.Id);
+//        insert ca;
+//
+//        User u2 = [SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1];
+//
+//        Case ca2 = new Case(Subject='Test2',OwnerId=u2.Id);
+//        insert ca2;
+
+//        Case ca3 = new Case(Subject='Test3',OwnerId=System.UserInfo.getUserId());
+//        insert ca3;
+
+        System.debug('collGroup' + collGroup);
+
+        Invocable_AllocateCase.Request req = new Invocable_AllocateCase.Request();
+        req.caseGroup = 'Fake Group Name';
 
         List<Invocable_AllocateCase.Request> reqList = new List<Invocable_AllocateCase.Request>();
         reqList.add(req);
