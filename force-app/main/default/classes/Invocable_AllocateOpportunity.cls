@@ -50,6 +50,7 @@ global class Invocable_AllocateOpportunity {
                 AND Member.AvailableforRouting__c = TRUE
                 AND Member.isActive = true
                 AND MemberId NOT IN (SELECT OwnerId FROM Opportunity)
+                AND CollaborationRole != 'Admin'
         ];
 
         if (noLeadResults.size() > 0) {
@@ -75,6 +76,7 @@ global class Invocable_AllocateOpportunity {
                             WHERE CollaborationGroup.Name IN :groups
                             AND Member.AvailableforRouting__c = TRUE
                             AND Member.isActive = true
+                            AND CollaborationRole != 'Admin'
                     )
                     GROUP BY OwnerId
                     ORDER BY Max(CreatedDate), Count(Id) ASC
