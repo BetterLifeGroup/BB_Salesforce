@@ -121,8 +121,8 @@ public class Invocable_AllocateOpportunityTest {
         Opportunity opp2 = new Opportunity(Name='Test2',OwnerId=u2.Id,CloseDate=Date.newInstance(2020,02,02),StageName = 'New');
         insert opp2;
 
-        Opportunity opp3 = new Opportunity(Name='Test3',CloseDate=Date.newInstance(2020,02,02),StageName = 'New');
-        insert opp3;
+//        Opportunity opp3 = new Opportunity(Name='Test3',CloseDate=Date.newInstance(2020,02,02),StageName = 'New');
+//        insert opp3;
         System.debug('collGroup' + collGroup);
 
         Invocable_AllocateOpportunity.Request req = new Invocable_AllocateOpportunity.Request();
