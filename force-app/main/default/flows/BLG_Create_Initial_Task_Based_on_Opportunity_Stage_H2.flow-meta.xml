@@ -637,6 +637,34 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Task</name>
+        <label>Get Task</label>
+        <locationX>891</locationX>
+        <locationY>404</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Taks_Found</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>Initial</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Updated_Deadline</name>
         <label>Get Updated Deadline</label>
         <locationX>194</locationX>
@@ -918,6 +946,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <connector>
             <targetReference>Get_Campaign_SLA</targetReference>
         </connector>
+        <filterFormula>{!$Record.RecordType.Name} = &quot;General Opportunity&quot;</filterFormula>
         <object>Opportunity</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
