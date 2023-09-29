@@ -63,6 +63,8 @@ public class Invocable_AllocateOpportunityTest {
     @IsTest
     public static void allocateOpportunityTestNegative() {
 
+        delete [SELECT Id FROM Opportunity WHERE OwnerId IN :[SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1]];
+
         CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup LIMIT 1];
         System.debug('collGroup' + collGroup);
 
@@ -85,6 +87,8 @@ public class Invocable_AllocateOpportunityTest {
     }
     @IsTest
     public static void allocateOpportunityTestPositive() {
+
+        delete [SELECT Id FROM Opportunity WHERE OwnerId IN :[SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1]];
 
         CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup WHERE Name = 'Opportunity Team' LIMIT 1];
         System.debug('collGroup' + collGroup);
