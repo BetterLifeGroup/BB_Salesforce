@@ -32,6 +32,21 @@
                 <default>false</default>
                 <label>Registered</label>
             </value>
+            <value>
+                <fullName>Declined</fullName>
+                <default>false</default>
+                <label>Declined</label>
+            </value>
+            <value>
+                <fullName>Withdrawn</fullName>
+                <default>false</default>
+                <label>Withdrawn</label>
+            </value>
+            <value>
+                <fullName>NTU</fullName>
+                <default>false</default>
+                <label>NTU</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

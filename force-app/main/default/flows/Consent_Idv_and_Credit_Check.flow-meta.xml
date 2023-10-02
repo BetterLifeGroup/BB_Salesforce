@@ -87,7 +87,7 @@
         <locationX>1428</locationX>
         <locationY>304</locationY>
         <defaultConnector>
-            <targetReference>Update_Applicant_Status_Path</targetReference>
+            <targetReference>Get_Application_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>All done</defaultConnectorLabel>
         <rules>
@@ -384,6 +384,31 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_opp_in_poor_credit</name>
+        <label>Is opp in poor credit?</label>
+        <locationX>1970</locationX>
+        <locationY>237</locationY>
+        <defaultConnector>
+            <targetReference>Update_Opportunity_Awaiting_Docs_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Poor_Credit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Updated_Opp.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Poor credit</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Applicant_Status_Path</targetReference>
+            </connector>
+            <label>Yes - Poor Credit</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_running_user_and_Opp_Owner_match</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>1092</locationX>
@@ -514,7 +539,7 @@
         <name>Rag_Outcome_Check</name>
         <label>Rag Outcome Check</label>
         <locationX>1622</locationX>
-        <locationY>1541</locationY>
+        <locationY>1540</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Proceed_with_PA</name>
@@ -677,6 +702,27 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Application_0</name>
+        <label>Get Application</label>
+        <locationX>1716</locationX>
+        <locationY>235</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Updated_Opp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ApplicantRecord.LoanApplicationId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ResidentialLoanApplication</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Co_Applicant</name>
         <label>Get Co-Applicant</label>
         <locationX>1953</locationX>
@@ -828,6 +874,27 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Opportunity.General_Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Updated_Opp</name>
+        <label>Get Updated Opp</label>
+        <locationX>1836</locationX>
+        <locationY>234</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_opp_in_poor_credit</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Application_0.OpportunityId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1093,6 +1160,48 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Working</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>PA Requested - awaiting documents</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Awaiting_Docs_0</name>
+        <label>Update Opportunity Awaiting Docs</label>
+        <locationX>2156</locationX>
+        <locationY>98</locationY>
+        <connector>
+            <targetReference>Update_Applicant_Status_Path</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Application_0.OpportunityId</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -1899,8 +2008,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Update_Applicant_Status_Path</name>
         <label>Update Applicant Status Path</label>
-        <locationX>2036</locationX>
-        <locationY>294</locationY>
+        <locationX>2155</locationX>
+        <locationY>303</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>

@@ -1003,11 +1003,6 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
-            <field>Personal_ID_Number__c</field>
-            <table>ResidentialLoanApplication.LoanApplicants</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
             <field>Postal_Code_Current__c</field>
             <table>ResidentialLoanApplication.LoanApplicants</table>
         </columns>
@@ -1159,6 +1154,12 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Work_Phone_Number__c</field>
+            <table>ResidentialLoanApplication.LoanApplicants</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Customer ID Number</displayNameOverride>
+            <field>Contact.Account.Identification_Number__c</field>
             <table>ResidentialLoanApplication.LoanApplicants</table>
         </columns>
         <masterLabel>Loan Applicants</masterLabel>
