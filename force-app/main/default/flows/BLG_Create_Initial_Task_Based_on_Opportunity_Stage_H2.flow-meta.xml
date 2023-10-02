@@ -321,7 +321,7 @@
         </rules>
     </decisions>
     <description>Flow Description:
-Creates the initial (1st) follow up task when an Opportunity is created.
+Creates the initial (1st) follow up task when an Opportunity is created
 
 No Front-End Access - Flow is record triggered based on the entry criteria.
 
