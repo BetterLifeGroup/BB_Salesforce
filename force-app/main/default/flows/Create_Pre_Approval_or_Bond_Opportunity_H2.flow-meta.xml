@@ -84,7 +84,7 @@
         <name>updateOpportunity</name>
         <label>updateOpportunity</label>
         <locationX>387</locationX>
-        <locationY>3911</locationY>
+        <locationY>3910</locationY>
         <actionName>updateOpportunity</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -116,7 +116,7 @@
         <actionName>updateOpportunity</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Was_Update_Succesful_0</targetReference>
+            <targetReference>Create_Loan_Application</targetReference>
         </connector>
         <dataTypeMappings>
             <typeName>T__sObjectToUpdate</typeName>
@@ -155,6 +155,62 @@
             <name>sObjectToUpdate</name>
             <value>
                 <elementReference>Get_PA_for_Close_Out_Full</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <outputParameters>
+            <assignToReference>outputVar</assignToReference>
+            <name>output</name>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>updateOpportunity_0_0_0</name>
+        <label>updateOpportunity</label>
+        <locationX>837</locationX>
+        <locationY>3662</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_Bond_Application_Record_Type</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_Created_Bond</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <outputParameters>
+            <assignToReference>outputVar</assignToReference>
+            <name>output</name>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>updateOpportunity_0_0_0_0</name>
+        <label>updateOpportunity</label>
+        <locationX>2277</locationX>
+        <locationY>6326</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_PA_for_Close_Out</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_Bond_Create</elementReference>
             </value>
         </inputParameters>
         <nameSegment>updateOpportunity</nameSegment>
@@ -282,8 +338,8 @@
     <assignments>
         <name>Assign_Bond_Record_Type</name>
         <label>Assign Bond Record Type</label>
-        <locationX>735</locationX>
-        <locationY>3780</locationY>
+        <locationX>736</locationX>
+        <locationY>3788</locationY>
         <assignmentItems>
             <assignToReference>applicationRecordTypeVar</assignToReference>
             <operator>Assign</operator>
@@ -460,7 +516,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Bond_Info_from_PA</targetReference>
+            <targetReference>Is_Foreign_Owner_0_0_0_0_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -506,7 +562,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Bond_Info_from_PA</targetReference>
+            <targetReference>Is_Foreign_Owner_0_0_0_0_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -545,7 +601,7 @@
         <name>Assign_Opp_Vars_Apex_Action</name>
         <label>Assign Opp Vars Apex Action</label>
         <locationX>538</locationX>
-        <locationY>3911</locationY>
+        <locationY>3910</locationY>
         <assignmentItems>
             <assignToReference>Get_General_Opportunity.Wrap_Up_Reason__c</assignToReference>
             <operator>Assign</operator>
@@ -735,6 +791,73 @@
         </assignmentItems>
         <connector>
             <targetReference>updateOpportunity_0_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0</name>
+        <label>Assign Opp Vars Apex Action</label>
+        <locationX>735</locationX>
+        <locationY>3485</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Created_Bond.Affordability_Amount__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.Affordability_Amount__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Created_Bond.BLG_Campaign__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.BLG_Campaign__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Created_Bond.PA_Issued_Date_Time__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.PA_Issued_Date_Time__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Created_Bond.Reference_Number_Text__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.Reference_Number_Text__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Created_Bond.relatedFilesIds__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.relatedFilesIds__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Created_Bond.PreApprovalOpportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.PreApprovalOpportunity__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>updateOpportunity_0_0_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0_0</name>
+        <label>Assign Opp Vars Apex Action</label>
+        <locationX>2276</locationX>
+        <locationY>6170</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Bond_Create.Loan_Applicants__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>applicantList</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>updateOpportunity_0_0_0_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -1760,6 +1883,56 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_Foreign_Owner_0_0_0_0_0</name>
+        <label>Is Foreign Owner?</label>
+        <locationX>1053</locationX>
+        <locationY>3489</locationY>
+        <defaultConnector>
+            <targetReference>Update_Bond_Info_from_PA</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Owner Match</defaultConnectorLabel>
+        <rules>
+            <name>Foreign_Owner_0_0_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>foreignOwner</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Created_Bond</targetReference>
+            </connector>
+            <label>Foreign Owner</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Foreign_Owner_0_0_0_0_0_0</name>
+        <label>Is Foreign Owner?</label>
+        <locationX>1882</locationX>
+        <locationY>6267</locationY>
+        <defaultConnector>
+            <targetReference>Update_Loan_Applicants_for_MC</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Owner Match</defaultConnectorLabel>
+        <rules>
+            <name>Foreign_Owner_0_0_0_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>foreignOwner</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Bond_Create</targetReference>
+            </connector>
+            <label>Foreign Owner</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_General_Opp_a_Repeat</name>
         <label>Is General Opp a Repeat?</label>
         <locationX>1487</locationX>
@@ -1847,15 +2020,8 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Get_General_Opportunity.PreApprovalOpportunity__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
-                <targetReference>Create_Pre_Approval_OR_Bond_Opp</targetReference>
+                <targetReference>Create_Pre_Approval_OR_Bond_Opp_0</targetReference>
             </connector>
             <label>Manual Context</label>
         </rules>
@@ -2090,8 +2256,8 @@
     <decisions>
         <name>Is_there_Existing_PA_for_Close</name>
         <label>Is there Existing PA for Close?</label>
-        <locationX>2193</locationX>
-        <locationY>6435</locationY>
+        <locationX>2204</locationX>
+        <locationY>6443</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Close_Existing_PA</name>
@@ -2237,28 +2403,6 @@
         <defaultConnectorLabel>Pass</defaultConnectorLabel>
         <rules>
             <name>Failed_Output_Null</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>outputVar</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <label>Failed - Output Null</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Was_Update_Succesful_0</name>
-        <label>Was Update Succesful?</label>
-        <locationX>780</locationX>
-        <locationY>4495</locationY>
-        <defaultConnector>
-            <targetReference>Relate_PA_Opp_to_Bond_Opp</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Pass</defaultConnectorLabel>
-        <rules>
-            <name>Failed_Output_Null_0</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>outputVar</leftValueReference>
@@ -2433,7 +2577,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             <targetReference>Add_1_to_Count_Variable</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Update_Loan_Applicants_for_MC</targetReference>
+            <targetReference>Is_Foreign_Owner_0_0_0_0_0_0</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -3201,8 +3345,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordLookups>
         <name>Get_Bond_Applicant_Record_Type</name>
         <label>Get Bond Applicant Record Type</label>
-        <locationX>886</locationX>
-        <locationY>3780</locationY>
+        <locationX>889</locationX>
+        <locationY>3788</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Bond_Record_Type</targetReference>
@@ -3252,6 +3396,27 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Bond_Create</name>
+        <label>Get Bond Create</label>
+        <locationX>2124</locationX>
+        <locationY>6170</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>createdOppId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -3350,6 +3515,27 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Created_Bond</name>
+        <label>Get Created Bond</label>
+        <locationX>873</locationX>
+        <locationY>3485</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>createdOppId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -3852,8 +4038,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordLookups>
         <name>Get_Updated_Opp_Self_Employed_0</name>
         <label>Get Updated Opp Self Employed</label>
-        <locationX>910</locationX>
-        <locationY>3338</locationY>
+        <locationX>383</locationX>
+        <locationY>2950</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>bondSpecialistScr_0</targetReference>
@@ -3931,8 +4117,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordUpdates>
         <name>Close_Open_Tasks_General_0_0_0</name>
         <label>Close Open Tasks General</label>
-        <locationX>910</locationX>
-        <locationY>3115</locationY>
+        <locationX>652</locationX>
+        <locationY>2950</locationY>
         <connector>
             <targetReference>Update_Opp_Status_0_0_0</targetReference>
         </connector>
@@ -4189,10 +4375,10 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordUpdates>
         <name>Relate_Bond_Opp_to_PA_Opp</name>
         <label>Relate Bond Opp to PA Opp</label>
-        <locationX>998</locationX>
-        <locationY>4224</locationY>
+        <locationX>986</locationX>
+        <locationY>4205</locationY>
         <connector>
-            <targetReference>Relate_PA_Opp_to_Bond_Opp</targetReference>
+            <targetReference>Create_Loan_Application</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -4206,36 +4392,6 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             <field>Bond_Opportunity__c</field>
             <value>
                 <elementReference>createdOppId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Relate_PA_Opp_to_Bond_Opp</name>
-        <label>Relate PA Opp to Bond Opp</label>
-        <locationX>998</locationX>
-        <locationY>4493</locationY>
-        <connector>
-            <targetReference>Create_Loan_Application</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>createdOppId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>PreApprovalOpportunity__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.PreApprovalOpportunity__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4303,8 +4459,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordUpdates>
         <name>Update_Bond_Info_from_PA</name>
         <label>Update Bond Info from PA</label>
-        <locationX>1039</locationX>
-        <locationY>3610</locationY>
+        <locationX>1062</locationX>
+        <locationY>3651</locationY>
         <connector>
             <targetReference>Get_Bond_Application_Record_Type</targetReference>
         </connector>
@@ -4332,6 +4488,12 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             <field>PA_Issued_Date_Time__c</field>
             <value>
                 <elementReference>Get_the_Existing_PA.PA_Issued_Date_Time__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PreApprovalOpportunity__c</field>
+            <value>
+                <elementReference>Get_General_Opportunity.PreApprovalOpportunity__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4619,8 +4781,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordUpdates>
         <name>Update_Opp_Status_0_0_0</name>
         <label>Update Opp Status</label>
-        <locationX>910</locationX>
-        <locationY>3227</locationY>
+        <locationX>522</locationX>
+        <locationY>2950</locationY>
         <connector>
             <targetReference>Get_Updated_Opp_Self_Employed_0</targetReference>
         </connector>
@@ -4722,8 +4884,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <screens>
         <name>bondSpecialistScr_0</name>
         <label>bondSpecialistScr</label>
-        <locationX>910</locationX>
-        <locationY>3471</locationY>
+        <locationX>247</locationX>
+        <locationY>2950</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
