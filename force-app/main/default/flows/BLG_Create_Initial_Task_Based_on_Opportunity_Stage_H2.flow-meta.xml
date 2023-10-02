@@ -299,8 +299,8 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Taks_Found</name>
-        <label>Taks Found?</label>
+        <name>Tasks_Found</name>
+        <label>Tasks Found?</label>
         <locationX>790</locationX>
         <locationY>554</locationY>
         <defaultConnector>
@@ -321,7 +321,7 @@
         </rules>
     </decisions>
     <description>Flow Description:
-Creates the initial (1st) follow up task when an Opportunity is created.
+Creates the initial (1st) follow up task when an Opportunity is created
 
 No Front-End Access - Flow is record triggered based on the entry criteria.
 
@@ -665,7 +665,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <locationY>404</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Taks_Found</targetReference>
+            <targetReference>Tasks_Found</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
