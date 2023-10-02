@@ -3651,7 +3651,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Add_Bond_Applicants</name>
         <label>Add Bond Applicants</label>
-        <locationX>1657</locationX>
+        <locationX>1658</locationX>
         <locationY>1052</locationY>
         <connector>
             <targetReference>Create_Contact_Relationship</targetReference>
@@ -3666,13 +3666,9 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <inputAssignments>
             <name>recordId</name>
             <value>
-                <elementReference>Get_Loan_Application.Id</elementReference>
+                <elementReference>Get_Loan_Application_for_Bond.Id</elementReference>
             </value>
         </inputAssignments>
-        <outputAssignments>
-            <assignToReference>createdCoCOP</assignToReference>
-            <name>theCreatedCoContactId</name>
-        </outputAssignments>
     </subflows>
     <subflows>
         <name>Close_Opportunity_Lost_or_Won_Subflow</name>
