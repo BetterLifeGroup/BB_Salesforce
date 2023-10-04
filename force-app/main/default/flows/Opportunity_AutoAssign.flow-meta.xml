@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>IsWithin</name>
+        <label>IsWithin</label>
+        <locationX>776</locationX>
+        <locationY>411</locationY>
+        <actionName>DateTimeUtility</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_Hours</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>methodName</name>
+            <value>
+                <stringValue>BusinessHours.isWithin</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>businessHoursName</name>
+            <value>
+                <stringValue>Default</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>dateTimeString</name>
+            <value>
+                <elementReference>form_input_time</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>DateTimeUtility</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <name>Check_Hours</name>
+        <label>Check Hours</label>
+        <locationX>768</locationX>
+        <locationY>540</locationY>
+        <defaultConnectorLabel>Outside Business Hours</defaultConnectorLabel>
+        <rules>
+            <name>Is_During_Business_Hours</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsWithin.result</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Opportunity_Assign_Owner</targetReference>
+            </connector>
+            <label>Is During Business Hours</label>
+        </rules>
+    </decisions>
+    <description>FBK: Use campaign type to filter entry</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>now + SLA</description>
+        <name>form_input_time</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW() + ( {!$Record.BLG_Campaign__r.SLA__c}/1440)</expression>
+    </formulas>
+    <interviewLabel>Opportunity Auto Assign {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity Auto Assign</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>IsWithin</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Campaign_Type__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Create lead/manual</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Opportunity_Assign_Owner</name>
+        <label>Opportunity Assign Owner</label>
+        <locationX>777</locationX>
+        <locationY>718</locationY>
+        <flowName>Opportunity_Assign_Owner</flowName>
+        <inputAssignments>
+            <name>blgCampaignId</name>
+            <value>
+                <elementReference>$Record.BLG_Campaign__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>opportunityId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>
