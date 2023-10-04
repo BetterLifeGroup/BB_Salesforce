@@ -40,8 +40,6 @@ global class Invocable_AllocateOpportunity {
 
             }
         }
-        System.debug('Groups: ' + groups);
-        System.debug('defaultType' + defaultType);
 
         List<CollaborationGroupMember> noLeadResults = [
                 SELECT MemberId
@@ -84,7 +82,6 @@ global class Invocable_AllocateOpportunity {
 
             Integer maxGroupMembers = resultList.size();
             Integer currentGroupMember = 0;
-            System.debug('Query AR Results: ' + resultList);
             for (Request vars : varsList) {
                 Result thisResult = new Result();
                 thisResult.ownerId = (Id) resultList[currentGroupMember].get('OwnerId');
