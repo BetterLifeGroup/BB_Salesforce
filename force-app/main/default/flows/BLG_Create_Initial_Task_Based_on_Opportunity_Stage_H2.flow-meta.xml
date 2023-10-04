@@ -4,7 +4,7 @@
         <name>nextStartDueDate</name>
         <label>nextStartDueDate</label>
         <locationX>729</locationX>
-        <locationY>1971</locationY>
+        <locationY>2028</locationY>
         <actionName>DateTimeUtility</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -46,7 +46,7 @@
         <name>nextStartDueDate_0_0</name>
         <label>nextStartDueDate</label>
         <locationX>1107</locationX>
-        <locationY>1942</locationY>
+        <locationY>1999</locationY>
         <actionName>DateTimeUtility</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -89,7 +89,7 @@
         <name>Assign_Bond_Subject_Var</name>
         <label>Assign Bond Subject Var</label>
         <locationX>729</locationX>
-        <locationY>1771</locationY>
+        <locationY>1828</locationY>
         <assignmentItems>
             <assignToReference>subjectVar</assignToReference>
             <operator>Assign</operator>
@@ -105,7 +105,7 @@
         <name>Assign_PA_Subject_Var</name>
         <label>Assign PA Subject Var</label>
         <locationX>880</locationX>
-        <locationY>1971</locationY>
+        <locationY>2028</locationY>
         <assignmentItems>
             <assignToReference>subjectVar</assignToReference>
             <operator>Assign</operator>
@@ -121,7 +121,7 @@
         <name>Check_Contact_Attempts</name>
         <label>Check Contact Attempts</label>
         <locationX>861</locationX>
-        <locationY>1387</locationY>
+        <locationY>1444</locationY>
         <defaultConnectorLabel>Has Attempts</defaultConnectorLabel>
         <rules>
             <name>X0_Attempts</name>
@@ -165,7 +165,7 @@
         <name>Hours_or_Days_0</name>
         <label>Hours or Days?</label>
         <locationX>721</locationX>
-        <locationY>2252</locationY>
+        <locationY>2309</locationY>
         <defaultConnector>
             <targetReference>Update_Opportunity_to_Task_SLA</targetReference>
         </defaultConnector>
@@ -190,7 +190,7 @@
         <name>Is_SLA_or_COB_first</name>
         <label>Is SLA or COB first</label>
         <locationX>1099</locationX>
-        <locationY>2327</locationY>
+        <locationY>2384</locationY>
         <defaultConnector>
             <targetReference>Update_Opportunity_SLA_Deadline_0</targetReference>
         </defaultConnector>
@@ -215,7 +215,7 @@
         <name>Opportunity_Stage_0_0</name>
         <label>Opportunity Stage</label>
         <locationX>863</locationX>
-        <locationY>1591</locationY>
+        <locationY>1648</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Create_1st_General_Opp_Task</name>
@@ -301,8 +301,8 @@
     <decisions>
         <name>Tasks_Found</name>
         <label>Tasks Found?</label>
-        <locationX>790</locationX>
-        <locationY>554</locationY>
+        <locationX>736</locationX>
+        <locationY>582</locationY>
         <defaultConnector>
             <targetReference>Get_Campaign_SLA</targetReference>
         </defaultConnector>
@@ -430,7 +430,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Create_Initial_Task</name>
         <label>Create Initial Task</label>
         <locationX>729</locationX>
-        <locationY>2107</locationY>
+        <locationY>2164</locationY>
         <connector>
             <targetReference>Hours_or_Days_0</targetReference>
         </connector>
@@ -483,7 +483,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>CreateInitialTaskforGeneral</name>
         <label>Create Initial Task for General</label>
         <locationX>1107</locationX>
-        <locationY>2151</locationY>
+        <locationY>2208</locationY>
         <connector>
             <targetReference>Is_SLA_or_COB_first</targetReference>
         </connector>
@@ -536,7 +536,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_BLG_Workflow</name>
         <label>Get BLG Workflow</label>
         <locationX>870</locationX>
-        <locationY>829</locationY>
+        <locationY>886</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_General_Opp_Record_Type_Id</targetReference>
@@ -557,7 +557,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_Bond_Opp_Record_Type_Id</name>
         <label>Get Bond Opp Record Type Id</label>
         <locationX>870</locationX>
-        <locationY>1241</locationY>
+        <locationY>1298</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Contact_Attempts</targetReference>
@@ -585,7 +585,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_Campaign_SLA</name>
         <label>Get Campaign for SLA</label>
         <locationX>871</locationX>
-        <locationY>683</locationY>
+        <locationY>740</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_BLG_Workflow</targetReference>
@@ -606,7 +606,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_General_Opp_Record_Type_Id</name>
         <label>Get General Opp Record Type Id</label>
         <locationX>870</locationX>
-        <locationY>953</locationY>
+        <locationY>1010</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Pre_Approval_Opp_Record_Type_Id</targetReference>
@@ -634,7 +634,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_Pre_Approval_Opp_Record_Type_Id</name>
         <label>Get Pre Approval Opp Record Type Id</label>
         <locationX>870</locationX>
-        <locationY>1094</locationY>
+        <locationY>1151</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Bond_Opp_Record_Type_Id</targetReference>
@@ -662,7 +662,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_Task</name>
         <label>Get Task</label>
         <locationX>891</locationX>
-        <locationY>404</locationY>
+        <locationY>461</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Tasks_Found</targetReference>
@@ -690,7 +690,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_Updated_Deadline</name>
         <label>Get Updated Deadline</label>
         <locationX>194</locationX>
-        <locationY>2250</locationY>
+        <locationY>2307</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_75_lapse_field_0</targetReference>
@@ -711,7 +711,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Get_Updated_Opp_Deadline</name>
         <label>Get Updated Opp Deadline</label>
         <locationX>1107</locationX>
-        <locationY>3002</locationY>
+        <locationY>3059</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_75_lapse_field</targetReference>
@@ -732,7 +732,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_75_lapse_field</name>
         <label>Update 75% lapse field</label>
         <locationX>1107</locationX>
-        <locationY>3149</locationY>
+        <locationY>3206</locationY>
         <inputAssignments>
             <field>SLA_75_Lapse__c</field>
             <value>
@@ -751,7 +751,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_75_lapse_field_0</name>
         <label>Update 75% lapse field</label>
         <locationX>50</locationX>
-        <locationY>2250</locationY>
+        <locationY>2307</locationY>
         <inputAssignments>
             <field>SLA_75_Lapse__c</field>
             <value>
@@ -770,7 +770,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Opportunity_SLA_Deadline</name>
         <label>Update Opportunity SLA Deadline</label>
         <locationX>1107</locationX>
-        <locationY>2513</locationY>
+        <locationY>2570</locationY>
         <connector>
             <targetReference>Get_Updated_Opp_Deadline</targetReference>
         </connector>
@@ -786,7 +786,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Opportunity_SLA_Deadline_0</name>
         <label>Update Opportunity SLA Deadline</label>
         <locationX>1330</locationX>
-        <locationY>2324</locationY>
+        <locationY>2381</locationY>
         <connector>
             <targetReference>Update_Task_SLA_to_COB</targetReference>
         </connector>
@@ -802,7 +802,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Opportunity_to_Task_SLA</name>
         <label>Update Opportunity to Task SLA</label>
         <locationX>730</locationX>
-        <locationY>2440</locationY>
+        <locationY>2497</locationY>
         <connector>
             <targetReference>Update_Task_SLA_to_COB_0</targetReference>
         </connector>
@@ -830,7 +830,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Opportunity_to_Task_SLA_0</name>
         <label>Update Opportunity to Task SLA</label>
         <locationX>535</locationX>
-        <locationY>2250</locationY>
+        <locationY>2307</locationY>
         <connector>
             <targetReference>Update_Task_SLA_to_COB_0_0</targetReference>
         </connector>
@@ -858,7 +858,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Task_SLA_to_COB</name>
         <label>Update Task SLA to COB</label>
         <locationX>1330</locationX>
-        <locationY>2494</locationY>
+        <locationY>2551</locationY>
         <connector>
             <targetReference>Get_Updated_Opp_Deadline</targetReference>
         </connector>
@@ -894,7 +894,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Task_SLA_to_COB_0</name>
         <label>Update Task SLA to COB</label>
         <locationX>730</locationX>
-        <locationY>2591</locationY>
+        <locationY>2648</locationY>
         <connector>
             <targetReference>Get_Updated_Opp_Deadline</targetReference>
         </connector>
@@ -930,7 +930,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <name>Update_Task_SLA_to_COB_0_0</name>
         <label>Update Task SLA to COB</label>
         <locationX>350</locationX>
-        <locationY>2250</locationY>
+        <locationY>2307</locationY>
         <connector>
             <targetReference>Get_Updated_Deadline</targetReference>
         </connector>
@@ -963,12 +963,12 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <object>Task</object>
     </recordUpdates>
     <start>
-        <locationX>744</locationX>
+        <locationX>767</locationX>
         <locationY>50</locationY>
         <connector>
             <targetReference>Get_Task</targetReference>
         </connector>
-        <filterFormula>{!$Record.RecordType.Name} = &quot;General Opportunity&quot;</filterFormula>
+        <filterFormula>{!$Record.RecordType.Name} != &quot;Duplicate Opportunity&quot;</filterFormula>
         <object>Opportunity</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
