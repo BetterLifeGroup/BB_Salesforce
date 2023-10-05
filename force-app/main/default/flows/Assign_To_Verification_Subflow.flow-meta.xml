@@ -3,7 +3,7 @@
     <actionCalls>
         <name>Assign_Case_Owner</name>
         <label>Assign Case Owner</label>
-        <locationX>248</locationX>
+        <locationX>446</locationX>
         <locationY>1622</locationY>
         <actionName>Invocable_AllocateCase</actionName>
         <actionType>apex</actionType>
@@ -52,7 +52,7 @@
     <assignments>
         <name>Assign_Myself_to_Case</name>
         <label>Assign Myself to Case</label>
-        <locationX>1106</locationX>
+        <locationX>314</locationX>
         <locationY>2438</locationY>
         <assignmentItems>
             <assignToReference>verificationAssignment</assignToReference>
@@ -68,7 +68,7 @@
     <assignments>
         <name>Assign_Opp_Owner_to_Case</name>
         <label>Assign Opp Owner to Case</label>
-        <locationX>842</locationX>
+        <locationX>578</locationX>
         <locationY>2438</locationY>
         <assignmentItems>
             <assignToReference>verificationAssignment</assignToReference>
@@ -101,7 +101,7 @@
     <assignments>
         <name>Is_Direct_Opp</name>
         <label>Is Direct Opp</label>
-        <locationX>116</locationX>
+        <locationX>314</locationX>
         <locationY>1838</locationY>
         <assignmentItems>
             <assignToReference>isDirectOpp</assignToReference>
@@ -165,7 +165,7 @@
     <decisions>
         <name>Apex_Success</name>
         <label>Apex Success??</label>
-        <locationX>248</locationX>
+        <locationX>446</locationX>
         <locationY>1730</locationY>
         <defaultConnector>
             <isGoTo>true</isGoTo>
@@ -194,6 +194,36 @@
         <locationX>842</locationX>
         <locationY>2330</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Myself_Assign</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Myself</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Myself_to_Case</targetReference>
+            </connector>
+            <label>Myself Assign</label>
+        </rules>
+        <rules>
+            <name>Opp_Owner_Assign</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Opportunity_Owner</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Opp_Owner_to_Case</targetReference>
+            </connector>
+            <label>Opp Owner Assign</label>
+        </rules>
         <rules>
             <name>Is_Direct_Reassigned</name>
             <conditionLogic>and</conditionLogic>
@@ -224,36 +254,6 @@
             </connector>
             <label>Verification Team Assign</label>
         </rules>
-        <rules>
-            <name>Opp_Owner_Assign</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Assign_to</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Opportunity_Owner</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Opp_Owner_to_Case</targetReference>
-            </connector>
-            <label>Opp Owner Assign</label>
-        </rules>
-        <rules>
-            <name>Myself_Assign</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Assign_to</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <elementReference>Myself</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Myself_to_Case</targetReference>
-            </connector>
-            <label>Myself Assign</label>
-        </rules>
     </decisions>
     <decisions>
         <name>Direct_Opportunity</name>
@@ -264,6 +264,36 @@
             <targetReference>Opportunity_Team_Exists</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_for_Verification_Team</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Opportunity_Owner</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Myself</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isDirectOpp</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Is_Direct_Opp</targetReference>
+            </connector>
+            <label>Not for Verification Team</label>
+        </rules>
         <rules>
             <name>Yes_Direct</name>
             <conditionLogic>and</conditionLogic>
@@ -449,7 +479,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordCreates>
         <name>Create_Case_for_Direct_Verification_Team</name>
         <label>Create Case for Direct Verification Team</label>
-        <locationX>314</locationX>
+        <locationX>842</locationX>
         <locationY>2438</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
@@ -484,7 +514,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordCreates>
         <name>Create_Case_for_Opp_Owner</name>
         <label>Create Case for Opp Owner</label>
-        <locationX>842</locationX>
+        <locationX>578</locationX>
         <locationY>2546</locationY>
         <connector>
             <targetReference>Update_Case_Owner_to_Opp_Owner</targetReference>
@@ -519,7 +549,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordCreates>
         <name>Create_Case_for_Running_User</name>
         <label>Create Case for Running User</label>
-        <locationX>1106</locationX>
+        <locationX>314</locationX>
         <locationY>2546</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
@@ -554,7 +584,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordCreates>
         <name>Create_Case_for_Verification</name>
         <label>Create Case for Verification</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>2438</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
@@ -865,7 +895,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_Case_Owner_to_Opp_Owner</name>
         <label>Update Case Owner to Opp Owner</label>
-        <locationX>842</locationX>
+        <locationX>578</locationX>
         <locationY>2654</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
