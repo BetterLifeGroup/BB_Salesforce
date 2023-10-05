@@ -1996,10 +1996,6 @@
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>
-        <tab>BetterBond_Mobile</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
         <tab>Consultant_Availability_App_Page</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
