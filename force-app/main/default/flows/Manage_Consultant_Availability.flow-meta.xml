@@ -2,56 +2,19 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>55.0</apiVersion>
     <assignments>
-        <name>Lead_Owner_Availability_Assignment</name>
-        <label>Lead Owner Availability Assignment</label>
-        <locationX>908</locationX>
-        <locationY>566</locationY>
+        <name>Close_off_Current_consultant_availability_record</name>
+        <label>Close off Current consultant availability record</label>
+        <locationX>50</locationX>
+        <locationY>674</locationY>
         <assignmentItems>
-            <assignToReference>NewLeadOwnerAvailability.Unavailable_From__c</assignToReference>
+            <assignToReference>Get_Latest_Consultant_Availability.Unavailable_To__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>GetFlowDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>NewLeadOwnerAvailability.Consultant__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$User.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>NewLeadOwnerAvailability.Unavailable_Reason__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Unavailable_Reason</elementReference>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Create_Lead_Owner_Availability</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Lead_Owner_Availability_Assignment_0</name>
-        <label>Lead Owner Availability Assignment</label>
-        <locationX>644</locationX>
-        <locationY>737</locationY>
-        <assignmentItems>
-            <assignToReference>NewLeadOwnerAvailability.Unavailable_To__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>GetNowDateTime</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>NewLeadOwnerAvailability.Id</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Consultant_Availability.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Update_Unavailable_To_DateTime</targetReference>
+            <targetReference>Update_Consultant_Availability_Record</targetReference>
         </connector>
     </assignments>
     <choices>
@@ -103,10 +66,36 @@
         </value>
     </choices>
     <decisions>
+        <name>Available_Checked</name>
+        <label>Available Checked?</label>
+        <locationX>182</locationX>
+        <locationY>566</locationY>
+        <defaultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Manage_Availability_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>SetAvailability_0.value</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_off_Current_consultant_availability_record</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Check_Existing_Availability</name>
         <label>Check Existing Availability</label>
-        <locationX>776</locationX>
-        <locationY>326</locationY>
+        <locationX>380</locationX>
+        <locationY>242</locationY>
         <defaultConnector>
             <targetReference>Manage_Availability</targetReference>
         </defaultConnector>
@@ -115,28 +104,14 @@
             <name>Unavailable</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Consultant_Availability.Id</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>null</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Consultant_Availability.Unavailable_To__c</leftValueReference>
+                <leftValueReference>Get_User.AvailableforRouting__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>blankDate</elementReference>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Consultant_Availability.Unavailable_From__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <elementReference>blankDate</elementReference>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_New_Consultant_Availability_0</targetReference>
+                <targetReference>Get_Latest_Consultant_Availability</targetReference>
             </connector>
             <label>Unavailable</label>
         </rules>
@@ -173,7 +148,7 @@ Front-End Access: Utility Bar &gt; Manage Consultant Availability</description>
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -184,63 +159,39 @@ Front-End Access: Utility Bar &gt; Manage Consultant Availability</description>
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
-        <name>Create_Lead_Owner_Availability</name>
-        <label>Create Lead Owner Availability</label>
-        <locationX>908</locationX>
-        <locationY>686</locationY>
+        <name>Create_Consultant_Availability_Record</name>
+        <label>Create Consultant Availability Record</label>
+        <locationX>578</locationX>
+        <locationY>458</locationY>
         <connector>
             <targetReference>Update_User_Available_for_Routing</targetReference>
         </connector>
-        <inputReference>NewLeadOwnerAvailability</inputReference>
+        <inputAssignments>
+            <field>Consultant__c</field>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Unavailable_From__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Unavailable_Reason__c</field>
+            <value>
+                <elementReference>Unavailable_Reason</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Consultant_Availability__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordLookups>
-        <name>Get_Consultant_Availability</name>
-        <label>Get Consultant Availability</label>
-        <locationX>776</locationX>
-        <locationY>206</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Check_Existing_Availability</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Consultant__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$User.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Consultant_Availability__c</object>
-        <sortField>CreatedDate</sortField>
-        <sortOrder>Desc</sortOrder>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_New_Consultant_Availability</name>
-        <label>Get New Consultant Availability</label>
-        <locationX>908</locationX>
-        <locationY>949</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Consultant__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$User.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Consultant_Availability__c</object>
-        <sortField>CreatedDate</sortField>
-        <sortOrder>Desc</sortOrder>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_New_Consultant_Availability_0</name>
-        <label>Get New Consultant Availability</label>
-        <locationX>644</locationX>
-        <locationY>446</locationY>
+        <name>Get_Latest_Consultant_Availability</name>
+        <label>Get Latest Consultant Availability</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Manage_Availability_0</targetReference>
@@ -259,59 +210,42 @@ Front-End Access: Utility Bar &gt; Manage Consultant Availability</description>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordUpdates>
-        <name>Update_Unavailable_To_DateTime</name>
-        <label>Update Unavailable To DateTime</label>
-        <locationX>644</locationX>
-        <locationY>892</locationY>
+    <recordLookups>
+        <name>Get_User</name>
+        <label>Get User</label>
+        <locationX>380</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_User_Available_for_Routing_0</targetReference>
+            <targetReference>Check_Existing_Availability</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>NewLeadOwnerAvailability.Id</elementReference>
+                <elementReference>$User.Id</elementReference>
             </value>
         </filters>
-        <inputAssignments>
-            <field>Unavailable_To__c</field>
-            <value>
-                <elementReference>NewLeadOwnerAvailability.Unavailable_To__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Consultant_Availability__c</object>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Consultant_Availability_Record</name>
+        <label>Update Consultant Availability Record</label>
+        <locationX>50</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>Update_User_Available_for_Routing_0</targetReference>
+        </connector>
+        <inputReference>Get_Latest_Consultant_Availability</inputReference>
     </recordUpdates>
     <recordUpdates>
         <name>Update_User_Available_for_Routing</name>
         <label>Update User Available for Routing</label>
-        <locationX>908</locationX>
-        <locationY>806</locationY>
-        <connector>
-            <targetReference>Get_New_Consultant_Availability</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Consultant_Availability.Consultant__c</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>AvailableforRouting__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>User</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_User_Available_for_Routing_0</name>
-        <label>Update User Available for Routing</label>
-        <locationX>643</locationX>
-        <locationY>1039</locationY>
+        <locationX>578</locationX>
+        <locationY>566</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -328,16 +262,37 @@ Front-End Access: Utility Bar &gt; Manage Consultant Availability</description>
         </inputAssignments>
         <object>User</object>
     </recordUpdates>
+    <recordUpdates>
+        <name>Update_User_Available_for_Routing_0</name>
+        <label>Update User Available for Routing</label>
+        <locationX>50</locationX>
+        <locationY>890</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>AvailableforRouting__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>User</object>
+    </recordUpdates>
     <screens>
         <name>Manage_Availability</name>
         <label>Manage Availability</label>
-        <locationX>908</locationX>
-        <locationY>446</locationY>
+        <locationX>578</locationX>
+        <locationY>350</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Lead_Owner_Availability_Assignment</targetReference>
+            <targetReference>Create_Consultant_Availability_Record</targetReference>
         </connector>
         <fields>
             <name>CurrentStatus</name>
@@ -395,17 +350,17 @@ Front-End Access: Utility Bar &gt; Manage Consultant Availability</description>
     <screens>
         <name>Manage_Availability_0</name>
         <label>Manage Availability</label>
-        <locationX>644</locationX>
-        <locationY>595</locationY>
+        <locationX>182</locationX>
+        <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Lead_Owner_Availability_Assignment_0</targetReference>
+            <targetReference>Available_Checked</targetReference>
         </connector>
         <fields>
             <name>CurrentStatus_0</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Current Status:&lt;/strong&gt; &lt;strong style=&quot;color: rgb(231, 21, 21);&quot;&gt;Unavailable&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0);&quot;&gt;Reason: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;{!Get_New_Consultant_Availability.Unavailable_Reason__c}&lt;/span&gt;&lt;span style=&quot;color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_New_Consultant_Availability_0.Unavailable_Reason__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Unavailable From: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Get_New_Consultant_Availability.Unavailable_From__c}{!Get_New_Consultant_Availability_0.Unavailable_From__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;&lt;strong&gt;Current Status:&lt;/strong&gt; &lt;strong style=&quot;color: rgb(231, 21, 21);&quot;&gt;Unavailable&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(0, 0, 0);&quot;&gt;Reason: &lt;/strong&gt;&lt;span style=&quot;color: rgb(0, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Latest_Consultant_Availability.Unavailable_Reason__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Unavailable From: &lt;/strong&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Get_Latest_Consultant_Availability.Unavailable_From__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
@@ -444,13 +399,13 @@ Front-End Access: Utility Bar &gt; Manage Consultant Availability</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>650</locationX>
-        <locationY>48</locationY>
+        <locationX>254</locationX>
+        <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Consultant_Availability</targetReference>
+            <targetReference>Get_User</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>NewLeadOwnerAvailability</name>
         <dataType>SObject</dataType>
