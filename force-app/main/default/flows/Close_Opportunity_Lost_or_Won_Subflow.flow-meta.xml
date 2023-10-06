@@ -4,8 +4,8 @@
     <assignments>
         <name>Set_Error_Trues</name>
         <label>Set Error True</label>
-        <locationX>1682</locationX>
-        <locationY>471</locationY>
+        <locationX>1688</locationX>
+        <locationY>470</locationY>
         <assignmentItems>
             <assignToReference>showError</assignToReference>
             <operator>Assign</operator>
@@ -69,7 +69,7 @@
         <name>Check_if_Status_Populated</name>
         <label>Check if Status Populated</label>
         <locationX>1566</locationX>
-        <locationY>573</locationY>
+        <locationY>570</locationY>
         <defaultConnector>
             <targetReference>Set_Error_Trues</targetReference>
         </defaultConnector>
@@ -106,7 +106,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Complete_Task_0_0_0</targetReference>
+                <targetReference>Closed_Won_Type</targetReference>
             </connector>
             <label>Populated</label>
         </rules>
@@ -264,6 +264,31 @@
                 <targetReference>Close_Lost_Bond_Screen</targetReference>
             </connector>
             <label>Closed Lost Bond</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Closed_Won_Type</name>
+        <label>Closed Won Type</label>
+        <locationX>2009</locationX>
+        <locationY>580</locationY>
+        <defaultConnector>
+            <targetReference>Complete_Task_0_0_0_0_0_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Closed Won Not Issued</defaultConnectorLabel>
+        <rules>
+            <name>Closed_Won_PA_Issued</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVarIssued</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Complete_Task_0_0_0</targetReference>
+            </connector>
+            <label>Closed Won PA Issued</label>
         </rules>
     </decisions>
     <decisions>
@@ -485,8 +510,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Complete_Task_0_0_0</name>
         <label>Complete Task</label>
-        <locationX>1846</locationX>
-        <locationY>701</locationY>
+        <locationX>1758</locationX>
+        <locationY>689</locationY>
         <connector>
             <targetReference>Update_Opportunity_Closed_Won_0_0</targetReference>
         </connector>
@@ -579,6 +604,36 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>433</locationY>
         <connector>
             <targetReference>CloseGeneralOpportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Open_Task.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Task_0_0_0_0_0_0_0</name>
+        <label>Complete Task</label>
+        <locationX>2260</locationX>
+        <locationY>641</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Closed_Won_0_0_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -761,8 +816,47 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Closed_Won_0_0</name>
         <label>Update Opportunity Closed Won</label>
-        <locationX>1989</locationX>
-        <locationY>701</locationY>
+        <locationX>1846</locationX>
+        <locationY>839</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Closed Won</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>selectedStatusOutputVarIssued</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Closed_Won_0_0_0</name>
+        <label>Update Opportunity Closed Won</label>
+        <locationX>2321</locationX>
+        <locationY>791</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -1358,7 +1452,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Close_Won_Screen_0</name>
         <label>Close Won Screen</label>
         <locationX>1358</locationX>
-        <locationY>479</locationY>
+        <locationY>478</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
