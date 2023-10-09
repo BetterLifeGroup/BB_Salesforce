@@ -26,7 +26,7 @@ Contract Manager.profile
 Chatter Moderator User.profile
 Chatter Free User.profile
 Chatter External User.profile
-*.listView
+
 FinServ__Households_Dashboards.reportType
 FinServ__Households.reportType
 FinServ__Clients.reportType
