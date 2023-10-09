@@ -321,7 +321,7 @@
         </rules>
     </decisions>
     <description>Flow Description:
-Creates the initial (1st) follow up task when an Opportunity is created.
+Creates the initial (1st) follow up task when an Opportunity is created
 
 No Front-End Access - Flow is record triggered based on the entry criteria.
 
@@ -665,9 +665,9 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <locationY>461</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Taks_Found</targetReference>
+            <targetReference>Tasks_Found</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
             <field>WhatId</field>
             <operator>EqualTo</operator>
@@ -680,6 +680,13 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
             <operator>Contains</operator>
             <value>
                 <stringValue>Initial</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Subject</field>
+            <operator>Contains</operator>
+            <value>
+                <stringValue>First</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
