@@ -1019,7 +1019,7 @@
             <assignToReference>statusVar</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>OTP received</stringValue>
+                <stringValue>Awaiting OTP</stringValue>
             </value>
         </assignmentItems>
         <connector>
