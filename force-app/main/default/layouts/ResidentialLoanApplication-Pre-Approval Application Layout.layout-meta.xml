@@ -166,6 +166,9 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <platformActionList>
+        <actionListContext>Record</actionListContext>
+    </platformActionList>
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>
     </relatedLists>
@@ -193,6 +196,10 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Purchase_Price__c</fields>
+        <fields>Address_Line_1__c</fields>
+        <fields>RequestedLoanAmount</fields>
+        <fields>Suburb__c</fields>
         <relatedList>LoanApplicationProperty</relatedList>
     </relatedLists>
     <relatedLists>
@@ -210,7 +217,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h8d0000015l06</masterLabel>
+        <masterLabel>00h8d00000AzQT6</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
