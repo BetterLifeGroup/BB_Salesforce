@@ -90,8 +90,8 @@
     <assignments>
         <name>Add_notes_to_case_0</name>
         <label>Add notes to case</label>
-        <locationX>2805</locationX>
-        <locationY>266</locationY>
+        <locationX>2811</locationX>
+        <locationY>293</locationY>
         <assignmentItems>
             <assignToReference>get_case.Verification_Failure_Comment__c</assignToReference>
             <operator>Assign</operator>
@@ -106,8 +106,8 @@
     <assignments>
         <name>Add_notes_to_case_0_0</name>
         <label>Add notes to case</label>
-        <locationX>2871</locationX>
-        <locationY>450</locationY>
+        <locationX>2876</locationX>
+        <locationY>460</locationY>
         <assignmentItems>
             <assignToReference>get_case.Verification_Failure_Comment__c</assignToReference>
             <operator>Assign</operator>
@@ -189,6 +189,38 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Case_Id_to_Use_from_Opp</name>
+        <label>Assign Case Id to Use from Opp</label>
+        <locationX>1230</locationX>
+        <locationY>1906</locationY>
+        <assignmentItems>
+            <assignToReference>caseIdVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_CaseOC.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>OC_Get_Applicant</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_Id_to_Use_recordId</name>
+        <label>Assign Case Id to Use (recordId)</label>
+        <locationX>1181</locationX>
+        <locationY>1684</locationY>
+        <assignmentItems>
+            <assignToReference>caseIdVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>get_case.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_opp_id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_case_outcome</name>
         <label>Assign case outcome</label>
         <locationX>472</locationX>
@@ -214,8 +246,8 @@
     <assignments>
         <name>Assign_Cases</name>
         <label>Assign Cases</label>
-        <locationX>2093</locationX>
-        <locationY>1907</locationY>
+        <locationX>2094</locationX>
+        <locationY>1906</locationY>
         <assignmentItems>
             <assignToReference>get_case</assignToReference>
             <operator>Assign</operator>
@@ -244,8 +276,8 @@
     <assignments>
         <name>Assign_opp_id</name>
         <label>Assign opp id</label>
-        <locationX>1158</locationX>
-        <locationY>1618</locationY>
+        <locationX>1089</locationX>
+        <locationY>1578</locationY>
         <assignmentItems>
             <assignToReference>opportunityId</assignToReference>
             <operator>Assign</operator>
@@ -791,7 +823,7 @@
         <name>Handle_Verification_results</name>
         <label>Handle Verification results</label>
         <locationX>2529</locationX>
-        <locationY>345</locationY>
+        <locationY>344</locationY>
         <defaultConnector>
             <targetReference>Add_notes_to_case_0</targetReference>
         </defaultConnector>
@@ -940,8 +972,8 @@
     <decisions>
         <name>Opportunity_Context2</name>
         <label>Opportunity Context</label>
-        <locationX>1498</locationX>
-        <locationY>1763</locationY>
+        <locationX>1426</locationX>
+        <locationY>1783</locationY>
         <defaultConnector>
             <targetReference>get_case</targetReference>
         </defaultConnector>
@@ -1326,11 +1358,11 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordLookups>
         <name>get_case</name>
         <label>Get Case</label>
-        <locationX>1019</locationX>
-        <locationY>1711</locationY>
+        <locationX>1088</locationX>
+        <locationY>1781</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_opp_id</targetReference>
+            <targetReference>Assign_Case_Id_to_Use_recordId</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1348,7 +1380,7 @@ Front-End Access: Work Case button on the Case page.</description>
         <name>Get_Case_for_Summary</name>
         <label>Get Case for Summary</label>
         <locationX>1308</locationX>
-        <locationY>698</locationY>
+        <locationY>697</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Opp_for_Case_Summary</targetReference>
@@ -1358,7 +1390,7 @@ Front-End Access: Work Case button on the Case page.</description>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>recordId</elementReference>
+                <elementReference>caseIdVar</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1368,11 +1400,11 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordLookups>
         <name>Get_CaseOC</name>
         <label>Get CaseOC</label>
-        <locationX>1078</locationX>
-        <locationY>1907</locationY>
+        <locationX>1087</locationX>
+        <locationY>1906</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>OC_Get_Applicant</targetReference>
+            <targetReference>Assign_Case_Id_to_Use_from_Opp</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1556,8 +1588,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordLookups>
         <name>OC_Get_Applicant</name>
         <label>OC Get Applicant</label>
-        <locationX>1507</locationX>
-        <locationY>1908</locationY>
+        <locationX>1508</locationX>
+        <locationY>1907</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Cases</targetReference>
@@ -1625,8 +1657,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordUpdates>
         <name>Update_Case</name>
         <label>Update Case</label>
-        <locationX>2980</locationX>
-        <locationY>705</locationY>
+        <locationX>2972</locationX>
+        <locationY>704</locationY>
         <connector>
             <targetReference>Opportunity_Context2</targetReference>
         </connector>
@@ -1967,12 +1999,17 @@ Front-End Access: Work Case button on the Case page.</description>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>expensesAmt</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Deductions Amount: &lt;/strong&gt;{!Get_Application.Total_Deductions_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Deduction Amount: &lt;/strong&gt;{!Get_Application.Total_Deductions_Amount__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
                     <name>liabilityAmt</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Total Living Expenses Amount:&lt;/strong&gt; {!Get_Application.Total_Liability_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>contractualAmt</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Contractual Expenses Amount:&lt;/strong&gt; {!Get_Application.Total_Contractual_Expenses_Amount__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
@@ -2527,6 +2564,13 @@ Front-End Access: Work Case button on the Case page.</description>
         <value>
             <booleanValue>false</booleanValue>
         </value>
+    </variables>
+    <variables>
+        <name>caseIdVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>completeVerification</name>
