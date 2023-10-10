@@ -1019,7 +1019,7 @@
             <assignToReference>statusVar</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>OTP received</stringValue>
+                <stringValue>Awaiting OTP</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -2780,7 +2780,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>Status__c</field>
             <value>
-                <stringValue>OTP Received</stringValue>
+                <stringValue>Awaiting OTP</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4808,7 +4808,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>Status__c</field>
             <value>
-                <stringValue>OTP Received</stringValue>
+                <stringValue>Awaiting OTP</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
