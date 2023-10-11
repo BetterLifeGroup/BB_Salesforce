@@ -1,0 +1,299 @@
+<template>
+    <lightning-card>
+        <div id="firstSetion" class='sectionClass'>
+            <div class='sectionHeader' onclick={handleFirstSectionClick}>
+                <lightning-icon
+                        icon-name={firstSectionIcon}
+                        size="small"
+                ></lightning-icon>
+                <lightning-formatted-text
+                        value='Users'>
+                </lightning-formatted-text>
+            </div>
+            <template if:true={showFirstSection}>
+
+                <div style='display: flex;flex-direction: row; justify-content: space-between' class='slds-section'>
+
+                    <div style='width: 60%'>
+                        <lightning-datatable
+                                columns={columns}
+                                data={data}
+                                hide-checkbox-column
+                                key-field="id"
+                                onrowaction={handleRowClick}
+                                default-sort-direction={defaultSortDirection}
+                                sorted-direction={sortDirection}
+                                sorted-by={sortedBy}
+                                onsort={onHandleSort}>
+                            >
+                        </lightning-datatable>
+                    </div>
+                    <div style='width: 35%'>
+                        <div style='display: flex;justify-content: center; padding-bottom: 4px'>
+                            <lightning-button
+                                    label='View All'
+                                    onclick={handleViewAll}
+                            ></lightning-button>
+                        </div>
+                        <div>
+                            <template if:true={showChart}>
+                                <c-chart-js
+                                        chart-dataset={chartDataSet}
+                                        ontypeselected={handleTypeSelected}
+                                ></c-chart-js>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <div id="secondSection" class='sectionClass'>
+            <div class='sectionHeader' onclick={handleSecondSectionClick}>
+                <lightning-icon
+                        icon-name={secondSectionIcon}
+                        size="small"
+                ></lightning-icon>
+                <lightning-formatted-text
+                        value='Availability'>
+                </lightning-formatted-text>
+            </div>
+            <template if:true={showSecondSection}>
+                <template if:true={selectedUserName}>
+                    <div>
+                        <c-consultants-available
+                                user-id={selectedUserId}
+                                user-name={selectedUserName}
+                                onuserupdated={handleUserUpdatedEvent}
+                        ></c-consultants-available>
+                    </div>
+                </template>
+            </template>
+        </div>
+
+
+        <div id="thirdSection" class='sectionClass'>
+            <div class='sectionHeader' onclick={handleThirdSectionClick}>
+                <lightning-icon
+                        icon-name={thirdSectionIcon}
+                        size="small"
+                ></lightning-icon>
+                <lightning-formatted-text
+                        value='Opportunities'>
+                </lightning-formatted-text>
+            </div>
+            <template if:true={showThirdSection}>
+                <div>
+                    <div style='padding: 6px'>
+                        <template if:true={manageUser}>
+                            <template if:true={showProgress}>
+                                <div>
+                                    <lightning-formatted-text
+                                            class='slds-align_absolute-center slds-text-heading_small'
+                                            value='Reassigning in progress'
+                                    ></lightning-formatted-text>
+                                    <div style='padding-top: 12px;'>
+                                        <lightning-progress-bar
+                                                size="large"
+                                                value={progress}
+                                        ></lightning-progress-bar>
+
+                                    </div>
+                                </div>
+                            </template>
+                            <!-- Loading Spinner -->
+                            <template if:true={showSpinner}>
+                                <div class='spanTwo' style='display: flex;align-items: end'>
+                                    <lightning-spinner size='small'></lightning-spinner>
+                                </div>
+                            </template>
+
+                            <!-- Main Content -->
+                            <template if:false={hideForm}>
+
+                                <template if:true={noOpenOpps}>
+                                    <!-- No Open Opportunities -->
+                                    <div class='slds-align_absolute-center'
+                                         style='padding-top: 4px;font-size: large;font-weight: 300; border-top: 1px #d0d0d0 solid; margin-top: 12px;'>
+                                        No Open Opportunities for {selectedUserName}
+                                    </div>
+                                    <div style='display: flex; justify-content: space-between;flex-direction: row'>
+                                        <!--                            <div style='display: flex; align-items: start'>-->
+                                        <!--                                <lightning-button class='buttonClass' label='Deactivate User'-->
+                                        <!--                                                  onclick={handleDeactivateUser} disabled={isDeactivateDisabled}>-->
+                                        <!--                                </lightning-button>-->
+                                        <!--                            </div>-->
+                                        <div style='display: flex; align-items: start'>
+                                            <lightning-button class='buttonClass' label='Refresh'
+                                                              onclick={handleUserDeactivationOnLoad}>
+                                            </lightning-button>
+                                        </div>
+                                    </div>
+
+                                    <template if:true={deactivateErrorMessage}>
+                                        <!-- Show custom error message for Office Administrator scenario -->
+                                        <p class="slds-text-heading_small slds-align_absolute-center">
+                                            {deactivateErrorMessage}</p>
+                                        <div for:each={listOfLinks} for:item='link' key={link}>
+                                            <lightning-formatted-url
+                                                    label={link.Name}
+                                                    value={link.url}
+                                                    data-id={link}
+                                                    target="_blank"
+                                            ></lightning-formatted-url>
+
+                                        </div>
+                                    </template>
+                                </template>
+
+                                <!-- Open Opportunities To Reassign -->
+                                <template if:true={openoppsExists}>
+                                    <div class='slds-align_absolute-center'
+                                         style='padding-top: 4px;font-size: large;font-weight: 300; border-top: 1px #d0d0d0 solid; margin-top: 12px; padding-bottom: 6px'>
+                                        Open Opportunities for {selectedUserName}
+                                    </div>
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_1-of-3" style='margin-top: 68px'>
+                                            <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                <lightning-input type="search"
+                                                                 label="Search Consultant"
+                                                                 onchange={handleConsultantSearchChange}></lightning-input>
+                                            </div>
+                                            <lightning-dual-listbox source-label="Available New Owners"
+                                                                    selected-label="Selected New Owners"
+                                                                    options={availableConsultantsList}
+                                                                    value={selectedConsultantIds}
+                                                                    onchange={handleConsultantChange}
+
+                                            ></lightning-dual-listbox>
+
+                                            <!-- Consultant Picklist buttons -->
+                                            <div class="slds-m-top_medium">
+                                                <div class="slds-grid slds-grid_vertical-align-center">
+                                                    <lightning-button class="slds-m-right_small"
+                                                                      label="Select All"
+                                                                      onclick={handleSelectAllConsultant}>
+
+                                                    </lightning-button>
+                                                    <lightning-button label="Deselect All"
+                                                                      onclick={handleDeselectAllConsultant}>
+
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Consultant Picklist search input -->
+                                        </div>
+
+                                        <div class="slds-col slds-size_2-of-3">
+                                            <div style='display: flex;flex-direction: row'>
+                                                <div style='display: flex; gap : 8px'>
+                                                    <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                        <lightning-combobox
+                                                                label='Campaign'
+                                                                onchange={handleCampaignChange}
+                                                                options={uniqueCampaigns}
+                                                                value={selectedCampaignName}
+                                                        ></lightning-combobox>
+                                                    </div>
+                                                    <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                        <lightning-combobox
+                                                                label='Stage'
+                                                                onchange={handleOppStageChange}
+                                                                options={uniqueOppStages}
+                                                                value={selectedOppStage}
+                                                        ></lightning-combobox>
+                                                    </div>
+                                                    <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                        <lightning-combobox
+                                                                label='Status'
+                                                                onchange={handleOppStatusChange}
+                                                                options={uniqueOppStatuses}
+                                                                value={selectedOppStatus}
+                                                        ></lightning-combobox>
+                                                    </div>
+                                                    <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                        <lightning-input
+                                                                label="Date From"
+                                                                type="date"
+                                                                onchange={handleDateFromChange}
+                                                                min={dateFromMin}
+                                                                max={dateFromMax}
+                                                                value={selectedDateFrom}
+                                                        ></lightning-input>
+                                                    </div>
+                                                    <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                        <lightning-input
+                                                                label="Date To"
+                                                                type="date"
+                                                                onchange={handleDateToChange}
+                                                                min={dateToMin}
+                                                                max={dateToMax}
+                                                                value={selectedDateTo}
+                                                        ></lightning-input>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div style='display: flex;flex-direction: row; align-items: end'>
+                                                <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                    <lightning-input class="slds-m-right_small"
+                                                                     type="search"
+                                                                     label="Search Opportunity"
+                                                                     onchange={handleOppSearchChange}
+                                                                     value={searchKeywordOpp}
+                                                    ></lightning-input>
+                                                </div>
+                                                <div class="slds-m-top_medium slds-grid slds-align-end">
+                                                    <lightning-button
+                                                            label='Clear Filters'
+                                                            onclick={handleClearFilters}
+                                                    ></lightning-button>
+                                                </div>
+                                            </div>
+                                            <lightning-dual-listbox source-label="Open Opportunities"
+                                                                    selected-label="Opportunities to Reassign"
+                                                                    options={filteredOppOptions}
+                                                                    value={selectedOpportunityIds}
+                                                                    onchange={handleOpportunityChange}></lightning-dual-listbox>
+
+                                            <!-- Opportunity Picklist buttons -->
+                                            <div class="slds-m-top_medium">
+                                                <div class="slds-grid slds-grid_vertical-align-center">
+                                                    <lightning-button class="slds-m-right_small"
+                                                                      label="Select All"
+                                                                      onclick={handleSelectAllOpps}>
+
+                                                    </lightning-button>
+                                                    <lightning-button label="Deselect All"
+                                                                      onclick={handleDeselectAllOpps}>
+
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Opportunity Picklist search input -->
+                                            <div class="slds-m-top_medium slds-grid slds-align-end">
+
+
+                                                <!-- Selected Opportunities buttons -->
+                                                <template if:true={hasSelectedOpportunities}>
+                                                    <div style='display: flex; align-items: end'>
+                                                        <lightning-button class="slds-m-right_small"
+                                                                          label="Reassign Selected"
+                                                                          variant="brand"
+                                                                          onclick={handleReassignSelected}></lightning-button>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </template>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
