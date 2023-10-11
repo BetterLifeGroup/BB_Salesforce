@@ -38,6 +38,8 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>customNotificationAction</nameSegment>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>
@@ -155,6 +157,7 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
         <connector>
             <targetReference>PA_or_Bond</targetReference>
         </connector>
+        <filterFormula>LOWER({!$Record.RecordType.Name}) != &quot;duplicate opportunity&quot;</filterFormula>
         <object>Opportunity</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
