@@ -13,6 +13,8 @@ Sync_Applicant_Template_Selection_from_Opportunity.flow
 Consultant_Availability_Home.FlexiPage
 Consultant_Availability_App_Page.FlexiPage
 AppSwitcher.AppMenu
+consultantsUnavailable.LightningComponentBundle
+customDataTableType.LightningComponentBundle
 
 package.xml
 Opportunity_Capture_Progress.pathAssistant
