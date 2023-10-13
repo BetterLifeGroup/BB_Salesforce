@@ -729,6 +729,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>BLG_Campaign__c.Domain_Id__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>BLG_Campaign__c.End_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
