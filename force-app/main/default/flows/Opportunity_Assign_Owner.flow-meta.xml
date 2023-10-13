@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Get_Opportunity_Owner</name>
         <label>Get Opportunity Owner</label>
-        <locationX>701</locationX>
-        <locationY>208</locationY>
+        <locationX>616</locationX>
+        <locationY>350</locationY>
         <actionName>Invocable_AllocateOpportunity</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -22,11 +22,114 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
+    <assignments>
+        <name>Assign_Branch</name>
+        <label>Assign Branch</label>
+        <locationX>836</locationX>
+        <locationY>890</locationY>
+        <assignmentItems>
+            <assignToReference>branchAccountVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Direct_Accounts.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Direct_Accounts</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Region</name>
+        <label>Assign Region</label>
+        <locationX>572</locationX>
+        <locationY>890</locationY>
+        <assignmentItems>
+            <assignToReference>regionAccountVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Direct_Accounts.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Direct_Accounts</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Sub_Branch</name>
+        <label>Assign Sub-Branch</label>
+        <locationX>1100</locationX>
+        <locationY>890</locationY>
+        <assignmentItems>
+            <assignToReference>subBranchAccountVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Loop_Direct_Accounts.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Direct_Accounts</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Account_Type</name>
+        <label>Account Type</label>
+        <locationX>968</locationX>
+        <locationY>782</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Direct_Accounts</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Region</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Direct_Accounts.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Region</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Region</targetReference>
+            </connector>
+            <label>Region</label>
+        </rules>
+        <rules>
+            <name>Branch</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Direct_Accounts.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Branch</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Branch</targetReference>
+            </connector>
+            <label>Branch</label>
+        </rules>
+        <rules>
+            <name>Sub_Branch</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Loop_Direct_Accounts.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sub-Branch</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Sub_Branch</targetReference>
+            </connector>
+            <label>Sub_Branch</label>
+        </rules>
+    </decisions>
     <decisions>
         <name>Had_Error</name>
         <label>Had Error</label>
-        <locationX>834</locationX>
-        <locationY>210</locationY>
+        <locationX>616</locationX>
+        <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Set_Assignment_Error</targetReference>
         </defaultConnector>
@@ -42,7 +145,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Set_Opp_Owner</targetReference>
+                <targetReference>Get_Direct_Accounts</targetReference>
             </connector>
             <label>No Error</label>
         </rules>
@@ -50,8 +153,8 @@
     <decisions>
         <name>Is_Campaign_Active</name>
         <label>Is Campaign Active</label>
-        <locationX>534</locationX>
-        <locationY>210</locationY>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
         <defaultConnectorLabel>Do not Assign</defaultConnectorLabel>
         <rules>
             <name>No_Campaign</name>
@@ -81,10 +184,25 @@
             <label>Acitve</label>
         </rules>
     </decisions>
-    <description>Added error check and active check on Campaign.</description>
+    <description>Added error check and active check on Campaign.
+Added consultant region branch and subbranch to opportunity update</description>
     <environments>Default</environments>
     <interviewLabel>Opportunity Assign Owner - Autolaunch - {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Opportunity Assign Owner Sub-flow</label>
+    <loops>
+        <name>Loop_Direct_Accounts</name>
+        <label>Loop Direct Accounts</label>
+        <locationX>484</locationX>
+        <locationY>674</locationY>
+        <collectionReference>Get_Direct_Accounts</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Account_Type</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Set_Opp_Owner</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -94,7 +212,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -107,8 +225,8 @@
     <recordLookups>
         <name>Get_BLG_Campaign</name>
         <label>Get BLG Campaign</label>
-        <locationX>393</locationX>
-        <locationY>208</locationY>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Campaign_Active</targetReference>
@@ -125,11 +243,32 @@
         <object>BLG_Campaign__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Direct_Accounts</name>
+        <label>Get Direct Accounts</label>
+        <locationX>484</locationX>
+        <locationY>566</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Direct_Accounts</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Direct</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Set_Assignment_Error</name>
         <label>Set Assignment Error</label>
-        <locationX>1029</locationX>
-        <locationY>275</locationY>
+        <locationX>748</locationX>
+        <locationY>566</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -155,8 +294,8 @@
     <recordUpdates>
         <name>Set_Opp_Owner</name>
         <label>Set Opp Owner</label>
-        <locationX>1029</locationX>
-        <locationY>141</locationY>
+        <locationX>484</locationX>
+        <locationY>1166</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -172,6 +311,24 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>ConsultantBranch__c</field>
+            <value>
+                <elementReference>branchAccountVar</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ConsultantRegion__c</field>
+            <value>
+                <elementReference>regionAccountVar</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ConsultantSubBranch__c</field>
+            <value>
+                <elementReference>subBranchAccountVar</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>OwnerId</field>
             <value>
                 <elementReference>Get_Opportunity_Owner.ownerId</elementReference>
@@ -181,8 +338,8 @@
     </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
     <start>
-        <locationX>15</locationX>
-        <locationY>191</locationY>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>Get_BLG_Campaign</targetReference>
         </connector>
@@ -196,10 +353,31 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>branchAccountVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
         <name>opportunityId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>regionAccountVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>subBranchAccountVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
 </Flow>

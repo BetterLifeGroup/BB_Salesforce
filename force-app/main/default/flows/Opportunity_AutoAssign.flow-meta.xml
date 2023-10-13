@@ -123,4 +123,5 @@
             </value>
         </inputAssignments>
     </subflows>
+    <triggerOrder>500</triggerOrder>
 </Flow>
