@@ -3,7 +3,7 @@
     <fullName>Suburb__c</fullName>
     <externalId>false</externalId>
     <label>Suburb</label>
-    <length>25</length>
+    <length>254</length>
     <required>false</required>
     <trackHistory>false</trackHistory>
     <type>Text</type>

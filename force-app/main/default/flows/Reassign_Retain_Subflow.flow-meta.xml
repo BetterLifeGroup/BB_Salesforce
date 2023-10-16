@@ -2659,6 +2659,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <stringValue>Completed</stringValue>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
         <object>Task</object>
     </recordUpdates>
     <recordUpdates>
