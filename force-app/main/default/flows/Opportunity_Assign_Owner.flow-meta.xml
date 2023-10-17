@@ -334,6 +334,12 @@ Added consultant region branch and subbranch to opportunity update</description>
                 <elementReference>Get_Opportunity_Owner.ownerId</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <runInMode>SystemModeWithoutSharing</runInMode>
