@@ -135,8 +135,8 @@
     <assignments>
         <name>Assign_Existing_Person_to_Co_Applicant_Variable</name>
         <label>Assign Existing Person to Co Applicant Variable</label>
-        <locationX>1630</locationX>
-        <locationY>2039</locationY>
+        <locationX>1735</locationX>
+        <locationY>1624</locationY>
         <assignmentItems>
             <assignToReference>coLoanApplicant.Last_Name__c</assignToReference>
             <operator>Assign</operator>
@@ -164,6 +164,10 @@
             <value>
                 <elementReference>coPersonAccount.PersonEmail</elementReference>
             </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>coLoanApplicant.Name_Title__c</assignToReference>
+            <operator>Assign</operator>
         </assignmentItems>
         <connector>
             <targetReference>Check_Phone_Email_Validation_0</targetReference>
@@ -315,43 +319,6 @@
         </assignmentItems>
         <connector>
             <targetReference>Get_Existing_Phone_Person_Account</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_New_Co_Person_Values_0</name>
-        <label>Assign New Co Person Values</label>
-        <locationX>1630</locationX>
-        <locationY>1907</locationY>
-        <assignmentItems>
-            <assignToReference>coPersonAccount.Phone</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Mobile_Phone_Number</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>coPersonAccount.FirstName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>First_Name</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>coPersonAccount.LastName</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Last_Name</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>coPersonAccount.PersonEmail</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Email_Address</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Assign_Existing_Person_to_Co_Applicant_Variable</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -546,8 +513,8 @@
     <assignments>
         <name>Change_Phone_Email_Validation_Flag_to_False_0</name>
         <label>Change Phone Email Validation Flag to False</label>
-        <locationX>1807</locationX>
-        <locationY>2634</locationY>
+        <locationX>1893</locationX>
+        <locationY>2019</locationY>
         <assignmentItems>
             <assignToReference>PhoneEmailValidation</assignToReference>
             <operator>Assign</operator>
@@ -578,8 +545,8 @@
     <assignments>
         <name>Change_Phone_Email_Validation_Flag_to_True_0</name>
         <label>Change Phone Email Validation Flag to True</label>
-        <locationX>1641</locationX>
-        <locationY>2357</locationY>
+        <locationX>1544</locationX>
+        <locationY>2016</locationY>
         <assignmentItems>
             <assignToReference>PhoneEmailValidation</assignToReference>
             <operator>Assign</operator>
@@ -861,8 +828,8 @@
     <decisions>
         <name>Check_All_Validations_0</name>
         <label>Check All Validations</label>
-        <locationX>1439</locationX>
-        <locationY>2629</locationY>
+        <locationX>1632</locationX>
+        <locationY>2410</locationY>
         <defaultConnector>
             <targetReference>Get_Contact_Record_Existing_Person</targetReference>
         </defaultConnector>
@@ -878,7 +845,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Existing_Co_Applicant_Validated</targetReference>
+                <targetReference>checkExistingCustomer</targetReference>
             </connector>
             <label>Back To Screen</label>
         </rules>
@@ -1046,8 +1013,8 @@
     <decisions>
         <name>Check_Phone_Email_Validation_0</name>
         <label>Check Phone Email Validation</label>
-        <locationX>1799</locationX>
-        <locationY>2353</locationY>
+        <locationX>1727</locationX>
+        <locationY>1801</locationY>
         <defaultConnector>
             <targetReference>Change_Phone_Email_Validation_Flag_to_False_0</targetReference>
         </defaultConnector>
@@ -2044,8 +2011,8 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
     <recordLookups>
         <name>Get_Contact_Record_Existing_Person</name>
         <label>Get Contact Record Existing Person</label>
-        <locationX>1448</locationX>
-        <locationY>2849</locationY>
+        <locationX>1642</locationX>
+        <locationY>2833</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Main_Applicant_Married_COP_0</targetReference>
@@ -2177,11 +2144,11 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
     <recordLookups>
         <name>Get_Existing_Person_Account</name>
         <label>Get Existing Person Account</label>
-        <locationX>1448</locationX>
-        <locationY>1851</locationY>
+        <locationX>1588</locationX>
+        <locationY>1624</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Existing_Co_Applicant_Validated</targetReference>
+            <targetReference>Assign_Existing_Person_to_Co_Applicant_Variable</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2301,8 +2268,8 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
     <recordLookups>
         <name>Get_Reciprocal_Role</name>
         <label>Get Reciprocal Role</label>
-        <locationX>2044</locationX>
-        <locationY>4340</locationY>
+        <locationX>2043</locationX>
+        <locationY>4339</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Contact_to_Contact_Relationship</targetReference>
@@ -2903,188 +2870,6 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <showFooter>false</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
-    <screens>
-        <name>Existing_Co_Applicant_Validated</name>
-        <label>Existing Co-Applicant Validated</label>
-        <locationX>1448</locationX>
-        <locationY>2039</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Assign_New_Co_Person_Values_0</targetReference>
-        </connector>
-        <fields>
-            <name>createCoApplLabel</name>
-            <extensionName>c:customFlowBanner</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>cssCustomStyle</name>
-                <value>
-                    <stringValue>margin-bottom: 9px</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Create Co-Loan Applicant</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>mandatoryTxt_0</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;A Spouse is mandatory as the marital agreement is: &lt;/span&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Married in Community of Property&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Get_Main_Applicant.Marital_agreement__c</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Married in community of property (COP)</stringValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>addSpouse</name>
-            <fieldText>&lt;p&gt;Please be sure to add the spouse of applicant: &lt;strong&gt;{!Get_Main_Applicant.First_Name__c} {!Get_Main_Applicant.Last_Name__c}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>Get_Main_Applicant.Marital_agreement__c</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <stringValue>Married in community of property (COP)</stringValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>marriedCOPAppRequired</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>false</booleanValue>
-                    </rightValue>
-                </conditions>
-                <conditions>
-                    <leftValueReference>varApplicantCount</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <numberValue>1.0</numberValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>addSpouse2</name>
-            <fieldText>&lt;p&gt;Please be sure to add the spouse of applicant: &lt;strong&gt;{!Get_Last_Created_Applicant.First_Name__c} {!Get_Last_Created_Applicant.Last_Name__c}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>marriedCOPAppRequired</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
-        <fields>
-            <name>Existing_Co_Applicant_Validated_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>Existing_Co_Applicant_Validated_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <fieldType>ObjectProvided</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>false</isRequired>
-                    <objectFieldReference>coLoanApplicant.Name_Title__c</objectFieldReference>
-                </fields>
-                <fields>
-                    <name>First_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>coPersonAccount.FirstName</elementReference>
-                    </defaultValue>
-                    <fieldText>First Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <fields>
-                    <name>Last_Name</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>coPersonAccount.LastName</elementReference>
-                    </defaultValue>
-                    <fieldText>Last Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>true</isRequired>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>Existing_Co_Applicant_Validated_Section1_Column2</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Mobile_Phone_Number</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>coPersonAccount.Phone</elementReference>
-                    </defaultValue>
-                    <fieldText>Mobile Phone Number</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                </fields>
-                <fields>
-                    <name>Email_Address</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>coPersonAccount.PersonEmail</elementReference>
-                    </defaultValue>
-                    <fieldText>Email Address</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <isRequired>false</isRequired>
-                </fields>
-                <fields>
-                    <name>textMsg_0</name>
-                    <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;Phone or Email must be specified.&lt;/span&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                    <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
-                        <conditions>
-                            <leftValueReference>PhoneEmailValidation</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
-                                <booleanValue>true</booleanValue>
-                            </rightValue>
-                        </conditions>
-                    </visibilityRule>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <screens>
