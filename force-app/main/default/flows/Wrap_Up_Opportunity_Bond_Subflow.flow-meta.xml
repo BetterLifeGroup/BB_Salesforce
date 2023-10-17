@@ -207,6 +207,31 @@
         </outputParameters>
         <versionSegment>1</versionSegment>
     </actionCalls>
+    <actionCalls>
+        <name>Update_General_Opp_OTP_Received_Date</name>
+        <label>Update General Opp OTP Received Date</label>
+        <locationX>3080</locationX>
+        <locationY>2253</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_OTP_Received_Date_Time_Bond</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_General_Opp_Region</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>58.0</apiVersion>
     <assignments>
         <name>Add_Bond_OTP_File_to_PA</name>
@@ -429,6 +454,22 @@
         </assignmentItems>
         <connector>
             <targetReference>Main_Button_Selected</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_OTP_Received_DateTime_General</name>
+        <label>Assign OTP Received DateTime General</label>
+        <locationX>3080</locationX>
+        <locationY>2096</locationY>
+        <assignmentItems>
+            <assignToReference>Get_General_Opp_Region.OTP_Received_Date_Time__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>nowFormula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_General_Opp_OTP_Received_Date</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -1639,7 +1680,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>2088</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_OTP_Received_Date_Time_General</targetReference>
+            <targetReference>Assign_OTP_Received_DateTime_General</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2177,8 +2218,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_OTP_Received_Date_Time_Bond</name>
         <label>Update OTP Received Date/Time Bond</label>
-        <locationX>2863</locationX>
-        <locationY>2218</locationY>
+        <locationX>2922</locationX>
+        <locationY>2254</locationY>
         <connector>
             <targetReference>Capture_OTP_Property_Info_Initial</targetReference>
         </connector>
@@ -2188,30 +2229,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>OTP_Received_Date_Time__c</field>
-            <value>
-                <elementReference>nowFormula</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_OTP_Received_Date_Time_General</name>
-        <label>Update OTP Received Date/Time General</label>
-        <locationX>3019</locationX>
-        <locationY>2210</locationY>
-        <connector>
-            <targetReference>Update_OTP_Received_Date_Time_Bond</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Bond_Opportunity.General_Opportunity__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -3594,7 +3611,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Accept_or_Override_Follow_Up_H2</name>
         <label>Accept or Override Follow Up H2</label>
-        <locationX>3874</locationX>
+        <locationX>3875</locationX>
         <locationY>2365</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
@@ -3705,8 +3722,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Manage_Applicant_Bonds</name>
         <label>Manage Applicant - Bond</label>
-        <locationX>2739</locationX>
-        <locationY>1597</locationY>
+        <locationX>2735</locationX>
+        <locationY>1575</locationY>
         <connector>
             <targetReference>OTP_Agent_Search</targetReference>
         </connector>
