@@ -150,13 +150,6 @@
                 <elementReference>Get_User_Contact.Id</elementReference>
             </value>
         </filters>
-        <filters>
-            <field>FinServ__RelatedContact__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_User_Contact.Id</elementReference>
-            </value>
-        </filters>
         <object>FinServ__ContactContactRelation__c</object>
     </recordDeletes>
     <recordLookups>
@@ -199,13 +192,6 @@
         <filterLogic>or</filterLogic>
         <filters>
             <field>FinServ__Contact__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_User_Contact.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>FinServ__RelatedContact__c</field>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_User_Contact.Id</elementReference>
