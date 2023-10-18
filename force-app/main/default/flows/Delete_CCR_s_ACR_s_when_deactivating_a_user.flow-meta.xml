@@ -4,8 +4,8 @@
     <assignments>
         <name>Assign_Contact_Var</name>
         <label>Assign Contact Var</label>
-        <locationX>374</locationX>
-        <locationY>1200</locationY>
+        <locationX>297</locationX>
+        <locationY>1308</locationY>
         <assignmentItems>
             <assignToReference>Get_User_Contact.AccountId</assignToReference>
             <operator>Assign</operator>
@@ -17,8 +17,8 @@
     <decisions>
         <name>ACR_s_Found</name>
         <label>ACR&apos;s Found?</label>
-        <locationX>374</locationX>
-        <locationY>900</locationY>
+        <locationX>297</locationX>
+        <locationY>1008</locationY>
         <defaultConnector>
             <targetReference>Assign_Contact_Var</targetReference>
         </defaultConnector>
@@ -42,8 +42,8 @@
     <decisions>
         <name>CCR_s_Found</name>
         <label>CCR&apos;s Found?</label>
-        <locationX>374</locationX>
-        <locationY>492</locationY>
+        <locationX>297</locationX>
+        <locationY>600</locationY>
         <defaultConnector>
             <targetReference>Get_ACR_s</targetReference>
         </defaultConnector>
@@ -62,6 +62,28 @@
                 <targetReference>Delete_All_CCR_s</targetReference>
             </connector>
             <label>CCR&apos;s Found</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Contact_Found</name>
+        <label>Contact Found?</label>
+        <locationX>451</locationX>
+        <locationY>384</locationY>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_User_Contact</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_CCR_s</targetReference>
+            </connector>
+            <label>Yes</label>
         </rules>
     </decisions>
     <description>When deleting a user, all Contact Contact and Account Contact relationships must be deleted.</description>
@@ -90,8 +112,8 @@
     <recordDeletes>
         <name>Delete_ACR_s</name>
         <label>Delete ACR&apos;s</label>
-        <locationX>242</locationX>
-        <locationY>1008</locationY>
+        <locationX>165</locationX>
+        <locationY>1116</locationY>
         <connector>
             <targetReference>Assign_Contact_Var</targetReference>
         </connector>
@@ -115,8 +137,8 @@
     <recordDeletes>
         <name>Delete_All_CCR_s</name>
         <label>Delete All CCR&apos;s</label>
-        <locationX>242</locationX>
-        <locationY>600</locationY>
+        <locationX>165</locationX>
+        <locationY>708</locationY>
         <connector>
             <targetReference>Get_ACR_s</targetReference>
         </connector>
@@ -133,8 +155,8 @@
     <recordLookups>
         <name>Get_ACR_s</name>
         <label>Get ACR&apos;s</label>
-        <locationX>374</locationX>
-        <locationY>792</locationY>
+        <locationX>297</locationX>
+        <locationY>900</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>ACR_s_Found</targetReference>
@@ -161,8 +183,8 @@
     <recordLookups>
         <name>Get_CCR_s</name>
         <label>Get CCR&apos;s</label>
-        <locationX>374</locationX>
-        <locationY>384</locationY>
+        <locationX>297</locationX>
+        <locationY>492</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>CCR_s_Found</targetReference>
@@ -182,11 +204,11 @@
     <recordLookups>
         <name>Get_User_Contact</name>
         <label>Get User Contact</label>
-        <locationX>374</locationX>
+        <locationX>451</locationX>
         <locationY>276</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_CCR_s</targetReference>
+            <targetReference>Contact_Found</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -203,8 +225,8 @@
     <recordUpdates>
         <name>Update_Contact</name>
         <label>Update Contact</label>
-        <locationX>374</locationX>
-        <locationY>1308</locationY>
+        <locationX>297</locationX>
+        <locationY>1416</locationY>
         <inputReference>Get_User_Contact</inputReference>
     </recordUpdates>
     <start>
