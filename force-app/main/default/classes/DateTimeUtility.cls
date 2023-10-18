@@ -7,20 +7,22 @@ global class DateTimeUtility {
             description='Exposes date,datetime and business hours methods available in Apex to Flow. See Apex documentation for method details.'
             category='Uncategorized')
     public static List<DateTimeRequestResponse> methods(List<DateTimeRequest> requests) {
-//        System.debug('requestList ' + requests);
+        System.debug('requestList ' + requests);
         // The datetime input should use the standard flow datetime string format “yyyy/mm/dd, HH:MM” in the local time zone, 24hour clock.
         // TODO regex to confirm input format
 
         List<DateTimeRequestResponse> results = new List<DateTimeRequestResponse>();
         DateTimeRequestResponse result = new DateTimeRequestResponse();
-        if (requests[0].methodName == 'BusinessHours.addBusinessDays' || requests[0].methodName == 'BusinessHours.addBusinessHours') {
-            results = DateTimeUtility.addNumberOfBusinessDays(requests, requests[0].increment);
 
-        } else {
 
-            for (DateTimeRequest dtr : requests) {
-                Datetime dt;
-                Date dd;
+        for (DateTimeRequest dtr : requests) {
+            Datetime dt;
+            Date dd;
+            if (dtr.methodName == 'BusinessHours.addBusinessDays' || dtr.methodName == 'BusinessHours.addBusinessHours') {
+                results.addAll(DateTimeUtility.addNumberOfBusinessDays(requests, dtr.increment));
+
+            } else {
+
 
                 if ((dtr.dateTimeString == null || dtr.dateTimeString == '') && dtr.methodName != 'Date.today') {
                     throw new DateTimeUtilityException('Datetime string cannot be null error');
@@ -249,6 +251,8 @@ global class DateTimeUtility {
                 results.add(result);
             }
         }
+
+        System.debug('results - ' + results);
         return results;
 
     }
@@ -303,7 +307,7 @@ global class DateTimeUtility {
                 numberOfDaysOrHours--;
 
             }
-        }else if (requests[0].methodName == 'BusinessHours.addBusinessHours' && requests[0].increment < 1) {
+        } else if (requests[0].methodName == 'BusinessHours.addBusinessHours' && requests[0].increment < 1) {
             numberOfDaysOrHours = Integer.valueOf(numberOfDaysOrHours * 60);
             System.debug('in here' + numberOfDaysOrHours);
             String businessId;
