@@ -74,14 +74,27 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Smart Service</controllingFieldValue>
+            <controllingFieldValue>Website/API</controllingFieldValue>
             <controllingFieldValue>Create lead/manual</controllingFieldValue>
             <controllingFieldValue>Website/URL</controllingFieldValue>
+            <controllingFieldValue>Auto create</controllingFieldValue>
             <valueName>Pre-approval</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Smart Service</controllingFieldValue>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <controllingFieldValue>Create lead/manual</controllingFieldValue>
             <controllingFieldValue>Website/URL</controllingFieldValue>
+            <controllingFieldValue>Auto create</controllingFieldValue>
             <valueName>Bond</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Smart Service</controllingFieldValue>
+            <controllingFieldValue>Website/API</controllingFieldValue>
+            <controllingFieldValue>Create lead/manual</controllingFieldValue>
+            <controllingFieldValue>Website/URL</controllingFieldValue>
+            <controllingFieldValue>Auto create</controllingFieldValue>
+            <valueName>General Opportunity</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Website/API</controllingFieldValue>
@@ -102,11 +115,6 @@
         <valueSettings>
             <controllingFieldValue>Website/API</controllingFieldValue>
             <valueName>General Enquiry</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Website/API</controllingFieldValue>
-            <controllingFieldValue>Website/URL</controllingFieldValue>
-            <valueName>General Opportunity</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Create lead/manual</controllingFieldValue>
