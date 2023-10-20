@@ -4,7 +4,7 @@
         <name>nextStartDate_0</name>
         <label>nextStartDate</label>
         <locationX>1466</locationX>
-        <locationY>4791</locationY>
+        <locationY>4931</locationY>
         <actionName>DateTimeUtility</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -41,10 +41,26 @@
     </actionCalls>
     <apiVersion>55.0</apiVersion>
     <assignments>
+        <name>Agent_not_selected3</name>
+        <label>Agent not selected</label>
+        <locationX>2172</locationX>
+        <locationY>2447</locationY>
+        <assignmentItems>
+            <assignToReference>agentMustBeSelected</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Account_Lookup_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Allow_General_Repeat_True</name>
         <label>Allow General Repeat True</label>
         <locationX>1303</locationX>
-        <locationY>3583</locationY>
+        <locationY>3723</locationY>
         <assignmentItems>
             <assignToReference>allowGeneralRepeat</assignToReference>
             <operator>Assign</operator>
@@ -60,7 +76,7 @@
         <name>Assign_Agent_selected_False</name>
         <label>Assign Agent selected False</label>
         <locationX>561</locationX>
-        <locationY>1970</locationY>
+        <locationY>2110</locationY>
         <assignmentItems>
             <assignToReference>agentSelected</assignToReference>
             <operator>Assign</operator>
@@ -76,7 +92,7 @@
         <name>Assign_Bond_Opp_Id</name>
         <label>Assign Bond Opp Id</label>
         <locationX>3958</locationX>
-        <locationY>4412</locationY>
+        <locationY>4552</locationY>
         <assignmentItems>
             <assignToReference>bondOppIdVar</assignToReference>
             <operator>Assign</operator>
@@ -92,7 +108,7 @@
         <name>Assign_Bond_Opp_Id_0</name>
         <label>Assign Bond Opp Id</label>
         <locationX>3846</locationX>
-        <locationY>3980</locationY>
+        <locationY>4120</locationY>
         <assignmentItems>
             <assignToReference>bondOppIdVar</assignToReference>
             <operator>Assign</operator>
@@ -108,7 +124,7 @@
         <name>Assign_Empty_Opp_True</name>
         <label>Assign Empty Opp True</label>
         <locationX>1788</locationX>
-        <locationY>4391</locationY>
+        <locationY>4531</locationY>
         <assignmentItems>
             <assignToReference>emptyOppVar</assignToReference>
             <operator>Assign</operator>
@@ -124,7 +140,7 @@
         <name>Assign_Empty_Opp_True_0</name>
         <label>Assign Empty Opp True</label>
         <locationX>2399</locationX>
-        <locationY>4004</locationY>
+        <locationY>4144</locationY>
         <assignmentItems>
             <assignToReference>emptyOppVar</assignToReference>
             <operator>Assign</operator>
@@ -140,7 +156,7 @@
         <name>Assign_Existing_Person</name>
         <label>Assign Existing Person</label>
         <locationX>1465</locationX>
-        <locationY>2763</locationY>
+        <locationY>2903</locationY>
         <assignmentItems>
             <assignToReference>personAccount.Id</assignToReference>
             <operator>Assign</operator>
@@ -184,7 +200,7 @@
         <name>Assign_General_Opp_Id</name>
         <label>Assign General Opp Id</label>
         <locationX>3663</locationX>
-        <locationY>3445</locationY>
+        <locationY>3585</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -200,7 +216,7 @@
         <name>Assign_General_Opp_Id_0</name>
         <label>Assign General Opp Id</label>
         <locationX>1468</locationX>
-        <locationY>5228</locationY>
+        <locationY>5368</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -216,7 +232,7 @@
         <name>Assign_General_Opp_Id_0_0</name>
         <label>Assign General Opp Id</label>
         <locationX>1707</locationX>
-        <locationY>5370</locationY>
+        <locationY>5510</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -232,7 +248,7 @@
         <name>Assign_General_Opp_Id_0_0_0</name>
         <label>Assign General Opp Id</label>
         <locationX>3667</locationX>
-        <locationY>3591</locationY>
+        <locationY>3731</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -248,7 +264,7 @@
         <name>Assign_General_Opp_Id_0_0_0_0</name>
         <label>Assign General Opp Id</label>
         <locationX>3645</locationX>
-        <locationY>3124</locationY>
+        <locationY>3264</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -264,7 +280,7 @@
         <name>Assign_General_Opp_Id_0_0_0_0_0</name>
         <label>Assign General Opp Id</label>
         <locationX>3650</locationX>
-        <locationY>3270</locationY>
+        <locationY>3410</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -280,7 +296,7 @@
         <name>Assign_genNoPABool_true</name>
         <label>Assign genNoPABool true</label>
         <locationX>1791</locationX>
-        <locationY>3586</locationY>
+        <locationY>3726</locationY>
         <assignmentItems>
             <assignToReference>genNoPABool</assignToReference>
             <operator>Assign</operator>
@@ -296,7 +312,7 @@
         <name>Assign_More_than_1_Opp_True</name>
         <label>Assign More than 1 Opp True</label>
         <locationX>1900</locationX>
-        <locationY>4273</locationY>
+        <locationY>4413</locationY>
         <assignmentItems>
             <assignToReference>moreThan1Bool</assignToReference>
             <operator>Assign</operator>
@@ -312,7 +328,7 @@
         <name>Assign_New_Person_Values</name>
         <label>Assign New Person Values</label>
         <locationX>700</locationX>
-        <locationY>2929</locationY>
+        <locationY>3069</locationY>
         <assignmentItems>
             <assignToReference>personAccount.FirstName</assignToReference>
             <operator>Assign</operator>
@@ -349,7 +365,7 @@
         <name>Assign_Opp_to_Convert</name>
         <label>Assign Opp to Convert</label>
         <locationX>2894</locationX>
-        <locationY>4418</locationY>
+        <locationY>4558</locationY>
         <assignmentItems>
             <assignToReference>oppToConvertVar</assignToReference>
             <operator>Assign</operator>
@@ -372,7 +388,7 @@
         <name>Assign_Opp_to_Convert_0</name>
         <label>Assign Opp to Convert</label>
         <locationX>3201</locationX>
-        <locationY>4003</locationY>
+        <locationY>4143</locationY>
         <assignmentItems>
             <assignToReference>oppToConvertVar</assignToReference>
             <operator>Assign</operator>
@@ -394,8 +410,8 @@
     <assignments>
         <name>Assign_Owner_Vars</name>
         <label>Assign Owner Vars</label>
-        <locationX>1619</locationX>
-        <locationY>1144</locationY>
+        <locationX>1927</locationX>
+        <locationY>1474</locationY>
         <assignmentItems>
             <assignToReference>SelectedOppOwner</assignToReference>
             <operator>Assign</operator>
@@ -411,14 +427,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Is_Agent_Populated</targetReference>
+            <targetReference>Create_Opp_or_Convert_Existing</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assign_Owner_Vars_0</name>
         <label>Assign Owner Vars</label>
         <locationX>1240</locationX>
-        <locationY>1534</locationY>
+        <locationY>1674</locationY>
         <assignmentItems>
             <assignToReference>SelectedOppOwner</assignToReference>
             <operator>Assign</operator>
@@ -434,7 +450,7 @@
         <name>Assign_Record_Person</name>
         <label>Assign Record Person</label>
         <locationX>606</locationX>
-        <locationY>4649</locationY>
+        <locationY>4789</locationY>
         <assignmentItems>
             <assignToReference>personAccount.PersonTitle</assignToReference>
             <operator>Assign</operator>
@@ -457,7 +473,7 @@
         <name>campaignSLANotPopulated</name>
         <label>campaignSLANotPopulated</label>
         <locationX>1673</locationX>
-        <locationY>2477</locationY>
+        <locationY>2617</locationY>
         <assignmentItems>
             <assignToReference>campaignSLABlank</assignToReference>
             <operator>Assign</operator>
@@ -473,7 +489,7 @@
         <name>Change_Email_Duplicate_Flag_to_False</name>
         <label>Change Email Duplicate Flag to False</label>
         <locationX>869</locationX>
-        <locationY>3976</locationY>
+        <locationY>4116</locationY>
         <assignmentItems>
             <assignToReference>EmailDuplicateFlag</assignToReference>
             <operator>Assign</operator>
@@ -489,7 +505,7 @@
         <name>Change_Email_Duplicate_Flag_to_True</name>
         <label>Change Email Duplicate Flag to True</label>
         <locationX>700</locationX>
-        <locationY>3986</locationY>
+        <locationY>4126</locationY>
         <assignmentItems>
             <assignToReference>EmailDuplicateFlag</assignToReference>
             <operator>Assign</operator>
@@ -505,7 +521,7 @@
         <name>Change_Name_Blank_Flag_to_False</name>
         <label>Change Name Blank Flag to False</label>
         <locationX>926</locationX>
-        <locationY>3198</locationY>
+        <locationY>3338</locationY>
         <assignmentItems>
             <assignToReference>blankNameFlag</assignToReference>
             <operator>Assign</operator>
@@ -521,7 +537,7 @@
         <name>Change_Name_Blank_Flag_to_False_0</name>
         <label>Change Name Blank Flag to False</label>
         <locationX>1043</locationX>
-        <locationY>3487</locationY>
+        <locationY>3627</locationY>
         <assignmentItems>
             <assignToReference>blankLastnameFlag</assignToReference>
             <operator>Assign</operator>
@@ -537,7 +553,7 @@
         <name>Change_Name_Blank_Flag_to_True</name>
         <label>Change Name Blank Flag to True</label>
         <locationX>1132</locationX>
-        <locationY>3133</locationY>
+        <locationY>3273</locationY>
         <assignmentItems>
             <assignToReference>blankNameFlag</assignToReference>
             <operator>Assign</operator>
@@ -553,7 +569,7 @@
         <name>Change_Name_Blank_Flag_to_True_0</name>
         <label>Change Name Blank Flag to True</label>
         <locationX>1239</locationX>
-        <locationY>3353</locationY>
+        <locationY>3493</locationY>
         <assignmentItems>
             <assignToReference>blankLastnameFlag</assignToReference>
             <operator>Assign</operator>
@@ -569,7 +585,7 @@
         <name>Change_Phone_Duplicate_Flag_to_False</name>
         <label>Change Phone Duplicate Flag to False</label>
         <locationX>873</locationX>
-        <locationY>3670</locationY>
+        <locationY>3810</locationY>
         <assignmentItems>
             <assignToReference>ContactDuplicateFlag</assignToReference>
             <operator>Assign</operator>
@@ -585,7 +601,7 @@
         <name>Change_Phone_Duplicate_Flag_to_True</name>
         <label>Change Phone Duplicate Flag to True</label>
         <locationX>702</locationX>
-        <locationY>3660</locationY>
+        <locationY>3800</locationY>
         <assignmentItems>
             <assignToReference>ContactDuplicateFlag</assignToReference>
             <operator>Assign</operator>
@@ -601,7 +617,7 @@
         <name>Change_Phone_Email_Validation_Flag_to_False</name>
         <label>Change Phone Email Validation Flag to False</label>
         <locationX>923</locationX>
-        <locationY>4358</locationY>
+        <locationY>4498</locationY>
         <assignmentItems>
             <assignToReference>PhoneEmailValidation</assignToReference>
             <operator>Assign</operator>
@@ -617,7 +633,7 @@
         <name>Change_Phone_Email_Validation_Flag_to_True</name>
         <label>Change Phone Email Validation Flag to True</label>
         <locationX>702</locationX>
-        <locationY>4345</locationY>
+        <locationY>4485</locationY>
         <assignmentItems>
             <assignToReference>PhoneEmailValidation</assignToReference>
             <operator>Assign</operator>
@@ -633,7 +649,7 @@
         <name>Clear_Selections</name>
         <label>Clear Selections</label>
         <locationX>2021</locationX>
-        <locationY>3999</locationY>
+        <locationY>4139</locationY>
         <assignmentItems>
             <assignToReference>selectedOppRecVar</assignToReference>
             <operator>Assign</operator>
@@ -647,10 +663,26 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Existing_Customer_Selected_Var_to_true</name>
+        <label>Existing Customer Selected Var to true</label>
+        <locationX>2147</locationX>
+        <locationY>1831</locationY>
+        <assignmentItems>
+            <assignToReference>existingCustomerSelected</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Region_Branch_Sub</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Open_Opp_Collection</name>
         <label>Open Opp Collection</label>
         <locationX>1917</locationX>
-        <locationY>3327</locationY>
+        <locationY>3467</locationY>
         <assignmentItems>
             <assignToReference>openOppCollection</assignToReference>
             <operator>Add</operator>
@@ -666,7 +698,7 @@
         <name>PassNumberVar</name>
         <label>PassNumberVar</label>
         <locationX>726</locationX>
-        <locationY>1395</locationY>
+        <locationY>1535</locationY>
         <assignmentItems>
             <assignToReference>ScreenOneDone</assignToReference>
             <operator>Assign</operator>
@@ -682,7 +714,7 @@
         <name>Reset_error_Vars</name>
         <label>Reset error Vars</label>
         <locationX>781</locationX>
-        <locationY>2548</locationY>
+        <locationY>2688</locationY>
         <assignmentItems>
             <assignToReference>PhoneEmailValidation</assignToReference>
             <operator>Assign</operator>
@@ -742,7 +774,7 @@
         <name>Set_AccountIds</name>
         <label>Set AccountIds</label>
         <locationX>1162</locationX>
-        <locationY>1993</locationY>
+        <locationY>2133</locationY>
         <assignmentItems>
             <assignToReference>col_var_AccountIds</assignToReference>
             <operator>Add</operator>
@@ -757,6 +789,13 @@
                 <elementReference>Get_Agent_Details.Account.ParentId</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>var_Real_Estate_Agent_Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>selectedAgent</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Get_BLG_Campaigns</targetReference>
         </connector>
@@ -765,7 +804,7 @@
         <name>Set_Campaign_Error</name>
         <label>Set Campaign Error</label>
         <locationX>1401</locationX>
-        <locationY>2163</locationY>
+        <locationY>2303</locationY>
         <assignmentItems>
             <assignToReference>campaignBlank</assignToReference>
             <operator>Assign</operator>
@@ -781,7 +820,7 @@
         <name>Set_Campaign_Error_False</name>
         <label>Set Campaign Error False</label>
         <locationX>1388</locationX>
-        <locationY>2370</locationY>
+        <locationY>2510</locationY>
         <assignmentItems>
             <assignToReference>campaignBlank</assignToReference>
             <operator>Assign</operator>
@@ -797,7 +836,7 @@
         <name>Set_DA_Id</name>
         <label>Set DA Id</label>
         <locationX>1296</locationX>
-        <locationY>1965</locationY>
+        <locationY>2105</locationY>
         <assignmentItems>
             <assignToReference>var_Development_Agent_Id</assignToReference>
             <operator>Assign</operator>
@@ -829,7 +868,7 @@
         <name>Set_Existing_Customer_Error</name>
         <label>Set Existing Customer Error</label>
         <locationX>907</locationX>
-        <locationY>2410</locationY>
+        <locationY>2550</locationY>
         <assignmentItems>
             <assignToReference>varExistingCustError</assignToReference>
             <operator>Assign</operator>
@@ -845,7 +884,7 @@
         <name>Set_Existing_Customer_Error_0</name>
         <label>Set Existing Customer Error</label>
         <locationX>2215</locationX>
-        <locationY>2619</locationY>
+        <locationY>2759</locationY>
         <assignmentItems>
             <assignToReference>varExistingCustError</assignToReference>
             <operator>Assign</operator>
@@ -861,7 +900,7 @@
         <name>Set_Owner_Id</name>
         <label>Set Owner Id</label>
         <locationX>1934</locationX>
-        <locationY>1778</locationY>
+        <locationY>1918</locationY>
         <assignmentItems>
             <assignToReference>var_Opp_Owner_Id</assignToReference>
             <operator>Assign</operator>
@@ -888,7 +927,7 @@
         <name>Set_Owner_Id_0</name>
         <label>Set Owner Id</label>
         <locationX>1851</locationX>
-        <locationY>1590</locationY>
+        <locationY>1730</locationY>
         <assignmentItems>
             <assignToReference>var_Opp_Owner_Id</assignToReference>
             <operator>Assign</operator>
@@ -915,7 +954,7 @@
         <name>Set_REA_Id</name>
         <label>Set REA Id</label>
         <locationX>1031</locationX>
-        <locationY>1946</locationY>
+        <locationY>2086</locationY>
         <assignmentItems>
             <assignToReference>var_Real_Estate_Agent_Id</assignToReference>
             <operator>Assign</operator>
@@ -930,8 +969,8 @@
     <assignments>
         <name>Show_Agent_Error</name>
         <label>Show Agent Error</label>
-        <locationX>1698</locationX>
-        <locationY>957</locationY>
+        <locationX>1701</locationX>
+        <locationY>1080</locationY>
         <assignmentItems>
             <assignToReference>showSelectAgentError</assignToReference>
             <operator>Assign</operator>
@@ -947,7 +986,7 @@
         <name>SubFlow_Done</name>
         <label>SubFlow Done</label>
         <locationX>1056</locationX>
-        <locationY>1609</locationY>
+        <locationY>1749</locationY>
         <assignmentItems>
             <assignToReference>subFlowDone</assignToReference>
             <operator>Assign</operator>
@@ -979,7 +1018,7 @@
         <name>Agent_Record_Type</name>
         <label>Agent Record Type</label>
         <locationX>1153</locationX>
-        <locationY>1820</locationY>
+        <locationY>1960</locationY>
         <defaultConnector>
             <targetReference>Set_AccountIds</targetReference>
         </defaultConnector>
@@ -1016,7 +1055,7 @@
         <name>Check_All_Validations</name>
         <label>Check All Validations</label>
         <locationX>598</locationX>
-        <locationY>4455</locationY>
+        <locationY>4595</locationY>
         <defaultConnector>
             <targetReference>Assign_Record_Person</targetReference>
         </defaultConnector>
@@ -1069,7 +1108,7 @@
         <name>Check_if_Email_Exists</name>
         <label>Check if Email Exists</label>
         <locationX>691</locationX>
-        <locationY>3808</locationY>
+        <locationY>3948</locationY>
         <defaultConnector>
             <targetReference>Change_Email_Duplicate_Flag_to_False</targetReference>
         </defaultConnector>
@@ -1094,7 +1133,7 @@
         <name>Check_if_Last_Name_is_Blank</name>
         <label>Check if Last Name Blank</label>
         <locationX>1043</locationX>
-        <locationY>3304</locationY>
+        <locationY>3444</locationY>
         <defaultConnector>
             <targetReference>Change_Name_Blank_Flag_to_True_0</targetReference>
         </defaultConnector>
@@ -1126,7 +1165,7 @@
         <name>Check_if_Name_Blank</name>
         <label>Check if Name Blank</label>
         <locationX>1021</locationX>
-        <locationY>3054</locationY>
+        <locationY>3194</locationY>
         <defaultConnector>
             <targetReference>Change_Name_Blank_Flag_to_True</targetReference>
         </defaultConnector>
@@ -1158,7 +1197,7 @@
         <name>Check_if_Phone_Exists</name>
         <label>Check if Phone Exists</label>
         <locationX>695</locationX>
-        <locationY>3489</locationY>
+        <locationY>3629</locationY>
         <defaultConnector>
             <targetReference>Change_Phone_Duplicate_Flag_to_False</targetReference>
         </defaultConnector>
@@ -1183,7 +1222,7 @@
         <name>Check_Phone_Email_Validation</name>
         <label>Check Phone Email Validation</label>
         <locationX>693</locationX>
-        <locationY>4147</locationY>
+        <locationY>4287</locationY>
         <defaultConnector>
             <targetReference>Change_Phone_Email_Validation_Flag_to_False</targetReference>
         </defaultConnector>
@@ -1229,7 +1268,7 @@
         <name>Convert_Bond_or_Finish</name>
         <label>Convert Bond or Finish</label>
         <locationX>2366</locationX>
-        <locationY>3881</locationY>
+        <locationY>4021</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Convert_Bond</name>
@@ -1278,7 +1317,7 @@
         <name>Convert_Bond_or_Finish_0</name>
         <label>Convert Bond or Finish</label>
         <locationX>2234</locationX>
-        <locationY>4129</locationY>
+        <locationY>4269</locationY>
         <defaultConnectorLabel>Finish</defaultConnectorLabel>
         <rules>
             <name>Clear_Selection</name>
@@ -1341,10 +1380,10 @@
     <decisions>
         <name>Create_Opp_or_Convert_Existing</name>
         <label>Create Opp or Convert Existing?</label>
-        <locationX>1648</locationX>
-        <locationY>1532</locationY>
+        <locationX>1647</locationX>
+        <locationY>1625</locationY>
         <defaultConnector>
-            <targetReference>Populate_SelectedOwnerId</targetReference>
+            <targetReference>Is_Agent_Populated</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Next</defaultConnectorLabel>
         <rules>
@@ -1358,7 +1397,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Account_Lookup_0</targetReference>
+                <targetReference>Office_Admin_attempting_to_create_for_self</targetReference>
             </connector>
             <label>Search Existing</label>
         </rules>
@@ -1367,7 +1406,7 @@
         <name>Create_Repeat_General_or_Cancel</name>
         <label>Create Repeat General or Cancel</label>
         <locationX>2512</locationX>
-        <locationY>3683</locationY>
+        <locationY>3823</locationY>
         <defaultConnectorLabel>Default</defaultConnectorLabel>
         <rules>
             <name>Create_Repeat_General</name>
@@ -1423,7 +1462,7 @@
         <name>Do_Open_Opps_Exist</name>
         <label>Do Open Opps Exist?</label>
         <locationX>1456</locationX>
-        <locationY>3581</locationY>
+        <locationY>3721</locationY>
         <defaultConnector>
             <targetReference>Allow_General_Repeat_True</targetReference>
         </defaultConnector>
@@ -1448,7 +1487,7 @@
         <name>Does_Person_Exist</name>
         <label>Does Person Exist?</label>
         <locationX>1241</locationX>
-        <locationY>2626</locationY>
+        <locationY>2766</locationY>
         <defaultConnector>
             <targetReference>Get_Existing_Person_Account</targetReference>
         </defaultConnector>
@@ -1492,10 +1531,50 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Existing_Customer_Chosen</name>
+        <label>Existing Customer Chosen?</label>
+        <locationX>1857</locationX>
+        <locationY>1193</locationY>
+        <defaultConnector>
+            <targetReference>Agent_Select_scr</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Existing_Customer_Direct</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>selectedAgent</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Direct</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Agent_selected_False</targetReference>
+            </connector>
+            <label>Existing Customer - Direct</label>
+        </rules>
+        <rules>
+            <name>Yes_Existing_Customer</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>existingCustomerSelected</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Agent_Details</targetReference>
+            </connector>
+            <label>Yes,Existing Customer</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>For_Myself</name>
         <label>For Myself</label>
         <locationX>1558</locationX>
-        <locationY>1820</locationY>
+        <locationY>1960</locationY>
         <defaultConnector>
             <targetReference>Get_Agent_Details</targetReference>
         </defaultConnector>
@@ -1537,12 +1616,27 @@
             </connector>
             <label>OnBehalf</label>
         </rules>
+        <rules>
+            <name>Existing_Customer_Selected</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>existingCustomerSelected</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Owner_Vars_0</targetReference>
+            </connector>
+            <label>Existing Customer Selected</label>
+        </rules>
     </decisions>
     <decisions>
         <name>For_Myself_Office_Admin_Block</name>
         <label>For Myself Office Admin Block</label>
         <locationX>1076</locationX>
-        <locationY>1399</locationY>
+        <locationY>1539</locationY>
         <defaultConnector>
             <targetReference>PassNumberVar</targetReference>
         </defaultConnector>
@@ -1574,7 +1668,7 @@
         <name>General_or_PA_Selected</name>
         <label>General or PA Selected?</label>
         <locationX>2611</locationX>
-        <locationY>4210</locationY>
+        <locationY>4350</locationY>
         <defaultConnector>
             <targetReference>Get_Selected_PA_Opp</targetReference>
         </defaultConnector>
@@ -1599,7 +1693,7 @@
         <name>General_or_PA_Selected_0</name>
         <label>General or PA Selected?</label>
         <locationX>3027</locationX>
-        <locationY>3042</locationY>
+        <locationY>3182</locationY>
         <defaultConnector>
             <targetReference>Is_Agent_Selected_0</targetReference>
         </defaultConnector>
@@ -1624,7 +1718,7 @@
         <name>General_With_No_PA_Exist</name>
         <label>General With No PA Exist?</label>
         <locationX>1685</locationX>
-        <locationY>3473</locationY>
+        <locationY>3613</locationY>
         <defaultConnector>
             <targetReference>Do_Open_Opps_Exist</targetReference>
         </defaultConnector>
@@ -1649,7 +1743,7 @@
         <name>Is_Agent_Populated</name>
         <label>Is Agent Populated</label>
         <locationX>1492</locationX>
-        <locationY>956</locationY>
+        <locationY>1096</locationY>
         <defaultConnector>
             <targetReference>Show_Agent_Error</targetReference>
         </defaultConnector>
@@ -1709,7 +1803,7 @@
         <name>Is_Agent_Selected</name>
         <label>Is Agent Selected</label>
         <locationX>718</locationX>
-        <locationY>1714</locationY>
+        <locationY>1854</locationY>
         <defaultConnector>
             <targetReference>SubFlow_Done</targetReference>
         </defaultConnector>
@@ -1749,7 +1843,7 @@
         <name>Is_Agent_Selected_0</name>
         <label>Is Agent Selected</label>
         <locationX>3108</locationX>
-        <locationY>3526</locationY>
+        <locationY>3666</locationY>
         <defaultConnector>
             <targetReference>Get_Selected_Opp_Campaign</targetReference>
         </defaultConnector>
@@ -1774,7 +1868,7 @@
         <name>Is_Agent_Selected_0_0</name>
         <label>Is Agent Selected</label>
         <locationX>1698</locationX>
-        <locationY>5017</locationY>
+        <locationY>5157</locationY>
         <defaultConnector>
             <targetReference>Create_General_Opp</targetReference>
         </defaultConnector>
@@ -1799,7 +1893,7 @@
         <name>Is_Agent_Selected_0_0_0</name>
         <label>Is Agent Selected</label>
         <locationX>3119</locationX>
-        <locationY>3209</locationY>
+        <locationY>3349</locationY>
         <defaultConnector>
             <targetReference>Get_Selected_Opp_Campaign_Gen</targetReference>
         </defaultConnector>
@@ -1824,7 +1918,7 @@
         <name>Is_Campaign_Populated</name>
         <label>Is Campaign Populated?</label>
         <locationX>1616</locationX>
-        <locationY>2317</locationY>
+        <locationY>2457</locationY>
         <defaultConnector>
             <targetReference>Set_Campaign_Error_False</targetReference>
         </defaultConnector>
@@ -1855,8 +1949,8 @@
     <decisions>
         <name>Is_Customer_selected</name>
         <label>Is Customer selected?</label>
-        <locationX>2039</locationX>
-        <locationY>2630</locationY>
+        <locationX>2326</locationX>
+        <locationY>2638</locationY>
         <defaultConnector>
             <targetReference>Set_Existing_Customer_Error_0</targetReference>
         </defaultConnector>
@@ -1871,17 +1965,39 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>selectedAgent</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Get_Existing_Person_Account</targetReference>
+                <targetReference>Existing_Customer_Selected_Var_to_true</targetReference>
             </connector>
             <label>Selected</label>
+        </rules>
+        <rules>
+            <name>Agent_not_selected2</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>selectedAgent</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Agent_not_selected3</targetReference>
+            </connector>
+            <label>Agent not selected</label>
         </rules>
     </decisions>
     <decisions>
         <name>Is_Direct</name>
         <label>Is Direct?</label>
         <locationX>1401</locationX>
-        <locationY>1472</locationY>
+        <locationY>1612</locationY>
         <defaultConnector>
             <targetReference>Get_Agent_Contact</targetReference>
         </defaultConnector>
@@ -1906,7 +2022,7 @@
         <name>Is_Opp_Owner_User_Setup_In_Order</name>
         <label>Is Opp Owner User Setup In Order?</label>
         <locationX>1961</locationX>
-        <locationY>1195</locationY>
+        <locationY>1335</locationY>
         <defaultConnector>
             <targetReference>Get_User_Contact</targetReference>
         </defaultConnector>
@@ -1960,7 +2076,7 @@
         <name>Is_Opp_Selected</name>
         <label>Is Opp Selected?</label>
         <locationX>2238</locationX>
-        <locationY>4328</locationY>
+        <locationY>4468</locationY>
         <defaultConnector>
             <targetReference>General_or_PA_Selected</targetReference>
         </defaultConnector>
@@ -2014,7 +2130,7 @@
         <name>Is_Opp_Selected_0</name>
         <label>Is Opp Selected?</label>
         <locationX>2748</locationX>
-        <locationY>3997</locationY>
+        <locationY>4137</locationY>
         <defaultConnector>
             <targetReference>Assign_Empty_Opp_True_0</targetReference>
         </defaultConnector>
@@ -2039,7 +2155,7 @@
         <name>Is_running_user_and_Opp_Owner_match</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>3309</locationX>
-        <locationY>4004</locationY>
+        <locationY>4144</locationY>
         <defaultConnector>
             <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0</targetReference>
         </defaultConnector>
@@ -2064,7 +2180,7 @@
         <name>Is_running_user_and_Opp_Owner_match_0</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>3305</locationX>
-        <locationY>4421</locationY>
+        <locationY>4561</locationY>
         <defaultConnector>
             <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0</targetReference>
         </defaultConnector>
@@ -2089,7 +2205,7 @@
         <name>Is_there_a_Open_Case</name>
         <label>Is there a Open Case</label>
         <locationX>3146</locationX>
-        <locationY>4420</locationY>
+        <locationY>4560</locationY>
         <defaultConnector>
             <targetReference>Is_running_user_and_Opp_Owner_match_0</targetReference>
         </defaultConnector>
@@ -2111,10 +2227,42 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Office_Admin_attempting_to_create_for_self</name>
+        <label>Office Admin attempting to create for self</label>
+        <locationX>1640</locationX>
+        <locationY>2374</locationY>
+        <defaultConnector>
+            <targetReference>Account_Lookup_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>no - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>tempOppOwner</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Office Administrator</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>blockOfficeAdminScr</targetReference>
+            </connector>
+            <label>yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Opportunities_Exist_for_this_Person</name>
         <label>Opportunities Exist for this Person?</label>
         <locationX>1456</locationX>
-        <locationY>3775</locationY>
+        <locationY>3915</locationY>
         <defaultConnector>
             <targetReference>nextStartDate_0</targetReference>
         </defaultConnector>
@@ -2182,10 +2330,10 @@
     <decisions>
         <name>Populate_SelectedOwnerId</name>
         <label>Populate SelectedOwnerId</label>
-        <locationX>1527</locationX>
-        <locationY>1286</locationY>
+        <locationX>1712</locationX>
+        <locationY>1420</locationY>
         <defaultConnector>
-            <targetReference>Is_Agent_Populated</targetReference>
+            <targetReference>Create_Opp_or_Convert_Existing</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Don&apos;t Populate</defaultConnectorLabel>
         <rules>
@@ -2215,7 +2363,7 @@
         <name>Save_Customer_or_Previous</name>
         <label>Save Customer or Previous?</label>
         <locationX>820</locationX>
-        <locationY>2749</locationY>
+        <locationY>2889</locationY>
         <defaultConnector>
             <targetReference>Account_Lookup</targetReference>
         </defaultConnector>
@@ -2240,7 +2388,7 @@
         <name>SLA_Populated_on_Campaign</name>
         <label>SLA Populated on Campaign?</label>
         <locationX>1459</locationX>
-        <locationY>2478</locationY>
+        <locationY>2618</locationY>
         <defaultConnector>
             <targetReference>campaignSLANotPopulated</targetReference>
         </defaultConnector>
@@ -2261,7 +2409,9 @@
             <label>SLA Populated</label>
         </rules>
     </decisions>
-    <description>Flow Description: Creates a General Opportunity for a new or existing Customer.
+    <description>FF: 23SEP, block Office Admin when converting existing customer
+
+Flow Description: Creates a General Opportunity for a new or existing Customer.
 
 Front-End Access: Launched from the Opportunity List View button &gt; Create Manual Opportunity.</description>
     <dynamicChoiceSets>
@@ -2399,7 +2549,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Loop_Open_Opps</name>
         <label>Loop Open Opps</label>
         <locationX>1691</locationX>
-        <locationY>3327</locationY>
+        <locationY>3467</locationY>
         <collectionReference>Check_for_Open_Opps</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -2432,7 +2582,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_General_Opp</name>
         <label>Create General Opp</label>
         <locationX>1468</locationX>
-        <locationY>5095</locationY>
+        <locationY>5235</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id_0</targetReference>
         </connector>
@@ -2542,7 +2692,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_General_Opp_0</name>
         <label>Create General Opp</label>
         <locationX>1707</locationX>
-        <locationY>5184</locationY>
+        <locationY>5324</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id_0_0</targetReference>
         </connector>
@@ -2649,7 +2799,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_New_Person</name>
         <label>Create New Person</label>
         <locationX>607</locationX>
-        <locationY>4791</locationY>
+        <locationY>4931</locationY>
         <connector>
             <targetReference>nextStartDate_0</targetReference>
         </connector>
@@ -2659,7 +2809,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Repeat_General_Opp</name>
         <label>Create Repeat General Opp</label>
         <locationX>3507</locationX>
-        <locationY>3445</locationY>
+        <locationY>3585</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id</targetReference>
         </connector>
@@ -2754,7 +2904,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Repeat_General_Opp_0</name>
         <label>Create Repeat General Opp</label>
         <locationX>3514</locationX>
-        <locationY>3591</locationY>
+        <locationY>3731</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id_0_0_0</targetReference>
         </connector>
@@ -2849,7 +2999,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Repeat_General_Opp_1</name>
         <label>Create Repeat General Opp 1</label>
         <locationX>3491</locationX>
-        <locationY>3124</locationY>
+        <locationY>3264</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id_0_0_0_0</targetReference>
         </connector>
@@ -2868,7 +3018,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <inputAssignments>
             <field>BLG_Campaign__c</field>
             <value>
-                <elementReference>Get_Selected_Opp_Campaign_Gen.BLG_Campaign__c</elementReference>
+                <elementReference>SelectedBLGCampaign</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2944,7 +3094,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Repeat_General_Opp_2</name>
         <label>Create Repeat General Opp 2</label>
         <locationX>3495</locationX>
-        <locationY>3270</locationY>
+        <locationY>3410</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id_0_0_0_0_0</targetReference>
         </connector>
@@ -2963,7 +3113,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <inputAssignments>
             <field>BLG_Campaign__c</field>
             <value>
-                <elementReference>Get_Selected_Opp_Campaign_General.BLG_Campaign__c</elementReference>
+                <elementReference>SelectedBLGCampaign</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3039,7 +3189,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Check_for_All_Existing_Opps</name>
         <label>Check for All Existing Opps</label>
         <locationX>2193</locationX>
-        <locationY>3681</locationY>
+        <locationY>3821</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Existing_Opps_for_Person_0_0_0</targetReference>
@@ -3062,7 +3212,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Check_for_Existing_Bond_Opps</name>
         <label>Check for Existing Bond Opps</label>
         <locationX>1465</locationX>
-        <locationY>3184</locationY>
+        <locationY>3324</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_for_Open_Opps</targetReference>
@@ -3092,7 +3242,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Check_for_Existing_General_Opps</name>
         <label>Check for Existing General Opps</label>
         <locationX>1465</locationX>
-        <locationY>2901</locationY>
+        <locationY>3041</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_for_Existing_PA_Opps</targetReference>
@@ -3120,7 +3270,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Check_for_Existing_PA_Opps</name>
         <label>Check for Existing PA Opps</label>
         <locationX>1465</locationX>
-        <locationY>3044</locationY>
+        <locationY>3184</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_for_Existing_Bond_Opps</targetReference>
@@ -3148,7 +3298,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Check_for_Open_Opps</name>
         <label>Check for Open Opps</label>
         <locationX>1466</locationX>
-        <locationY>3319</locationY>
+        <locationY>3459</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Open_Opps</targetReference>
@@ -3185,7 +3335,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Agent_Contact</name>
         <label>Get Agent Contact</label>
         <locationX>1360</locationX>
-        <locationY>1280</locationY>
+        <locationY>1420</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Myself_Office_Admin_Block</targetReference>
@@ -3206,7 +3356,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Agent_Details</name>
         <label>Get Agent Details</label>
         <locationX>1367</locationX>
-        <locationY>1762</locationY>
+        <locationY>1902</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Agent_Record_Type</targetReference>
@@ -3227,7 +3377,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Attempting_Contact_BLG_Workflow</name>
         <label>Get Attempting Contact BLG Workflow</label>
         <locationX>1466</locationX>
-        <locationY>4946</locationY>
+        <locationY>5086</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Agent_Selected_0_0</targetReference>
@@ -3248,7 +3398,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_BLG_Campaigns</name>
         <label>Get BLG Campaigns</label>
         <locationX>1162</locationX>
-        <locationY>2148</locationY>
+        <locationY>2288</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Account_Lookup</targetReference>
@@ -3276,7 +3426,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Bond_Opp</name>
         <label>Get Bond Opp</label>
         <locationX>4090</locationX>
-        <locationY>4412</locationY>
+        <locationY>4552</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Wrap_Up_Opportunity_Bond_Subflow</targetReference>
@@ -3297,7 +3447,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Bond_Opp_0</name>
         <label>Get Bond Opp</label>
         <locationX>3979</locationX>
-        <locationY>3980</locationY>
+        <locationY>4120</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>bondOppCreatedScrn</targetReference>
@@ -3346,7 +3496,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Campaign_Selected</name>
         <label>Get Campaign Selected</label>
         <locationX>1232</locationX>
-        <locationY>2461</locationY>
+        <locationY>2601</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>SLA_Populated_on_Campaign</targetReference>
@@ -3374,7 +3524,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Existing_Email_Person_Account</name>
         <label>Get Existing Email Person Account</label>
         <locationX>700</locationX>
-        <locationY>3300</locationY>
+        <locationY>3440</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_if_Name_Blank</targetReference>
@@ -3402,7 +3552,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Existing_Person_Account</name>
         <label>Get Existing Person Account</label>
         <locationX>1465</locationX>
-        <locationY>2629</locationY>
+        <locationY>2769</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Existing_Person</targetReference>
@@ -3423,7 +3573,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Existing_Phone_Person_Account</name>
         <label>Get Existing Phone Person Account</label>
         <locationX>700</locationX>
-        <locationY>3134</locationY>
+        <locationY>3274</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Existing_Email_Person_Account</targetReference>
@@ -3451,7 +3601,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_General_Linked_to_Selected_PA</name>
         <label>Get General Linked to Selected PA</label>
         <locationX>2766</locationX>
-        <locationY>4418</locationY>
+        <locationY>4558</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Opp_to_Convert</targetReference>
@@ -3472,7 +3622,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_General_Opp_for_Convert</name>
         <label>Get General Opp for Convert</label>
         <locationX>3042</locationX>
-        <locationY>4002</locationY>
+        <locationY>4142</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Opp_to_Convert_0</targetReference>
@@ -3521,7 +3671,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_General_Opps_with_No_PAs</name>
         <label>Get General Opps with No PAs</label>
         <locationX>1464</locationX>
-        <locationY>3456</locationY>
+        <locationY>3596</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>General_With_No_PA_Exist</targetReference>
@@ -3558,7 +3708,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Open_Case_on_Opp</name>
         <label>Get Open Case on Opp</label>
         <locationX>3017</locationX>
-        <locationY>4418</locationY>
+        <locationY>4558</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_there_a_Open_Case</targetReference>
@@ -3630,7 +3780,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Selected_Opp_Campaign</name>
         <label>Get Selected Opp Campaign</label>
         <locationX>3380</locationX>
-        <locationY>3445</locationY>
+        <locationY>3585</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Repeat_General_Opp</targetReference>
@@ -3651,7 +3801,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Selected_Opp_Campaign_0</name>
         <label>Get Selected Opp Campaign</label>
         <locationX>3384</locationX>
-        <locationY>3591</locationY>
+        <locationY>3731</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Repeat_General_Opp_0</targetReference>
@@ -3672,7 +3822,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Selected_Opp_Campaign_Gen</name>
         <label>Get Selected Opp Campaign Gen</label>
         <locationX>3363</locationX>
-        <locationY>3124</locationY>
+        <locationY>3264</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Repeat_General_Opp_1</targetReference>
@@ -3693,7 +3843,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Selected_Opp_Campaign_General</name>
         <label>Get Selected Opp Campaign General</label>
         <locationX>3367</locationX>
-        <locationY>3270</locationY>
+        <locationY>3410</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Repeat_General_Opp_2</targetReference>
@@ -3714,7 +3864,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Selected_Owner_User</name>
         <label>Get Selected Owner User</label>
         <locationX>2028</locationX>
-        <locationY>1379</locationY>
+        <locationY>1519</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Opp_Owner_User_Setup_In_Order</targetReference>
@@ -3735,7 +3885,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Selected_PA_Opp</name>
         <label>Get Selected PA Opp</label>
         <locationX>2620</locationX>
-        <locationY>4418</locationY>
+        <locationY>4558</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_General_Linked_to_Selected_PA</targetReference>
@@ -3756,7 +3906,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Updated_Gen_Opp_for_Convert</name>
         <label>Get Updated Gen Opp for Convert</label>
         <locationX>3696</locationX>
-        <locationY>3980</locationY>
+        <locationY>4120</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Bond_Opp_Id_0</targetReference>
@@ -3777,7 +3927,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Get_Updated_General_Opp_for_Convert</name>
         <label>Get Updated General Opp for Convert</label>
         <locationX>3804</locationX>
-        <locationY>4413</locationY>
+        <locationY>4553</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Bond_Opp_Id</targetReference>
@@ -3797,11 +3947,11 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
     <recordLookups>
         <name>Get_User_Contact</name>
         <label>Get User Contact</label>
-        <locationX>1826</locationX>
-        <locationY>1075</locationY>
+        <locationX>1969</locationX>
+        <locationY>1103</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Agent_Select_scr</targetReference>
+            <targetReference>Existing_Customer_Chosen</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -3819,7 +3969,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Clear_Out_Consent_for_Existing_Customer</name>
         <label>Clear Out Consent for Existing Customer</label>
         <locationX>3819</locationX>
-        <locationY>3512</locationY>
+        <locationY>3652</locationY>
         <connector>
             <targetReference>completionScreenRepeat</targetReference>
         </connector>
@@ -3843,7 +3993,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Clear_Out_Consent_for_Existing_Customer_0</name>
         <label>Clear Out Consent for Existing Customer</label>
         <locationX>3802</locationX>
-        <locationY>3191</locationY>
+        <locationY>3331</locationY>
         <connector>
             <targetReference>completionScreenRepeat_0</targetReference>
         </connector>
@@ -3868,7 +4018,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Account_Lookup</name>
         <label>Account Lookup</label>
         <locationX>1161</locationX>
-        <locationY>2307</locationY>
+        <locationY>2447</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4035,6 +4185,16 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                         <assignToReference>accountID.Id</assignToReference>
                         <name>queriedRecordId</name>
                     </outputParameters>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>existingCustomerSelected</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -4098,6 +4258,68 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>existingCustomerSelected</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>Account_Lookup_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Account_Lookup_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>11</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Account_Lookup_Section2_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>nextButton</name>
+                    <extensionName>runtime_industries_lending:flowButton</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>buttonLabel</name>
+                        <value>
+                            <stringValue>Next</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>existingCustomerSelected</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>1</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
@@ -4106,7 +4328,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Account_Lookup_0</name>
         <label>Account Lookup</label>
         <locationX>2047</locationX>
-        <locationY>2498</locationY>
+        <locationY>2638</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4154,6 +4376,21 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                         <name>queriedRecordId</name>
                     </outputParameters>
                 </fields>
+                <fields>
+                    <name>existingReq_0</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;Please choose an existing customer to use the &quot;Convert Existing Customer&quot; option&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>varExistingCustError</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -4165,6 +4402,56 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
             <fields>
                 <name>Account_Lookup_0_Section1_Column2</name>
                 <fieldType>Region</fieldType>
+                <fields>
+                    <name>agentRecordSearch2</name>
+                    <extensionName>c:recordSearch</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>contactContactScope</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>Select the agent that provided the opportunity</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>searchField</name>
+                        <value>
+                            <stringValue>Name</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>userId</name>
+                        <value>
+                            <elementReference>var_Opp_Owner_Id</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <outputParameters>
+                        <assignToReference>selectedAgent</assignToReference>
+                        <name>queriedRecordId</name>
+                    </outputParameters>
+                </fields>
+                <fields>
+                    <name>agentNotSelectedError</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;Please choose an agent before continuing&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>agentMustBeSelected</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -4176,21 +4463,6 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
-        <fields>
-            <name>existingReq_0</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;Please choose an existing customer to use the &quot;Convert Existing Customer&quot; option&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>varExistingCustError</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
-        </fields>
         <nextOrFinishButtonLabel>Continue with existing Customer</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -4199,7 +4471,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>additionalOppType_0_0</name>
         <label>additionalOppType</label>
         <locationX>1468</locationX>
-        <locationY>5370</locationY>
+        <locationY>5510</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4233,7 +4505,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>additionalOppType_0_0_0</name>
         <label>additionalOppType</label>
         <locationX>4350</locationX>
-        <locationY>4412</locationY>
+        <locationY>4552</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4266,13 +4538,13 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
     <screens>
         <name>Agent_Select_scr</name>
         <label>Agent Select</label>
-        <locationX>1706</locationX>
-        <locationY>1374</locationY>
+        <locationX>1698</locationX>
+        <locationY>1260</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_Opp_or_Convert_Existing</targetReference>
+            <targetReference>Populate_SelectedOwnerId</targetReference>
         </connector>
         <fields>
             <name>Opportunity_Owner</name>
@@ -4526,7 +4798,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>blankRegion</name>
         <label>blankRegion</label>
         <locationX>2222</locationX>
-        <locationY>1263</locationY>
+        <locationY>1403</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4556,7 +4828,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>blankSLAerror</name>
         <label>blankSLAerror</label>
         <locationX>1820</locationX>
-        <locationY>2477</locationY>
+        <locationY>2617</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4586,7 +4858,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>blockOfficeAdminScr</name>
         <label>blockOfficeAdminScr</label>
         <locationX>1199</locationX>
-        <locationY>1123</locationY>
+        <locationY>1263</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4609,7 +4881,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         </fields>
         <fields>
             <name>adminBlockHelp</name>
-            <fieldText>&lt;p&gt;The Profile that you are assigned to only allows for creating opportunities on behalf of someone.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please click on Next and select the above mentioned option.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;The Profile that you are assigned to only allows for creating opportunities on behalf of someone.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please click on Next and select the above mentioned option. Ensure to search and select the consultant you are creating for.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Next</nextOrFinishButtonLabel>
@@ -4620,7 +4892,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>bondOppCreatedScrn</name>
         <label>bondOppCreatedScrn</label>
         <locationX>4110</locationX>
-        <locationY>3980</locationY>
+        <locationY>4120</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4654,7 +4926,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>completionScreenRepeat</name>
         <label>completionScreenRepeat</label>
         <locationX>3959</locationX>
-        <locationY>3512</locationY>
+        <locationY>3652</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4671,7 +4943,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>completionScreenRepeat_0</name>
         <label>completionScreenRepeat</label>
         <locationX>3942</locationX>
-        <locationY>3191</locationY>
+        <locationY>3331</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4688,7 +4960,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_New_Contact</name>
         <label>Create New Contact Screen</label>
         <locationX>606</locationX>
-        <locationY>2654</locationY>
+        <locationY>2794</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4893,7 +5165,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>errorScr</name>
         <label>errorScr</label>
         <locationX>3156</locationX>
-        <locationY>4629</locationY>
+        <locationY>4769</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4939,7 +5211,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Existing_Opps_for_Person_0_0</name>
         <label>Existing Opps for Person</label>
         <locationX>2149</locationX>
-        <locationY>3887</locationY>
+        <locationY>4027</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -5127,7 +5399,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Existing_Opps_for_Person_0_0_0</name>
         <label>Existing Opps for Person</label>
         <locationX>2341</locationX>
-        <locationY>3681</locationY>
+        <locationY>3821</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -5268,7 +5540,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Existing_Opps_for_Person_0_0_0_0</name>
         <label>Existing Opps for Person</label>
         <locationX>2034</locationX>
-        <locationY>4126</locationY>
+        <locationY>4266</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -5562,7 +5834,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Insufficient_Data_Setup</name>
         <label>Insufficient Data Setup</label>
         <locationX>1244</locationX>
-        <locationY>5098</locationY>
+        <locationY>5238</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -5598,7 +5870,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>timeZoneErrorScr</name>
         <label>timeZoneErrorScr</label>
         <locationX>2225</locationX>
-        <locationY>1123</locationY>
+        <locationY>1263</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -5636,7 +5908,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>3563</locationX>
-        <locationY>4041</locationY>
+        <locationY>4181</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opp_for_Convert</targetReference>
         </connector>
@@ -5670,7 +5942,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>3562</locationX>
-        <locationY>3916</locationY>
+        <locationY>4056</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opp_for_Convert</targetReference>
         </connector>
@@ -5704,7 +5976,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>3622</locationX>
-        <locationY>4342</locationY>
+        <locationY>4482</locationY>
         <connector>
             <targetReference>Get_Updated_General_Opp_for_Convert</targetReference>
         </connector>
@@ -5744,7 +6016,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
         <locationX>3625</locationX>
-        <locationY>4482</locationY>
+        <locationY>4622</locationY>
         <connector>
             <targetReference>Get_Updated_General_Opp_for_Convert</targetReference>
         </connector>
@@ -5784,7 +6056,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Region_Branch_Sub</name>
         <label>Region/Branch Sub</label>
         <locationX>1567</locationX>
-        <locationY>1691</locationY>
+        <locationY>1831</locationY>
         <connector>
             <targetReference>For_Myself</targetReference>
         </connector>
@@ -5815,7 +6087,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Wrap_Up_Opportunity_Bond_Subflow</name>
         <label>Wrap Up Opportunity - Bond - Subflow</label>
         <locationX>4221</locationX>
-        <locationY>4412</locationY>
+        <locationY>4552</locationY>
         <connector>
             <targetReference>additionalOppType_0_0_0</targetReference>
         </connector>
@@ -5845,6 +6117,16 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>Account</objectType>
+    </variables>
+    <variables>
+        <name>agentMustBeSelected</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
     </variables>
     <variables>
         <name>agentSelected</name>
@@ -5952,6 +6234,16 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
     </variables>
     <variables>
         <name>emptyOppVar</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>existingCustomerSelected</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -6176,6 +6468,16 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_ProfileName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Profile.Name</elementReference>
+        </value>
     </variables>
     <variables>
         <name>var_Real_Estate_Agent_Id</name>

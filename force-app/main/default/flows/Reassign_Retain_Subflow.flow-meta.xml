@@ -103,40 +103,6 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>Copy_2_of_Copy_1_of_Get_Branc_subbranch</name>
-        <label>Copy 2 of Copy 1 of Get Branc/subbranch</label>
-        <locationX>2800</locationX>
-        <locationY>4694</locationY>
-        <actionName>getBranchAndSubBranchFromRegionACR</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>Copy_1_of_Copy_3_of_Update_Bond_Opp</targetReference>
-        </connector>
-        <flowTransactionModel>Automatic</flowTransactionModel>
-        <inputParameters>
-            <name>contactId</name>
-            <value>
-                <elementReference>Get_Region_Linked_Consultant_Contact.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>regionId</name>
-            <value>
-                <elementReference>regionAccountId</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>getBranchAndSubBranchFromRegionACR</nameSegment>
-        <outputParameters>
-            <assignToReference>branchAccountIdFromApex</assignToReference>
-            <name>branch</name>
-        </outputParameters>
-        <outputParameters>
-            <assignToReference>subBranchAccountIdFromApex</assignToReference>
-            <name>subBranch</name>
-        </outputParameters>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
-    <actionCalls>
         <name>DetailPageNavigation_0_0_0_0_0_0_0_0</name>
         <label>DetailPageNavigation</label>
         <locationX>2272</locationX>
@@ -167,7 +133,7 @@
     <actionCalls>
         <name>Get_Branc_subbranch</name>
         <label>Get Branc/subbranch</label>
-        <locationX>3328</locationX>
+        <locationX>3240</locationX>
         <locationY>5126</locationY>
         <actionName>getBranchAndSubBranchFromRegionACR</actionName>
         <actionType>apex</actionType>
@@ -201,7 +167,7 @@
     <actionCalls>
         <name>Get_Branch_SubBranch</name>
         <label>Get Branch / SubBranch</label>
-        <locationX>4120</locationX>
+        <locationX>4032</locationX>
         <locationY>5858</locationY>
         <actionName>getBranchAndSubBranchFromRegionACR</actionName>
         <actionType>apex</actionType>
@@ -236,7 +202,7 @@
         <name>Navigate</name>
         <label>Navigate</label>
         <locationX>204</locationX>
-        <locationY>6224</locationY>
+        <locationY>6440</locationY>
         <actionName>c:DetailPageNavigation</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -309,7 +275,7 @@
     <actionCalls>
         <name>OpportunityReassign_0_0_0</name>
         <label>OpportunityReassign</label>
-        <locationX>4813</locationX>
+        <locationX>4725</locationX>
         <locationY>4394</locationY>
         <actionName>OpportunityReassign</actionName>
         <actionType>apex</actionType>
@@ -401,7 +367,7 @@
     <actionCalls>
         <name>OpportunityReassign_0_0_0_0_0</name>
         <label>OpportunityReassign</label>
-        <locationX>4549</locationX>
+        <locationX>4461</locationX>
         <locationY>4394</locationY>
         <actionName>OpportunityReassign</actionName>
         <actionType>apex</actionType>
@@ -475,7 +441,7 @@
         <name>Send_Custom_Notification</name>
         <label>Send Custom Notification</label>
         <locationX>204</locationX>
-        <locationY>6116</locationY>
+        <locationY>6332</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <connector>
@@ -519,7 +485,7 @@
     <assignments>
         <name>Assign_Applicable_Owner_Var</name>
         <label>Assign Applicable Owner Var</label>
-        <locationX>3221</locationX>
+        <locationX>3188</locationX>
         <locationY>1946</locationY>
         <assignmentItems>
             <assignToReference>applicableUserId</assignToReference>
@@ -535,7 +501,7 @@
     <assignments>
         <name>Assign_Applicable_User_Id</name>
         <label>Assign Applicable User Id</label>
-        <locationX>2077</locationX>
+        <locationX>2044</locationX>
         <locationY>890</locationY>
         <assignmentItems>
             <assignToReference>applicableUserId</assignToReference>
@@ -551,7 +517,7 @@
     <assignments>
         <name>Assign_Number_of_team_members</name>
         <label>Assign Number of team members</label>
-        <locationX>2737</locationX>
+        <locationX>2704</locationX>
         <locationY>1298</locationY>
         <assignmentItems>
             <assignToReference>numberOfTeamMembersRetrieved</assignToReference>
@@ -590,7 +556,7 @@
     <assignments>
         <name>Assign_Team_Owners_To_List</name>
         <label>Assign Team Owners To List</label>
-        <locationX>2825</locationX>
+        <locationX>2792</locationX>
         <locationY>1106</locationY>
         <assignmentItems>
             <assignToReference>TeamOwnersList</assignToReference>
@@ -613,7 +579,7 @@
     <assignments>
         <name>Copy_10_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 10 of Copy 2 of Assign Scenario Var</label>
-        <locationX>3856</locationX>
+        <locationX>3768</locationX>
         <locationY>4502</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -629,7 +595,7 @@
     <assignments>
         <name>Copy_11_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 11 of Copy 2 of Assign Scenario Var</label>
-        <locationX>3460</locationX>
+        <locationX>3372</locationX>
         <locationY>4502</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -677,7 +643,7 @@
     <assignments>
         <name>Copy_1_of_Assign_Scenario_Var</name>
         <label>Copy 1 of Assign Scenario Var</label>
-        <locationX>3988</locationX>
+        <locationX>3922</locationX>
         <locationY>3230</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -700,7 +666,7 @@
     <assignments>
         <name>Copy_1_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 1 of Copy 2 of Assign Scenario Var</label>
-        <locationX>3856</locationX>
+        <locationX>3790</locationX>
         <locationY>3446</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -716,7 +682,7 @@
     <assignments>
         <name>Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 2 of Assign Scenario Var</label>
-        <locationX>4120</locationX>
+        <locationX>4054</locationX>
         <locationY>3446</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -796,7 +762,7 @@
     <assignments>
         <name>Copy_6_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 6 of Copy 2 of Assign Scenario Var</label>
-        <locationX>4549</locationX>
+        <locationX>4461</locationX>
         <locationY>4286</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -812,7 +778,7 @@
     <assignments>
         <name>Copy_7_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 7 of Copy 2 of Assign Scenario Var</label>
-        <locationX>4813</locationX>
+        <locationX>4725</locationX>
         <locationY>4286</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -828,7 +794,7 @@
     <assignments>
         <name>Copy_8_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 8 of Copy 2 of Assign Scenario Var</label>
-        <locationX>4648</locationX>
+        <locationX>4560</locationX>
         <locationY>5126</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -844,7 +810,7 @@
     <assignments>
         <name>Copy_9_of_Copy_2_of_Assign_Scenario_Var</name>
         <label>Copy 9 of Copy 2 of Assign Scenario Var</label>
-        <locationX>4252</locationX>
+        <locationX>4164</locationX>
         <locationY>5126</locationY>
         <assignmentItems>
             <assignToReference>scenarioVars</assignToReference>
@@ -861,7 +827,7 @@
         <name>RecipientAssignment</name>
         <label>RecipientAssignment</label>
         <locationX>204</locationX>
-        <locationY>6008</locationY>
+        <locationY>6224</locationY>
         <assignmentItems>
             <assignToReference>AssignRecipientId</assignToReference>
             <operator>Add</operator>
@@ -957,7 +923,7 @@
     <decisions>
         <name>Copy_1_of_ACR_Found</name>
         <label>Copy 1 of ACR Found?</label>
-        <locationX>3460</locationX>
+        <locationX>3372</locationX>
         <locationY>5018</locationY>
         <defaultConnector>
             <targetReference>Update_new_Region_Branch_Sub_Branch_on_Opp_0_0_0</targetReference>
@@ -977,31 +943,6 @@
                 <targetReference>Get_Branc_subbranch</targetReference>
             </connector>
             <label>Copy 1 of Yes</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Copy_1_of_ACR_Found5</name>
-        <label>Copy 1 of ACR_Found5</label>
-        <locationX>2932</locationX>
-        <locationY>4586</locationY>
-        <defaultConnector>
-            <targetReference>Copy_1_of_Copy_2_of_Update_Bond_Opp</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>No</defaultConnectorLabel>
-        <rules>
-            <name>Copy_2_of_Copy_3_of_Copy_1_of_Yes</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Copy_1_of_Get_ACRs5</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_2_of_Copy_1_of_Get_Branc_subbranch</targetReference>
-            </connector>
-            <label>Copy 2 of Copy 3 of Copy 1 of Yes</label>
         </rules>
     </decisions>
     <decisions>
@@ -1057,7 +998,7 @@
     <decisions>
         <name>Copy_1_of_Is_Reassign_True_for_Region_Not_Link_Consultant</name>
         <label>Copy 1 of Is Reassign True for Region Not Link Consultant</label>
-        <locationX>3295</locationX>
+        <locationX>3251</locationX>
         <locationY>4070</locationY>
         <defaultConnector>
             <targetReference>Retain_Reassign_Linked_C_Region</targetReference>
@@ -1107,7 +1048,7 @@
     <decisions>
         <name>Copy_2_of_Copy_1_of_ACR_Found</name>
         <label>Copy 2 of Copy 1 of ACR Found?</label>
-        <locationX>4252</locationX>
+        <locationX>4164</locationX>
         <locationY>5750</locationY>
         <defaultConnector>
             <targetReference>Update_Opportunity_with_Round_Robin_Consultant_Region_0_0</targetReference>
@@ -1157,7 +1098,7 @@
     <decisions>
         <name>Does_Contact_to_Contact_Exist_0</name>
         <label>Does Contact to Contact Exist?</label>
-        <locationX>3988</locationX>
+        <locationX>3922</locationX>
         <locationY>3854</locationY>
         <defaultConnector>
             <targetReference>Get_Updated_Application_Region</targetReference>
@@ -1182,7 +1123,7 @@
     <decisions>
         <name>How_Many_Teams_Retrieved</name>
         <label>How Many Teams Retrieved?</label>
-        <locationX>2737</locationX>
+        <locationX>2704</locationX>
         <locationY>1406</locationY>
         <defaultConnector>
             <targetReference>Get_Team_Owners_Contacts</targetReference>
@@ -1222,7 +1163,7 @@
     <decisions>
         <name>Is_correct_contact</name>
         <label>Is correct contact?</label>
-        <locationX>3353</locationX>
+        <locationX>3320</locationX>
         <locationY>1838</locationY>
         <defaultConnector>
             <targetReference>Loop_Contacts</targetReference>
@@ -1300,7 +1241,7 @@
         <locationX>2932</locationX>
         <locationY>4286</locationY>
         <defaultConnector>
-            <targetReference>Copy_1_of_ACR_Found5</targetReference>
+            <targetReference>Copy_1_of_Copy_2_of_Update_Bond_Opp</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -1347,7 +1288,7 @@
     <decisions>
         <name>Is_Opp_Owner_Changing3</name>
         <label>Is Opp Owner Changing?</label>
-        <locationX>4252</locationX>
+        <locationX>4164</locationX>
         <locationY>5342</locationY>
         <defaultConnector>
             <targetReference>ACR_Region_Retain</targetReference>
@@ -1372,7 +1313,7 @@
     <decisions>
         <name>Is_Opp_Owner_Changing4</name>
         <label>Is Opp Owner Changing?</label>
-        <locationX>3460</locationX>
+        <locationX>3372</locationX>
         <locationY>4610</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Get_ACRs</targetReference>
@@ -1447,7 +1388,7 @@
     <decisions>
         <name>Is_OTP_Expiry_Required</name>
         <label>Is OTP Expiry Required?</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>2390</locationY>
         <defaultConnector>
             <targetReference>Additional_OTP_Info2</targetReference>
@@ -1486,7 +1427,7 @@
     <decisions>
         <name>Is_Reassign_True_for_Region_Not_Link_Consultant</name>
         <label>Is Reassign True for Region Not Link Consultant</label>
-        <locationX>4450</locationX>
+        <locationX>4362</locationX>
         <locationY>5018</locationY>
         <defaultConnector>
             <targetReference>Copy_8_of_Copy_2_of_Assign_Scenario_Var</targetReference>
@@ -1536,7 +1477,7 @@
     <decisions>
         <name>Is_Reassign_True_for_Region_Not_Link_Consultant_0_0</name>
         <label>Is Reassign True for Region Not Link Consultant</label>
-        <locationX>3658</locationX>
+        <locationX>3570</locationX>
         <locationY>4394</locationY>
         <defaultConnector>
             <targetReference>Copy_10_of_Copy_2_of_Assign_Scenario_Var</targetReference>
@@ -1561,7 +1502,7 @@
     <decisions>
         <name>Is_Region_Direct_or_Region</name>
         <label>Is Region Direct or Region?</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>3122</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Assign_Scenario_Var</targetReference>
@@ -1611,7 +1552,7 @@
     <decisions>
         <name>Is_Registered_Agent_0</name>
         <label>Is Registered Agent</label>
-        <locationX>3988</locationX>
+        <locationX>3922</locationX>
         <locationY>3338</locationY>
         <defaultConnector>
             <targetReference>Copy_2_of_Assign_Scenario_Var</targetReference>
@@ -1636,7 +1577,7 @@
     <decisions>
         <name>Is_running_user_an_Office_Admin</name>
         <label>Is running user an Office Admin?</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>782</locationY>
         <defaultConnector>
             <targetReference>Get_User_Team_Members</targetReference>
@@ -1693,7 +1634,7 @@
     <decisions>
         <name>Is_Self_Employed_Checked_0</name>
         <label>Is Self Employed Checked?</label>
-        <locationX>4681</locationX>
+        <locationX>4593</locationX>
         <locationY>4178</locationY>
         <defaultConnector>
             <targetReference>Copy_7_of_Copy_2_of_Assign_Scenario_Var</targetReference>
@@ -1750,7 +1691,7 @@
     <decisions>
         <name>New_Owner_Found2</name>
         <label>New Owner Found2</label>
-        <locationX>4681</locationX>
+        <locationX>4593</locationX>
         <locationY>4586</locationY>
         <defaultConnector>
             <targetReference>Copy_3_of_ErrorScreen</targetReference>
@@ -1936,7 +1877,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <loops>
         <name>Loop_Contacts</name>
         <label>Loop Contacts</label>
-        <locationX>3133</locationX>
+        <locationX>3100</locationX>
         <locationY>1730</locationY>
         <collectionReference>Get_Team_Owners_Contacts</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -1950,7 +1891,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <loops>
         <name>Loop_Team_Members</name>
         <label>Loop Team Members</label>
-        <locationX>2737</locationX>
+        <locationX>2704</locationX>
         <locationY>998</locationY>
         <collectionReference>Get_User_Team_Members</collectionReference>
         <iterationOrder>Asc</iterationOrder>
@@ -1983,7 +1924,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>ACR_Region_Retain</name>
         <label>ACR Region Retain</label>
-        <locationX>4252</locationX>
+        <locationX>4164</locationX>
         <locationY>5642</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2011,7 +1952,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Copy_1_of_Get_ACRs</name>
         <label>Copy 1 of Get ACRs</label>
-        <locationX>3460</locationX>
+        <locationX>3372</locationX>
         <locationY>4910</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2151,7 +2092,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Betterbond_Contact_Record_Type</name>
         <label>Get Betterbond Contact Record Type</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>674</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2172,7 +2113,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Bond_Opportunity</name>
         <label>Get Bond Opportunity</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2221,7 +2162,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Contact_to_Contact_relationship_for_Agent_Region</name>
         <label>Get Contact to Contact relationship for Agent Region</label>
-        <locationX>4120</locationX>
+        <locationX>4054</locationX>
         <locationY>3662</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2249,7 +2190,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_First_Updated_Loan_Application_for_Bond</name>
         <label>Get Updated Loan Application for Bond</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>2798</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2270,7 +2211,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_General_Opp_Region</name>
         <label>Get General Opp Region</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2291,7 +2232,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Latest_Open_Task</name>
         <label>Get Latest Open Task</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2342,7 +2283,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Loan_Application_for_Bond</name>
         <label>Get Loan Application for Bond</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2384,7 +2325,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Recip_Role_0</name>
         <label>Get Recip Role</label>
-        <locationX>4120</locationX>
+        <locationX>4054</locationX>
         <locationY>3554</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2405,7 +2346,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Region_Linked_Consultant_Contact</name>
         <label>Get Region Linked Consultant Contact</label>
-        <locationX>3295</locationX>
+        <locationX>3251</locationX>
         <locationY>3962</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2454,7 +2395,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Round_Robin_Consultant_Contact_Region</name>
         <label>Get Round Robin Consultant Contact Region</label>
-        <locationX>4450</locationX>
+        <locationX>4362</locationX>
         <locationY>4694</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2510,7 +2451,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Running_User_Profile</name>
         <label>Get Running User Profile</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2531,7 +2472,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Running_User_Selected_Consultant_Contact</name>
         <label>Get Running User / Selected Consultant Contact</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>3014</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2559,7 +2500,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Team_Owners_Contacts</name>
         <label>Get Team Owners Contacts</label>
-        <locationX>3133</locationX>
+        <locationX>3100</locationX>
         <locationY>1514</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2608,7 +2549,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Updated_Application_Region</name>
         <label>Get Updated Application - Region</label>
-        <locationX>4681</locationX>
+        <locationX>4593</locationX>
         <locationY>3962</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2633,7 +2574,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>5900</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>RecipientAssignment</targetReference>
+            <targetReference>Update_Call_Attempts_to_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2650,7 +2591,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_User_Team_Members</name>
         <label>Get User Team Members</label>
-        <locationX>2737</locationX>
+        <locationX>2704</locationX>
         <locationY>890</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2697,6 +2638,36 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Close_Tasks</name>
+        <label>Close Tasks</label>
+        <locationX>204</locationX>
+        <locationY>6116</locationY>
+        <connector>
+            <targetReference>RecipientAssignment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Complete_Open_Task_0_0</name>
         <label>Complete Open Task</label>
         <locationX>2074</locationX>
@@ -2729,7 +2700,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Complete_Open_Task_0_0_0</name>
         <label>Complete Open Task</label>
-        <locationX>3658</locationX>
+        <locationX>3570</locationX>
         <locationY>4286</locationY>
         <connector>
             <targetReference>Is_Reassign_True_for_Region_Not_Link_Consultant_0_0</targetReference>
@@ -2759,7 +2730,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Complete_Open_Task_0_0_0_0_0</name>
         <label>Complete Open Task</label>
-        <locationX>4450</locationX>
+        <locationX>4362</locationX>
         <locationY>4910</locationY>
         <connector>
             <targetReference>Is_Reassign_True_for_Region_Not_Link_Consultant</targetReference>
@@ -2915,8 +2886,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Copy_1_of_Copy_2_of_Update_Bond_Opp</name>
         <label>Copy 1 of Copy 2 of Update Bond Opp</label>
-        <locationX>3064</locationX>
-        <locationY>4694</locationY>
+        <locationX>2932</locationX>
+        <locationY>4586</locationY>
         <connector>
             <targetReference>linkedCMail</targetReference>
         </connector>
@@ -2928,24 +2899,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </filters>
-        <inputAssignments>
-            <field>ConsultantBranch__c</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.Account.ParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantRegion__c</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.Account.Parent.ParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantSubBranch__c</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.AccountId</elementReference>
-            </value>
-        </inputAssignments>
         <inputAssignments>
             <field>OwnerId</field>
             <value>
@@ -3046,72 +2999,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Copy_1_of_Copy_3_of_Update_Bond_Opp</name>
-        <label>Copy 1 of Copy 3 of Update Bond Opp</label>
-        <locationX>2800</locationX>
-        <locationY>4802</locationY>
-        <connector>
-            <targetReference>linkedCMail</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Bond_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>ConsultantBranch__c</field>
-            <value>
-                <elementReference>branchAccountIdFromApex</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantRegion__c</field>
-            <value>
-                <elementReference>regionAccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantSubBranch__c</field>
-            <value>
-                <elementReference>subBranchAccountIdFromApex</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.Consultant__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <stringValue>Working (Bond)</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <stringValue>OTP received</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>automationMessage__c</field>
-            <value>
-                <stringValue>Get DMS</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Copy_1_of_Update_new_Region_Branch_Sub_Branch_on_Opp</name>
         <label>Copy 1 of Update new Region/Branch/Sub Branch on Opp</label>
         <locationX>72</locationX>
@@ -3180,7 +3067,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Copy_1_of_Update_opp_to_opp_owner_details</name>
         <label>Copy 1 of Update opp to opp owner details</label>
-        <locationX>4648</locationX>
+        <locationX>4560</locationX>
         <locationY>5342</locationY>
         <connector>
             <isGoTo>true</isGoTo>
@@ -3289,7 +3176,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Copy_2_of_Update_new_Region_Branch_Sub_Branch_on_Opp</name>
         <label>Copy 2 of Update new Region/Branch/Sub Branch on Opp</label>
-        <locationX>3328</locationX>
+        <locationX>3240</locationX>
         <locationY>5234</locationY>
         <connector>
             <targetReference>Update_Contact_Assignment_Time2</targetReference>
@@ -3422,7 +3309,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Copy_3_of_Update_Opportunity_with_Round_Robin_Consultant_Region</name>
         <label>Copy 3 of Update Opportunity with Round Robin Consultant Region</label>
-        <locationX>4120</locationX>
+        <locationX>4032</locationX>
         <locationY>5966</locationY>
         <connector>
             <targetReference>reassignedDirectWG_0</targetReference>
@@ -3519,7 +3406,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Application_Info_Direct1</name>
         <label>Update Application Info Direct</label>
-        <locationX>2275</locationX>
+        <locationX>2242</locationX>
         <locationY>2606</locationY>
         <connector>
             <targetReference>Get_First_Updated_Loan_Application_for_Bond</targetReference>
@@ -3573,7 +3460,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Application_Info_Direct2</name>
         <label>Update Application Info Direct</label>
-        <locationX>2539</locationX>
+        <locationX>2506</locationX>
         <locationY>2606</locationY>
         <connector>
             <targetReference>Get_First_Updated_Loan_Application_for_Bond</targetReference>
@@ -3627,7 +3514,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Bond_Opp</name>
         <label>Update Bond Opp</label>
-        <locationX>3856</locationX>
+        <locationX>3768</locationX>
         <locationY>4718</locationY>
         <connector>
             <isGoTo>true</isGoTo>
@@ -3641,24 +3528,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </filters>
-        <inputAssignments>
-            <field>ConsultantBranch__c</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.Account.ParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantRegion__c</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.Account.Parent.ParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantSubBranch__c</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.AccountId</elementReference>
-            </value>
-        </inputAssignments>
         <inputAssignments>
             <field>OwnerId</field>
             <value>
@@ -3694,7 +3563,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Bond_Opp_With_App_Details</name>
         <label>Update Bond Opp With App Details</label>
-        <locationX>2407</locationX>
+        <locationX>2374</locationX>
         <locationY>2906</locationY>
         <connector>
             <targetReference>Get_Running_User_Selected_Consultant_Contact</targetReference>
@@ -3717,6 +3586,30 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>OTP_Expiry_Date__c</field>
             <value>
                 <elementReference>Get_First_Updated_Loan_Application_for_Bond.OTP_Expiry_Date__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Call_Attempts_to_0</name>
+        <label>Update Call Attempts to 0</label>
+        <locationX>204</locationX>
+        <locationY>6008</locationY>
+        <connector>
+            <targetReference>Close_Tasks</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -3748,7 +3641,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Contact_Assignment_Time2</name>
         <label>Update Contact Assignment Time</label>
-        <locationX>3460</locationX>
+        <locationX>3372</locationX>
         <locationY>5426</locationY>
         <connector>
             <targetReference>reassignedRegionLinked</targetReference>
@@ -3772,7 +3665,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Contact_Last_Assignment_Time</name>
         <label>Update Contact Last Assignment Time</label>
-        <locationX>4252</locationX>
+        <locationX>4164</locationX>
         <locationY>5234</locationY>
         <connector>
             <targetReference>Is_Opp_Owner_Changing3</targetReference>
@@ -3946,7 +3839,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_new_Region_Branch_Sub_Branch_on_Opp_0_0_0</name>
         <label>Update new Region/Branch/Sub Branch on Opp</label>
-        <locationX>3592</locationX>
+        <locationX>3504</locationX>
         <locationY>5126</locationY>
         <connector>
             <targetReference>Update_Contact_Assignment_Time2</targetReference>
@@ -4036,7 +3929,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opp_Amount_Expiry_0</name>
         <label>Update Opp Amount/Expiry</label>
-        <locationX>4681</locationX>
+        <locationX>4593</locationX>
         <locationY>4070</locationY>
         <connector>
             <targetReference>Is_Self_Employed_Checked_0</targetReference>
@@ -4060,7 +3953,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_with_Round_Robin_Consultant_Region_0_0</name>
         <label>Update Opportunity with Round Robin Consultant Region</label>
-        <locationX>4384</locationX>
+        <locationX>4296</locationX>
         <locationY>5858</locationY>
         <connector>
             <targetReference>reassignedDirectWG_0</targetReference>
@@ -4127,7 +4020,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Additional_OTP_Info1</name>
         <label>Additional OTP Info</label>
-        <locationX>2275</locationX>
+        <locationX>2242</locationX>
         <locationY>2498</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4245,7 +4138,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Additional_OTP_Info2</name>
         <label>Additional OTP Info</label>
-        <locationX>2539</locationX>
+        <locationX>2506</locationX>
         <locationY>2498</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4363,7 +4256,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>consultantSelectionScreen</name>
         <label>consultantSelectionScreen</label>
-        <locationX>3133</locationX>
+        <locationX>3100</locationX>
         <locationY>1622</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4421,7 +4314,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Copy_3_of_ErrorScreen</name>
         <label>Copy 3 of ErrorScreen</label>
-        <locationX>4912</locationX>
+        <locationX>4824</locationX>
         <locationY>4694</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4473,7 +4366,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>errorScreen2</name>
         <label>errorScreen</label>
-        <locationX>2517</locationX>
+        <locationX>2484</locationX>
         <locationY>1514</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -4638,7 +4531,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>linkedCMail</name>
         <label>linkedCMail</label>
         <locationX>2932</locationX>
-        <locationY>4994</locationY>
+        <locationY>4694</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4756,7 +4649,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>reassignedDirectWG_0</name>
         <label>reassignedDirectWG</label>
-        <locationX>4252</locationX>
+        <locationX>4164</locationX>
         <locationY>6158</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -4796,7 +4689,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>reassignedRegionLinked</name>
         <label>reassignedRegionLinked</label>
-        <locationX>3460</locationX>
+        <locationX>3372</locationX>
         <locationY>5534</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -4875,7 +4768,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Retain_Reassign_Linked_C_Region</name>
         <label>Retain/Reassign Linked C Region</label>
-        <locationX>3658</locationX>
+        <locationX>3570</locationX>
         <locationY>4178</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -5069,7 +4962,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Retain_Reassign_to_WG_Region</name>
         <label>Retain/Reassign to WG Region</label>
-        <locationX>4450</locationX>
+        <locationX>4362</locationX>
         <locationY>4802</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -5175,7 +5068,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>retainRegion</name>
         <label>retainRegion</label>
-        <locationX>3856</locationX>
+        <locationX>3768</locationX>
         <locationY>4610</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -5214,7 +5107,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>retainRegionNoLink</name>
         <label>retainRegionNoLink</label>
-        <locationX>4648</locationX>
+        <locationX>4560</locationX>
         <locationY>5234</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -5251,7 +5144,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>2281</locationX>
+        <locationX>2248</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Bond_Opportunity</targetReference>
@@ -5264,7 +5157,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationX>2800</locationX>
         <locationY>4394</locationY>
         <connector>
-            <targetReference>Copy_1_of_ACR_Found5</targetReference>
+            <targetReference>Copy_1_of_Copy_2_of_Update_Bond_Opp</targetReference>
         </connector>
         <flowName>MC_Email_Template_Selection_Bond</flowName>
         <inputAssignments>
@@ -5293,7 +5186,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>MC_EMail_Template3</name>
         <label>MC EMail Template</label>
-        <locationX>4120</locationX>
+        <locationX>4032</locationX>
         <locationY>5450</locationY>
         <connector>
             <targetReference>ACR_Region_Retain</targetReference>
@@ -5309,7 +5202,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>MC_EMail_Template4</name>
         <label>MC EMail Template Other</label>
-        <locationX>3328</locationX>
+        <locationX>3240</locationX>
         <locationY>4718</locationY>
         <connector>
             <targetReference>Copy_1_of_Get_ACRs</targetReference>

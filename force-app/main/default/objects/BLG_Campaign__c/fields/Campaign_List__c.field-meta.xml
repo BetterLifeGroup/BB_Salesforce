@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Campaign_List__c</fullName>
+    <externalId>false</externalId>
+    <label>Campaign List</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Better Compare</fullName>
+                <default>false</default>
+                <label>Better Compare</label>
+            </value>
+            <value>
+                <fullName>Developments</fullName>
+                <default>false</default>
+                <label>Developments</label>
+            </value>
+            <value>
+                <fullName>Direct Agent</fullName>
+                <default>false</default>
+                <label>Direct Agent</label>
+            </value>
+            <value>
+                <fullName>HLD BB Affiliates (Sales)</fullName>
+                <default>false</default>
+                <label>HLD BB Affiliates (Sales)</label>
+            </value>
+            <value>
+                <fullName>HLD Client referrals</fullName>
+                <default>false</default>
+                <label>HLD Client referrals</label>
+            </value>
+            <value>
+                <fullName>HLD HIPPO</fullName>
+                <default>false</default>
+                <label>HLD HIPPO</label>
+            </value>
+            <value>
+                <fullName>HLD Partner Channel</fullName>
+                <default>false</default>
+                <label>HLD Partner Channel</label>
+            </value>
+            <value>
+                <fullName>HLD Staff Referrals</fullName>
+                <default>false</default>
+                <label>HLD Staff Referrals</label>
+            </value>
+            <value>
+                <fullName>HLD TV</fullName>
+                <default>false</default>
+                <label>HLD TV</label>
+            </value>
+            <value>
+                <fullName>HLD Web Sales</fullName>
+                <default>false</default>
+                <label>HLD Web Sales</label>
+            </value>
+            <value>
+                <fullName>Home Loans App</fullName>
+                <default>false</default>
+                <label>Home Loans App</label>
+            </value>
+            <value>
+                <fullName>Home Loans App General Enquiry</fullName>
+                <default>false</default>
+                <label>Home Loans App General Enquiry</label>
+            </value>
+            <value>
+                <fullName>Home Loans App pre-qual</fullName>
+                <default>false</default>
+                <label>Home Loans App pre-qual</label>
+            </value>
+            <value>
+                <fullName>Kudough</fullName>
+                <default>false</default>
+                <label>Kudough</label>
+            </value>
+            <value>
+                <fullName>Property Show</fullName>
+                <default>false</default>
+                <label>Property Show</label>
+            </value>
+            <value>
+                <fullName>Regional PQ</fullName>
+                <default>false</default>
+                <label>Regional PQ</label>
+            </value>
+            <value>
+                <fullName>Remarketing - Email</fullName>
+                <default>false</default>
+                <label>Remarketing - Email</label>
+            </value>
+            <value>
+                <fullName>Remarketing - SMS</fullName>
+                <default>false</default>
+                <label>Remarketing - SMS</label>
+            </value>
+            <value>
+                <fullName>Sale fell through</fullName>
+                <default>false</default>
+                <label>Sale fell through</label>
+            </value>
+            <value>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+                <label>Social Media</label>
+            </value>
+            <value>
+                <fullName>Real Estate</fullName>
+                <default>false</default>
+                <label>Real Estate</label>
+            </value>
+            <value>
+                <fullName>Betterbond Website</fullName>
+                <default>false</default>
+                <label>Betterbond Website</label>
+            </value>
+            <value>
+                <fullName>Walk in client</fullName>
+                <default>false</default>
+                <label>Walk in client</label>
+            </value>
+            <value>
+                <fullName>Repeat</fullName>
+                <default>false</default>
+                <label>Repeat</label>
+            </value>
+            <value>
+                <fullName>Private Deals</fullName>
+                <default>false</default>
+                <label>Private Deals</label>
+            </value>
+            <value>
+                <fullName>Inbound</fullName>
+                <default>false</default>
+                <label>Inbound</label>
+            </value>
+            <value>
+                <fullName>Clearscore</fullName>
+                <default>false</default>
+                <label>Clearscore</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
