@@ -232,7 +232,7 @@
         <name>Assign_General_Opp_Id_0_0_0</name>
         <label>Assign General Opp Id</label>
         <locationX>3667</locationX>
-        <locationY>3591</locationY>
+        <locationY>3730</locationY>
         <assignmentItems>
             <assignToReference>generalOppVarId</assignToReference>
             <operator>Assign</operator>
@@ -371,8 +371,8 @@
     <assignments>
         <name>Assign_Opp_to_Convert_0</name>
         <label>Assign Opp to Convert</label>
-        <locationX>3201</locationX>
-        <locationY>4003</locationY>
+        <locationX>3200</locationX>
+        <locationY>4142</locationY>
         <assignmentItems>
             <assignToReference>oppToConvertVar</assignToReference>
             <operator>Assign</operator>
@@ -1751,7 +1751,7 @@
         <locationX>3108</locationX>
         <locationY>3526</locationY>
         <defaultConnector>
-            <targetReference>Get_Selected_Opp_Campaign</targetReference>
+            <targetReference>Create_Repeat_General_Opp</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Agent Selected</defaultConnectorLabel>
         <rules>
@@ -1765,7 +1765,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Selected_Opp_Campaign_0</targetReference>
+                <targetReference>Create_Repeat_General_Opp_0</targetReference>
             </connector>
             <label>Agent Is Not Applicable</label>
         </rules>
@@ -1801,7 +1801,7 @@
         <locationX>3119</locationX>
         <locationY>3209</locationY>
         <defaultConnector>
-            <targetReference>Get_Selected_Opp_Campaign_Gen</targetReference>
+            <targetReference>Create_Repeat_General_Opp_1</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Agent Selected</defaultConnectorLabel>
         <rules>
@@ -1815,7 +1815,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Selected_Opp_Campaign_General</targetReference>
+                <targetReference>Create_Repeat_General_Opp_2</targetReference>
             </connector>
             <label>Agent Is Not Applicable</label>
         </rules>
@@ -2293,9 +2293,7 @@
             <label>SLA Populated</label>
         </rules>
     </decisions>
-    <description>FF: 23SEP, block Office Admin when converting existing customer
-
-Flow Description: Creates a General Opportunity for a new or existing Customer.
+    <description>Flow Description: Creates a General Opportunity for a new or existing Customer.
 
 Front-End Access: Launched from the Opportunity List View button &gt; Create Manual Opportunity.</description>
     <dynamicChoiceSets>
@@ -2712,7 +2710,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <inputAssignments>
             <field>BLG_Campaign__c</field>
             <value>
-                <elementReference>Get_Selected_Opp_Campaign.BLG_Campaign__c</elementReference>
+                <elementReference>Get_Campaign_Selected.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2788,7 +2786,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <name>Create_Repeat_General_Opp_0</name>
         <label>Create Repeat General Opp</label>
         <locationX>3514</locationX>
-        <locationY>3591</locationY>
+        <locationY>3730</locationY>
         <connector>
             <targetReference>Assign_General_Opp_Id_0_0_0</targetReference>
         </connector>
@@ -2807,7 +2805,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <inputAssignments>
             <field>BLG_Campaign__c</field>
             <value>
-                <elementReference>Get_Selected_Opp_Campaign_0.BLG_Campaign__c</elementReference>
+                <elementReference>Get_Campaign_Selected.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -2997,7 +2995,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <inputAssignments>
             <field>BLG_Campaign__c</field>
             <value>
-                <elementReference>Get_Selected_Opp_Campaign_General.BLG_Campaign__c</elementReference>
+                <elementReference>Get_Campaign_Selected.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3661,90 +3659,6 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Selected_Opp_Campaign</name>
-        <label>Get Selected Opp Campaign</label>
-        <locationX>3380</locationX>
-        <locationY>3445</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Create_Repeat_General_Opp</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>selectedOppRecVar.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Selected_Opp_Campaign_0</name>
-        <label>Get Selected Opp Campaign</label>
-        <locationX>3384</locationX>
-        <locationY>3591</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Create_Repeat_General_Opp_0</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>selectedOppRecVar.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Selected_Opp_Campaign_Gen</name>
-        <label>Get Selected Opp Campaign Gen</label>
-        <locationX>3363</locationX>
-        <locationY>3124</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Create_Repeat_General_Opp_1</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>selectedOppRecVarGen.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Selected_Opp_Campaign_General</name>
-        <label>Get Selected Opp Campaign General</label>
-        <locationX>3367</locationX>
-        <locationY>3270</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Create_Repeat_General_Opp_2</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>selectedOppRecVarGen.Id</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>Get_Selected_Owner_User</name>
         <label>Get Selected Owner User</label>
         <locationX>2028</locationX>
@@ -4316,6 +4230,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
             <defaultSelectedChoiceReference>Create_for_myself</defaultSelectedChoiceReference>
             <fieldText>Opportunity Owner</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
@@ -4749,6 +4664,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                     </defaultValue>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Only the first letter should be capital.&lt;/p&gt;</errorMessage>
@@ -4778,6 +4694,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                     </defaultValue>
                     <fieldText>Last Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -4800,6 +4717,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                     <dataType>String</dataType>
                     <fieldText>Phone</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid phone number.&lt;/p&gt;</errorMessage>
@@ -4829,6 +4747,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                     </defaultValue>
                     <fieldText>Email</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid email address.&lt;/p&gt;</errorMessage>
@@ -4869,6 +4788,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
                     <name>Comment_opp</name>
                     <fieldText>Notes</fieldText>
                     <fieldType>LargeTextArea</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
