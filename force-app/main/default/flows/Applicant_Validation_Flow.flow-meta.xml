@@ -775,8 +775,8 @@
     <decisions>
         <name>Create_BLG_Follow_Up_Verification_0</name>
         <label>Create BLG Follow Up - Verification</label>
-        <locationX>814</locationX>
-        <locationY>1141</locationY>
+        <locationX>784</locationX>
+        <locationY>1090</locationY>
         <defaultConnector>
             <targetReference>Create_BLG_Follow_Up_Verification</targetReference>
         </defaultConnector>
@@ -1042,28 +1042,6 @@
         </rules>
     </decisions>
     <decisions>
-        <name>User_Setup_passed</name>
-        <label>User Setup passed?</label>
-        <locationX>680</locationX>
-        <locationY>1789</locationY>
-        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Yes_Passed</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>passed</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Opportunity_Context</targetReference>
-            </connector>
-            <label>Yes - Passed</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Verification_Failed</name>
         <label>Verification Failed?</label>
         <locationX>986</locationX>
@@ -1088,9 +1066,7 @@
             <label>Yes, Failed</label>
         </rules>
     </decisions>
-    <description>FF: 26 Jul
-
-Flow Description: Flow to Progress the Case through the statuses, capture financials and generate PA Cert.
+    <description>Flow Description: Flow to Progress the Case through the statuses, capture financials and generate PA Cert.
 
 Front-End Access: Work Case button on the Case page.</description>
     <environments>Default</environments>
@@ -1156,7 +1132,7 @@ Front-End Access: Work Case button on the Case page.</description>
             <targetReference>Verification_Failed</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Application_result</targetReference>
+            <targetReference>Get_Case_for_Summary</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -1338,6 +1314,27 @@ Front-End Access: Work Case button on the Case page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Application</name>
+        <label>Get Application</label>
+        <locationX>1183</locationX>
+        <locationY>443</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Application_result</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OpportunityId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opp_for_Case_Summary.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ResidentialLoanApplication</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_BLG_Rule</name>
         <label>Get BLG Rule</label>
         <locationX>331</locationX>
@@ -1493,6 +1490,27 @@ Front-End Access: Work Case button on the Case page.</description>
         <object>Task</object>
         <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opp_for_Case_Summary</name>
+        <label>Get Opp for Case Summary</label>
+        <locationX>1308</locationX>
+        <locationY>443</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Application</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_for_Summary.Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -1924,8 +1942,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <screens>
         <name>Application_result</name>
         <label>Application result</label>
-        <locationX>1189</locationX>
-        <locationY>290</locationY>
+        <locationX>1183</locationX>
+        <locationY>295</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -2513,26 +2531,22 @@ Front-End Access: Work Case button on the Case page.</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>51</locationX>
+        <locationX>374</locationX>
         <locationY>1772</locationY>
         <connector>
             <targetReference>User_Setup_Checks_Subflow</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>User_Setup_Checks_Subflow</name>
         <label>User Setup Checks - Subflow</label>
-        <locationX>500</locationX>
-        <locationY>1787</locationY>
+        <locationX>753</locationX>
+        <locationY>1789</locationY>
         <connector>
-            <targetReference>User_Setup_passed</targetReference>
+            <targetReference>Opportunity_Context</targetReference>
         </connector>
         <flowName>User_Setup_Checks_Subflow</flowName>
-        <outputAssignments>
-            <assignToReference>passed</assignToReference>
-            <name>passed</name>
-        </outputAssignments>
     </subflows>
     <variables>
         <name>affordabilityAmountText</name>
@@ -2635,16 +2649,6 @@ Front-End Access: Work Case button on the Case page.</description>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>passed</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
             <booleanValue>false</booleanValue>

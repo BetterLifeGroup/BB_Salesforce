@@ -124,7 +124,7 @@ export default class ApplicantFinancialDetails extends LightningElement {
                     getLoanApplicant({loanApplicantId: this.recordId}).then(result => {
                         console.log('loanApplicant', result)
                         this.temp = false
-                        this.paymentFrequencyCurrentValue = result.When_are_you_paid__c;
+                        this.paymentFrequencyCurrentValue = result.Payment_Frequency__c;
                         this.overtimeCurrentValue = result.Do_you_earn_overtime_every_single_month__c;
                         this.commissionCurrentValue = result.Do_you_earn_commission_every_single_mont__c;
                         this.subsidyCurrentValue = result.Subsidy_received_on_property_purchased__c;
