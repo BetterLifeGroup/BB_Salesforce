@@ -1744,6 +1744,10 @@
     <picklistValues>
         <picklist>Submission_Status__c</picklist>
         <values>
+            <fullName>Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Formal Grant</fullName>
             <default>false</default>
         </values>
@@ -1752,11 +1756,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>NTU</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Registered</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Submitted To Bank</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Withdrawn</fullName>
             <default>false</default>
         </values>
     </picklistValues>
