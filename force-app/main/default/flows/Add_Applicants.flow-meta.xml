@@ -412,7 +412,7 @@
         <name>Change_Phone_Email_Validation_Flag_to_False_0</name>
         <label>Change Phone Email Validation Flag to False</label>
         <locationX>1744</locationX>
-        <locationY>2634</locationY>
+        <locationY>2627</locationY>
         <assignmentItems>
             <assignToReference>PhoneEmailValidation</assignToReference>
             <operator>Assign</operator>
@@ -642,7 +642,7 @@
         <locationX>1376</locationX>
         <locationY>2629</locationY>
         <defaultConnector>
-            <targetReference>Get_Contact_Record_Existing_Person</targetReference>
+            <targetReference>Update_Existing_Co_Person_Account</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Continue</defaultConnectorLabel>
         <rules>
@@ -1743,6 +1743,48 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         </inputAssignments>
         <object>LoanApplicant</object>
     </recordUpdates>
+    <recordUpdates>
+        <name>Update_Existing_Co_Person_Account</name>
+        <label>Update Existing Co Person Account</label>
+        <locationX>1563</locationX>
+        <locationY>2755</locationY>
+        <connector>
+            <targetReference>Get_Contact_Record_Existing_Person</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>coPersonAccount.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>FirstName</field>
+            <value>
+                <elementReference>coPersonAccount.FirstName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LastName</field>
+            <value>
+                <elementReference>coPersonAccount.LastName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>PersonEmail</field>
+            <value>
+                <elementReference>coPersonAccount.PersonEmail</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone</field>
+            <value>
+                <elementReference>coPersonAccount.Phone</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
     <screens>
         <name>Add_Continue</name>
         <label>Add/Continue</label>
@@ -2001,13 +2043,13 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             <inputParameters>
                 <name>cssCustomStyle</name>
                 <value>
-                    <stringValue>Create Co-Loan Applicant</stringValue>
+                    <stringValue>margin-bottom: 8px</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>label</name>
                 <value>
-                    <stringValue>margin-bottom: 8px</stringValue>
+                    <stringValue>Create Co-Loan Applicant</stringValue>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
