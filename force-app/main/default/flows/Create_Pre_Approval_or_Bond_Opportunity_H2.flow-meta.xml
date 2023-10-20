@@ -1936,13 +1936,13 @@
         <name>Is_General_Opp_a_Repeat</name>
         <label>Is General Opp a Repeat?</label>
         <locationX>1487</locationX>
-        <locationY>5491</locationY>
+        <locationY>5490</locationY>
         <defaultConnector>
             <targetReference>Is_Foreign_Owner_0_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Brand New</defaultConnectorLabel>
         <rules>
-            <name>Repeat</name>
+            <name>Repeat_PA</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_General_Opportunity.Name</leftValueReference>
@@ -1961,7 +1961,29 @@
             <connector>
                 <targetReference>Update_Pre_Approval_Repeat_Opp_Name</targetReference>
             </connector>
-            <label>Repeat</label>
+            <label>Repeat PA</label>
+        </rules>
+        <rules>
+            <name>Repeat_Bond</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_General_Opportunity.Name</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Repeat</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>paOrBond</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Bond</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Bond_Repeat_Opp_Name</targetReference>
+            </connector>
+            <label>Repeat Bond</label>
         </rules>
     </decisions>
     <decisions>
@@ -2541,6 +2563,25 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
 + &quot; &quot; + TEXT(Year(TODAY()))</expression>
     </formulas>
     <formulas>
+        <name>repeatBondOppName</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Person_Account.FirstName} + &quot; &quot; + {!Get_Person_Account.LastName}  + &quot; - Bond - &quot; + CASE( TEXT(MONTH(TODAY())),
+&quot;1&quot;, &quot;January&quot;,
+&quot;2&quot;, &quot;February&quot;,
+&quot;3&quot;, &quot;March&quot;, 
+&quot;4&quot;, &quot;April&quot;, 
+&quot;5&quot;, &quot;May&quot;, 
+&quot;6&quot;, &quot;June&quot;,
+&quot;7&quot;, &quot;July&quot;,
+&quot;8&quot;, &quot;August&quot;,
+&quot;9&quot;, &quot;September&quot;,
+&quot;10&quot;, &quot;October&quot;,
+&quot;11&quot;, &quot;November&quot;,
+&quot;12&quot;, &quot;December&quot;,
+&quot;None&quot;)
++ &quot; &quot; + TEXT(Year(TODAY())) + &quot; - (Repeat)&quot;</expression>
+    </formulas>
+    <formulas>
         <name>repeatPAOppName</name>
         <dataType>String</dataType>
         <expression>{!Get_Person_Account.FirstName} + &quot; &quot; + {!Get_Person_Account.LastName}  + &quot; - Pre-Approval - &quot; + CASE( TEXT(MONTH(TODAY())),
@@ -2641,8 +2682,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordCreates>
         <name>Copy_Co_Applicant_from_PA_to_Bond</name>
         <label>Copy Co Applicant from PA to Bond</label>
-        <locationX>1972</locationX>
-        <locationY>5496</locationY>
+        <locationX>1971</locationX>
+        <locationY>5488</locationY>
         <connector>
             <targetReference>Is_General_Opp_a_Repeat</targetReference>
         </connector>
@@ -2739,7 +2780,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>Status__c</field>
             <value>
-                <stringValue>OTP Received</stringValue>
+                <stringValue>Awaiting OTP</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4511,6 +4552,36 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Bond_Repeat_Opp_Name</name>
+        <label>Update Bond Repeat Opp Name</label>
+        <locationX>1735</locationX>
+        <locationY>5576</locationY>
+        <connector>
+            <targetReference>Is_Foreign_Owner_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>createdOppId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>repeatBondOppName</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Bond_SLA</name>
         <label>Update Bond SLA</label>
         <locationX>2632</locationX>
@@ -4737,7 +4808,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>Status__c</field>
             <value>
-                <stringValue>OTP Received</stringValue>
+                <stringValue>Awaiting OTP</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -4854,7 +4925,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <name>Update_Pre_Approval_Repeat_Opp_Name</name>
         <label>Update Pre-Approval Repeat Opp Name</label>
         <locationX>1276</locationX>
-        <locationY>5589</locationY>
+        <locationY>5588</locationY>
         <connector>
             <targetReference>Is_Foreign_Owner_0_0</targetReference>
         </connector>

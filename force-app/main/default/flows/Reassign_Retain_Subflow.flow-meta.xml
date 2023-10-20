@@ -202,7 +202,7 @@
         <name>Navigate</name>
         <label>Navigate</label>
         <locationX>204</locationX>
-        <locationY>6224</locationY>
+        <locationY>6440</locationY>
         <actionName>c:DetailPageNavigation</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -441,7 +441,7 @@
         <name>Send_Custom_Notification</name>
         <label>Send Custom Notification</label>
         <locationX>204</locationX>
-        <locationY>6116</locationY>
+        <locationY>6332</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <connector>
@@ -827,7 +827,7 @@
         <name>RecipientAssignment</name>
         <label>RecipientAssignment</label>
         <locationX>204</locationX>
-        <locationY>6008</locationY>
+        <locationY>6224</locationY>
         <assignmentItems>
             <assignToReference>AssignRecipientId</assignToReference>
             <operator>Add</operator>
@@ -2574,7 +2574,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>5900</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>RecipientAssignment</targetReference>
+            <targetReference>Update_Call_Attempts_to_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2637,6 +2637,36 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>Close_Tasks</name>
+        <label>Close Tasks</label>
+        <locationX>204</locationX>
+        <locationY>6116</locationY>
+        <connector>
+            <targetReference>RecipientAssignment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
     <recordUpdates>
         <name>Complete_Open_Task_0_0</name>
         <label>Complete Open Task</label>
@@ -3556,6 +3586,30 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>OTP_Expiry_Date__c</field>
             <value>
                 <elementReference>Get_First_Updated_Loan_Application_for_Bond.OTP_Expiry_Date__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Call_Attempts_to_0</name>
+        <label>Update Call Attempts to 0</label>
+        <locationX>204</locationX>
+        <locationY>6008</locationY>
+        <connector>
+            <targetReference>Close_Tasks</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
