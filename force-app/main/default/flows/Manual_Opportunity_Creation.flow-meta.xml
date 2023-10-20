@@ -427,7 +427,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Is_Agent_Populated</targetReference>
+            <targetReference>Create_Opp_or_Convert_Existing</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -1383,7 +1383,7 @@
         <locationX>1647</locationX>
         <locationY>1625</locationY>
         <defaultConnector>
-            <targetReference>Populate_SelectedOwnerId</targetReference>
+            <targetReference>Is_Agent_Populated</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Next</defaultConnectorLabel>
         <rules>
@@ -1397,7 +1397,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Account_Lookup_0</targetReference>
+                <targetReference>Office_Admin_attempting_to_create_for_self</targetReference>
             </connector>
             <label>Search Existing</label>
         </rules>
@@ -2333,7 +2333,7 @@
         <locationX>1712</locationX>
         <locationY>1420</locationY>
         <defaultConnector>
-            <targetReference>Is_Agent_Populated</targetReference>
+            <targetReference>Create_Opp_or_Convert_Existing</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Don&apos;t Populate</defaultConnectorLabel>
         <rules>
@@ -2409,7 +2409,9 @@
             <label>SLA Populated</label>
         </rules>
     </decisions>
-    <description>Flow Description: Creates a General Opportunity for a new or existing Customer.
+    <description>FF: 23SEP, block Office Admin when converting existing customer
+
+Flow Description: Creates a General Opportunity for a new or existing Customer.
 
 Front-End Access: Launched from the Opportunity List View button &gt; Create Manual Opportunity.</description>
     <dynamicChoiceSets>
@@ -4542,7 +4544,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Create_Opp_or_Convert_Existing</targetReference>
+            <targetReference>Populate_SelectedOwnerId</targetReference>
         </connector>
         <fields>
             <name>Opportunity_Owner</name>
@@ -4879,7 +4881,7 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         </fields>
         <fields>
             <name>adminBlockHelp</name>
-            <fieldText>&lt;p&gt;The Profile that you are assigned to only allows for creating opportunities on behalf of someone.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please click on Next and select the above mentioned option.&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;The Profile that you are assigned to only allows for creating opportunities on behalf of someone.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please click on Next and select the above mentioned option. Ensure to search and select the consultant you are creating for.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Next</nextOrFinishButtonLabel>
@@ -6466,6 +6468,16 @@ Front-End Access: Launched from the Opportunity List View button &gt; Create Man
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_ProfileName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Profile.Name</elementReference>
+        </value>
     </variables>
     <variables>
         <name>var_Real_Estate_Agent_Id</name>
