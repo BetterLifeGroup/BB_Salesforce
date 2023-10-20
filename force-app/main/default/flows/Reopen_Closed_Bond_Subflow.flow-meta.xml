@@ -4,7 +4,7 @@
     <decisions>
         <name>Is_Bond_Reopen_Allowed</name>
         <label>Is Bond Reopen Allowed?</label>
-        <locationX>314</locationX>
+        <locationX>644</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>errorScr_ReopenNotAllow</targetReference>
@@ -55,6 +55,50 @@
             <label>Reopen Bond Awaiting OTP</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Reopen_or_Cancel</name>
+        <label>Reopen or Cancel?</label>
+        <locationX>710</locationX>
+        <locationY>566</locationY>
+        <defaultConnectorLabel>Cancel</defaultConnectorLabel>
+        <rules>
+            <name>Reopen</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>reopenAwaitBondBtn.renderNext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Bond_Opp_Awaiting_OTP</targetReference>
+            </connector>
+            <label>Reopen</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Reopen_or_Cancel_0</name>
+        <label>Reopen or Cancel?</label>
+        <locationX>182</locationX>
+        <locationY>566</locationY>
+        <defaultConnectorLabel>Cancel</defaultConnectorLabel>
+        <rules>
+            <name>Reopen_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>reopenOTPBondBtn.renderNext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Bond_Opp_OTP_Received</targetReference>
+            </connector>
+            <label>Reopen</label>
+        </rules>
+    </decisions>
     <description>Flow Description: Flow to Reopen a Closed Bond Opportunity, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
@@ -83,7 +127,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Bond_Application</name>
         <label>Get Bond Application</label>
-        <locationX>314</locationX>
+        <locationX>644</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -104,7 +148,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Bond_Opportunity</name>
         <label>Get Bond Opportunity</label>
-        <locationX>314</locationX>
+        <locationX>644</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -125,8 +169,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Last_Available_Task</name>
         <label>Get Last Available Task</label>
-        <locationX>314</locationX>
-        <locationY>782</locationY>
+        <locationX>578</locationX>
+        <locationY>890</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Task_Call_Outcome</targetReference>
@@ -149,7 +193,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Get_Last_Task_Available</name>
         <label>Get Last Task Available</label>
         <locationX>50</locationX>
-        <locationY>782</locationY>
+        <locationY>890</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Task_Call_Outcome2</targetReference>
@@ -171,8 +215,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Bond_Applicant_Status</name>
         <label>Update Bond Applicant Status</label>
-        <locationX>314</locationX>
-        <locationY>674</locationY>
+        <locationX>578</locationX>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Get_Last_Available_Task</targetReference>
         </connector>
@@ -196,7 +240,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Update_Bond_Applicant_Status_OTP_Received</name>
         <label>Update Bond Applicant Status OTP Received</label>
         <locationX>50</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <connector>
             <targetReference>Get_Last_Task_Available</targetReference>
         </connector>
@@ -219,8 +263,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Bond_Opp_Awaiting_OTP</name>
         <label>Update Bond Opp Awaiting OTP</label>
-        <locationX>314</locationX>
-        <locationY>566</locationY>
+        <locationX>578</locationX>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Update_Bond_Applicant_Status</targetReference>
         </connector>
@@ -262,7 +306,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Update_Bond_Opp_OTP_Received</name>
         <label>Update Bond Opp OTP Received</label>
         <locationX>50</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Update_Bond_Applicant_Status_OTP_Received</targetReference>
         </connector>
@@ -303,8 +347,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Task_Call_Outcome</name>
         <label>Update Task Call Outcome</label>
-        <locationX>314</locationX>
-        <locationY>890</locationY>
+        <locationX>578</locationX>
+        <locationY>998</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -331,7 +375,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Update_Task_Call_Outcome2</name>
         <label>Update Task Call Outcome</label>
         <locationX>50</locationX>
-        <locationY>890</locationY>
+        <locationY>998</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -357,7 +401,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>errorScr_ReopenNotAllow</name>
         <label>errorScr_ReopenNotAllow</label>
-        <locationX>578</locationX>
+        <locationX>1106</locationX>
         <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -393,13 +437,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>reopenBond</name>
         <label>reopenBond</label>
-        <locationX>314</locationX>
+        <locationX>710</locationX>
         <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Update_Bond_Opp_Awaiting_OTP</targetReference>
+            <targetReference>Reopen_or_Cancel</targetReference>
         </connector>
         <fields>
             <name>reopenBondTxtMsg</name>
@@ -427,7 +471,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>reopenBondBtn</name>
+            <name>reopenAwaitBondBtn</name>
             <extensionName>runtime_industries_lending:flowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -460,13 +504,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>reopenBondOTPReceived</name>
         <label>reopenBondOTPReceived</label>
-        <locationX>50</locationX>
+        <locationX>182</locationX>
         <locationY>458</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Update_Bond_Opp_OTP_Received</targetReference>
+            <targetReference>Reopen_or_Cancel_0</targetReference>
         </connector>
         <fields>
             <name>Copy_1_of_reopenBondTxtMsg</name>
@@ -494,7 +538,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>Copy_1_of_reopenBondBtn</name>
+            <name>reopenOTPBondBtn</name>
             <extensionName>runtime_industries_lending:flowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -525,7 +569,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>188</locationX>
+        <locationX>518</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Bond_Opportunity</targetReference>

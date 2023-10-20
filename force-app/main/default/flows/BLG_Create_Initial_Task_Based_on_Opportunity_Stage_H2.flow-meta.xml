@@ -299,8 +299,8 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Taks_Found</name>
-        <label>Taks Found?</label>
+        <name>Tasks_Found</name>
+        <label>Tasks Found?</label>
         <locationX>790</locationX>
         <locationY>554</locationY>
         <defaultConnector>
@@ -321,7 +321,7 @@
         </rules>
     </decisions>
     <description>Flow Description:
-Creates the initial (1st) follow up task when an Opportunity is created.
+Creates the initial (1st) follow up task when an Opportunity is created
 
 No Front-End Access - Flow is record triggered based on the entry criteria.
 
@@ -661,11 +661,11 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
     <recordLookups>
         <name>Get_Task</name>
         <label>Get Task</label>
-        <locationX>891</locationX>
+        <locationX>870</locationX>
         <locationY>404</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Taks_Found</targetReference>
+            <targetReference>Tasks_Found</targetReference>
         </connector>
         <filterLogic>1 AND (2 OR 3)</filterLogic>
         <filters>
@@ -975,7 +975,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <connector>
             <targetReference>Get_Task</targetReference>
         </connector>
-        <filterFormula>{!$Record.RecordType.Name} = &quot;General Opportunity&quot;</filterFormula>
+        <filterFormula>NOT({!$Record.RecordType.Name} = &quot;Duplicate Opportunity&quot;)</filterFormula>
         <object>Opportunity</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
