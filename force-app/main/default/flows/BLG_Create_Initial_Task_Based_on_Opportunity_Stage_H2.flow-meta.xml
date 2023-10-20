@@ -299,8 +299,8 @@
         </rules>
     </decisions>
     <decisions>
-        <name>Taks_Found</name>
-        <label>Taks Found?</label>
+        <name>Tasks_Found</name>
+        <label>Tasks Found?</label>
         <locationX>790</locationX>
         <locationY>554</locationY>
         <defaultConnector>
@@ -665,7 +665,7 @@ TEXT(DAY(DATEVALUE({!$Record.Assignment_DateTime__c}))) + &quot; 15:00:00&quot;)
         <locationY>404</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Taks_Found</targetReference>
+            <targetReference>Tasks_Found</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
