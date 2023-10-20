@@ -18,12 +18,14 @@ global class Invocable_AllocateCase {
     @InvocableMethod(Label='Assign Case Owner'
             Description='Assigns the Case to a Group Member in the specified Group, in Round Robin fashion')
     public static List<Result> allocateCase(List<Request> varsList) {
+
+        List<Result> results = new List<Result>();
+
         /* assignment rules:
          - get all group members and sort each of their leads by createddate (DESC)
          - if any of these group members have never had an case - assign to them
          - else, assign lead to the group member who's newest lead is the oldest lead out of the group.
          */
-        List<Result> results = new List<Result>();
 
         Boolean failed = true;
 
@@ -40,7 +42,7 @@ global class Invocable_AllocateCase {
         System.debug('Groups: ' + groups);
 
         List<CollaborationGroupMember> noLeadResults = [
-                SELECT MemberId , Member.Name
+                SELECT MemberId, Member.Name
                 FROM CollaborationGroupMember
                 WHERE CollaborationGroup.Name IN :groups
                 AND Member.AvailableforRouting__c = TRUE
@@ -104,5 +106,4 @@ global class Invocable_AllocateCase {
         }
         return results;
     }
-
 }
