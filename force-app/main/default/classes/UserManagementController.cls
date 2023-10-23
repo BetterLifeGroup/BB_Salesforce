@@ -268,31 +268,21 @@ public with sharing class UserManagementController {
     public static Boolean assignPermissionAssignment(String userId) {
 
         try {
+            List<PermissionSetAssignment> perAssignList = new List<PermissionSetAssignment>();
             PermissionSetAssignment perAssign = new PermissionSetAssignment();
             perAssign.PermissionSetId = [SELECT Id FROM PermissionSet WHERE Name = 'Mortgage' LIMIT 1].Id;
             perAssign.AssigneeId = userId;
-            insert perAssign;
-        } catch (Exception e) {
+            perAssignList.add(perAssign);
 
             PermissionSetAssignment perAssign2 = new PermissionSetAssignment();
             perAssign2.PermissionSetId = [SELECT Id FROM PermissionSet WHERE Name = 'FinancialServicesCloudStandard' LIMIT 1].Id;
             perAssign2.AssigneeId = userId;
-            insert perAssign2;
+            perAssignList.add(perAssign2);
 
-            return true;
-        }
-        try {
-
-            PermissionSetAssignment perAssign2 = new PermissionSetAssignment();
-            perAssign2.PermissionSetId = [SELECT Id FROM PermissionSet WHERE Name = 'FinancialServicesCloudStandard' LIMIT 1].Id;
-            perAssign2.AssigneeId = userId;
-            insert perAssign2;
-
+            Database.insert(perAssignList, false);
             return true;
         } catch (Exception e) {
-            AuraHandledException auraEx = new AuraHandledException(e.getMessage());
-            auraEx.setMessage(e.getMessage());
-            throw auraEx;
+            return false;
         }
     }
 
@@ -401,7 +391,7 @@ public with sharing class UserManagementController {
         List<Opportunity> returnList = new List<Opportunity>();
 
         List<Opportunity> openOpps = [
-                SELECT Id, Name, StageName, Affordability_Amount__c, PreApprovalOpportunity__c, RecordType.Name, Consultant_Region_Name__c, Bond_Opportunity__c
+                SELECT Id, Name, StageName, Affordability_Amount__c, PreApprovalOpportunity__c, RecordType.Name, Consultant_Region_Name__c, Bond_Opportunity__c,Status__c,Campaign_Type__c,BLG_Campaign__r.Name,SLA_Deadline__c
                 FROM Opportunity
                 WHERE StageName != 'Closed Won' AND StageName != 'Closed Lost' AND OwnerId = :userId
                 ORDER BY Name
