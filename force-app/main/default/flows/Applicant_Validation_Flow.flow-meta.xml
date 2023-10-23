@@ -90,8 +90,8 @@
     <assignments>
         <name>Add_notes_to_case_0</name>
         <label>Add notes to case</label>
-        <locationX>2805</locationX>
-        <locationY>266</locationY>
+        <locationX>2811</locationX>
+        <locationY>293</locationY>
         <assignmentItems>
             <assignToReference>get_case.Verification_Failure_Comment__c</assignToReference>
             <operator>Assign</operator>
@@ -106,8 +106,8 @@
     <assignments>
         <name>Add_notes_to_case_0_0</name>
         <label>Add notes to case</label>
-        <locationX>2871</locationX>
-        <locationY>450</locationY>
+        <locationX>2876</locationX>
+        <locationY>460</locationY>
         <assignmentItems>
             <assignToReference>get_case.Verification_Failure_Comment__c</assignToReference>
             <operator>Assign</operator>
@@ -189,6 +189,38 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Case_Id_to_Use_from_Opp</name>
+        <label>Assign Case Id to Use from Opp</label>
+        <locationX>1230</locationX>
+        <locationY>1906</locationY>
+        <assignmentItems>
+            <assignToReference>caseIdVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_CaseOC.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>OC_Get_Applicant</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Case_Id_to_Use_recordId</name>
+        <label>Assign Case Id to Use (recordId)</label>
+        <locationX>1181</locationX>
+        <locationY>1684</locationY>
+        <assignmentItems>
+            <assignToReference>caseIdVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>get_case.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Assign_opp_id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_case_outcome</name>
         <label>Assign case outcome</label>
         <locationX>472</locationX>
@@ -214,8 +246,8 @@
     <assignments>
         <name>Assign_Cases</name>
         <label>Assign Cases</label>
-        <locationX>2093</locationX>
-        <locationY>1907</locationY>
+        <locationX>2094</locationX>
+        <locationY>1906</locationY>
         <assignmentItems>
             <assignToReference>get_case</assignToReference>
             <operator>Assign</operator>
@@ -244,8 +276,8 @@
     <assignments>
         <name>Assign_opp_id</name>
         <label>Assign opp id</label>
-        <locationX>1158</locationX>
-        <locationY>1618</locationY>
+        <locationX>1089</locationX>
+        <locationY>1578</locationY>
         <assignmentItems>
             <assignToReference>opportunityId</assignToReference>
             <operator>Assign</operator>
@@ -743,8 +775,8 @@
     <decisions>
         <name>Create_BLG_Follow_Up_Verification_0</name>
         <label>Create BLG Follow Up - Verification</label>
-        <locationX>814</locationX>
-        <locationY>1141</locationY>
+        <locationX>784</locationX>
+        <locationY>1090</locationY>
         <defaultConnector>
             <targetReference>Create_BLG_Follow_Up_Verification</targetReference>
         </defaultConnector>
@@ -791,7 +823,7 @@
         <name>Handle_Verification_results</name>
         <label>Handle Verification results</label>
         <locationX>2529</locationX>
-        <locationY>345</locationY>
+        <locationY>344</locationY>
         <defaultConnector>
             <targetReference>Add_notes_to_case_0</targetReference>
         </defaultConnector>
@@ -940,8 +972,8 @@
     <decisions>
         <name>Opportunity_Context2</name>
         <label>Opportunity Context</label>
-        <locationX>1498</locationX>
-        <locationY>1763</locationY>
+        <locationX>1426</locationX>
+        <locationY>1783</locationY>
         <defaultConnector>
             <targetReference>get_case</targetReference>
         </defaultConnector>
@@ -1010,28 +1042,6 @@
         </rules>
     </decisions>
     <decisions>
-        <name>User_Setup_passed</name>
-        <label>User Setup passed?</label>
-        <locationX>680</locationX>
-        <locationY>1789</locationY>
-        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>Yes_Passed</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>passed</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Opportunity_Context</targetReference>
-            </connector>
-            <label>Yes - Passed</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Verification_Failed</name>
         <label>Verification Failed?</label>
         <locationX>986</locationX>
@@ -1056,9 +1066,7 @@
             <label>Yes, Failed</label>
         </rules>
     </decisions>
-    <description>FF: 26 Jul
-
-Flow Description: Flow to Progress the Case through the statuses, capture financials and generate PA Cert.
+    <description>Flow Description: Flow to Progress the Case through the statuses, capture financials and generate PA Cert.
 
 Front-End Access: Work Case button on the Case page.</description>
     <environments>Default</environments>
@@ -1124,7 +1132,7 @@ Front-End Access: Work Case button on the Case page.</description>
             <targetReference>Verification_Failed</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Application_result</targetReference>
+            <targetReference>Get_Case_for_Summary</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -1306,6 +1314,27 @@ Front-End Access: Work Case button on the Case page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Application</name>
+        <label>Get Application</label>
+        <locationX>1183</locationX>
+        <locationY>443</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Application_result</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OpportunityId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opp_for_Case_Summary.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ResidentialLoanApplication</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_BLG_Rule</name>
         <label>Get BLG Rule</label>
         <locationX>331</locationX>
@@ -1329,11 +1358,11 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordLookups>
         <name>get_case</name>
         <label>Get Case</label>
-        <locationX>1019</locationX>
-        <locationY>1711</locationY>
+        <locationX>1088</locationX>
+        <locationY>1781</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_opp_id</targetReference>
+            <targetReference>Assign_Case_Id_to_Use_recordId</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1348,13 +1377,34 @@ Front-End Access: Work Case button on the Case page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_CaseOC</name>
-        <label>Get CaseOC</label>
-        <locationX>1078</locationX>
-        <locationY>1907</locationY>
+        <name>Get_Case_for_Summary</name>
+        <label>Get Case for Summary</label>
+        <locationX>1308</locationX>
+        <locationY>697</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>OC_Get_Applicant</targetReference>
+            <targetReference>Get_Opp_for_Case_Summary</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>caseIdVar</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_CaseOC</name>
+        <label>Get CaseOC</label>
+        <locationX>1087</locationX>
+        <locationY>1906</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Case_Id_to_Use_from_Opp</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1443,6 +1493,27 @@ Front-End Access: Work Case button on the Case page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Opp_for_Case_Summary</name>
+        <label>Get Opp for Case Summary</label>
+        <locationX>1308</locationX>
+        <locationY>443</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Application</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Case_for_Summary.Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Opp_linked_to_Case</name>
         <label>Get Opp linked to Case</label>
         <locationX>473</locationX>
@@ -1517,8 +1588,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordLookups>
         <name>OC_Get_Applicant</name>
         <label>OC Get Applicant</label>
-        <locationX>1507</locationX>
-        <locationY>1908</locationY>
+        <locationX>1508</locationX>
+        <locationY>1907</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Cases</targetReference>
@@ -1586,8 +1657,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordUpdates>
         <name>Update_Case</name>
         <label>Update Case</label>
-        <locationX>2980</locationX>
-        <locationY>705</locationY>
+        <locationX>2972</locationX>
+        <locationY>704</locationY>
         <connector>
             <targetReference>Opportunity_Context2</targetReference>
         </connector>
@@ -1871,14 +1942,87 @@ Front-End Access: Work Case button on the Case page.</description>
     <screens>
         <name>Application_result</name>
         <label>Application result</label>
-        <locationX>1189</locationX>
-        <locationY>290</locationY>
+        <locationX>1183</locationX>
+        <locationY>295</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
             <targetReference>Get_latest_Case</targetReference>
         </connector>
+        <fields>
+            <name>finanSummary</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 9px</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Financial Summary</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Application_result_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Application_result_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>incomeAmt</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Income Amount: &lt;/strong&gt;{!Get_Application.Total_Income_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>disIncomeAmt</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Disposable Income Amount:&lt;/strong&gt; {!Get_Application.Total_Disposable_Income__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Application_result_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>expensesAmt</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Deduction Amount: &lt;/strong&gt;{!Get_Application.Total_Deductions_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>liabilityAmt</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Living Expenses Amount:&lt;/strong&gt; {!Get_Application.Total_Liability_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>contractualAmt</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Contractual Expenses Amount:&lt;/strong&gt; {!Get_Application.Total_Contractual_Expenses_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
         <fields>
             <name>PreApprovalcert</name>
             <extensionName>c:preApprovalCert</extensionName>
@@ -2387,26 +2531,22 @@ Front-End Access: Work Case button on the Case page.</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>51</locationX>
+        <locationX>374</locationX>
         <locationY>1772</locationY>
         <connector>
             <targetReference>User_Setup_Checks_Subflow</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>User_Setup_Checks_Subflow</name>
         <label>User Setup Checks - Subflow</label>
-        <locationX>500</locationX>
-        <locationY>1787</locationY>
+        <locationX>753</locationX>
+        <locationY>1789</locationY>
         <connector>
-            <targetReference>User_Setup_passed</targetReference>
+            <targetReference>Opportunity_Context</targetReference>
         </connector>
         <flowName>User_Setup_Checks_Subflow</flowName>
-        <outputAssignments>
-            <assignToReference>passed</assignToReference>
-            <name>passed</name>
-        </outputAssignments>
     </subflows>
     <variables>
         <name>affordabilityAmountText</name>
@@ -2424,6 +2564,13 @@ Front-End Access: Work Case button on the Case page.</description>
         <value>
             <booleanValue>false</booleanValue>
         </value>
+    </variables>
+    <variables>
+        <name>caseIdVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>completeVerification</name>
@@ -2502,16 +2649,6 @@ Front-End Access: Work Case button on the Case page.</description>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <booleanValue>false</booleanValue>
-        </value>
-    </variables>
-    <variables>
-        <name>passed</name>
-        <dataType>Boolean</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
             <booleanValue>false</booleanValue>

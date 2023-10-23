@@ -245,10 +245,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Offer To Purchase</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Paid Up Letter</fullName>
             <default>false</default>
         </values>
@@ -1776,14 +1772,6 @@
         </values>
         <values>
             <fullName>Poor credit - post conversation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Send DigiApp Link</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Send DigiApp Link Follow-Up</fullName>
             <default>false</default>
         </values>
     </picklistValues>
