@@ -12870,11 +12870,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>User.Block_Deactivation__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>User.Business_Hours__c</field>
         <readable>true</readable>
     </fieldPermissions>
