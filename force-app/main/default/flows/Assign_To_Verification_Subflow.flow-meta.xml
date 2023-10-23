@@ -1,11 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>Assign_Case_Owner</name>
+        <label>Assign Case Owner</label>
+        <locationX>446</locationX>
+        <locationY>1622</locationY>
+        <actionName>Invocable_AllocateCase</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Apex_Success</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>caseGroup</name>
+            <value>
+                <stringValue>Direct Verification Team</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>Invocable_AllocateCase</nameSegment>
+        <outputParameters>
+            <assignToReference>apexError</assignToReference>
+            <name>errorMessage</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>apexFailed</assignToReference>
+            <name>failed</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>newOppOwner</assignToReference>
+            <name>ownerId</name>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>
         <name>Assign_Heading</name>
         <label>Assign Heading</label>
-        <locationX>380</locationX>
-        <locationY>458</locationY>
+        <locationX>446</locationX>
+        <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>followUpHeading</assignToReference>
             <operator>Assign</operator>
@@ -20,8 +52,8 @@
     <assignments>
         <name>Assign_Myself_to_Case</name>
         <label>Assign Myself to Case</label>
-        <locationX>842</locationX>
-        <locationY>1730</locationY>
+        <locationX>314</locationX>
+        <locationY>2438</locationY>
         <assignmentItems>
             <assignToReference>verificationAssignment</assignToReference>
             <operator>Assign</operator>
@@ -37,7 +69,7 @@
         <name>Assign_Opp_Owner_to_Case</name>
         <label>Assign Opp Owner to Case</label>
         <locationX>578</locationX>
-        <locationY>1730</locationY>
+        <locationY>2438</locationY>
         <assignmentItems>
             <assignToReference>verificationAssignment</assignToReference>
             <operator>Assign</operator>
@@ -53,7 +85,7 @@
         <name>Assign_Opp_Team_Blank_True</name>
         <label>Assign Opp Team Blank True</label>
         <locationX>50</locationX>
-        <locationY>1514</locationY>
+        <locationY>2222</locationY>
         <assignmentItems>
             <assignToReference>oppTeamBlank</assignToReference>
             <operator>Assign</operator>
@@ -64,6 +96,22 @@
         <connector>
             <isGoTo>true</isGoTo>
             <targetReference>selectVerification</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Is_Direct_Opp</name>
+        <label>Is Direct Opp</label>
+        <locationX>314</locationX>
+        <locationY>1838</locationY>
+        <assignmentItems>
+            <assignToReference>isDirectOpp</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Opportunity_Team_Exists</targetReference>
         </connector>
     </assignments>
     <choices>
@@ -115,25 +163,51 @@
         </value>
     </choices>
     <decisions>
+        <name>Apex_Success</name>
+        <label>Apex Success??</label>
+        <locationX>446</locationX>
+        <locationY>1730</locationY>
+        <defaultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>selectVerification</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Fail - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Success</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>apexFailed</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Direct_Opp</targetReference>
+            </connector>
+            <label>Success</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Assign_Verification_to_who</name>
         <label>Assign Verification to who?</label>
-        <locationX>710</locationX>
-        <locationY>1622</locationY>
+        <locationX>842</locationX>
+        <locationY>2330</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
-            <name>Verification_Team_Assign</name>
+            <name>Myself_Assign</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Assign_to</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Verification_Team</elementReference>
+                    <elementReference>Myself</elementReference>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Case_for_Verification</targetReference>
+                <targetReference>Assign_Myself_to_Case</targetReference>
             </connector>
-            <label>Verification Team Assign</label>
+            <label>Myself Assign</label>
         </rules>
         <rules>
             <name>Opp_Owner_Assign</name>
@@ -151,8 +225,55 @@
             <label>Opp Owner Assign</label>
         </rules>
         <rules>
-            <name>Myself_Assign</name>
+            <name>Is_Direct_Reassigned</name>
             <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isDirectOpp</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Case_for_Direct_Verification_Team</targetReference>
+            </connector>
+            <label>Is Direct Reassigned</label>
+        </rules>
+        <rules>
+            <name>Verification_Team_Assign</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Verification_Team</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Case_for_Verification</targetReference>
+            </connector>
+            <label>Verification Team Assign</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Direct_Opportunity</name>
+        <label>Direct Opportunity?</label>
+        <locationX>446</locationX>
+        <locationY>1514</locationY>
+        <defaultConnector>
+            <targetReference>Opportunity_Team_Exists</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_for_Verification_Team</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Opportunity_Owner</elementReference>
+                </rightValue>
+            </conditions>
             <conditions>
                 <leftValueReference>Assign_to</leftValueReference>
                 <operator>EqualTo</operator>
@@ -160,17 +281,40 @@
                     <elementReference>Myself</elementReference>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>isDirectOpp</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Assign_Myself_to_Case</targetReference>
+                <isGoTo>true</isGoTo>
+                <targetReference>Is_Direct_Opp</targetReference>
             </connector>
-            <label>Myself Assign</label>
+            <label>Not for Verification Team</label>
+        </rules>
+        <rules>
+            <name>Yes_Direct</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opp_Owner.UserRole.DeveloperName</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Direct</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Case_Owner</targetReference>
+            </connector>
+            <label>Yes, Direct</label>
         </rules>
     </decisions>
     <decisions>
         <name>Existing_Co_Applicant</name>
         <label>Existing Co Applicant?</label>
-        <locationX>380</locationX>
-        <locationY>782</locationY>
+        <locationX>446</locationX>
+        <locationY>890</locationY>
         <defaultConnector>
             <targetReference>Get_Opportunity_Team</targetReference>
         </defaultConnector>
@@ -194,8 +338,8 @@
     <decisions>
         <name>Opportunity_Team_Exists</name>
         <label>Opportunity Team Exists?</label>
-        <locationX>380</locationX>
-        <locationY>1406</locationY>
+        <locationX>446</locationX>
+        <locationY>2114</locationY>
         <defaultConnector>
             <targetReference>Get_Entitlement</targetReference>
         </defaultConnector>
@@ -215,6 +359,13 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <elementReference>Verification_Team</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>isDirectOpp</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -326,10 +477,45 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
+        <name>Create_Case_for_Direct_Verification_Team</name>
+        <label>Create Case for Direct Verification Team</label>
+        <locationX>842</locationX>
+        <locationY>2438</locationY>
+        <connector>
+            <targetReference>Complete_Task_0</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>EntitlementId</field>
+            <value>
+                <elementReference>Get_Entitlement.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Opportunity__c</field>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>newOppOwner</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <elementReference>caseSubject</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>Create_Case_for_Opp_Owner</name>
         <label>Create Case for Opp Owner</label>
         <locationX>578</locationX>
-        <locationY>1838</locationY>
+        <locationY>2546</locationY>
         <connector>
             <targetReference>Update_Case_Owner_to_Opp_Owner</targetReference>
         </connector>
@@ -363,8 +549,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordCreates>
         <name>Create_Case_for_Running_User</name>
         <label>Create Case for Running User</label>
-        <locationX>842</locationX>
-        <locationY>1838</locationY>
+        <locationX>314</locationX>
+        <locationY>2546</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
         </connector>
@@ -398,8 +584,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordCreates>
         <name>Create_Case_for_Verification</name>
         <label>Create Case for Verification</label>
-        <locationX>314</locationX>
-        <locationY>1730</locationY>
+        <locationX>1106</locationX>
+        <locationY>2438</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
         </connector>
@@ -439,8 +625,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Co_Applicant_Docs</name>
         <label>Get Co Applicant Docs</label>
-        <locationX>380</locationX>
-        <locationY>674</locationY>
+        <locationX>446</locationX>
+        <locationY>782</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Existing_Co_Applicant</targetReference>
@@ -474,8 +660,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Entitlement</name>
         <label>Get Entitlement</label>
-        <locationX>710</locationX>
-        <locationY>1514</locationY>
+        <locationX>842</locationX>
+        <locationY>2222</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Verification_to_who</targetReference>
@@ -495,8 +681,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Latest_Open_Task</name>
         <label>Get Latest Open Task</label>
-        <locationX>380</locationX>
-        <locationY>242</locationY>
+        <locationX>446</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Verification_BLG_Workflow</targetReference>
@@ -525,8 +711,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Loan_Application_WU_0</name>
         <label>Get Loan Application WU</label>
-        <locationX>248</locationX>
-        <locationY>890</locationY>
+        <locationX>314</locationX>
+        <locationY>998</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>ManageApplicant_0_0</targetReference>
@@ -546,8 +732,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Main_Applicant_Docs</name>
         <label>Get Main Applicant Docs</label>
-        <locationX>380</locationX>
-        <locationY>566</locationY>
+        <locationX>446</locationX>
+        <locationY>674</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Co_Applicant_Docs</targetReference>
@@ -572,13 +758,34 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Opportunity</name>
-        <label>Get Opportunity</label>
-        <locationX>380</locationX>
-        <locationY>134</locationY>
+        <name>Get_Opp_Owner</name>
+        <label>Get Opp Owner</label>
+        <locationX>446</locationX>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Latest_Open_Task</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity.OwnerId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>User</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Opportunity</name>
+        <label>Get Opportunity</label>
+        <locationX>446</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Opp_Owner</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -595,8 +802,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Opportunity_Team</name>
         <label>Get Opportunity Team</label>
-        <locationX>380</locationX>
-        <locationY>1190</locationY>
+        <locationX>446</locationX>
+        <locationY>1298</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>selectVerification</targetReference>
@@ -616,8 +823,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Verification_BLG_Workflow</name>
         <label>Get Verification BLG Workflow</label>
-        <locationX>380</locationX>
-        <locationY>350</locationY>
+        <locationX>446</locationX>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Heading</targetReference>
@@ -637,8 +844,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Complete_Task_0</name>
         <label>Complete Task</label>
-        <locationX>710</locationX>
-        <locationY>2138</locationY>
+        <locationX>842</locationX>
+        <locationY>2846</locationY>
         <connector>
             <targetReference>Update_Opportunity_Dependancies_0_0_0_0_0_0_0_0</targetReference>
         </connector>
@@ -667,8 +874,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_Applicant_Verification</name>
         <label>Update Applicant Verification</label>
-        <locationX>710</locationX>
-        <locationY>2354</locationY>
+        <locationX>842</locationX>
+        <locationY>3062</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -689,7 +896,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>Update_Case_Owner_to_Opp_Owner</name>
         <label>Update Case Owner to Opp Owner</label>
         <locationX>578</locationX>
-        <locationY>1946</locationY>
+        <locationY>2654</locationY>
         <connector>
             <targetReference>Complete_Task_0</targetReference>
         </connector>
@@ -712,8 +919,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_Opportunity_Dependancies_0_0_0_0_0_0_0_0</name>
         <label>Update Opportunity Dependancies</label>
-        <locationX>710</locationX>
-        <locationY>2246</locationY>
+        <locationX>842</locationX>
+        <locationY>2954</locationY>
         <connector>
             <targetReference>Update_Applicant_Verification</targetReference>
         </connector>
@@ -757,17 +964,17 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
-    <runInMode>DefaultMode</runInMode>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>selectVerification</name>
         <label>selectVerification</label>
-        <locationX>380</locationX>
-        <locationY>1298</locationY>
+        <locationX>446</locationX>
+        <locationY>1406</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Opportunity_Team_Exists</targetReference>
+            <targetReference>Direct_Opportunity</targetReference>
         </connector>
         <fields>
             <name>verAssign</name>
@@ -815,12 +1022,27 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
                 </conditions>
             </visibilityRule>
         </fields>
+        <fields>
+            <name>reassignFailed</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;No members available from the Pre Approval Verification team, please select another option.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>apexFailed</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
         <nextOrFinishButtonLabel>Assign Verification</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>254</locationX>
+        <locationX>320</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Opportunity</targetReference>
@@ -830,8 +1052,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <subflows>
         <name>ManageApplicant_0_0</name>
         <label>Manage Applicants</label>
-        <locationX>248</locationX>
-        <locationY>998</locationY>
+        <locationX>314</locationX>
+        <locationY>1106</locationY>
         <connector>
             <targetReference>Get_Opportunity_Team</targetReference>
         </connector>
@@ -852,6 +1074,23 @@ Sent To: {!applicantFullName}
 Sent From: @[{!$User.Id}]
 Sent Date: {!sentTime}</text>
     </textTemplates>
+    <variables>
+        <name>apexError</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>apexFailed</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
     <variables>
         <name>blankCallBack</name>
         <dataType>Boolean</dataType>
@@ -960,6 +1199,16 @@ Sent Date: {!sentTime}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>isDirectOpp</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
         <name>isManualSLA</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
@@ -1001,6 +1250,13 @@ Sent Date: {!sentTime}</text>
     </variables>
     <variables>
         <name>newGeneralOppVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>newOppOwner</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>

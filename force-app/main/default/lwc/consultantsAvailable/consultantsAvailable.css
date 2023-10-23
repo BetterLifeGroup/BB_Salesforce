@@ -1,0 +1,8 @@
+/**
+ * Created by frans fourie on 2023/10/03.
+ */
+
+.progress-ring {
+    transform: scale(3);
+    position: absolute
+}
