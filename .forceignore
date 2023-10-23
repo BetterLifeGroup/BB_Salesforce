@@ -109,7 +109,6 @@ Bond_Opportunity_Assigned_OTPs_hK8.report
 
 *.apexEmailNotifications
 createTestData.ApexClass
-*.namedCredential
 
 # LWC configuration files
 **/jsconfig.json
