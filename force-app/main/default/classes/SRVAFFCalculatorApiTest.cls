@@ -252,6 +252,8 @@ private class SRVAFFCalculatorApiTest {
         res.setBody(JSON.serialize(SRVAFFAffordabilityRequestModel.getExample()));
         Test.setMock(HttpCalloutMock.class, new OASResponseMock(res));
 
+        SRVAFFPreapprovalController.GetAffordability(10,12,12,12);
+
         SRVAFFAffordabilityRequestModel req = new SRVAFFAffordabilityRequestModel();
 
         req.grossMonthlyIncome = 70000;
