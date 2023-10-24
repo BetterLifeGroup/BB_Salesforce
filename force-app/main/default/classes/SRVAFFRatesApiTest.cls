@@ -244,6 +244,7 @@ private class SRVAFFRatesApiTest {
         HttpResponse res = new HttpResponse();
         res.setStatusCode(200);
         res.setStatus('OK');
+        res.setBody('10');
         Test.setMock(HttpCalloutMock.class, new OASResponseMock(res));
 
         SRVAFFClient client;
@@ -260,6 +261,8 @@ private class SRVAFFRatesApiTest {
         client = new SRVAFFClient();
         api = new SRVAFFRatesApi(client);
         ((OAS.ApiKeyAuth)client.getAuthentication('apiKeyQuery')).setApiKey('foo-bar-api-key');
+
+        SRVAFFPreapprovalController.GetInterestRate();
 
         api.getGetinterestrate();
     }
