@@ -175,12 +175,6 @@ public with sharing class SRVAFFPreapprovalController {
             return 'error' + ca.Domain_Failure_Reason__c;
         }
 
-//        try {
-//            ContentVersion cv = [SELECT Id, ContentSize, FileType, VersionData, ContentDocumentId, FirstPublishLocationId FROM ContentVersion WHERE FirstPublishLocationId = :opportunityId AND Title LIKE '%Preapproval%' LIMIT 1];
-//            ContentDocument cd = [SELECT Id FROM ContentDocument WHERE Id = :cv.ContentDocumentId LIMIT 1];
-//            delete cd;
-//        } catch (Exception e) {
-//        }
         try {
             if (base64String != null) {
 
@@ -191,7 +185,6 @@ public with sharing class SRVAFFPreapprovalController {
                     affordabilityAmount = 2211;
                 }
                 update new Opportunity(Id = opportunityId, Wrap_Up_Reason__c = 'Automated', Affordability_Amount__c = affordabilityAmount);
-                System.debug('2');
 
                 Datetime dt = System.Datetime.now();
                 ContentVersion newCV = new ContentVersion();
@@ -201,9 +194,6 @@ public with sharing class SRVAFFPreapprovalController {
                 newCV.PathOnClient = 'preapproval.pdf';
 
                 insert newCV;
-
-
-            } else {
 
             }
 
