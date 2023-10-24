@@ -31,21 +31,21 @@ public class SRVAFFRatesApi {
      * @return SRVAFFVersionVm
      * @throws OAS.ApiException if fails to make API call
      */
-    public SRVAFFVersionVm getGetdataversion() {
-        List<OAS.Param> query = new List<OAS.Param>();
-        List<OAS.Param> form = new List<OAS.Param>();
-
-        return (SRVAFFVersionVm) client.invoke(
-            'GET', '/getDataVersion', '',
-            query, form,
-            new Map<String, Object>(),
-            new Map<String, Object>(),
-            new List<String>{ 'application/json;odata.metadata&#x3D;minimal;odata.streaming&#x3D;true', 'application/json;odata.metadata&#x3D;minimal;odata.streaming&#x3D;false', 'application/json;odata.metadata&#x3D;minimal', 'application/json;odata.metadata&#x3D;full;odata.streaming&#x3D;true', 'application/json;odata.metadata&#x3D;full;odata.streaming&#x3D;false', 'application/json;odata.metadata&#x3D;full', 'application/json;odata.metadata&#x3D;none;odata.streaming&#x3D;true', 'application/json;odata.metadata&#x3D;none;odata.streaming&#x3D;false', 'application/json;odata.metadata&#x3D;none', 'application/json;odata.streaming&#x3D;true', 'application/json;odata.streaming&#x3D;false', 'application/json', 'application/xml', 'text/plain', 'application/octet-stream', 'text/json' },
-            new List<String>(),
-            new List<String> { 'apiKeyHeader', 'apiKeyQuery' },
-            SRVAFFVersionVm.class
-        );
-    }
+//    public SRVAFFVersionVm getGetdataversion() {
+//        List<OAS.Param> query = new List<OAS.Param>();
+//        List<OAS.Param> form = new List<OAS.Param>();
+//
+//        return (SRVAFFVersionVm) client.invoke(
+//            'GET', '/getDataVersion', '',
+//            query, form,
+//            new Map<String, Object>(),
+//            new Map<String, Object>(),
+//            new List<String>{ 'application/json;odata.metadata&#x3D;minimal;odata.streaming&#x3D;true', 'application/json;odata.metadata&#x3D;minimal;odata.streaming&#x3D;false', 'application/json;odata.metadata&#x3D;minimal', 'application/json;odata.metadata&#x3D;full;odata.streaming&#x3D;true', 'application/json;odata.metadata&#x3D;full;odata.streaming&#x3D;false', 'application/json;odata.metadata&#x3D;full', 'application/json;odata.metadata&#x3D;none;odata.streaming&#x3D;true', 'application/json;odata.metadata&#x3D;none;odata.streaming&#x3D;false', 'application/json;odata.metadata&#x3D;none', 'application/json;odata.streaming&#x3D;true', 'application/json;odata.streaming&#x3D;false', 'application/json', 'application/xml', 'text/plain', 'application/octet-stream', 'text/json' },
+//            new List<String>(),
+//            new List<String> { 'apiKeyHeader', 'apiKeyQuery' },
+//            SRVAFFVersionVm.class
+//        );
+//    }
     /**
      * get latest interest rate
      * get latest interest rate
