@@ -167,11 +167,11 @@ public class OAS {
             System.debug(code);
             System.debug(res.getBody());
             Boolean isFailure = code / 100 != 2;
+//            System.debug('**********' + toReturnValue(res.getBody(), returnType, res.getHeader('Content-Type')));
             if (isFailure) {
                 System.debug('Error originated here');
                 throw new ApiException(code, res.getStatus(), getHeaders(res), res.getBody());
             } else if (returnType != null) {
-//                System.debug('**********' + toReturnValue(res.getBody(), returnType, res.getHeader('Content-Type')));
                 return toReturnValue(res.getBody(), returnType, res.getHeader('Content-Type'));
             }
             return null;
