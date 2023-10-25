@@ -56,31 +56,6 @@
         </connector>
     </assignments>
     <decisions>
-        <name>decision_Is_User_Team_Lead</name>
-        <label>Is User Team Lead?</label>
-        <locationX>802</locationX>
-        <locationY>296</locationY>
-        <defaultConnector>
-            <targetReference>screen_Error_Not_Team_Lead</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
-        <rules>
-            <name>User_is_Team_Lead</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$User.ProfileId</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <elementReference>var_Profile_Team_Lead</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_BB_Campaign</targetReference>
-            </connector>
-            <label>User is Team Lead</label>
-        </rules>
-    </decisions>
-    <decisions>
         <name>Does_BB_Campaign_Exist</name>
         <label>Does BB Campaign Exist</label>
         <locationX>524</locationX>
@@ -294,22 +269,6 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>screen_Error_Not_Team_Lead</name>
-        <label>Error: Not Team Lead</label>
-        <locationX>1096</locationX>
-        <locationY>290</locationY>
-        <allowBack>true</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
-        <fields>
-            <name>text_Error_Note_team_Lead</name>
-            <fieldText>&lt;p&gt;Unfortunately, you don&apos;t have the necessary permissions to use this function&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
         <name>Send_Link_Button</name>
         <label>Send Link Button</label>
         <locationX>227</locationX>
@@ -333,7 +292,7 @@
         <locationX>684</locationX>
         <locationY>48</locationY>
         <connector>
-            <targetReference>decision_Is_User_Team_Lead</targetReference>
+            <targetReference>Get_BB_Campaign</targetReference>
         </connector>
     </start>
     <status>Active</status>
