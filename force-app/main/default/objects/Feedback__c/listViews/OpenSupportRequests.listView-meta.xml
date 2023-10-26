@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OpenSupportRequests</fullName>
+    <columns>NAME</columns>
+    <columns>Type__c</columns>
+    <columns>Assigned_To_User__c</columns>
+    <columns>Priority__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>TicketResolved__c</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>Resolution__c</field>
+        <operation>notEqual</operation>
+        <value>Resolved by User Training,Unable to Resolve,Platform Restriction,Code Fix,External Limitation,Resolved by System Administrator</value>
+    </filters>
+    <label>Open Support Requests</label>
+</ListView>

@@ -63,6 +63,8 @@ public class Invocable_AllocateOpportunityTest {
     @IsTest
     public static void allocateOpportunityTestNegative() {
 
+        delete [SELECT Id FROM Opportunity WHERE OwnerId IN :[SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1]];
+
         CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup LIMIT 1];
         System.debug('collGroup' + collGroup);
 
@@ -86,7 +88,45 @@ public class Invocable_AllocateOpportunityTest {
     @IsTest
     public static void allocateOpportunityTestPositive() {
 
+        delete [SELECT Id FROM Opportunity WHERE OwnerId IN :[SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1]];
+
         CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup WHERE Name = 'Opportunity Team' LIMIT 1];
+        System.debug('collGroup' + collGroup);
+
+        Invocable_AllocateOpportunity.Request req = new Invocable_AllocateOpportunity.Request();
+        req.opportunityGroup = collGroup.Name;
+
+        List<Invocable_AllocateOpportunity.Request> reqList = new List<Invocable_AllocateOpportunity.Request>();
+        reqList.add(req);
+
+        Test.startTest();
+        List<Invocable_AllocateOpportunity.Result> result = Invocable_AllocateOpportunity.allocateOpportunity(reqList);
+        Test.stopTest();
+
+        System.debug('collGroup' + collGroup);
+        System.debug('req' + req);
+        System.debug('reqList' + reqList);
+        // System.debug('result' + result);
+
+    }
+
+    @IsTest
+    public static void allocateOpportunityTestPositiveWithOpps() {
+
+        CollaborationGroup collGroup = [SELECT Id, Name FROM CollaborationGroup WHERE Name = 'Opportunity Team' LIMIT 1];
+
+        User u = [SELECT Id FROM User WHERE LastName = 'Testing' LIMIT 1];
+
+        Opportunity opp = new Opportunity(Name='Test',OwnerId=u.Id,CloseDate=Date.newInstance(2020,02,02),StageName = 'New');
+        insert opp;
+
+        User u2 = [SELECT Id FROM User WHERE LastName = 'Testing2' LIMIT 1];
+
+        Opportunity opp2 = new Opportunity(Name='Test2',OwnerId=u2.Id,CloseDate=Date.newInstance(2020,02,02),StageName = 'New');
+        insert opp2;
+
+//        Opportunity opp3 = new Opportunity(Name='Test3',CloseDate=Date.newInstance(2020,02,02),StageName = 'New');
+//        insert opp3;
         System.debug('collGroup' + collGroup);
 
         Invocable_AllocateOpportunity.Request req = new Invocable_AllocateOpportunity.Request();
