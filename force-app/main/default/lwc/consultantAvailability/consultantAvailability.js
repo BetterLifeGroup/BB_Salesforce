@@ -274,7 +274,7 @@ export default class ConsultantAvailability extends LightningElement {
         return this.openOpps.map(oo => ({
             label: oo.Name + ' - ' + oo.Consultant_Region_Name__c,
             value: oo.Id,
-            campaignName: oo.BLG_Campaign__r.Name,
+            campaignName: oo.BLG_Campaign__r?.Name ? oo.BLG_Campaign__r?.Name : 'No Campaign',
             oppStatus: oo.Status__c,
             oppStage: oo.StageName,
             oppDate: oo.SLA_Deadline__c
@@ -466,7 +466,7 @@ export default class ConsultantAvailability extends LightningElement {
         });
 
         // Extract unique regions from openOpps
-        this.uniqueCampaigns = Array.from(new Set(this.openOpps.map(oo => oo.BLG_Campaign__r.Name)));
+        this.uniqueCampaigns = Array.from(new Set(this.openOpps.map(oo => oo?.BLG_Campaign__r?.Name ? oo?.BLG_Campaign__r?.Name : 'No Campaign')));
         this.uniqueCampaigns = this.uniqueCampaigns.map(uq => ({
             label: uq,
             value: uq
