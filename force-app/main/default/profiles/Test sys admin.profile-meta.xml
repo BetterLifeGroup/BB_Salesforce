@@ -4386,10 +4386,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Network%2FAgency%2FBranch Layout</layout>
-        <recordType>Account.Real_Estate_Agency</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Network%2FAgency%2FBranch Layout</layout>
         <recordType>Account.Real_Estate_Branch</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -4466,9 +4462,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Quote-Quote Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Account Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Network%2FAgency%2FBranch Layout</layout>
