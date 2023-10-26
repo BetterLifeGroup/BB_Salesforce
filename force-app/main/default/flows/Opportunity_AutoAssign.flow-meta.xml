@@ -1,62 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <actionCalls>
-        <name>IsWithin</name>
-        <label>IsWithin</label>
-        <locationX>776</locationX>
-        <locationY>411</locationY>
-        <actionName>DateTimeUtility</actionName>
-        <actionType>apex</actionType>
-        <connector>
-            <targetReference>Check_Hours</targetReference>
-        </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>methodName</name>
-            <value>
-                <stringValue>BusinessHours.isWithin</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>businessHoursName</name>
-            <value>
-                <stringValue>Default</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>dateTimeString</name>
-            <value>
-                <elementReference>form_input_time</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>DateTimeUtility</nameSegment>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-        <versionSegment>1</versionSegment>
-    </actionCalls>
     <apiVersion>54.0</apiVersion>
     <decisions>
-        <name>Check_Hours</name>
-        <label>Check Hours</label>
-        <locationX>768</locationX>
-        <locationY>540</locationY>
-        <defaultConnectorLabel>Outside Business Hours</defaultConnectorLabel>
+        <name>To_Round_Robin</name>
+        <label>To Round Robin</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Or Not To Round Robin</defaultConnectorLabel>
         <rules>
-            <name>Is_During_Business_Hours</name>
-            <conditionLogic>and</conditionLogic>
+            <name>Round_Robin</name>
+            <conditionLogic>(1 AND 2)OR 3</conditionLogic>
             <conditions>
-                <leftValueReference>IsWithin.result</leftValueReference>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <booleanValue>true</booleanValue>
+                    <stringValue>General Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Campaign_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Create lead/manual</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.automationMessage__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Reassign</stringValue>
                 </rightValue>
             </conditions>
             <connector>
                 <targetReference>Opportunity_Assign_Owner</targetReference>
             </connector>
-            <label>Is During Business Hours</label>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Round Robin</label>
         </rules>
     </decisions>
-    <description>FBK: Use campaign type to filter entry</description>
+    <description>FF 10Oct: Exclude Duplicate Opportunities from trigger</description>
     <environments>Default</environments>
     <formulas>
         <description>now + SLA</description>
@@ -75,7 +57,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -85,30 +67,38 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <start>
-        <locationX>650</locationX>
-        <locationY>48</locationY>
-        <connector>
-            <targetReference>IsWithin</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Campaign_Type__c</field>
-            <operator>NotEqualTo</operator>
+    <recordUpdates>
+        <name>Clear_Automation_Message</name>
+        <label>Clear Automation Message</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>automationMessage__c</field>
             <value>
-                <stringValue>Create lead/manual</stringValue>
+                <stringValue></stringValue>
             </value>
-        </filters>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>To_Round_Robin</targetReference>
+        </connector>
         <object>Opportunity</object>
-        <recordTriggerType>Create</recordTriggerType>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
     <subflows>
         <name>Opportunity_Assign_Owner</name>
         <label>Opportunity Assign Owner</label>
-        <locationX>777</locationX>
-        <locationY>718</locationY>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>Clear_Automation_Message</targetReference>
+        </connector>
         <flowName>Opportunity_Assign_Owner</flowName>
         <inputAssignments>
             <name>blgCampaignId</name>
