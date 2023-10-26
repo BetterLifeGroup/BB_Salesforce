@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Full_View</fullName>
+    <columns>MasterLabel</columns>
+    <columns>Parameter_Classifier__c</columns>
+    <columns>Parameter_Value__c</columns>
+    <columns>Domain__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>Full View</label>
+</ListView>
