@@ -1443,21 +1443,6 @@
         </defaultConnector>
         <defaultConnectorLabel>Not COP</defaultConnectorLabel>
         <rules>
-            <name>Relate_the_new_COP_Applicant</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>marriedCOPAppRequired</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Reciprocal_Role_Spouse</targetReference>
-            </connector>
-            <label>Relate the new COP Applicant</label>
-        </rules>
-        <rules>
             <name>Main_COP_Required_True</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -1471,6 +1456,21 @@
                 <targetReference>Get_Reciprocal_Role</targetReference>
             </connector>
             <label>Main COP Required True</label>
+        </rules>
+        <rules>
+            <name>Relate_the_new_COP_Applicant</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>marriedCOPAppRequired</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Reciprocal_Role_Spouse</targetReference>
+            </connector>
+            <label>Relate the new COP Applicant</label>
         </rules>
         <rules>
             <name>Co_Applicant_COP</name>
@@ -1627,7 +1627,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
         <name>Create_Contact_to_Contact_Relationship_0</name>
         <label>Create Contact to Contact Relationship</label>
         <locationX>1683</locationX>
-        <locationY>4328</locationY>
+        <locationY>4329</locationY>
         <connector>
             <targetReference>Update_Co_Applicant_Questions</targetReference>
         </connector>
