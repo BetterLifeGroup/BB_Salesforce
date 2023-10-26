@@ -390,21 +390,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__SourceSystemId__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.FinServ__Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Account.FinServ__TimeHorizon__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Account.FinServ__TotalAUMJointOwner__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -2421,6 +2406,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.unregisteredAgentMobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Block_Deactivation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
