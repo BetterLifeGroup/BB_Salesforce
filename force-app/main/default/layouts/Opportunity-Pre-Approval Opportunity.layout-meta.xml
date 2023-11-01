@@ -268,6 +268,11 @@
     </layoutSections>
     <platformActionList>
         <actionListContext>Record</actionListContext>
+        <platformActionListItems>
+            <actionName>FeedItem.TextPost</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
@@ -295,13 +300,6 @@
             <quickActionName>SendEmail</quickActionName>
         </quickActionListItems>
     </quickActionList>
-    <relatedContent>
-        <relatedContentItems>
-            <layoutItem>
-                <component>wits:newsPanel</component>
-            </layoutItem>
-        </relatedContentItems>
-    </relatedContent>
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
