@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Send_Email</name>
         <label>Send Email</label>
-        <locationX>51</locationX>
-        <locationY>807</locationY>
+        <locationX>311</locationX>
+        <locationY>673</locationY>
         <actionName>emailSimple</actionName>
         <actionType>emailSimple</actionType>
         <connector>
@@ -20,7 +20,7 @@
         <inputParameters>
             <name>emailSubject</name>
             <value>
-                <stringValue>Updated: BB Lead Credentials</stringValue>
+                <stringValue>Updated: BetterBond Lead Credentials</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -42,8 +42,8 @@
     <assignments>
         <name>Assignment_Recipient_Email_Adress</name>
         <label>Assignment: Recipient Email Adress</label>
-        <locationX>52</locationX>
-        <locationY>656</locationY>
+        <locationX>310</locationX>
+        <locationY>390</locationY>
         <assignmentItems>
             <assignToReference>var_Recepient_Email_Address</assignToReference>
             <operator>Assign</operator>
@@ -52,14 +52,17 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Send_Email</targetReference>
+            <targetReference>Send_Link_Button</targetReference>
         </connector>
     </assignments>
     <decisions>
         <name>Does_BB_Campaign_Exist</name>
         <label>Does BB Campaign Exist</label>
-        <locationX>524</locationX>
-        <locationY>398</locationY>
+        <locationX>646</locationX>
+        <locationY>242</locationY>
+        <defaultConnector>
+            <targetReference>screen_Error_BB_Campaign_Null</targetReference>
+        </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>BB_Campaign_Exists</name>
@@ -95,17 +98,17 @@
     <decisions>
         <name>Does_CampaignContact_Exist</name>
         <label>Does CampaignContact Exist?</label>
-        <locationX>219</locationX>
-        <locationY>658</locationY>
+        <locationX>492</locationX>
+        <locationY>389</locationY>
         <defaultConnector>
-            <targetReference>screen_Error_BB_Campaign_Null</targetReference>
+            <targetReference>screen_Error_CampaignContact_not_found</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>CampaignContact_Exists</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_CampaignContact.Id</leftValueReference>
+                <leftValueReference>Get_BB_Campaign.CampaignContact__r.Id</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -120,7 +123,7 @@
             <name>CampaignContact_is_Null</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_CampaignContact.Id</leftValueReference>
+                <leftValueReference>Get_BB_Campaign.CampaignContact__r.Id</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -132,6 +135,9 @@
             <label>CampaignContact is Null</label>
         </rules>
     </decisions>
+    <description>Triggered on BB (BetterBond) Campaign record page when Send External Link quick action button gets clicked.
+
+This flow send an email with the credentials for External Sources. The fields are on the  BB Campaign object as well as the CampaignContact object. The date of whe nthe email was last sent gets updated every time the button is clicked.</description>
     <environments>Default</environments>
     <interviewLabel>Send Link to External Sources {!$Flow.CurrentDateTime}</interviewLabel>
     <label>BB Campaign Send Link to External Sources</label>
@@ -157,8 +163,8 @@
     <recordLookups>
         <name>Get_BB_Campaign</name>
         <label>Get BB Campaign</label>
-        <locationX>524</locationX>
-        <locationY>290</locationY>
+        <locationX>810</locationX>
+        <locationY>240</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Does_BB_Campaign_Exist</targetReference>
@@ -178,11 +184,11 @@
     <recordLookups>
         <name>Get_CampaignContact</name>
         <label>Get CampaignContact</label>
-        <locationX>227</locationX>
-        <locationY>397</locationY>
+        <locationX>499</locationX>
+        <locationY>243</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Send_Link_Button</targetReference>
+            <targetReference>Does_CampaignContact_Exist</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -199,8 +205,8 @@
     <recordUpdates>
         <name>Update_Last_Sent_Date</name>
         <label>Update Last Sent Date</label>
-        <locationX>51</locationX>
-        <locationY>937</locationY>
+        <locationX>313</locationX>
+        <locationY>805</locationY>
         <connector>
             <targetReference>Email_sent</targetReference>
         </connector>
@@ -223,8 +229,8 @@
     <screens>
         <name>Email_sent</name>
         <label>Email sent</label>
-        <locationX>50</locationX>
-        <locationY>1071</locationY>
+        <locationX>178</locationX>
+        <locationY>805</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -239,8 +245,8 @@
     <screens>
         <name>screen_Error_BB_Campaign_Null</name>
         <label>screen Error BB Campaign is Null</label>
-        <locationX>534</locationX>
-        <locationY>647</locationY>
+        <locationX>656</locationX>
+        <locationY>381</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -255,8 +261,8 @@
     <screens>
         <name>screen_Error_CampaignContact_not_found</name>
         <label>screen Error CampaignContact not found</label>
-        <locationX>224</locationX>
-        <locationY>812</locationY>
+        <locationX>504</locationX>
+        <locationY>535</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -271,17 +277,17 @@
     <screens>
         <name>Send_Link_Button</name>
         <label>Send Link Button</label>
-        <locationX>227</locationX>
-        <locationY>522</locationY>
+        <locationX>309</locationX>
+        <locationY>540</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Does_CampaignContact_Exist</targetReference>
+            <targetReference>Send_Email</targetReference>
         </connector>
         <fields>
             <name>text_Info_About_Button</name>
-            <fieldText>&lt;p&gt;Clicking send button will send the information that allows an external source to send us leads.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The button was previosly lasts sent on:&lt;/p&gt;&lt;p&gt;{!Get_CampaignContact.Last_sent__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!Get_BB_Campaign.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Reciever: {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Email: {!Get_CampaignContact.Contact__r.Email}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;The External Source credentials were lasts sent on:&lt;/p&gt;&lt;p&gt;{!Get_CampaignContact.Last_sent__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Clicking the Send Email button will send the External Source credentials.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!Get_BB_Campaign.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Reciever: {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Email: {!Get_CampaignContact.Contact__r.Email}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Send Email</nextOrFinishButtonLabel>
@@ -299,7 +305,7 @@
     <textTemplates>
         <name>text_temp_Email_Body</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;&lt;img src=&quot;https://betterbondsa--bbdev2.sandbox.file.force.com/sfc/servlet.shepherd/version/download/0682z000001dXja?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;logo.jpg&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Good day,&lt;/span&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt; {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;Kindly find the updated credentials:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Certifiacte:&lt;/strong&gt; {!Get_CampaignContact.Cetificate__c}{!Get_CampaignContact}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client_Id: &lt;/strong&gt;{!Get_CampaignContact.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key:&lt;/strong&gt; {!Get_CampaignContact.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key:&lt;/strong&gt; H438G98-H43KV82H8V2FD3-VBH4898492VH&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key:&lt;/strong&gt; Formula (From BB Campaign)&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json:&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;		&quot;aggregateObj&quot; : {&lt;/p&gt;&lt;p&gt;			&quot;@type&quot; : &quot;ExampleObj&quot;&lt;/p&gt;&lt;p&gt;			&quot;nameHead&quot; : Christopher,&lt;/p&gt;&lt;p&gt;		}&lt;/p&gt;</text>
+        <text>&lt;p&gt;&lt;img src=&quot;https://betterbondsa--bbdev2.sandbox.file.force.com/sfc/servlet.shepherd/version/download/0682z000001dXja?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;logo.jpg&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Good day,&lt;/span&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt; {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;Kindly find the updated credentials:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;b style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;Certificate&lt;/b&gt;&lt;strong&gt;:&lt;/strong&gt; {!Get_CampaignContact.Cetificate__c}{!Get_CampaignContact}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!Get_CampaignContact.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key:&lt;/strong&gt; {!Get_CampaignContact.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key:&lt;/strong&gt; {!Get_BB_Campaign.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json:&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;		&quot;aggregateObj&quot; : {&lt;/p&gt;&lt;p&gt;			&quot;@type&quot; : &quot;ExampleObj&quot;&lt;/p&gt;&lt;p&gt;			&quot;nameHead&quot; : Christopher,&lt;/p&gt;&lt;p&gt;		}&lt;/p&gt;</text>
     </textTemplates>
     <variables>
         <name>recordId</name>
