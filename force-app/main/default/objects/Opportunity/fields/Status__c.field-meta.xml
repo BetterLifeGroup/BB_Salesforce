@@ -339,6 +339,11 @@
                 <label>PA not issued - Documents</label>
             </value>
             <value>
+                <fullName>PA not issued - Converted to Bond</fullName>
+                <default>false</default>
+                <label>PA not issued - Converted to Bond</label>
+            </value>
+            <value>
                 <fullName>PA Issued - awaiting OTP</fullName>
                 <default>false</default>
                 <label>PA Issued - awaiting OTP</label>
@@ -796,6 +801,11 @@
         <valueSettings>
             <controllingFieldValue>Closed Lost</controllingFieldValue>
             <valueName>Poor credit</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Closed Lost</controllingFieldValue>
+            <controllingFieldValue>Closed Won</controllingFieldValue>
+            <valueName>PA not issued - Converted to Bond</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Closed Lost</controllingFieldValue>
