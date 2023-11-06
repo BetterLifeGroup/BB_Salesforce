@@ -1,14 +1,14 @@
 /**
- * Created by frans fourie on 2023/06/08.
+ * Created by frans fourie on 2023/11/02.
  */
 
-public without sharing class updateOpportunity {
+public without sharing class createOpportunity {
 
     @InvocableMethod
-    public static List<Boolean> updateOpportunity(List<SObject> sObjectToUpdate) {
+    public static List<Boolean> insertOpportunity(List<SObject> sObjectToUpdate) {
         System.debug('you are here');
         try {
-            update sObjectToUpdate[0];
+            insert sObjectToUpdate[0];
             return new List<Boolean>{true};
 
         } catch (Exception e) {
@@ -18,6 +18,5 @@ public without sharing class updateOpportunity {
             return new List<Boolean>{false};
         }
     }
-
 
 }
