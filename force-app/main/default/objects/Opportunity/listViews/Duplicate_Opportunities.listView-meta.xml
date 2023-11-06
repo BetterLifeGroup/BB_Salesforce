@@ -5,7 +5,8 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
-    <columns>CORE.USERS.ALIAS</columns>
+    <columns>OPPORTUNITY.CREATED_DATE</columns>
+    <columns>Owner_Name__c</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>OPPORTUNITY.RECORDTYPE</field>

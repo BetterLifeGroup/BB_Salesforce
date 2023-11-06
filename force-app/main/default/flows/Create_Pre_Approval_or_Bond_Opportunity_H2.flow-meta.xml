@@ -81,6 +81,31 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>Update_Case_Closed</name>
+        <label>Update Case Closed</label>
+        <locationX>2172</locationX>
+        <locationY>7543</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>updateOpportunity_0_0</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Case</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_Latest_Case_0</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>updateOpportunity</name>
         <label>updateOpportunity</label>
         <locationX>387</locationX>
@@ -861,6 +886,80 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0_0_0</name>
+        <label>Assign Opp Vars Apex Action</label>
+        <locationX>1867</locationX>
+        <locationY>7551</locationY>
+        <assignmentItems>
+            <assignToReference>Get_PA_for_Close_Out_Full.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed Lost</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_PA_for_Close_Out_Full.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>No PA consent received</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_PA_for_Close_Out_Full.Wrap_Up_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Latest_Case_0.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Converted to Bond</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_Closed</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0_0_0_0</name>
+        <label>Assign Opp Vars Apex Action</label>
+        <locationX>2033</locationX>
+        <locationY>7449</locationY>
+        <assignmentItems>
+            <assignToReference>Get_PA_for_Close_Out_Full.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed Lost</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_PA_for_Close_Out_Full.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>No PA consent received</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_PA_for_Close_Out_Full.Wrap_Up_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Latest_Case_0.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Converted to Bond</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Case_Closed</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_PA_Record_Type</name>
         <label>Assign PA Record Type</label>
         <locationX>1495</locationX>
@@ -1115,7 +1214,7 @@
         <name>Recipient_Assignment</name>
         <label>Recipient Assignment</label>
         <locationX>3249</locationX>
-        <locationY>6436</locationY>
+        <locationY>6470</locationY>
         <assignmentItems>
             <assignToReference>recipientId</assignToReference>
             <operator>Assign</operator>
@@ -1413,7 +1512,7 @@
         <name>Check_PA_Status_for_Close</name>
         <label>Check PA Status for Close</label>
         <locationX>2412</locationX>
-        <locationY>6436</locationY>
+        <locationY>6435</locationY>
         <defaultConnector>
             <targetReference>Get_Created_Bond_Opp</targetReference>
         </defaultConnector>
@@ -1447,6 +1546,21 @@
                 <targetReference>Close_PA_No_Docs</targetReference>
             </connector>
             <label>Docs - Close</label>
+        </rules>
+        <rules>
+            <name>Verification_Close</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>closePAStage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Ready for Verification</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Latest_Case</targetReference>
+            </connector>
+            <label>Verification - Close</label>
         </rules>
         <rules>
             <name>In_Won_State</name>
@@ -1506,6 +1620,21 @@
                 <targetReference>Assign_Opp_Vars_Apex_Action_0_0_0_0_0</targetReference>
             </connector>
             <label>Docs - Close</label>
+        </rules>
+        <rules>
+            <name>VerificationClose</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>closePAStage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Ready for Verification</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Latest_Case_0</targetReference>
+            </connector>
+            <label>Verification - Close</label>
         </rules>
         <rules>
             <name>In_Won_State_0</name>
@@ -2043,7 +2172,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Pre_Approval_OR_Bond_Opp_0</targetReference>
+                <targetReference>Get_Betterbond_Contact_Record_Type</targetReference>
             </connector>
             <label>Manual Context</label>
         </rules>
@@ -2295,6 +2424,56 @@
                 <targetReference>Is_Foreign_Owner_0_0_0_0</targetReference>
             </connector>
             <label>Close Existing PA</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Verification_Failed</name>
+        <label>Is Verification Failed?</label>
+        <locationX>2915</locationX>
+        <locationY>6192</locationY>
+        <defaultConnector>
+            <targetReference>Close_PA_Converted_to_Bond_Lost</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Lost</defaultConnectorLabel>
+        <rules>
+            <name>Verification_Failed_Won</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Latest_Case.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Verification Failed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_PA_Converted_to_Bond_Won</targetReference>
+            </connector>
+            <label>Verification Failed - Won</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Verification_Failed_0</name>
+        <label>Is Verification Failed?</label>
+        <locationX>2015</locationX>
+        <locationY>7173</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0_0_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Lost</defaultConnectorLabel>
+        <rules>
+            <name>Verification_Failed_Won_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Latest_Case_0.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Verification Failed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Opp_Vars_Apex_Action_0_0_0_0_0_0_0_0_0</targetReference>
+            </connector>
+            <label>Verification Failed - Won</label>
         </rules>
     </decisions>
     <decisions>
@@ -3190,19 +3369,19 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <inputAssignments>
             <field>ConsultantBranch__c</field>
             <value>
-                <elementReference>Get_General_Opportunity.ConsultantBranch__c</elementReference>
+                <elementReference>Get_Running_User_Contact.Account.ParentId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>ConsultantRegion__c</field>
             <value>
-                <elementReference>Get_General_Opportunity.ConsultantRegion__c</elementReference>
+                <elementReference>Get_Running_User_Contact.Account.Parent.ParentId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>ConsultantSubBranch__c</field>
             <value>
-                <elementReference>Get_General_Opportunity.ConsultantSubBranch__c</elementReference>
+                <elementReference>Get_Running_User_Contact.AccountId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -3381,6 +3560,34 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>LoanApplicant</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Betterbond_Contact_Record_Type</name>
+        <label>Get Betterbond Contact Record Type</label>
+        <locationX>1812</locationX>
+        <locationY>3239</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Running_User_Contact</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>SobjectType</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Contact</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>BetterBond Contact</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -3604,7 +3811,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <name>Get_Custom_Notif</name>
         <label>Get Custom Notif</label>
         <locationX>3101</locationX>
-        <locationY>6436</locationY>
+        <locationY>6470</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Recipient_Assignment</targetReference>
@@ -3668,6 +3875,52 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Latest_Case</name>
+        <label>Get Latest Case</label>
+        <locationX>2699</locationX>
+        <locationY>6190</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Verification_Failed</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Opportunity__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>closePAId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Latest_Case_0</name>
+        <label>Get Latest Case</label>
+        <locationX>2023</locationX>
+        <locationY>7023</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Verification_Failed_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Opportunity__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>closePAId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -4035,6 +4288,34 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Running_User_Contact</name>
+        <label>Get Running User Contact</label>
+        <locationX>2023</locationX>
+        <locationY>3304</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Create_Pre_Approval_OR_Bond_Opp_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Consultant__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Betterbond_Contact_Record_Type.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_the_Existing_PA</name>
         <label>Get the Existing PA</label>
         <locationX>1225</locationX>
@@ -4118,6 +4399,30 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>Close_Case</name>
+        <label>Close Case</label>
+        <locationX>3291</locationX>
+        <locationY>6350</locationY>
+        <connector>
+            <targetReference>Get_Updated_PA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Converted to Bond</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
     <recordUpdates>
         <name>Close_Open_Tasks_General</name>
         <label>Close Open Tasks General</label>
@@ -4262,6 +4567,78 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             </value>
         </inputAssignments>
         <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Close_PA_Converted_to_Bond_Lost</name>
+        <label>Close PA - Converted to Bond - Lost</label>
+        <locationX>3039</locationX>
+        <locationY>6286</locationY>
+        <connector>
+            <targetReference>Close_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>closePAId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Closed Lost</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>PA not issued - Converted to Bond</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Close_PA_Converted_to_Bond_Won</name>
+        <label>Close PA - Converted to Bond - Won</label>
+        <locationX>3291</locationX>
+        <locationY>6183</locationY>
+        <connector>
+            <targetReference>Close_Case</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>closePAId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Closed Won</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>PA not issued - Converted to Bond</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
         <name>Close_PA_No_Consent</name>
@@ -5404,6 +5781,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     </defaultValue>
                     <fieldText>Do you earn additional income from:</fieldText>
                     <fieldType>MultiSelectCheckboxes</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>

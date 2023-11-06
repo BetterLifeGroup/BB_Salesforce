@@ -13,6 +13,8 @@ Sync_Applicant_Template_Selection_from_Opportunity.flow
 Consultant_Availability_Home.FlexiPage
 Consultant_Availability_App_Page.FlexiPage
 AppSwitcher.AppMenu
+consultantsUnavailable.LightningComponentBundle
+customDataTableType.LightningComponentBundle
 
 package.xml
 Opportunity_Capture_Progress.pathAssistant
@@ -64,7 +66,7 @@ ResidentialLoanApplication.OTP_Expiry_Date__c.customField
 ResidentialLoanApplication.Bond_OTP_Expiry_Date__c.customField
 Opportunity.Bond_OTP_Expiry_Date__c.customField
 ResidentialLoanApplication-Bond Application.layout
-Opportunity-Bond Opportunity.layout
+
 
 *.picklistValue
 *.ProfilePasswordPolicy
@@ -107,7 +109,6 @@ Bond_Opportunity_Assigned_OTPs_hK8.report
 
 *.apexEmailNotifications
 createTestData.ApexClass
-*.namedCredential
 
 # LWC configuration files
 **/jsconfig.json

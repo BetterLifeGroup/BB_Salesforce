@@ -157,12 +157,11 @@
         <customTabListAdditionalFields>OPPORTUNITY.NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>ACCOUNT.NAME</customTabListAdditionalFields>
         <customTabListAdditionalFields>OPPORTUNITY.CLOSE_DATE</customTabListAdditionalFields>
-        <excludedStandardButtons>NewFromDocument</excludedStandardButtons>
         <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
+        <excludedStandardButtons>NewFromDocument</excludedStandardButtons>
         <excludedStandardButtons>Import</excludedStandardButtons>
         <excludedStandardButtons>New</excludedStandardButtons>
         <excludedStandardButtons>PipelineInspection</excludedStandardButtons>
-        <excludedStandardButtons>PrintableListView</excludedStandardButtons>
         <listViewButtons>Create_Manual_Opportunity</listViewButtons>
         <lookupDialogsAdditionalFields>OPPORTUNITY.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
@@ -171,6 +170,7 @@
         <searchResultsAdditionalFields>OPPORTUNITY.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>OPPORTUNITY.STAGE_NAME</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>OPPORTUNITY.CREATED_DATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>OPPORTUNITY.LAST_UPDATE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>CORE.USERS.FULL_NAME</searchResultsAdditionalFields>
     </searchLayouts>

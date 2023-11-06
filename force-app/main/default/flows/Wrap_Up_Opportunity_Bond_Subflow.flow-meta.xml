@@ -207,6 +207,31 @@
         </outputParameters>
         <versionSegment>1</versionSegment>
     </actionCalls>
+    <actionCalls>
+        <name>Update_General_Opp_OTP_Received_Date</name>
+        <label>Update General Opp OTP Received Date</label>
+        <locationX>3080</locationX>
+        <locationY>2253</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_OTP_Received_Date_Time_Bond</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_General_Opp_Region</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>58.0</apiVersion>
     <assignments>
         <name>Add_Bond_OTP_File_to_PA</name>
@@ -432,6 +457,22 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_OTP_Received_DateTime_General</name>
+        <label>Assign OTP Received DateTime General</label>
+        <locationX>3080</locationX>
+        <locationY>2096</locationY>
+        <assignmentItems>
+            <assignToReference>Get_General_Opp_Region.OTP_Received_Date_Time__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>nowFormula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_General_Opp_OTP_Received_Date</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Wrap_Up_Comment_Var</name>
         <label>Assign Wrap Up Comment Var</label>
         <locationX>3345</locationX>
@@ -570,8 +611,8 @@
     <decisions>
         <name>Co_App_Spouse_Exist</name>
         <label>Co App Spouse Exist?</label>
-        <locationX>1925</locationX>
-        <locationY>1054</locationY>
+        <locationX>2032</locationX>
+        <locationY>1097</locationY>
         <defaultConnector>
             <targetReference>crucialChecks</targetReference>
         </defaultConnector>
@@ -580,7 +621,7 @@
             <name>Co_Spouse_Exist</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Co_App_Spouse.Id</leftValueReference>
+                <leftValueReference>Get_COP_Co_Applicant.Id</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -612,7 +653,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Recip_Spouse_Role</targetReference>
+                <targetReference>Get_COP_Co_Applicant</targetReference>
             </connector>
             <label>Main COP</label>
         </rules>
@@ -1410,44 +1451,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </processMetadataValues>
     <processType>Flow</processType>
     <recordCreates>
-        <name>Create_Contact_Relationship</name>
-        <label>Create Contact Relationship</label>
-        <locationX>1540</locationX>
-        <locationY>1052</locationY>
-        <inputAssignments>
-            <field>FinServ__Active__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>FinServ__Contact__c</field>
-            <value>
-                <elementReference>Get_Main_Applicant.ContactId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>FinServ__RelatedContact__c</field>
-            <value>
-                <elementReference>createdCoCOP</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>FinServ__Role__c</field>
-            <value>
-                <elementReference>Get_Recip_Spouse_Role.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>FinServ__StartDate__c</field>
-            <value>
-                <elementReference>todayF</elementReference>
-            </value>
-        </inputAssignments>
-        <object>FinServ__ContactContactRelation__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
-    <recordCreates>
         <name>Create_Loan_Application_Property</name>
         <label>Create Loan Application Property</label>
         <locationX>2732</locationX>
@@ -1570,27 +1573,20 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>Get_Co_App_Spouse</name>
-        <label>Get Co App Spouse</label>
-        <locationX>1933</locationX>
-        <locationY>901</locationY>
+        <name>Get_COP_Co_Applicant</name>
+        <label>Get COP Co Applicant</label>
+        <locationX>2040</locationX>
+        <locationY>900</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Co_App_Spouse_Exist</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>ContactId</field>
+            <field>SourceOpportunity__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Contact_to_Contact_Relation_Spouse.FinServ__RelatedContact__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>LoanApplicationId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Loan_Application_for_Bond.Id</elementReference>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
             </value>
         </filters>
         <filters>
@@ -1600,36 +1596,22 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <booleanValue>true</booleanValue>
             </value>
         </filters>
+        <filters>
+            <field>Is_Main_Applicant__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Marital_agreement__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Married in community of property (COP)</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>LoanApplicant</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Contact_to_Contact_Relation_Spouse</name>
-        <label>Get Contact to Contact Relation Spouse</label>
-        <locationX>2056</locationX>
-        <locationY>901</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Get_Co_App_Spouse</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>FinServ__Role__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Recip_Spouse_Role.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>FinServ__Contact__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Main_Applicant.ContactId</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>FinServ__ContactContactRelation__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -1639,7 +1621,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>2088</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_OTP_Received_Date_Time_General</targetReference>
+            <targetReference>Assign_OTP_Received_DateTime_General</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1835,27 +1817,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Get_Recip_Spouse_Role</name>
-        <label>Get Recip Spouse Role</label>
-        <locationX>2180</locationX>
-        <locationY>901</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Get_Contact_to_Contact_Relation_Spouse</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>COP Spouse</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>FinServ__ReciprocalRole__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -2177,8 +2138,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_OTP_Received_Date_Time_Bond</name>
         <label>Update OTP Received Date/Time Bond</label>
-        <locationX>2863</locationX>
-        <locationY>2218</locationY>
+        <locationX>2922</locationX>
+        <locationY>2253</locationY>
         <connector>
             <targetReference>Capture_OTP_Property_Info_Initial</targetReference>
         </connector>
@@ -2188,30 +2149,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Bond_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>OTP_Received_Date_Time__c</field>
-            <value>
-                <elementReference>nowFormula</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_OTP_Received_Date_Time_General</name>
-        <label>Update OTP Received Date/Time General</label>
-        <locationX>3019</locationX>
-        <locationY>2210</locationY>
-        <connector>
-            <targetReference>Update_OTP_Received_Date_Time_Bond</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Bond_Opportunity.General_Opportunity__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -2530,6 +2467,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </defaultValue>
             <fieldText>Call Outcome</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <fields>
@@ -2555,6 +2493,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </defaultValue>
             <fieldText>Call Back Date Time</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;You are not allowed to set the follow up prior to the current date/time.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -2593,6 +2532,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </defaultValue>
             <fieldText>Wrap Up Comment</fieldText>
             <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <fields>
@@ -2885,8 +2825,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>crucialChecks</name>
         <label>crucialChecks</label>
-        <locationX>1774</locationX>
-        <locationY>1052</locationY>
+        <locationX>1881</locationX>
+        <locationY>1095</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3152,8 +3092,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>OTP_Received_Block</name>
         <label>OTP Received - Block</label>
-        <locationX>2240</locationX>
-        <locationY>786</locationY>
+        <locationX>2243</locationX>
+        <locationY>787</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3278,6 +3218,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </defaultValue>
             <fieldText>Select Alternative OTP Source:</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -3321,6 +3262,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -3328,6 +3270,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Agency</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -3335,6 +3278,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Email</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -3342,6 +3286,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Developer Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
@@ -3360,6 +3305,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Last Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -3367,6 +3313,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Telephone</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -3374,6 +3321,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Development Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
@@ -3594,7 +3542,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Accept_or_Override_Follow_Up_H2</name>
         <label>Accept or Override Follow Up H2</label>
-        <locationX>3874</locationX>
+        <locationX>3875</locationX>
         <locationY>2365</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
@@ -3651,11 +3599,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Add_Bond_Applicants</name>
         <label>Add Bond Applicants</label>
-        <locationX>1658</locationX>
-        <locationY>1052</locationY>
-        <connector>
-            <targetReference>Create_Contact_Relationship</targetReference>
-        </connector>
+        <locationX>1765</locationX>
+        <locationY>1095</locationY>
         <flowName>Add_Bond_Applicants</flowName>
         <inputAssignments>
             <name>manageApplicant</name>
@@ -3705,8 +3650,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Manage_Applicant_Bonds</name>
         <label>Manage Applicant - Bond</label>
-        <locationX>2739</locationX>
-        <locationY>1597</locationY>
+        <locationX>2735</locationX>
+        <locationY>1575</locationY>
         <connector>
             <targetReference>OTP_Agent_Search</targetReference>
         </connector>
