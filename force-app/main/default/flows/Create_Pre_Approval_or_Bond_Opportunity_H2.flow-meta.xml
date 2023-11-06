@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionCalls>
+        <name>Create_PA_Opportunity</name>
+        <label>Create PA Opportunity</label>
+        <locationX>1807</locationX>
+        <locationY>3636</locationY>
+        <actionName>createOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_Created_PA_Opp</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>OppToCreateRecVar</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>createOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>nextStartDate</name>
         <label>nextStartDate</label>
         <locationX>1486</locationX>
@@ -8,7 +33,7 @@
         <actionName>DateTimeUtility</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Is_Manual_Opp_Create_Context</targetReference>
+            <targetReference>PA_or_Bond</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -83,12 +108,12 @@
     <actionCalls>
         <name>updateOpportunity</name>
         <label>updateOpportunity</label>
-        <locationX>387</locationX>
-        <locationY>3910</locationY>
+        <locationX>736</locationX>
+        <locationY>4055</locationY>
         <actionName>updateOpportunity</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Was_Update_Succesful</targetReference>
+            <targetReference>Does_a_PA_Opp_Exist</targetReference>
         </connector>
         <dataTypeMappings>
             <typeName>T__sObjectToUpdate</typeName>
@@ -111,8 +136,8 @@
     <actionCalls>
         <name>updateOpportunity_0</name>
         <label>updateOpportunity</label>
-        <locationX>596</locationX>
-        <locationY>4493</locationY>
+        <locationX>1042</locationX>
+        <locationY>4543</locationY>
         <actionName>updateOpportunity</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -211,6 +236,34 @@
             <name>sObjectToUpdate</name>
             <value>
                 <elementReference>Get_Bond_Create</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <outputParameters>
+            <assignToReference>outputVar</assignToReference>
+            <name>output</name>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
+        <name>updateOpportunity_0_0_0_0_0</name>
+        <label>updateOpportunity</label>
+        <locationX>1393</locationX>
+        <locationY>4110</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Create_Loan_Application</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_General_Opportunity</elementReference>
             </value>
         </inputParameters>
         <nameSegment>updateOpportunity</nameSegment>
@@ -336,6 +389,152 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Application_to_Create</name>
+        <label>Assign Application to Create</label>
+        <locationX>1657</locationX>
+        <locationY>4290</locationY>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Agency__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Agency__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Are_you_buying_your_first_home__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Assignment_DateTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>convertedAssignmentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.BLG_Campaign__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Branch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Branch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>assignmentDatePlus7</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantRegion__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantRegion__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantSubBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantSubBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Development_Agent__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Development_Agent__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.General_Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.MC_Main_applicant_email_address__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>oppNameVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Network__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Network__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Real_Estate_Agent__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Real_Estate_Agent__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordTypeVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>stageVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>statusVar</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
         <name>Assign_Bond_Record_Type</name>
         <label>Assign Bond Record Type</label>
         <locationX>736</locationX>
@@ -355,7 +554,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Is_Foreign_Owner</targetReference>
+            <targetReference>Assign_Opp_Vars_Apex_Action</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -372,31 +571,15 @@
         </assignmentItems>
     </assignments>
     <assignments>
-        <name>Assign_Created_Opp_ID</name>
+        <name>Assign_Created_Opp_ID_0_0</name>
         <label>Assign Created Opp ID</label>
-        <locationX>1630</locationX>
-        <locationY>3526</locationY>
+        <locationX>1483</locationX>
+        <locationY>3490</locationY>
         <assignmentItems>
             <assignToReference>createdOppId</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Create_Pre_Approval_OR_Bond_Opp</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Is_Opp_Type_Bond_0</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>Assign_Created_Opp_ID_0</name>
-        <label>Assign Created Opp ID</label>
-        <locationX>1924</locationX>
-        <locationY>3628</locationY>
-        <assignmentItems>
-            <assignToReference>createdOppId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Create_Pre_Approval_OR_Bond_Opp_0</elementReference>
+                <elementReference>Get_Created_PA_Opp.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -598,10 +781,387 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Opp_to_Create</name>
+        <label>Assign Opp to Create</label>
+        <locationX>1807</locationX>
+        <locationY>3338</locationY>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Agency__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Agency__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Are_you_buying_your_first_home__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Assignment_DateTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>convertedAssignmentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.BLG_Campaign__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Branch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Branch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>assignmentDatePlus7</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantRegion__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantRegion__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantSubBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantSubBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Development_Agent__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Development_Agent__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.General_Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.MC_Main_applicant_email_address__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>oppNameVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Network__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Network__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Real_Estate_Agent__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Real_Estate_Agent__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordTypeVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>stageVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>statusVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_PA_Opportunity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opp_to_Create_0</name>
+        <label>Assign Opp to Create</label>
+        <locationX>2122</locationX>
+        <locationY>3527</locationY>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Are_you_buying_your_first_home__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Assignment_DateTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>convertedAssignmentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.BLG_Campaign__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>assignmentDatePlus7</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.ConsultantBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantRegion__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.ConsultantRegion__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantSubBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.ConsultantSubBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.General_Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.MC_Main_applicant_email_address__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>oppNameVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_the_Existing_PA.OwnerId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordTypeVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>stageVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>statusVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_PA_Opportunity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opp_to_Create_0_0</name>
+        <label>Assign Opp to Create</label>
+        <locationX>2372</locationX>
+        <locationY>3644</locationY>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Are_you_buying_your_first_home__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Assignment_DateTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>convertedAssignmentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.BLG_Campaign__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>assignmentDatePlus7</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Running_User_Contact.Account.ParentId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantRegion__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Running_User_Contact.Account.Parent.ParentId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantSubBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Running_User_Contact.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.General_Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.MC_Main_applicant_email_address__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>oppNameVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordTypeVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>stageVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>statusVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_PA_Opportunity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Opp_Vars_Apex_Action</name>
         <label>Assign Opp Vars Apex Action</label>
-        <locationX>538</locationX>
-        <locationY>3910</locationY>
+        <locationX>736</locationX>
+        <locationY>3921</locationY>
         <assignmentItems>
             <assignToReference>Get_General_Opportunity.Wrap_Up_Reason__c</assignToReference>
             <operator>Assign</operator>
@@ -637,8 +1197,8 @@
     <assignments>
         <name>Assign_Opp_Vars_Apex_Action_0</name>
         <label>Assign Opp Vars Apex Action</label>
-        <locationX>596</locationX>
-        <locationY>4363</locationY>
+        <locationX>1042</locationX>
+        <locationY>4413</locationY>
         <assignmentItems>
             <assignToReference>Get_PA_Linked_to_General_Opp.Wrap_Up_Reason__c</assignToReference>
             <operator>Assign</operator>
@@ -940,7 +1500,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Relate_Pre_Approval_Opp_to_General_Opp</targetReference>
+            <targetReference>Assign_Relate_Pre_Approval_Opp_to_General_Opp</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -992,7 +1552,7 @@
     <assignments>
         <name>Assign_Record_Type</name>
         <label>Assign Record Type</label>
-        <locationX>1044</locationX>
+        <locationX>1060</locationX>
         <locationY>1130</locationY>
         <assignmentItems>
             <assignToReference>recordTypeVar</assignToReference>
@@ -1020,6 +1580,13 @@
             <operator>Assign</operator>
             <value>
                 <stringValue>Awaiting OTP</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>bondNoPAVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
         <connector>
@@ -1124,6 +1691,29 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Relate_Pre_Approval_Opp_to_General_Opp</name>
+        <label>Assign - Relate Pre-Approval Opp to General Opp</label>
+        <locationX>1353</locationX>
+        <locationY>3969</locationY>
+        <assignmentItems>
+            <assignToReference>Get_General_Opportunity.Wrap_Up_Reason__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_General_Opportunity.PreApprovalOpportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>createdOppId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>updateOpportunity_0_0_0_0_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Related_Opps</name>
         <label>Assign Related Opps</label>
         <locationX>537</locationX>
@@ -1151,6 +1741,13 @@
                 <elementReference>Get_General_Opportunity.PreApprovalOpportunity__c</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>bondPAExistVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>Get_the_Existing_PA</targetReference>
         </connector>
@@ -1159,12 +1756,19 @@
         <name>paToGetVar_0</name>
         <label>paToGetVar</label>
         <locationX>1617</locationX>
-        <locationY>1045</locationY>
+        <locationY>1044</locationY>
         <assignmentItems>
             <assignToReference>paGetVar</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>selectedPAIdVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>bondPAExistVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
         <connector>
@@ -1384,6 +1988,83 @@
                 <targetReference>Assign_Question_Var_True</targetReference>
             </connector>
             <label>Block</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Bond_Create_Checks</name>
+        <label>Bond Create Checks</label>
+        <locationX>2112</locationX>
+        <locationY>3333</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Opp_to_Create_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Bond PA Exist</defaultConnectorLabel>
+        <rules>
+            <name>Office_Admin_Bond_No_PA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Office Administrator</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>bondNoPAVar</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Opp_to_Create</targetReference>
+            </connector>
+            <label>Office Admin Bond No PA</label>
+        </rules>
+        <rules>
+            <name>Office_Admin_Bond_PA_Exist</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Profile.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Office Administrator</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Opp_to_Create_0</targetReference>
+            </connector>
+            <label>Office Admin Bond PA Exist</label>
+        </rules>
+        <rules>
+            <name>Manual_Context</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>manualContext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Betterbond_Contact_Record_Type</targetReference>
+            </connector>
+            <label>Manual Context</label>
+        </rules>
+        <rules>
+            <name>Bond_NoPA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>bondNoPAVar</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Opp_to_Create</targetReference>
+            </connector>
+            <label>Bond No PA</label>
         </rules>
     </decisions>
     <decisions>
@@ -1670,8 +2351,8 @@
     <decisions>
         <name>Does_a_PA_Opp_Exist</name>
         <label>Does a PA Opp Exist?</label>
-        <locationX>1024</locationX>
-        <locationY>4055</locationY>
+        <locationX>1031</locationX>
+        <locationY>4057</locationY>
         <defaultConnector>
             <targetReference>Create_Loan_Application</targetReference>
         </defaultConnector>
@@ -1687,7 +2368,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Is_Foreign_Owner_0</targetReference>
+                <targetReference>Get_PA_Linked_to_General_Opp</targetReference>
             </connector>
             <label>PA Opp Exists</label>
         </rules>
@@ -1845,56 +2526,6 @@
                 <targetReference>Assign_Record_Type_0_0_0</targetReference>
             </connector>
             <label>Existing PA Poor Credit</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_Foreign_Owner</name>
-        <label>Is Foreign Owner?</label>
-        <locationX>727</locationX>
-        <locationY>3913</locationY>
-        <defaultConnector>
-            <targetReference>Relate_Bond_Opp_to_General_Opp</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Owner Match</defaultConnectorLabel>
-        <rules>
-            <name>Foreign_Owner</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>foreignOwner</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Opp_Vars_Apex_Action</targetReference>
-            </connector>
-            <label>Foreign Owner</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_Foreign_Owner_0</name>
-        <label>Is Foreign Owner?</label>
-        <locationX>777</locationX>
-        <locationY>4173</locationY>
-        <defaultConnector>
-            <targetReference>Relate_Bond_Opp_to_PA_Opp</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Owner Match</defaultConnectorLabel>
-        <rules>
-            <name>Foreign_Owner_0</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>foreignOwner</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_PA_Linked_to_General_Opp</targetReference>
-            </connector>
-            <label>Foreign Owner</label>
         </rules>
     </decisions>
     <decisions>
@@ -2074,68 +2705,6 @@
                 <targetReference>Update_Bond_Repeat_Opp_Name</targetReference>
             </connector>
             <label>Repeat Bond</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>Is_Manual_Opp_Create_Context</name>
-        <label>Is Manual Opp Create Context?</label>
-        <locationX>1716</locationX>
-        <locationY>3396</locationY>
-        <defaultConnector>
-            <targetReference>Create_Pre_Approval_OR_Bond_Opp</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>PA</defaultConnectorLabel>
-        <rules>
-            <name>Office_Admin</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Profile.Name</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Office Administrator</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Create_Pre_Approval_OR_Bond_Opp</targetReference>
-            </connector>
-            <label>Office Admin</label>
-        </rules>
-        <rules>
-            <name>Bond_No_PA</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>paOrBond</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Bond</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_General_Opportunity.PreApprovalOpportunity__c</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Create_Pre_Approval_OR_Bond_Opp</targetReference>
-            </connector>
-            <label>Bond No PA</label>
-        </rules>
-        <rules>
-            <name>Manual_Context</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>manualContext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Get_Betterbond_Contact_Record_Type</targetReference>
-            </connector>
-            <label>Manual Context</label>
         </rules>
     </decisions>
     <decisions>
@@ -2518,6 +3087,31 @@
         </rules>
     </decisions>
     <decisions>
+        <name>PA_or_Bond</name>
+        <label>PA or Bond?</label>
+        <locationX>1897</locationX>
+        <locationY>3231</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Opp_to_Create</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>PA</defaultConnectorLabel>
+        <rules>
+            <name>Bond</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>paOrBond</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Bond</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Bond_Create_Checks</targetReference>
+            </connector>
+            <label>Bond</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Send_Mail_or_Finish</name>
         <label>Send Mail or Finish?</label>
         <locationX>762</locationX>
@@ -2557,11 +3151,8 @@
     <decisions>
         <name>Was_Update_Succesful</name>
         <label>Was Update Succesful?</label>
-        <locationX>379</locationX>
-        <locationY>4050</locationY>
-        <defaultConnector>
-            <targetReference>Does_a_PA_Opp_Exist</targetReference>
-        </defaultConnector>
+        <locationX>322</locationX>
+        <locationY>4107</locationY>
         <defaultConnectorLabel>Pass</defaultConnectorLabel>
         <rules>
             <name>Failed_Output_Null</name>
@@ -3158,238 +3749,6 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <object>LoanApplicant</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
-    <recordCreates>
-        <name>Create_Pre_Approval_OR_Bond_Opp</name>
-        <label>Create Pre-Approval OR Bond Opp</label>
-        <locationX>1485</locationX>
-        <locationY>3477</locationY>
-        <connector>
-            <targetReference>Assign_Created_Opp_ID</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>Get_General_Opportunity.AccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Agency__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Agency__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Are_you_buying_your_first_home__c</field>
-            <value>
-                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Assignment_DateTime__c</field>
-            <value>
-                <elementReference>convertedAssignmentDate</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BLG_Campaign__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Branch__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Branch__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>CloseDate</field>
-            <value>
-                <elementReference>assignmentDatePlus7</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantBranch__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.ConsultantBranch__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantRegion__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.ConsultantRegion__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantSubBranch__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.ConsultantSubBranch__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Development_Agent__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Development_Agent__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>General_Opportunity__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>MC_Main_applicant_email_address__c</field>
-            <value>
-                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>oppNameVar</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Network__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Network__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_General_Opportunity.OwnerId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Real_Estate_Agent__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Real_Estate_Agent__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>recordTypeVar</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <elementReference>stageVar</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <elementReference>statusVar</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
-    <recordCreates>
-        <name>Create_Pre_Approval_OR_Bond_Opp_0</name>
-        <label>Create Pre-Approval OR Bond Opp</label>
-        <locationX>1924</locationX>
-        <locationY>3397</locationY>
-        <connector>
-            <targetReference>Assign_Created_Opp_ID_0</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>Get_General_Opportunity.AccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Are_you_buying_your_first_home__c</field>
-            <value>
-                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Assignment_DateTime__c</field>
-            <value>
-                <elementReference>convertedAssignmentDate</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>BLG_Campaign__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>CloseDate</field>
-            <value>
-                <elementReference>assignmentDatePlus7</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantBranch__c</field>
-            <value>
-                <elementReference>Get_Running_User_Contact.Account.ParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantRegion__c</field>
-            <value>
-                <elementReference>Get_Running_User_Contact.Account.Parent.ParentId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>ConsultantSubBranch__c</field>
-            <value>
-                <elementReference>Get_Running_User_Contact.AccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>General_Opportunity__c</field>
-            <value>
-                <elementReference>Get_General_Opportunity.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>MC_Main_applicant_email_address__c</field>
-            <value>
-                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>oppNameVar</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>$User.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>recordTypeVar</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <elementReference>stageVar</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <elementReference>statusVar</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
     <recordLookups>
         <name>Get_All_Applicants</name>
         <label>Get All Applicants</label>
@@ -3526,8 +3885,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordLookups>
         <name>Get_Betterbond_Contact_Record_Type</name>
         <label>Get Betterbond Contact Record Type</label>
-        <locationX>1812</locationX>
-        <locationY>3239</locationY>
+        <locationX>2373</locationX>
+        <locationY>3332</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Running_User_Contact</targetReference>
@@ -3762,6 +4121,27 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             <operator>EqualTo</operator>
             <value>
                 <elementReference>createdOppId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Created_PA_Opp</name>
+        <label>Get Created PA Opp</label>
+        <locationX>1632</locationX>
+        <locationY>3490</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Created_Opp_ID_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>OppToCreateRecVar.Id</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -4160,8 +4540,8 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordLookups>
         <name>Get_PA_Linked_to_General_Opp</name>
         <label>Get PA Linked to General Opp</label>
-        <locationX>596</locationX>
-        <locationY>4215</locationY>
+        <locationX>1042</locationX>
+        <locationY>4265</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Opp_Vars_Apex_Action_0</targetReference>
@@ -4251,11 +4631,11 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordLookups>
         <name>Get_Running_User_Contact</name>
         <label>Get Running User Contact</label>
-        <locationX>2023</locationX>
-        <locationY>3304</locationY>
+        <locationX>2373</locationX>
+        <locationY>3503</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_Pre_Approval_OR_Bond_Opp_0</targetReference>
+            <targetReference>Assign_Opp_to_Create_0_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -4675,108 +5055,6 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             <field>Status__c</field>
             <value>
                 <stringValue>PA Issued - OTP received</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Relate_Bond_Opp_to_General_Opp</name>
-        <label>Relate Bond Opp to General Opp</label>
-        <locationX>1032</locationX>
-        <locationY>3908</locationY>
-        <connector>
-            <targetReference>Does_a_PA_Opp_Exist</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_General_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Bond_Opportunity__c</field>
-            <value>
-                <elementReference>createdOppId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <elementReference>genStage</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <elementReference>genStatus</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Relate_Bond_Opp_to_PA_Opp</name>
-        <label>Relate Bond Opp to PA Opp</label>
-        <locationX>986</locationX>
-        <locationY>4205</locationY>
-        <connector>
-            <targetReference>Create_Loan_Application</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_General_Opportunity.PreApprovalOpportunity__c</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Bond_Opportunity__c</field>
-            <value>
-                <elementReference>createdOppId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Relate_Pre_Approval_Opp_to_General_Opp</name>
-        <label>Relate Pre-Approval Opp to General Opp</label>
-        <locationX>1495</locationX>
-        <locationY>4075</locationY>
-        <connector>
-            <targetReference>Create_Loan_Application</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_General_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>PreApprovalOpportunity__c</field>
-            <value>
-                <elementReference>createdOppId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -5967,6 +6245,26 @@ Status: {!Get_Updated_PA.Status__c}</text>
         </value>
     </variables>
     <variables>
+        <name>bondNoPAVar</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>bondPAExistVar</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
         <name>bondQuestionsRequired</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
@@ -6092,8 +6390,23 @@ Status: {!Get_Updated_PA.Status__c}</text>
         <isOutput>false</isOutput>
     </variables>
     <variables>
+        <name>OppToCreateRecVar</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Opportunity</objectType>
+    </variables>
+    <variables>
         <name>outputVar</name>
         <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>ownerVar</name>
+        <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
