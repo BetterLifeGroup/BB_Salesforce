@@ -50,9 +50,9 @@ public without sharing class lwcLookupController {
                 ccr.add(str);
             }
 //            contactList = [SELECT Id, Name FROM Contact WHERE Id IN :ccr AND Name LIKE :searchAcc];
-            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 10];
+            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' AND Visibility__c != 'Hidden' LIMIT 10];
         } catch (Exception e) {
-            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' LIMIT 10]; // TODO - temp fix to show all and not related
+            contactList = [SELECT Id, Name FROM Contact WHERE Name LIKE :searchAcc AND RecordType.Name = 'Real Estate Agent' AND Visibility__c != 'Hidden' LIMIT 10]; // TODO - temp fix to show all and not related
             return contactList;
         }
         return contactList;
@@ -81,6 +81,9 @@ public without sharing class lwcLookupController {
 
 //            blgList = [SELECT Id, Name FROM BLG_Campaign__c WHERE (Agency__c IN :stringSet OR Branch__c IN :stringSet) AND Active__c = TRUE AND Campaign_Owner__c = :userType AND Name LIKE :searchAcc];
             blgList = [SELECT Id, Name FROM BLG_Campaign__c WHERE (Agency__c IN :stringSet OR Branch__c IN :stringSet) AND Active__c = TRUE AND Name LIKE :searchAcc];
+            if(blgList.size() == 0) {
+                blgList = [SELECT Id, Name FROM BLG_Campaign__c WHERE Active__c = TRUE AND Name LIKE :searchAcc LIMIT 10];
+            }
 //            blgList = [SELECT Id, Name FROM BLG_Campaign__c WHERE Name LIKE :searchAcc AND Active__c = TRUE LIMIT 10];
 
         } catch (Exception e) {
