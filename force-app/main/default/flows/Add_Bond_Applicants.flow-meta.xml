@@ -1806,6 +1806,12 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                 <elementReference>Get_Bond_Opp.Id</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>Get_Main_Applicant.Status__c</elementReference>
+            </value>
+        </inputAssignments>
         <object>LoanApplicant</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
@@ -2269,7 +2275,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
         <name>Get_Reciprocal_Role</name>
         <label>Get Reciprocal Role</label>
         <locationX>2043</locationX>
-        <locationY>4339</locationY>
+        <locationY>4340</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_Contact_to_Contact_Relationship</targetReference>
@@ -3051,6 +3057,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                     <dataType>String</dataType>
                     <fieldText>Do you earn additional income from:</fieldText>
                     <fieldType>MultiSelectCheckboxes</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -3275,6 +3282,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                     </defaultValue>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Only the first letter should be capital.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -3304,6 +3312,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                     </defaultValue>
                     <fieldText>Last Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -3326,6 +3335,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                     <dataType>String</dataType>
                     <fieldText>Phone</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid phone number.&lt;/p&gt;</errorMessage>
@@ -3355,6 +3365,7 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
                     </defaultValue>
                     <fieldText>Email</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid email address.&lt;/p&gt;</errorMessage>

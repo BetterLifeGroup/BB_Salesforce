@@ -1358,6 +1358,12 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                 <elementReference>Get_Pre_Approval_Opp.Id</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Awaiting Consent</stringValue>
+            </value>
+        </inputAssignments>
         <object>LoanApplicant</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
@@ -2212,6 +2218,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     <dataType>String</dataType>
                     <fieldText>Do you earn additional income from:</fieldText>
                     <fieldType>MultiSelectCheckboxes</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -2420,6 +2427,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     </defaultValue>
                     <fieldText>First Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;Only the first letter should be capital.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -2449,6 +2457,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     </defaultValue>
                     <fieldText>Last Name</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -2471,6 +2480,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     <dataType>String</dataType>
                     <fieldText>Phone</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid phone number.&lt;/p&gt;</errorMessage>
@@ -2500,6 +2510,7 @@ IF(ISPICKVAL({!loanApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
                     </defaultValue>
                     <fieldText>Email</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;Please enter a valid email address.&lt;/p&gt;</errorMessage>
