@@ -2285,7 +2285,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.Type</field>
+        <field>BLG_Campaign__c.Agency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2422,6 +2422,11 @@
         <editable>false</editable>
         <field>Opportunity.unregisteredAgentMobile__c</field>
         <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Block_Deactivation__c</field>
+        <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
         <layout>Account-Account Layout</layout>
