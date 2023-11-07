@@ -4,8 +4,8 @@
     <assignments>
         <name>Set_Error_Trues</name>
         <label>Set Error True</label>
-        <locationX>1682</locationX>
-        <locationY>471</locationY>
+        <locationX>1696</locationX>
+        <locationY>888</locationY>
         <assignmentItems>
             <assignToReference>showError</assignToReference>
             <operator>Assign</operator>
@@ -20,8 +20,8 @@
     <assignments>
         <name>Set_Error_Trues_0</name>
         <label>Set Error True</label>
-        <locationX>1294</locationX>
-        <locationY>684</locationY>
+        <locationX>1220</locationX>
+        <locationY>1020</locationY>
         <assignmentItems>
             <assignToReference>showError</assignToReference>
             <operator>Assign</operator>
@@ -36,8 +36,8 @@
     <assignments>
         <name>Set_Error_Trues_0_0</name>
         <label>Set Error True</label>
-        <locationX>777</locationX>
-        <locationY>725</locationY>
+        <locationX>786</locationX>
+        <locationY>1136</locationY>
         <assignmentItems>
             <assignToReference>showError</assignToReference>
             <operator>Assign</operator>
@@ -68,8 +68,8 @@
     <decisions>
         <name>Check_if_Status_Populated</name>
         <label>Check if Status Populated</label>
-        <locationX>1566</locationX>
-        <locationY>573</locationY>
+        <locationX>1573</locationX>
+        <locationY>989</locationY>
         <defaultConnector>
             <targetReference>Set_Error_Trues</targetReference>
         </defaultConnector>
@@ -106,7 +106,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Complete_Task_0_0_0</targetReference>
+                <targetReference>Closed_Won_Type</targetReference>
             </connector>
             <label>Populated</label>
         </rules>
@@ -114,8 +114,8 @@
     <decisions>
         <name>Check_if_Status_Populated_0</name>
         <label>Check if Status Populated</label>
-        <locationX>1178</locationX>
-        <locationY>786</locationY>
+        <locationX>1104</locationX>
+        <locationY>1122</locationY>
         <defaultConnector>
             <targetReference>Set_Error_Trues_0</targetReference>
         </defaultConnector>
@@ -138,7 +138,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Complete_Task_0_0_0_0</targetReference>
+                <targetReference>Complete_Open_Tasks_0</targetReference>
             </connector>
             <label>Populated</label>
         </rules>
@@ -146,8 +146,8 @@
     <decisions>
         <name>Check_if_Status_Populated_0_0</name>
         <label>Check if Status Populated</label>
-        <locationX>661</locationX>
-        <locationY>827</locationY>
+        <locationX>670</locationX>
+        <locationY>1238</locationY>
         <defaultConnector>
             <targetReference>Set_Error_Trues_0_0</targetReference>
         </defaultConnector>
@@ -170,7 +170,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Complete_Task_0_0_0_0_0</targetReference>
+                <targetReference>Complete_Open_Tasks</targetReference>
             </connector>
             <label>Populated</label>
         </rules>
@@ -178,12 +178,27 @@
     <decisions>
         <name>Closed_Lost_or_Won</name>
         <label>Closed Lost or Won?</label>
-        <locationX>776</locationX>
-        <locationY>444</locationY>
+        <locationX>786</locationX>
+        <locationY>852</locationY>
         <defaultConnector>
             <targetReference>Close_Won_Screen_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Closed Won PA</defaultConnectorLabel>
+        <rules>
+            <name>Closed_General</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General_Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Lost_Bond_Screen_0</targetReference>
+            </connector>
+            <label>Closed General</label>
+        </rules>
         <rules>
             <name>Bond_Opp_OTP_Received</name>
             <conditionLogic>and</conditionLogic>
@@ -207,6 +222,64 @@
             <label>Bond Opp OTP Received</label>
         </rules>
         <rules>
+            <name>Verification_Won</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Ready for Verification</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pre_Approval_Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Latest_Case_for_Opp.Status</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Verification Failed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Won_Screen_0</targetReference>
+            </connector>
+            <label>Verification Won</label>
+        </rules>
+        <rules>
+            <name>Verification_Lost</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Ready for Verification</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pre_Approval_Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Latest_Case_for_Opp.Status</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Verification Failed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Lost_PA_Screen</targetReference>
+            </connector>
+            <label>Verification Lost</label>
+        </rules>
+        <rules>
             <name>Closed_Lost_PA</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -221,13 +294,6 @@
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Nurture</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Opportunity_to_Close.Status__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>PA Requested - Verification complete</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -252,10 +318,35 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Closed_Won_Type</name>
+        <label>Closed Won Type</label>
+        <locationX>1576</locationX>
+        <locationY>1189</locationY>
+        <defaultConnector>
+            <targetReference>Complete_Open_Tasks_0_0_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Closed Won Not Issued</defaultConnectorLabel>
+        <rules>
+            <name>Closed_Won_PA_Issued</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>selectedStatusOutputVarIssued</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Complete_Open_Tasks_0_0</targetReference>
+            </connector>
+            <label>Closed Won PA Issued</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_Latest_Task_Open</name>
         <label>Is Latest Task Open?</label>
-        <locationX>1411</locationX>
-        <locationY>254</locationY>
+        <locationX>1431</locationX>
+        <locationY>580</locationY>
         <defaultConnector>
             <targetReference>Won_or_Lost</targetReference>
         </defaultConnector>
@@ -271,7 +362,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Complete_Task_0_0</targetReference>
+                <targetReference>Complete_Open_Tasks_0_0_0_0</targetReference>
             </connector>
             <label>Latest Open</label>
         </rules>
@@ -279,8 +370,8 @@
     <decisions>
         <name>Won_or_Lost</name>
         <label>Won or Lost?</label>
-        <locationX>1664</locationX>
-        <locationY>323</locationY>
+        <locationX>1677</locationX>
+        <locationY>637</locationY>
         <defaultConnector>
             <targetReference>Update_Opportunity_Closed_Lostbond</targetReference>
         </defaultConnector>
@@ -327,13 +418,36 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Latest_Open_Task</name>
-        <label>Get Latest Open Task</label>
-        <locationX>783</locationX>
-        <locationY>325</locationY>
+        <name>Get_Latest_Case_for_Opp</name>
+        <label>Get Latest Case for Opp</label>
+        <locationX>794</locationX>
+        <locationY>568</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Closed_Lost_or_Won</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Opportunity__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Case</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Latest_Open_Task</name>
+        <label>Get Latest Open Task</label>
+        <locationX>794</locationX>
+        <locationY>403</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Latest_Case_for_Opp</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -357,8 +471,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Latest_Task</name>
         <label>Get Latest Task</label>
-        <locationX>1142</locationX>
-        <locationY>252</locationY>
+        <locationX>1162</locationX>
+        <locationY>578</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Close_Lost_Won_Screen</targetReference>
@@ -380,8 +494,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Opportunity_to_Close</name>
         <label>Get Opportunity to Close</label>
-        <locationX>783</locationX>
-        <locationY>203</locationY>
+        <locationX>794</locationX>
+        <locationY>281</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Latest_Open_Task</targetReference>
@@ -399,109 +513,250 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>Complete_Task_0_0</name>
-        <label>Complete Task</label>
-        <locationX>1672</locationX>
-        <locationY>143</locationY>
-        <connector>
-            <targetReference>Won_or_Lost</targetReference>
-        </connector>
+        <name>CloseGeneralOpportunity</name>
+        <label>Close General Opportunity</label>
+        <locationX>120</locationX>
+        <locationY>846</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Latest_Task.Id</elementReference>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
-            <field>Status</field>
+            <field>Contact_Attempts__c</field>
             <value>
-                <stringValue>Completed</stringValue>
+                <numberValue>0.0</numberValue>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>locked__c</field>
+            <field>StageName</field>
             <value>
-                <booleanValue>false</booleanValue>
+                <elementReference>generalClose.topValue</elementReference>
             </value>
         </inputAssignments>
-        <object>Task</object>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>generalClose.middleValue</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Complete_Task_0_0_0</name>
-        <label>Complete Task</label>
-        <locationX>1846</locationX>
-        <locationY>701</locationY>
-        <connector>
-            <targetReference>Update_Opportunity_Closed_Won_0_0</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Latest_Open_Task.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Completed</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>locked__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>Task</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Complete_Task_0_0_0_0</name>
-        <label>Complete Task</label>
-        <locationX>1453</locationX>
-        <locationY>860</locationY>
-        <connector>
-            <targetReference>Update_Opportunity_Closed_Lost_PA</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Latest_Open_Task.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Completed</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>locked__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </inputAssignments>
-        <object>Task</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Complete_Task_0_0_0_0_0</name>
-        <label>Complete Task</label>
-        <locationX>669</locationX>
-        <locationY>1026</locationY>
+        <name>Complete_Open_Tasks</name>
+        <label>Complete Open Tasks</label>
+        <locationX>678</locationX>
+        <locationY>1437</locationY>
         <connector>
             <targetReference>Update_Opportunity_Closed_Lost_PA_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
+            <field>WhatId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Latest_Open_Task.Id</elementReference>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Open_Tasks_0</name>
+        <label>Complete Open Tasks</label>
+        <locationX>1112</locationX>
+        <locationY>1323</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Closed_Lost_PA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Open_Tasks_0_0</name>
+        <label>Complete Open Tasks</label>
+        <locationX>1585</locationX>
+        <locationY>1355</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Closed_Won_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Open_Tasks_0_0_0</name>
+        <label>Complete Open Tasks</label>
+        <locationX>1830</locationX>
+        <locationY>1185</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Closed_Won_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Open_Tasks_0_0_0_0</name>
+        <label>Complete Open Tasks</label>
+        <locationX>1686</locationX>
+        <locationY>472</locationY>
+        <connector>
+            <targetReference>Won_or_Lost</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Complete_Open_Tasks_0_0_0_0_0</name>
+        <label>Complete Open Tasks</label>
+        <locationX>248</locationX>
+        <locationY>846</locationY>
+        <connector>
+            <targetReference>CloseGeneralOpportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Open</stringValue>
             </value>
         </filters>
         <inputAssignments>
@@ -521,8 +776,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Closed_Lost_PA</name>
         <label>Update Opportunity Closed Lost PA</label>
-        <locationX>1596</locationX>
-        <locationY>860</locationY>
+        <locationX>1112</locationX>
+        <locationY>1470</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -560,8 +815,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Closed_Lost_PA_0</name>
         <label>Update Opportunity Closed Lost PA</label>
-        <locationX>669</locationX>
-        <locationY>1182</locationY>
+        <locationX>678</locationX>
+        <locationY>1593</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -599,8 +854,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Closed_Lostbond</name>
         <label>Update Opportunity Closed Lost</label>
-        <locationX>1904</locationX>
-        <locationY>192</locationY>
+        <locationX>1938</locationX>
+        <locationY>509</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -638,8 +893,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Closed_Won_0</name>
         <label>Update Opportunity Closed Won</label>
-        <locationX>1903</locationX>
-        <locationY>400</locationY>
+        <locationX>1945</locationX>
+        <locationY>644</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -677,8 +932,47 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Closed_Won_0_0</name>
         <label>Update Opportunity Closed Won</label>
-        <locationX>1989</locationX>
-        <locationY>701</locationY>
+        <locationX>1585</locationX>
+        <locationY>1507</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity_to_Close.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>StageName</field>
+            <value>
+                <stringValue>Closed Won</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>selectedStatusOutputVarIssued</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Closed_Won_0_0_0</name>
+        <label>Update Opportunity Closed Won</label>
+        <locationX>1977</locationX>
+        <locationY>1185</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -716,8 +1010,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Close_Lost_Bond_Screen</name>
         <label>Close Lost Bond Screen</label>
-        <locationX>559</locationX>
-        <locationY>725</locationY>
+        <locationX>568</locationX>
+        <locationY>1136</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -855,10 +1149,163 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Close_Lost_Bond_Screen_0</name>
+        <label>Close Lost Bond Screen</label>
+        <locationX>375</locationX>
+        <locationY>846</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Complete_Open_Tasks_0_0_0_0_0</targetReference>
+        </connector>
+        <fields>
+            <name>openTaskWonHeading_0_0_0_0</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <elementReference>Get_Latest_Open_Task.Subject</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 8px</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Close_Lost_Bond_Screen_0_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Close_Lost_Bond_Screen_0_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Copy_1_of_custName_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Customer Name: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.FirstName} {!Get_Opportunity_to_Close.Account.LastName}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_stickyNote_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Comment/Sticky Note: &lt;/strong&gt;{!Get_Opportunity_to_Close.Comment__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_stageCurr_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Current Stage: &lt;/strong&gt;{!Get_Opportunity_to_Close.StageName}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_statusCurr_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Current Status: &lt;/strong&gt;{!Get_Opportunity_to_Close.Status__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Close_Lost_Bond_Screen_0_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Copy_1_of_slaDeadline_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;SLA Deadline: &lt;/strong&gt;{!Get_Opportunity_to_Close.SLA_Deadline__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_callback_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Call Back Date Time: &lt;/strong&gt;{!Get_Latest_Open_Task.Due_Date_Time__c}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_email_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Email: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.PersonEmail}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>Copy_1_of_contactNumber_0_0_0_0</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Contact Number: &lt;/strong&gt;{!Get_Opportunity_to_Close.Account.Phone}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>generalClose</name>
+            <extensionName>flowruntime:dependentPicklists</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>dependencyWrapperApiName</name>
+                <value>
+                    <stringValue>Opportunity</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topPicklistApiName</name>
+                <value>
+                    <stringValue>StageName</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middlePicklistApiName</name>
+                <value>
+                    <stringValue>Status__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topLabel</name>
+                <value>
+                    <stringValue>Stage</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middleLabel</name>
+                <value>
+                    <stringValue>Status</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>middleRequired</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>topValue</name>
+                <value>
+                    <stringValue>Closed Lost</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <nextOrFinishButtonLabel>Close off</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Close_Lost_PA_Screen</name>
         <label>Close Lost PA Screen</label>
-        <locationX>1076</locationX>
-        <locationY>684</locationY>
+        <locationX>1002</locationX>
+        <locationY>1020</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -998,8 +1445,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Close_Lost_Won_Screen</name>
         <label>Close Lost/Won Screen</label>
-        <locationX>1274</locationX>
-        <locationY>252</locationY>
+        <locationX>1294</locationX>
+        <locationY>578</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1111,6 +1558,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <dataType>String</dataType>
             <fieldText>Select Bond Close Off Option:</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <nextOrFinishButtonLabel>Close off</nextOrFinishButtonLabel>
@@ -1120,8 +1568,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>Close_Won_Screen_0</name>
         <label>Close Won Screen</label>
-        <locationX>1358</locationX>
-        <locationY>479</locationY>
+        <locationX>1450</locationX>
+        <locationY>851</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1233,7 +1681,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <name>selectedStatus</name>
             </outputParameters>
             <visibilityRule>
-                <conditionLogic>and</conditionLogic>
+                <conditionLogic>1 AND (2 OR 3)</conditionLogic>
                 <conditions>
                     <leftValueReference>Get_Opportunity_to_Close.RecordType.DeveloperName</leftValueReference>
                     <operator>EqualTo</operator>
@@ -1246,6 +1694,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <operator>IsNull</operator>
                     <rightValue>
                         <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Latest_Case_for_Opp.Status</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Verification Failed</stringValue>
                     </rightValue>
                 </conditions>
             </visibilityRule>
@@ -1311,8 +1766,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>657</locationX>
-        <locationY>47</locationY>
+        <locationX>668</locationX>
+        <locationY>125</locationY>
         <connector>
             <targetReference>Get_Opportunity_to_Close</targetReference>
         </connector>

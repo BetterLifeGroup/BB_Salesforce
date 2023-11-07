@@ -1,0 +1,127 @@
+<!--
+ - Created by frans fourie on 2023/10/03.
+ -->
+
+<!-- Consultants Available -->
+<template>
+    <template if:true={showSpinner}>
+        <lightning-spinner></lightning-spinner>
+    </template>
+    <div style='display: flex;flex-direction: row; padding-top: 12px;font-size: large;font-weight: 300;'
+         class='slds-align_absolute-center slds-text-heading_small'>
+        <lightning-formatted-text
+                value={userName}
+        ></lightning-formatted-text>
+    </div>
+    <div style='display: flex;flex-direction: column; gap: 12px'>
+        <div style='padding-bottom: 12px; border-bottom: #f3f3f3 1px solid'>
+            <template if:true={availableButtonEnabled}>
+                <lightning-button
+                        label="Mark Available Now"
+                        onclick={handleMarkAvailable}
+                ></lightning-button>
+            </template>
+            <template if:false={availableButtonEnabled}>
+                <lightning-button
+                        disabled
+                        label="Mark Available Now"
+                ></lightning-button>
+            </template>
+        </div>
+        <template if:true={unavailableButtonEnabled}>
+            <div style='padding-bottom: 12px; border-bottom: #f3f3f3 1px solid'>
+                <div style='display: flex;flex-direction: row; gap: 12px;align-items: end;'>
+                    <lightning-button
+                            label="Mark Unavailable Now"
+                            onclick={handleMarkUnavailableNow}
+                    ></lightning-button>
+                    <lightning-combobox
+                            label='Unavailable Reason'
+                            options={unavailableOptions}
+                            required
+                            onchange={handleNowReasonChange}
+                    ></lightning-combobox>
+                </div>
+            </div>
+            <div style='display: flex;flex-direction: row; gap: 12px;align-items: end;'>
+                <template if:false={unavailabilityRecordExists}>
+                    <lightning-button
+                            label="Mark Planned Unavailable"
+                            onclick={handlePlannedUnavailability}
+                    ></lightning-button>
+                </template>
+                <template if:true={unavailabilityRecordExists}>
+                    <lightning-button
+                            label="Mark Planned Unavailable"
+                            disabled
+                    ></lightning-button>
+                </template>
+                <lightning-combobox
+                        label='Unavailable Reason'
+                        options={unavailableOptions}
+                        required
+                        onchange={handleReasonChange}
+                ></lightning-combobox>
+                <div style='margin-bottom: -3px; display: flex; flex-direction: row; gap: 8px; align-items: baseline'>
+                    <lightning-input
+                            required
+                            type='datetime'
+                            onchange={handleDateChange}
+                    ></lightning-input>
+                </div>
+            </div>
+            <template if:true={unavailabilityRecordExists}>
+                <div style='display: flex;padding: 12px; gap: 12px;'>
+                    <lightning-formatted-text
+                            value={userUnavailableMessage}
+                    ></lightning-formatted-text>
+                    <lightning-icon
+                            icon-name='utility:delete'
+                            size="x-small"
+                            onclick={handleDeleteFutureUnavailability}
+                    ></lightning-icon>
+                </div>
+            </template>
+        </template>
+        <template if:false={unavailableButtonEnabled}>
+            <div style='padding-bottom: 12px; border-bottom: #f3f3f3 1px solid'>
+                <div style='display: flex;flex-direction: row; gap: 12px;align-items: end;'>
+                    <lightning-button
+                            disabled
+                            label="Mark Unavailable Now"
+                    ></lightning-button>
+                    <lightning-combobox
+                            disabled
+                            label='Unavailable Reason'
+                            options={unavailableOptions}
+                            required
+                    ></lightning-combobox>
+                </div>
+            </div>
+            <div style='display: flex;flex-direction: row; gap: 12px;align-items: end;'>
+                <lightning-button
+                        disabled
+                        label="Mark Planned Unavailable"
+                ></lightning-button>
+                <lightning-combobox
+                        disabled
+                        label='Unavailable Reason'
+                        options={unavailableOptions}
+                        required
+                ></lightning-combobox>
+                <div style='margin-bottom: -3px; display: flex; flex-direction: row; gap: 8px; align-items: baseline'>
+                    <lightning-input
+                            disabled
+                            required
+                            type='datetime'
+                    ></lightning-input>
+                </div>
+            </div>
+            <template if:true={unavailabilityRecordExists}>
+                <lightning-formatted-text
+                        value={userUnavailableMessage}
+                ></lightning-formatted-text>
+            </template>
+        </template>
+    </div>
+</template>

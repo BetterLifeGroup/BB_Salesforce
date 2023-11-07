@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <decisions>
+        <name>To_Round_Robin</name>
+        <label>To Round Robin</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>Or Not To Round Robin</defaultConnectorLabel>
+        <rules>
+            <name>Round_Robin</name>
+            <conditionLogic>(1 AND 2)OR 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Campaign_Type__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Create lead/manual</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.automationMessage__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Reassign</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Opportunity_Assign_Owner</targetReference>
+            </connector>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Round Robin</label>
+        </rules>
+    </decisions>
+    <description>FF 10Oct: Exclude Duplicate Opportunities from trigger</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>now + SLA</description>
+        <name>form_input_time</name>
+        <dataType>DateTime</dataType>
+        <expression>NOW() + ( {!$Record.BLG_Campaign__r.SLA__c}/1440)</expression>
+    </formulas>
+    <interviewLabel>Opportunity Auto Assign {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity Auto Assign</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Clear_Automation_Message</name>
+        <label>Clear Automation Message</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>automationMessage__c</field>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>To_Round_Robin</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Opportunity_Assign_Owner</name>
+        <label>Opportunity Assign Owner</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>Clear_Automation_Message</targetReference>
+        </connector>
+        <flowName>Opportunity_Assign_Owner</flowName>
+        <inputAssignments>
+            <name>blgCampaignId</name>
+            <value>
+                <elementReference>$Record.BLG_Campaign__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>opportunityId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <triggerOrder>500</triggerOrder>
+</Flow>

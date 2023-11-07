@@ -87,7 +87,7 @@
         <locationX>1428</locationX>
         <locationY>304</locationY>
         <defaultConnector>
-            <targetReference>Update_Applicant_Status_Path</targetReference>
+            <targetReference>Get_Application_0</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>All done</defaultConnectorLabel>
         <rules>
@@ -217,8 +217,8 @@
     <decisions>
         <name>Credit_color</name>
         <label>Credit color</label>
-        <locationX>2023</locationX>
-        <locationY>436</locationY>
+        <locationX>2024</locationX>
+        <locationY>437</locationY>
         <defaultConnector>
             <targetReference>CreditReportScreen</targetReference>
         </defaultConnector>
@@ -384,6 +384,31 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_opp_in_poor_credit</name>
+        <label>Is opp in poor credit?</label>
+        <locationX>1970</locationX>
+        <locationY>237</locationY>
+        <defaultConnector>
+            <targetReference>Update_Opportunity_Awaiting_Docs_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Poor_Credit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Updated_Opp.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Poor credit</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Applicant_Status_Path</targetReference>
+            </connector>
+            <label>Yes - Poor Credit</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_running_user_and_Opp_Owner_match</name>
         <label>Is running user and Opp Owner match</label>
         <locationX>1092</locationX>
@@ -514,7 +539,7 @@
         <name>Rag_Outcome_Check</name>
         <label>Rag Outcome Check</label>
         <locationX>1622</locationX>
-        <locationY>1541</locationY>
+        <locationY>1540</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Proceed_with_PA</name>
@@ -557,7 +582,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>closeOffOpp</targetReference>
+                <targetReference>Close_Opportunity_Lost_or_Won_Subflow</targetReference>
             </connector>
             <label>Close Opp</label>
         </rules>
@@ -670,6 +695,27 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>UpdatedApplicantRecord_0.LoanApplicationId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>ResidentialLoanApplication</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Application_0</name>
+        <label>Get Application</label>
+        <locationX>1716</locationX>
+        <locationY>235</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Updated_Opp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>ApplicantRecord.LoanApplicationId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -828,6 +874,27 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <operator>EqualTo</operator>
             <value>
                 <elementReference>Get_Opportunity.General_Opportunity__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Updated_Opp</name>
+        <label>Get Updated Opp</label>
+        <locationX>1839</locationX>
+        <locationY>235</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_opp_in_poor_credit</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Application_0.OpportunityId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1122,28 +1189,37 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Opportunity_Closed</name>
-        <label>Update Opportunity Closed</label>
-        <locationX>1488</locationX>
-        <locationY>1827</locationY>
+        <name>Update_Opportunity_Awaiting_Docs_0</name>
+        <label>Update Opportunity Awaiting Docs</label>
+        <locationX>2156</locationX>
+        <locationY>98</locationY>
+        <connector>
+            <targetReference>Update_Applicant_Status_Path</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_Application_0.OpportunityId</elementReference>
             </value>
         </filters>
         <inputAssignments>
+            <field>Contact_Attempts__c</field>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>StageName</field>
             <value>
-                <elementReference>closed_Pick.topValue</elementReference>
+                <stringValue>Working</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
             <field>Status__c</field>
             <value>
-                <elementReference>closed_Pick.middleValue</elementReference>
+                <stringValue>PA Requested - awaiting documents</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1295,123 +1371,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
-    <screens>
-        <name>closeOffOpp</name>
-        <label>closeOffOpp</label>
-        <locationX>1488</locationX>
-        <locationY>1674</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
-        <connector>
-            <targetReference>Update_Opportunity_Closed</targetReference>
-        </connector>
-        <fields>
-            <name>displayConsent_0</name>
-            <extensionName>c:flowBanner</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Close Opportunity</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>closeOffOpp_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>closeOffOpp_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>oppDisplay</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;{!Get_Opportunity_Updated.Name}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>closeOffOpp_Section1_Column2</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>closed_Pick</name>
-            <extensionName>flowruntime:dependentPicklists</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>dependencyWrapperApiName</name>
-                <value>
-                    <stringValue>Opportunity</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topPicklistApiName</name>
-                <value>
-                    <stringValue>StageName</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middlePicklistApiName</name>
-                <value>
-                    <stringValue>Status__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topLabel</name>
-                <value>
-                    <stringValue>Stage</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topValue</name>
-                <value>
-                    <stringValue>Closed Lost</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middleLabel</name>
-                <value>
-                    <stringValue>Status</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middleRequired</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>closedStageTxt</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;The Stage must be Closed Lost for this outcome.&lt;/span&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <nextOrFinishButtonLabel>Close Opportunity</nextOrFinishButtonLabel>
-        <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
-    </screens>
     <screens>
         <name>CreditReportScreen</name>
         <label>CreditReportScreen</label>
@@ -1780,6 +1739,19 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </start>
     <status>Active</status>
     <subflows>
+        <name>Close_Opportunity_Lost_or_Won_Subflow</name>
+        <label>Close Opportunity Lost or Won - Subflow</label>
+        <locationX>1458</locationX>
+        <locationY>1537</locationY>
+        <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>ConsentViewerSub</name>
         <label>ConsentViewerSub</label>
         <locationX>920</locationX>
@@ -1899,8 +1871,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Update_Applicant_Status_Path</name>
         <label>Update Applicant Status Path</label>
-        <locationX>2036</locationX>
-        <locationY>294</locationY>
+        <locationX>2156</locationX>
+        <locationY>302</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>
