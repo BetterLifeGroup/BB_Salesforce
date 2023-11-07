@@ -217,8 +217,8 @@
     <decisions>
         <name>Credit_color</name>
         <label>Credit color</label>
-        <locationX>2023</locationX>
-        <locationY>436</locationY>
+        <locationX>2024</locationX>
+        <locationY>437</locationY>
         <defaultConnector>
             <targetReference>CreditReportScreen</targetReference>
         </defaultConnector>
@@ -582,7 +582,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>closeOffOpp</targetReference>
+                <targetReference>Close_Opportunity_Lost_or_Won_Subflow</targetReference>
             </connector>
             <label>Close Opp</label>
         </rules>
@@ -883,8 +883,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Updated_Opp</name>
         <label>Get Updated Opp</label>
-        <locationX>1836</locationX>
-        <locationY>234</locationY>
+        <locationX>1839</locationX>
+        <locationY>235</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_opp_in_poor_credit</targetReference>
@@ -1220,39 +1220,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>Status__c</field>
             <value>
                 <stringValue>PA Requested - awaiting documents</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_Opportunity_Closed</name>
-        <label>Update Opportunity Closed</label>
-        <locationX>1488</locationX>
-        <locationY>1827</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <elementReference>closed_Pick.topValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <elementReference>closed_Pick.middleValue</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -1814,6 +1781,19 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </start>
     <status>Active</status>
     <subflows>
+        <name>Close_Opportunity_Lost_or_Won_Subflow</name>
+        <label>Close Opportunity Lost or Won - Subflow</label>
+        <locationX>1458</locationX>
+        <locationY>1537</locationY>
+        <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>ConsentViewerSub</name>
         <label>ConsentViewerSub</label>
         <locationX>920</locationX>
@@ -1933,8 +1913,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Update_Applicant_Status_Path</name>
         <label>Update Applicant Status Path</label>
-        <locationX>2155</locationX>
-        <locationY>303</locationY>
+        <locationX>2156</locationX>
+        <locationY>302</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>

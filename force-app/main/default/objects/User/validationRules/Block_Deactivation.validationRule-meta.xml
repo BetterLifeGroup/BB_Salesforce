@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_Deactivation</fullName>
+    <active>true</active>
+    <description>Block Deactivation if any open opps or tasks. Field is set by before update record triggered flow - Block User Deactivation</description>
+    <errorConditionFormula>Block_Deactivation__c = TRUE</errorConditionFormula>
+    <errorMessage>Unable to deactivate user due to open opportunities or tasks. Please use the user management app to deactivate users.</errorMessage>
+</ValidationRule>

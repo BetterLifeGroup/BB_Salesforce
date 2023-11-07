@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__RetirementPlanning</fullName>
-    <active>false</active>
+    <active>true</active>
     <businessProcess>FinServ__Wallet Share</businessProcess>
     <label>Retirement Planning</label>
     <picklistValues>
@@ -242,10 +242,6 @@
         </values>
         <values>
             <fullName>Latest Payslip</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Offer To Purchase</fullName>
             <default>false</default>
         </values>
         <values>
