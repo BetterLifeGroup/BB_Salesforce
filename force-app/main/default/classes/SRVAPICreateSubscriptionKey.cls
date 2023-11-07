@@ -11,7 +11,7 @@ public class SRVAPICreateSubscriptionKey {
         String url;
 
         //is env prod?
-        if(false){
+        if(Better_Home.BuilderUtils.isProduction()){
             url = 'callout:NC_APIService/Subscriptions';
             integrationParam = Integration_Parameter__mdt.getInstance('Subscription_Key');
         }
