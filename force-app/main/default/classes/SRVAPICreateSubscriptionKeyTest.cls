@@ -23,7 +23,7 @@ public class SRVAPICreateSubscriptionKeyTest {
             // Optionally, only send a mock response for a specific endpoint
             // and method.
 
-            if(false){
+            if(Better_Home.BuilderUtils.isProduction()){
                 SRVAPICreateSubscriptionKeyTest.url = 'callout:NC_APIService/Subscriptions';
                 SRVAPICreateSubscriptionKeyTest.integrationParam = Integration_Parameter__mdt.getInstance('Subscription_Key');
             }
