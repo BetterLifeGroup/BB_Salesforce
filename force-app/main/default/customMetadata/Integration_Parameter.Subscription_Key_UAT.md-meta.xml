@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Subscription Key - UAT</label>
+    <protected>false</protected>
+    <values>
+        <field>Domain__c</field>
+        <value xsi:type="xsd:string">ConsultantLandingPage</value>
+    </values>
+    <values>
+        <field>Notes__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Parameter_Classifier__c</field>
+        <value xsi:type="xsd:string">Ocp-Apim-Subscription-Key</value>
+    </values>
+    <values>
+        <field>Parameter_Value__c</field>
+        <value xsi:type="xsd:string">31a20bf35a164f4986bbfeaaf9348e62</value>
+    </values>
+</CustomMetadata>
