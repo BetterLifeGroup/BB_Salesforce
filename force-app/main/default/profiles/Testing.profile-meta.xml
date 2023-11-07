@@ -690,52 +690,77 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Active__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BLG_Campaign__c.Agency__c</field>
+        <field>Opportunity.Sales_Admin__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>BLG_Campaign__c.Auto_Number__c</field>
+        <field>Opportunity.SourceId</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Branch__c</field>
+        <field>Opportunity.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>BLG_Campaign__c.Campaign_ID__c</field>
+        <field>Opportunity.Submission_Status__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Template_Selection__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.TotalOpportunityQuantity</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Campaign_List__c</field>
+        <field>Opportunity.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Unregistered_Agent_First_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Unregistered_Agent_Last_Name__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Unregistered_Agent_s_Agency__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Validation_Reject_reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Campaign_Owner__c</field>
+        <field>Opportunity.What_is_your_credit_status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Description__c</field>
+        <field>Opportunity.What_is_your_employment_status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Developer__c</field>
+        <field>Opportunity.What_type_of_bond_are_you_applying_for__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>BLG_Campaign__c.Development__c</field>
+        <field>Opportunity.When_are_you_buying__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2255,77 +2280,52 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.Sales_Admin__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.SourceId</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Status__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Submission_Status__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Template_Selection__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.TotalOpportunityQuantity</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Type</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Unregistered_Agent_First_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Unregistered_Agent_Last_Name__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.Unregistered_Agent_s_Agency__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Opportunity.Validation_Reject_reason__c</field>
+        <field>BLG_Campaign__c.Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.What_is_your_credit_status__c</field>
+        <field>BLG_Campaign__c.Agency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>BLG_Campaign__c.Auto_Number__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BLG_Campaign__c.Branch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>BLG_Campaign__c.Campaign_ID__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BLG_Campaign__c.Campaign_List__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.What_is_your_employment_status__c</field>
+        <field>BLG_Campaign__c.Campaign_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.What_type_of_bond_are_you_applying_for__c</field>
+        <field>BLG_Campaign__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Opportunity.When_are_you_buying__c</field>
+        <field>BLG_Campaign__c.Developer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BLG_Campaign__c.Development__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2419,104 +2419,10 @@
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.unregisteredAgentMobile__c</field>
-        <readable>false</readable>
+        <editable>true</editable>
+        <field>User.Block_Deactivation__c</field>
+        <readable>true</readable>
     </fieldPermissions>
-    <layoutAssignments>
-        <layout>Account-Account Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Network%2FAgency%2FBranch Layout</layout>
-        <recordType>Account.Developer_Agency</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Network%2FAgency%2FBranch Layout</layout>
-        <recordType>Account.Development</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Network%2FAgency%2FBranch Layout</layout>
-        <recordType>Account.Real_Estate_Agency</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Network%2FAgency%2FBranch Layout</layout>
-        <recordType>Account.Real_Estate_Branch</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Network%2FAgency%2FBranch Layout</layout>
-        <recordType>Account.Real_Estate_Network</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Region%2FBranch%2FSubbranch Layout</layout>
-        <recordType>Account.Branch</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Region%2FBranch%2FSubbranch Layout</layout>
-        <recordType>Account.Region</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Account-Region%2FBranch%2FSubbranch Layout</layout>
-        <recordType>Account.Sub_Branch</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>BLG_Campaign__c-BLG Campaign Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Contact-BetterBond Contact Layout</layout>
-        <recordType>Contact.BetterBond_Contact</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Contact-Contact Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Contact-Real Estate Agent Layout</layout>
-        <recordType>Contact.Real_Estate_Agent</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Global-Global Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Bond Opportunity</layout>
-        <recordType>Opportunity.Bond</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-General Opportunity</layout>
-        <recordType>Opportunity.Duplicate_Opportunity</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-General Opportunity</layout>
-        <recordType>Opportunity.FinServ__General</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-General Opportunity</layout>
-        <recordType>Opportunity.General_Opportunity</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Pre-Approval Opportunity</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Pre-Approval Opportunity</layout>
-        <recordType>Opportunity.FinServ__RetirementPlanning</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Pre-Approval Opportunity</layout>
-        <recordType>Opportunity.FinServ__WalletShareOpportunity</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Pre-Approval Opportunity</layout>
-        <recordType>Opportunity.Pre_Approval</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Pre-Approval Opportunity</layout>
-        <recordType>Opportunity.Pre_Approval_Opportunity</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Opportunity-Pre-Approval Opportunity</layout>
-        <recordType>Opportunity.Pre_qualification</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Quote-Quote Layout</layout>
-    </layoutAssignments>
     <layoutAssignments>
         <layout>ResidentialLoanApplication-Residential Loan Application Layout</layout>
     </layoutAssignments>

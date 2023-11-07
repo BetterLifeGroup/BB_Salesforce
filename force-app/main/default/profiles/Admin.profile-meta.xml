@@ -450,16 +450,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.FinServ__TotalHeldFinAcctsJointOwner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Account.FinServ__TotalHeldFinAcctsPrimaryOwner__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Account.FinServ__TotalHouseholdPremiums__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2421,6 +2411,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.unregisteredAgentMobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>User.Block_Deactivation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
