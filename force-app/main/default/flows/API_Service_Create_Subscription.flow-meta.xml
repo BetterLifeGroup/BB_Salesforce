@@ -3,12 +3,12 @@
     <actionCalls>
         <name>APEX_Create_Subscription_Key</name>
         <label>APEX Create Subscription Key</label>
-        <locationX>1404</locationX>
-        <locationY>282</locationY>
+        <locationX>726</locationX>
+        <locationY>708</locationY>
         <actionName>SRVAPICreateSubscriptionKey</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>a</targetReference>
+            <targetReference>Update_Triggered_Account</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -17,40 +17,49 @@
                 <elementReference>$Record.Name</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>SRVAPICreateSubscriptionKey</nameSegment>
         <outputParameters>
-            <assignToReference>$Record.SubscriptionId__c</assignToReference>
+            <assignToReference>SubscriptionId</assignToReference>
             <name>id</name>
         </outputParameters>
         <outputParameters>
-            <assignToReference>$Record.SubscriptionKey__c</assignToReference>
+            <assignToReference>SubscriptionKey</assignToReference>
             <name>primaryKey</name>
         </outputParameters>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <decisions>
         <name>CorrectRecordTypeId</name>
         <label>CorrectRecordTypeId</label>
-        <locationX>1029</locationX>
-        <locationY>403</locationY>
+        <locationX>1012</locationX>
+        <locationY>492</locationY>
         <defaultConnector>
             <targetReference>Assign_Type_ids_to_var</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
             <name>Yes</name>
-            <conditionLogic>or</conditionLogic>
+            <conditionLogic>(1 OR 2) and 3</conditionLogic>
             <conditions>
                 <leftValueReference>Assign_Type_ids_to_var.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Network</stringValue>
+                    <stringValue>Real_Estate_Network</stringValue>
                 </rightValue>
             </conditions>
             <conditions>
                 <leftValueReference>Assign_Type_ids_to_var.DeveloperName</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>Developer</stringValue>
+                    <stringValue>Developer_Agency</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Assign_Type_ids_to_var.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.RecordTypeId</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -62,8 +71,8 @@
     <decisions>
         <name>Get_Key_0</name>
         <label>Get Key</label>
-        <locationX>1217</locationX>
-        <locationY>282</locationY>
+        <locationX>858</locationX>
+        <locationY>600</locationY>
         <defaultConnector>
             <targetReference>Assign_Type_ids_to_var</targetReference>
         </defaultConnector>
@@ -92,8 +101,8 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
     <loops>
         <name>Assign_Type_ids_to_var</name>
         <label>Assign Type ids to var</label>
-        <locationX>1038</locationX>
-        <locationY>179</locationY>
+        <locationX>638</locationX>
+        <locationY>384</locationY>
         <collectionReference>GetAccountRecordTypes</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -109,7 +118,7 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -122,8 +131,8 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
     <recordLookups>
         <name>GetAccountRecordTypes</name>
         <label>GetAccountRecordTypes</label>
-        <locationX>845</locationX>
-        <locationY>179</locationY>
+        <locationX>638</locationX>
+        <locationY>276</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Type_ids_to_var</targetReference>
@@ -141,15 +150,27 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>a</name>
-        <label>a</label>
-        <locationX>1597</locationX>
-        <locationY>282</locationY>
+        <name>Update_Triggered_Account</name>
+        <label>Update Triggered Account</label>
+        <locationX>726</locationX>
+        <locationY>816</locationY>
+        <inputAssignments>
+            <field>SubscriptionId__c</field>
+            <value>
+                <elementReference>SubscriptionId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SubscriptionKey__c</field>
+            <value>
+                <elementReference>SubscriptionKey</elementReference>
+            </value>
+        </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
     <start>
-        <locationX>363</locationX>
-        <locationY>93</locationY>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
         <object>Account</object>
         <recordTriggerType>Create</recordTriggerType>
         <scheduledPaths>
@@ -167,5 +188,19 @@ No Front-End Access - Flow is record triggered based on the entry criteria.</des
         <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>SubscriptionId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>SubscriptionKey</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
     </variables>
 </Flow>
