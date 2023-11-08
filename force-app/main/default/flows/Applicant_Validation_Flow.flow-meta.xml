@@ -161,8 +161,8 @@
     <assignments>
         <name>Assign_Case_closed_successfully</name>
         <label>Assign Case closed successfully</label>
-        <locationX>864</locationX>
-        <locationY>779</locationY>
+        <locationX>779</locationX>
+        <locationY>688</locationY>
         <assignmentItems>
             <assignToReference>get_case.Status</assignToReference>
             <operator>Assign</operator>
@@ -185,12 +185,12 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Opportunity</targetReference>
+            <targetReference>PaRegenContext2_0_0</targetReference>
         </connector>
     </assignments>
     <assignments>
-        <name>Assign_Case_Id_to_Use_from_Opp</name>
-        <label>Assign Case Id to Use from Opp</label>
+        <name>Assign_Case_Id_and_Opp_Id</name>
+        <label>Assign Case Id and Opp Id</label>
         <locationX>1230</locationX>
         <locationY>1906</locationY>
         <assignmentItems>
@@ -198,6 +198,13 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>Get_CaseOC.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>opportunityId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_CaseOC.Opportunity__c</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -223,8 +230,8 @@
     <assignments>
         <name>Assign_case_outcome</name>
         <label>Assign case outcome</label>
-        <locationX>472</locationX>
-        <locationY>850</locationY>
+        <locationX>306</locationX>
+        <locationY>967</locationY>
         <assignmentItems>
             <assignToReference>get_case.caseOutcome__c</assignToReference>
             <operator>Assign</operator>
@@ -363,8 +370,8 @@
     <assignments>
         <name>Opp_Verification_failed</name>
         <label>Opp Verification failed</label>
-        <locationX>762</locationX>
-        <locationY>619</locationY>
+        <locationX>539</locationX>
+        <locationY>624</locationY>
         <assignmentItems>
             <assignToReference>oppVerificationFailed</assignToReference>
             <operator>Assign</operator>
@@ -380,7 +387,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Opportunity_Failed</targetReference>
+            <targetReference>PaRegenContext2_0</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -1042,6 +1049,56 @@
         </rules>
     </decisions>
     <decisions>
+        <name>PaRegenContext2_0</name>
+        <label>PaRegenContext</label>
+        <locationX>291</locationX>
+        <locationY>633</locationY>
+        <defaultConnector>
+            <targetReference>Update_Opportunity_Failed</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes4_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>PaRegenContext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_case_outcome</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>PaRegenContext2_0_0</name>
+        <label>PaRegenContext</label>
+        <locationX>626</locationX>
+        <locationY>785</locationY>
+        <defaultConnector>
+            <targetReference>Update_Opportunity</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes4_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>PaRegenContext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Case_Success</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Verification_Failed</name>
         <label>Verification Failed?</label>
         <locationX>986</locationX>
@@ -1085,6 +1142,12 @@ Front-End Access: Work Case button on the Case page.</description>
         <name>convertedNextDate</name>
         <dataType>DateTime</dataType>
         <expression>DATETIMEVALUE({!var_nextdate}) - 0.08334  + ( 1/1440)</expression>
+    </formulas>
+    <formulas>
+        <name>f_TotalContractualExpenses</name>
+        <dataType>Number</dataType>
+        <expression>{!Get_Application.Total_Contractual_Expenses_Amount__c} - {!Get_Application.Existing_Bond_Repayments_to_be_Settled__c}</expression>
+        <scale>0</scale>
     </formulas>
     <formulas>
         <name>FormulaRunningNotesLength</name>
@@ -1404,7 +1467,7 @@ Front-End Access: Work Case button on the Case page.</description>
         <locationY>1906</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_Case_Id_to_Use_from_Opp</targetReference>
+            <targetReference>Assign_Case_Id_and_Opp_Id</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1588,8 +1651,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordLookups>
         <name>OC_Get_Applicant</name>
         <label>OC Get Applicant</label>
-        <locationX>1508</locationX>
-        <locationY>1907</locationY>
+        <locationX>1607</locationX>
+        <locationY>1906</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Cases</targetReference>
@@ -1677,8 +1740,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordUpdates>
         <name>Update_Case_0</name>
         <label>Update Case</label>
-        <locationX>472</locationX>
-        <locationY>1012</locationY>
+        <locationX>445</locationX>
+        <locationY>1095</locationY>
         <connector>
             <targetReference>Create_BLG_Follow_Up_Verification_0</targetReference>
         </connector>
@@ -1687,8 +1750,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordUpdates>
         <name>Update_Case_Success</name>
         <label>Update Case, Success</label>
-        <locationX>572</locationX>
-        <locationY>1145</locationY>
+        <locationX>547</locationX>
+        <locationY>979</locationY>
         <connector>
             <targetReference>Create_BLG_Follow_Up_Verification_0</targetReference>
         </connector>
@@ -1733,8 +1796,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordUpdates>
         <name>Update_Opportunity</name>
         <label>Update Opportunity</label>
-        <locationX>716</locationX>
-        <locationY>923</locationY>
+        <locationX>740</locationX>
+        <locationY>946</locationY>
         <connector>
             <targetReference>Update_Case_Success</targetReference>
         </connector>
@@ -1769,8 +1832,8 @@ Front-End Access: Work Case button on the Case page.</description>
     <recordUpdates>
         <name>Update_Opportunity_Failed</name>
         <label>Update Opportunity, Failed</label>
-        <locationX>599</locationX>
-        <locationY>850</locationY>
+        <locationX>455</locationX>
+        <locationY>824</locationY>
         <connector>
             <targetReference>Assign_case_outcome</targetReference>
         </connector>
@@ -1937,7 +2000,7 @@ Front-End Access: Work Case button on the Case page.</description>
         <name>Application_result</name>
         <label>Application result</label>
         <locationX>1183</locationX>
-        <locationY>295</locationY>
+        <locationY>296</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1977,7 +2040,7 @@ Front-End Access: Work Case button on the Case page.</description>
                 </fields>
                 <fields>
                     <name>disIncomeAmt</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Disposable Income Amount:&lt;/strong&gt; {!Get_Application.Total_Disposable_Income__c}&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Disposable Income Amount:&lt;/strong&gt; {!Get_Application.Test_Disposable_income__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
@@ -2003,7 +2066,7 @@ Front-End Access: Work Case button on the Case page.</description>
                 </fields>
                 <fields>
                     <name>contractualAmt</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Contractual Expenses Amount:&lt;/strong&gt; {!Get_Application.Total_Contractual_Expenses_Amount__c}&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Total Contractual Expenses Amount:&lt;/strong&gt; {!f_TotalContractualExpenses}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
