@@ -177,6 +177,50 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_Regen_PA_Input_Var_true</name>
+        <label>Is Regen PA Input Var true?</label>
+        <locationX>1493</locationX>
+        <locationY>1174</locationY>
+        <defaultConnector>
+            <targetReference>Update_Applicant_Status_Paths</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Pass</defaultConnectorLabel>
+        <rules>
+            <name>Regen_PA</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>regenPAInputVar</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Regen PA</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Regen_PA_Input_Var_true_0</name>
+        <label>Is Regen PA Input Var true?</label>
+        <locationX>851</locationX>
+        <locationY>1640</locationY>
+        <defaultConnector>
+            <targetReference>Update_Applicant_Status_Path</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Pass</defaultConnectorLabel>
+        <rules>
+            <name>Regen_PA_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>regenPAInputVar</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Regen PA</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Override_allowed</name>
         <label>Override allowed?</label>
         <locationX>768</locationX>
@@ -196,13 +240,12 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Applicant_Status_Paths</targetReference>
+                <targetReference>Is_Regen_PA_Input_Var_true</targetReference>
             </connector>
             <label>Ready Verification Status - Not Allowed</label>
         </rules>
     </decisions>
-    <description>Flow Description:
-This flow handles follow-up tasks for Opportunities by either accepting them or applying overrides based on different decisions. Launched from Wrap Up Opportunity H2 flow.
+    <description>Flow Description: This flow handles follow-up tasks for Opportunities by either accepting them or applying overrides based on different decisions. Launched from Wrap Up Opportunity H2 flow.
 
 Front-End Access: Work Opportunity button on the Opportunity page.
 
@@ -506,7 +549,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
         <locationX>859</locationX>
         <locationY>1505</locationY>
         <connector>
-            <targetReference>Update_Applicant_Status_Path</targetReference>
+            <targetReference>Is_Regen_PA_Input_Var_true_0</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -530,7 +573,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
         <locationX>1209</locationX>
         <locationY>1256</locationY>
         <connector>
-            <targetReference>Update_Applicant_Status_Paths</targetReference>
+            <targetReference>Is_Regen_PA_Input_Var_true</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -661,6 +704,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
                     <defaultSelectedChoiceReference>Accept</defaultSelectedChoiceReference>
                     <fieldText>Accept Automated Follow Up or Override?</fieldText>
                     <fieldType>DropdownBox</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -698,6 +742,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
             </defaultValue>
             <fieldText>Follow Up Date Time</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;You are not allowed to set&amp;nbsp;the follow up prior to the current date/time.&lt;/p&gt;</errorMessage>
@@ -726,6 +771,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
             </defaultValue>
             <fieldText>Wrap Up Comment</fieldText>
             <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <nextOrFinishButtonLabel>Accept Follow Up</nextOrFinishButtonLabel>
@@ -811,6 +857,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
             <dataType>DateTime</dataType>
             <fieldText>Set Manual Follow Up</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;You are not allowed to set&amp;nbsp;the follow up prior to the current date/time.&lt;/p&gt;</errorMessage>
@@ -909,6 +956,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
             <dataType>DateTime</dataType>
             <fieldText>Set Manual Follow Up</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;You are not allowed to set&amp;nbsp;the follow up prior to the current date/time.&lt;/p&gt;</errorMessage>
@@ -1007,6 +1055,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
             <dataType>DateTime</dataType>
             <fieldText>Set Manual Follow Up</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;You are not allowed to set&amp;nbsp;the follow up prior to the current date/time.&lt;/p&gt;</errorMessage>
@@ -1029,7 +1078,7 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
         <name>Update_Applicant_Status_Path</name>
         <label>Update Applicant Status Path</label>
         <locationX>859</locationX>
-        <locationY>1625</locationY>
+        <locationY>1848</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -1041,8 +1090,8 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
     <subflows>
         <name>Update_Applicant_Status_Paths</name>
         <label>Update Applicant Status Path</label>
-        <locationX>1478</locationX>
-        <locationY>1225</locationY>
+        <locationX>1653</locationX>
+        <locationY>1171</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>
@@ -1057,6 +1106,16 @@ H2 = Separation of concern from H1 development that is already Live in Prod.</de
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>regenPAInputVar</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
     </variables>
     <variables>
         <name>wrapUpInput</name>
