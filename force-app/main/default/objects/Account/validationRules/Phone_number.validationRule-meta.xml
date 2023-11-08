@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Phone_number</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(REGEX(Phone, &quot;^(?:\\+\\d{2}|0)(\\d{6,14})&quot;))</errorConditionFormula>
+    <errorDisplayField>Phone</errorDisplayField>
+    <errorMessage>Invalid phone number; please use the following format -
+Example: +27739871234</errorMessage>
+</ValidationRule>
