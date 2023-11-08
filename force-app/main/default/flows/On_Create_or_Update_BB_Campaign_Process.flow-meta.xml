@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <decisions>
+        <description>Check if there is a need to create or update the campaign in the Lead-API</description>
+        <name>Is_Lead_API_Upsert_Required</name>
+        <label>Is Lead-API Upsert Required?</label>
+        <locationX>182</locationX>
+        <locationY>515</locationY>
+        <defaultConnectorLabel>Upsert Not Required</defaultConnectorLabel>
+        <rules>
+            <name>Upsert_Required</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Is_New_Record</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>f_Upsert_In_Lead_API</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Subflow_Publish_Campaign_Event_Out</targetReference>
+            </connector>
+            <label>Upsert Required</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Is the triggering record new?</description>
+        <name>Is_New_Record</name>
+        <label>Is New Record?</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Is_Lead_API_Upsert_Required</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not New Record</defaultConnectorLabel>
+        <rules>
+            <name>New_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Is_New_Record</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Lead_API_Upsert_Required</targetReference>
+            </connector>
+            <label>New Record</label>
+        </rules>
+    </decisions>
+    <description>This flow will run when a flow is created or updated</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>If true then we have a new record</description>
+        <name>f_Is_New_Record</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <description>This will return true if any of the fields which can be sent to Leads-API have been modified</description>
+        <name>f_Upsert_In_Lead_API</name>
+        <dataType>Boolean</dataType>
+        <expression>ISCHANGED({!$Record.Type_of_Campaign__c}) ||
+ISCHANGED({!$Record.Type_of_Lead__c}) ||
+ISCHANGED({!$Record.Name}) ||
+ISCHANGED({!$Record.Priority__c}) ||
+ISCHANGED({!$Record.SLA__c}) ||
+ISCHANGED({!$Record.Developer__c}) ||
+ISCHANGED({!$Record.Development__c}) ||
+ISCHANGED({!$Record.Agency__c}) ||
+ISCHANGED({!$Record.Branch__c}) ||
+ISCHANGED({!$Record.Network__c}) ||
+ISCHANGED({!$Record.Type_of_Campaign__c}) ||
+ISCHANGED({!$Record.Type_of_Lead__c}) ||
+ISCHANGED({!$Record.Priority__c})</expression>
+    </formulas>
+    <interviewLabel>On Create or Update: BB Campaign Process {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>On Create or Update: BB Campaign Process</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_New_Record</targetReference>
+        </connector>
+        <object>BLG_Campaign__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <description>This flow will publish campaign event</description>
+        <name>Subflow_Publish_Campaign_Event_Out</name>
+        <label>Subflow: Publish Campaign Event - Out</label>
+        <locationX>50</locationX>
+        <locationY>623</locationY>
+        <flowName>Subflow_Publish_Campaign_Event</flowName>
+        <inputAssignments>
+            <name>iv_BB_Campaign_Record</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>
