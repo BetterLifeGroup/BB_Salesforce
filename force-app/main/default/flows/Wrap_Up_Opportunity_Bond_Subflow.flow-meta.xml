@@ -3056,7 +3056,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <inputParameters>
                 <name>queryFilter</name>
                 <value>
-                    <stringValue>AND( RecordType.Name = &apos;Real Estate Agent&apos; OR RecordType.Name = &apos;Development Agent&apos;) AND Visibility__c != &apos;Hidden&apos;</stringValue>
+                    <stringValue>AND( RecordType.Name = &apos;Real Estate Agent&apos; OR RecordType.Name = &apos;Development Agent&apos;) AND Visibility__c != &apos;Hidden&apos; AND Visibility__c != &apos;Visible for General and Pre-Approval&apos;</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
