@@ -104,6 +104,12 @@
         <locationX>176</locationX>
         <locationY>503</locationY>
         <inputAssignments>
+            <field>Assignment_DateTime__c</field>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>ConsultantBranch__c</field>
             <value>
                 <elementReference>Get_Opp_Owner_Contact.Account.ParentId</elementReference>
