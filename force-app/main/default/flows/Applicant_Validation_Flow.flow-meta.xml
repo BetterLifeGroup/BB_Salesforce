@@ -1810,12 +1810,6 @@ Front-End Access: Work Case button on the Case page.</description>
             </value>
         </filters>
         <inputAssignments>
-            <field>Affordability_Amount__c</field>
-            <value>
-                <elementReference>affordabilityAmountValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>StageName</field>
             <value>
                 <stringValue>Ready for Verification</stringValue>
@@ -2161,6 +2155,7 @@ Front-End Access: Work Case button on the Case page.</description>
             <dataType>Boolean</dataType>
             <fieldText>Whats Next?</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
@@ -2351,6 +2346,7 @@ Front-End Access: Work Case button on the Case page.</description>
             <dataType>String</dataType>
             <fieldText>FailureReasonPicklist</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -2360,6 +2356,7 @@ Front-End Access: Work Case button on the Case page.</description>
             </defaultValue>
             <fieldText>Running Notes</fieldText>
             <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>
@@ -2579,6 +2576,7 @@ Front-End Access: Work Case button on the Case page.</description>
             <dataType>Boolean</dataType>
             <fieldText>Applicant Result</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
@@ -2588,6 +2586,7 @@ Front-End Access: Work Case button on the Case page.</description>
             </defaultValue>
             <fieldText>Running Notes</fieldText>
             <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <showFooter>true</showFooter>
