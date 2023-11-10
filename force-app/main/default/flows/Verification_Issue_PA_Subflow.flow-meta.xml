@@ -23,7 +23,9 @@
                 <elementReference>recordId</elementReference>
             </value>
         </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>
@@ -506,9 +508,7 @@
             <label>wrap up button</label>
         </rules>
     </decisions>
-    <description>DB: 18 july - compartmentalise
-
-Flow Description: Flow to Issue PA or Move back to docs when Opp is in Ready for Verification Stage, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
+    <description>Flow Description: Flow to Issue PA or Move back to docs when Opp is in Ready for Verification Stage, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <dynamicChoiceSets>
@@ -1601,6 +1601,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
                     <dataType>String</dataType>
                     <fieldText>Email</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <fields>
@@ -1647,8 +1648,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <screens>
         <name>prepareVerification</name>
         <label>prepareVerification</label>
-        <locationX>2174</locationX>
-        <locationY>1302</locationY>
+        <locationX>2173</locationX>
+        <locationY>1303</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1694,7 +1695,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
                 </fields>
                 <fields>
                     <name>currentStageTxt_0_0</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;Stage:&lt;/strong&gt; {!currentStage}&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Stage:&lt;/strong&gt; {!Get_Opportunity.StageName}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
@@ -1843,12 +1844,14 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <dataType>String</dataType>
             <fieldText>Call Outcome</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
             <name>Wrap_Up_Comment_Ver</name>
             <fieldText>Wrap Up Comment</fieldText>
             <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <fields>
