@@ -84,7 +84,6 @@ public class SRVAFFCertificateDataResponse {
         resp.validUntl = '';
         resp.referenceNumber = '';
         resp.testValue = '';
-
         return resp;
     }
 }

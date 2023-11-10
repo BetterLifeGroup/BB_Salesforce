@@ -16,6 +16,7 @@ public with sharing class SRVAFFPreapprovalControllerTest {
         Contact cn = new Contact();
         cn.FirstName = 'test';
         cn.LastName = '69';
+        cn.Phone = '+27739871234';
         insert cn;
 
         Profile prof = [SELECT Id FROM Profile WHERE Name LIKE '%System%' LIMIT 1];
@@ -28,6 +29,7 @@ public with sharing class SRVAFFPreapprovalControllerTest {
 
         Account acc = new Account();
         acc.Name = 'test69';
+        acc.Phone = '+27739871234';
 
         insert acc;
 
@@ -52,11 +54,13 @@ public with sharing class SRVAFFPreapprovalControllerTest {
 
         insert rla;
 
+
         LoanApplicant la = new LoanApplicant();
         la.Name = 'testLA';
         la.LoanApplicationId = rla.Id;
         la.Is_Main_Applicant__c = true;
         la.Opportunity__c = opp.Id;
+        la.IsActive__c = true;
 
         insert la;
 
