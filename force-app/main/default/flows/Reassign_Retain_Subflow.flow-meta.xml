@@ -3529,12 +3529,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </value>
         </filters>
         <inputAssignments>
-            <field>OwnerId</field>
-            <value>
-                <elementReference>Get_Running_User_Selected_Consultant_Contact.Consultant__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>StageName</field>
             <value>
                 <stringValue>Working (Bond)</stringValue>
@@ -4066,6 +4060,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Are any of the applicants Self Employed or are the applicants buying in a Trust or business name?</fieldText>
                     <fieldType>RadioButtons</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -4073,6 +4068,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Currency</dataType>
                     <fieldText>Loan Amount</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
@@ -4081,6 +4077,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Currency</dataType>
                     <fieldText>Deposit Amount</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <scale>0</scale>
                 </fields>
@@ -4089,6 +4086,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Currency</dataType>
                     <fieldText>Purchase Price</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <scale>0</scale>
                 </fields>
@@ -4097,6 +4095,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Date</dataType>
                     <fieldText>OTP Signed Date</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;﻿You are not allowed to set the OTP Signed Date to a future date/time.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -4108,6 +4107,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Date</dataType>
                     <fieldText>OTP Expiry Date</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <inputParameters>
@@ -4184,6 +4184,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>String</dataType>
                     <fieldText>Are any of the applicants Self Employed or are the applicants buying in a Trust or business name?</fieldText>
                     <fieldType>RadioButtons</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
                 <fields>
@@ -4191,6 +4192,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Currency</dataType>
                     <fieldText>Loan Amount</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <scale>0</scale>
                 </fields>
@@ -4199,6 +4201,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Currency</dataType>
                     <fieldText>Deposit Amount</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <scale>0</scale>
                 </fields>
@@ -4207,6 +4210,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Currency</dataType>
                     <fieldText>Purchase Price</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <scale>0</scale>
                 </fields>
@@ -4215,6 +4219,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Date</dataType>
                     <fieldText>OTP Signed Date</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                     <validationRule>
                         <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;﻿You are not allowed to set the OTP Signed Date to a future date/time.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -4226,6 +4231,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     <dataType>Date</dataType>
                     <fieldText>OTP Expiry Date</fieldText>
                     <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
@@ -4290,6 +4296,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <dataType>String</dataType>
             <fieldText>Please select the consultant for whom you are working on this opportunity</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <showFooter>true</showFooter>

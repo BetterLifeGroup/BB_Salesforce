@@ -217,8 +217,8 @@
     <decisions>
         <name>Credit_color</name>
         <label>Credit color</label>
-        <locationX>2023</locationX>
-        <locationY>436</locationY>
+        <locationX>2024</locationX>
+        <locationY>437</locationY>
         <defaultConnector>
             <targetReference>CreditReportScreen</targetReference>
         </defaultConnector>
@@ -411,8 +411,8 @@
     <decisions>
         <name>Is_running_user_and_Opp_Owner_match</name>
         <label>Is running user and Opp Owner match</label>
-        <locationX>1092</locationX>
-        <locationY>1486</locationY>
+        <locationX>970</locationX>
+        <locationY>1496</locationY>
         <defaultConnector>
             <targetReference>Create_Pre_Approval_or_Bond_Foreign_Owner_True</targetReference>
         </defaultConnector>
@@ -582,7 +582,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>closeOffOpp</targetReference>
+                <targetReference>Close_Opportunity_Lost_or_Won_Subflow</targetReference>
             </connector>
             <label>Close Opp</label>
         </rules>
@@ -619,7 +619,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Is_running_user_and_Opp_Owner_match</targetReference>
+                <targetReference>continueWithUploadPrompt</targetReference>
             </connector>
             <label>Upload OTP</label>
         </rules>
@@ -753,8 +753,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Created_Bond</name>
         <label>Get Created Bond</label>
-        <locationX>555</locationX>
-        <locationY>1477</locationY>
+        <locationX>433</locationX>
+        <locationY>1487</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <filterLogic>and</filterLogic>
         <filters>
@@ -862,8 +862,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Updated_General_Opp</name>
         <label>Get Updated General Opp</label>
-        <locationX>695</locationX>
-        <locationY>1477</locationY>
+        <locationX>573</locationX>
+        <locationY>1487</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Created_Bond</targetReference>
@@ -883,8 +883,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordLookups>
         <name>Get_Updated_Opp</name>
         <label>Get Updated Opp</label>
-        <locationX>1836</locationX>
-        <locationY>234</locationY>
+        <locationX>1839</locationX>
+        <locationY>235</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_opp_in_poor_credit</targetReference>
@@ -1231,39 +1231,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Opportunity_Closed</name>
-        <label>Update Opportunity Closed</label>
-        <locationX>1488</locationX>
-        <locationY>1827</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>StageName</field>
-            <value>
-                <elementReference>closed_Pick.topValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <elementReference>closed_Pick.middleValue</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Wrap_Up_Reason__c</field>
-            <value>
-                <stringValue>Automated</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Update_Opportunity_Lost_Poor_Credit</name>
         <label>Update Opportunity Lost - Poor Credit</label>
         <locationX>1329</locationX>
@@ -1405,24 +1372,31 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Opportunity</object>
     </recordUpdates>
     <screens>
-        <name>closeOffOpp</name>
-        <label>closeOffOpp</label>
-        <locationX>1488</locationX>
-        <locationY>1674</locationY>
-        <allowBack>false</allowBack>
+        <name>continueWithUploadPrompt</name>
+        <label>continueWithUploadPrompt</label>
+        <locationX>1113</locationX>
+        <locationY>1494</locationY>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
+        <backButtonLabel>No</backButtonLabel>
         <connector>
-            <targetReference>Update_Opportunity_Closed</targetReference>
+            <targetReference>Is_running_user_and_Opp_Owner_match</targetReference>
         </connector>
         <fields>
-            <name>displayConsent_0</name>
-            <extensionName>c:flowBanner</extensionName>
+            <name>continueUploadOTP</name>
+            <extensionName>c:customFlowBanner</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>label</name>
                 <value>
-                    <stringValue>Close Opportunity</stringValue>
+                    <stringValue>Continue with Upload OTP</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 9px</stringValue>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -1430,96 +1404,13 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>closeOffOpp_Section1</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>closeOffOpp_Section1_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>oppDisplay</name>
-                    <fieldText>&lt;p&gt;&lt;strong&gt;{!Get_Opportunity_Updated.Name}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>closeOffOpp_Section1_Column2</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>closed_Pick</name>
-            <extensionName>flowruntime:dependentPicklists</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>dependencyWrapperApiName</name>
-                <value>
-                    <stringValue>Opportunity</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topPicklistApiName</name>
-                <value>
-                    <stringValue>StageName</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middlePicklistApiName</name>
-                <value>
-                    <stringValue>Status__c</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topLabel</name>
-                <value>
-                    <stringValue>Stage</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>topValue</name>
-                <value>
-                    <stringValue>Closed Lost</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middleLabel</name>
-                <value>
-                    <stringValue>Status</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>middleRequired</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <fields>
-            <name>closedStageTxt</name>
-            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;The Stage must be Closed Lost for this outcome.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <name>areYouSure</name>
+            <fieldText>&lt;p&gt;Are you sure you want to convert into a Bond Opportunity?&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
-        <nextOrFinishButtonLabel>Close Opportunity</nextOrFinishButtonLabel>
+        <nextOrFinishButtonLabel>Yes</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
-        <showHeader>false</showHeader>
+        <showHeader>true</showHeader>
     </screens>
     <screens>
         <name>CreditReportScreen</name>
@@ -1701,6 +1592,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <dataType>String</dataType>
             <fieldText>Based on the credit score outcome, is the customer interested in Internal Rehab?</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
         </fields>
         <nextOrFinishButtonLabel>Save and Close</nextOrFinishButtonLabel>
@@ -1889,6 +1781,19 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     </start>
     <status>Active</status>
     <subflows>
+        <name>Close_Opportunity_Lost_or_Won_Subflow</name>
+        <label>Close Opportunity Lost or Won - Subflow</label>
+        <locationX>1458</locationX>
+        <locationY>1537</locationY>
+        <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>ConsentViewerSub</name>
         <label>ConsentViewerSub</label>
         <locationX>920</locationX>
@@ -1925,8 +1830,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Create_Pre_Approval_or_Bond_Foreign_Owner_False</name>
         <label>Create Pre-Approval or Bond  Foreign Owner False</label>
-        <locationX>892</locationX>
-        <locationY>1542</locationY>
+        <locationX>770</locationX>
+        <locationY>1552</locationY>
         <connector>
             <targetReference>Get_Updated_General_Opp</targetReference>
         </connector>
@@ -1960,8 +1865,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Create_Pre_Approval_or_Bond_Foreign_Owner_True</name>
         <label>Create Pre-Approval or Bond  Foreign Owner True</label>
-        <locationX>853</locationX>
-        <locationY>1389</locationY>
+        <locationX>731</locationX>
+        <locationY>1399</locationY>
         <connector>
             <targetReference>Get_Updated_General_Opp</targetReference>
         </connector>
@@ -2008,8 +1913,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <subflows>
         <name>Update_Applicant_Status_Path</name>
         <label>Update Applicant Status Path</label>
-        <locationX>2155</locationX>
-        <locationY>303</locationY>
+        <locationX>2156</locationX>
+        <locationY>302</locationY>
         <flowName>Update_Applicant_Status_Path</flowName>
         <inputAssignments>
             <name>recordId</name>

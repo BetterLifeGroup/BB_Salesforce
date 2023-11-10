@@ -268,31 +268,21 @@ public with sharing class UserManagementController {
     public static Boolean assignPermissionAssignment(String userId) {
 
         try {
+            List<PermissionSetAssignment> perAssignList = new List<PermissionSetAssignment>();
             PermissionSetAssignment perAssign = new PermissionSetAssignment();
             perAssign.PermissionSetId = [SELECT Id FROM PermissionSet WHERE Name = 'Mortgage' LIMIT 1].Id;
             perAssign.AssigneeId = userId;
-            insert perAssign;
-        } catch (Exception e) {
+            perAssignList.add(perAssign);
 
             PermissionSetAssignment perAssign2 = new PermissionSetAssignment();
             perAssign2.PermissionSetId = [SELECT Id FROM PermissionSet WHERE Name = 'FinancialServicesCloudStandard' LIMIT 1].Id;
             perAssign2.AssigneeId = userId;
-            insert perAssign2;
+            perAssignList.add(perAssign2);
 
-            return true;
-        }
-        try {
-
-            PermissionSetAssignment perAssign2 = new PermissionSetAssignment();
-            perAssign2.PermissionSetId = [SELECT Id FROM PermissionSet WHERE Name = 'FinancialServicesCloudStandard' LIMIT 1].Id;
-            perAssign2.AssigneeId = userId;
-            insert perAssign2;
-
+            Database.insert(perAssignList, false);
             return true;
         } catch (Exception e) {
-            AuraHandledException auraEx = new AuraHandledException(e.getMessage());
-            auraEx.setMessage(e.getMessage());
-            throw auraEx;
+            return false;
         }
     }
 
@@ -398,26 +388,28 @@ public with sharing class UserManagementController {
     @AuraEnabled
     public static List<Opportunity> getUserOpenOpps(String userId) {
 
-        List<Opportunity> returnList = new List<Opportunity>();
+        Set<Opportunity> returnSet = new Set<Opportunity>();
 
         List<Opportunity> openOpps = [
-                SELECT Id, Name, StageName, Affordability_Amount__c, PreApprovalOpportunity__c, RecordType.Name, Consultant_Region_Name__c, Bond_Opportunity__c
+                SELECT Id, Name, StageName, Affordability_Amount__c, PreApprovalOpportunity__c, RecordType.Name, Consultant_Region_Name__c, Bond_Opportunity__c,Status__c,Campaign_Type__c,BLG_Campaign__r.Name,SLA_Deadline__c, PreApprovalOpportunity__r.OwnerId, Bond_Opportunity__r.OwnerId
                 FROM Opportunity
                 WHERE StageName != 'Closed Won' AND StageName != 'Closed Lost' AND OwnerId = :userId
                 ORDER BY Name
         ];
         for (Opportunity opp : openOpps) {
 
-            if (opp.RecordType.Name == 'General Opportunity' && opp.PreApprovalOpportunity__c == null && opp.Bond_Opportunity__c == null) {
-                returnList.add(opp);
+            if ((opp.RecordType.Name == 'General Opportunity' && opp.PreApprovalOpportunity__c == null && opp.Bond_Opportunity__c == null) || (opp.PreApprovalOpportunity__c != null && opp.PreApprovalOpportunity__r?.OwnerId != userId) || (opp.Bond_Opportunity__c != null && opp.Bond_Opportunity__r.OwnerId != userId)) {
+                returnSet.add(opp);
             }
-            if (opp.RecordType.Name == 'Pre-Approval Opportunity' && opp.Bond_Opportunity__c == null) {
-                returnList.add(opp);
+            if ((opp.RecordType.Name == 'Pre-Approval Opportunity' && opp.Bond_Opportunity__c == null) || opp.Bond_Opportunity__r.OwnerId != userId) {
+                returnSet.add(opp);
             } else if (opp.RecordType.Name == 'Bond Opportunity') {
-                returnList.add(opp);
+                returnSet.add(opp);
             }
 
         }
+        List<Opportunity> returnList = new List<Opportunity>();
+        returnList.addAll(returnSet);
         returnList.sort();
         return returnList;
     }
