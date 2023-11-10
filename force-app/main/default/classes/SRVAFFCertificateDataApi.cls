@@ -10,14 +10,6 @@ public virtual class SRVAFFCertificateDataApi {
         this.client = client;
     }
 
-    public SRVAFFCertificateDataApi() {
-        this.client = new SRVAFFClient();
-    }
-
-    public SRVAFFClient getClient() {
-        return this.client;
-    }
-
     /**
      * Generates and returns a Pre-Approval Certificate Data
      * @return SRVAFFCertificateDataResponse

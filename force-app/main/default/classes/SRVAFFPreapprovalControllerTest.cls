@@ -52,11 +52,13 @@ public with sharing class SRVAFFPreapprovalControllerTest {
 
         insert rla;
 
+
         LoanApplicant la = new LoanApplicant();
         la.Name = 'testLA';
         la.LoanApplicationId = rla.Id;
         la.Is_Main_Applicant__c = true;
         la.Opportunity__c = opp.Id;
+        la.IsActive__c = true;
 
         insert la;
 
