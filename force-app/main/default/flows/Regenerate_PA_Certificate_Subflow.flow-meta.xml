@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionCalls>
+        <name>Post_to_Chatter</name>
+        <label>Post to Chatter</label>
+        <locationX>182</locationX>
+        <locationY>2396</locationY>
+        <actionName>chatterPost</actionName>
+        <actionType>chatterPost</actionType>
+        <connector>
+            <targetReference>Accept_or_Override_Follow_Up_H2</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>text</name>
+            <value>
+                <elementReference>chatterMessage</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>subjectNameOrId</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>chatterPost</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>56.0</apiVersion>
     <assignments>
         <name>Assign_Heading</name>
         <label>Assign Heading</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>followUpHeading</assignToReference>
@@ -15,6 +42,23 @@
         </assignmentItems>
         <connector>
             <targetReference>Get_Content_Version</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>blankEmailTrue</name>
+        <label>blankEmailTrue</label>
+        <locationX>468</locationX>
+        <locationY>1322</locationY>
+        <assignmentItems>
+            <assignToReference>emailBlank</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>mainEmailBlank</targetReference>
         </connector>
     </assignments>
     <choices>
@@ -66,77 +110,95 @@
         </value>
     </choices>
     <decisions>
-        <name>Schedule_or_Close_0</name>
-        <label>Schedule or Close</label>
-        <locationX>226</locationX>
-        <locationY>1106</locationY>
+        <name>Is_Main_Applicant_FHB</name>
+        <label>Is Main Applicant FHB?</label>
+        <locationX>182</locationX>
+        <locationY>1664</locationY>
         <defaultConnector>
-            <targetReference>Close_Opportunity_Lost_or_Won_Subflow_0_0_0_0_0_0_0_0</targetReference>
+            <targetReference>emailIssuePA</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Close</defaultConnectorLabel>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
-            <name>Schedule_Manual</name>
-            <conditionLogic>1 AND (2 OR 3)</conditionLogic>
-            <conditions>
-                <leftValueReference>scheduleNext_Btn.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Latest_Open_Task.Subject</leftValueReference>
-                <operator>Contains</operator>
-                <rightValue>
-                    <stringValue>Manual Follow Up</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Opportunity.Contact_Attempts__c</leftValueReference>
-                <operator>GreaterThanOrEqualTo</operator>
-                <rightValue>
-                    <elementReference>autoFollowUpNotExist</elementReference>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0</targetReference>
-            </connector>
-            <label>Schedule Manual</label>
-        </rules>
-        <rules>
-            <name>Schedule_Auto_Task</name>
+            <name>FHB</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>scheduleNext_Btn.renderNext</leftValueReference>
+                <leftValueReference>Get_Opportunity.Loan_Applicant__r.Is_First_Time_Home_Buyer__c</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</targetReference>
+                <targetReference>emailIssuePA_FHB</targetReference>
             </connector>
-            <label>Schedule Auto Task</label>
-        </rules>
-        <rules>
-            <name>Send_Mail</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>regenEmailBtn.renderNext</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0</targetReference>
-            </connector>
-            <label>Send Mail</label>
+            <label>FHB</label>
         </rules>
     </decisions>
-    <description>DB: 18 july - compartmentalise
-
-Flow Description: Flow to Regenerate a Pre-Approval Certificate if falls within applicable date rule set, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
+    <decisions>
+        <name>Is_Person_Email_Populated</name>
+        <label>Is Person Email Populated?</label>
+        <locationX>182</locationX>
+        <locationY>998</locationY>
+        <defaultConnector>
+            <targetReference>mainEmailBlank</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Email Blank</defaultConnectorLabel>
+        <rules>
+            <name>Email_Populated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity.Account.PersonEmail</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.Account.PersonEmail</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Main_Applicant_FHB</targetReference>
+            </connector>
+            <label>Email Populated</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>New_Email_Populated</name>
+        <label>New Email Populated?</label>
+        <locationX>336</locationX>
+        <locationY>1214</locationY>
+        <defaultConnector>
+            <targetReference>blankEmailTrue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Blank Email</defaultConnectorLabel>
+        <rules>
+            <name>Populated_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>EmailField</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>EmailField</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Person_with_new_Email</targetReference>
+            </connector>
+            <label>Populated Email</label>
+        </rules>
+    </decisions>
+    <description>Flow Description: Flow to Regenerate a Pre-Approval Certificate if falls within applicable date rule set, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <dynamicChoiceSets>
@@ -148,6 +210,11 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <picklistObject>Task</picklistObject>
     </dynamicChoiceSets>
     <environments>Default</environments>
+    <formulas>
+        <name>applicantFullname</name>
+        <dataType>String</dataType>
+        <expression>{!Get_Opportunity.Account.FirstName} +&quot; &quot;+ {!Get_Opportunity.Account.LastName}</expression>
+    </formulas>
     <formulas>
         <name>autoFollowUpNotExist</name>
         <dataType>Number</dataType>
@@ -235,11 +302,11 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>CaseAfterPaGen_0</name>
         <label>CaseAfterPaGen</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>890</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>regenWrapUpButtons</targetReference>
+            <targetReference>Is_Person_Email_Populated</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -258,7 +325,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_BLG_Workflow_Rule</name>
         <label>Get BLG Workflow Rule</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -279,7 +346,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Content_Version</name>
         <label>Get Content Version</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -309,7 +376,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Latest_Open_Task</name>
         <label>Get Latest Open Task</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -339,7 +406,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Opportunity</name>
         <label>Get Opportunity</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -357,10 +424,31 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <object>Opportunity</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Updated_Opp</name>
+        <label>Get Updated Opp</label>
+        <locationX>182</locationX>
+        <locationY>2072</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Update_Applicant</name>
         <label>Update Applicant</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Applicant_ValidationFlow</targetReference>
@@ -382,40 +470,94 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <object>LoanApplicant</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0</name>
-        <label>Update Task Call Outcome</label>
-        <locationX>314</locationX>
-        <locationY>1214</locationY>
+        <name>Update_MC_Trigger</name>
+        <label>Update MC Trigger</label>
+        <locationX>50</locationX>
+        <locationY>1880</locationY>
         <connector>
-            <targetReference>MC_Email_Template_Selection_Multi_select_picklist_0_0_0_0_0</targetReference>
+            <targetReference>Get_Updated_Opp</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Latest_Open_Task.Id</elementReference>
+                <elementReference>Get_Opportunity.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
-            <field>Call_Outcome__c</field>
+            <field>Template_Selection__c</field>
             <value>
-                <elementReference>callOutcomeInputVar</elementReference>
+                <stringValue>FHB PA issued - awaiting OTP (attach PA certificate)</stringValue>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>locked__c</field>
+            <field>emailSendTrigger__c</field>
             <value>
-                <booleanValue>false</booleanValue>
+                <booleanValue>true</booleanValue>
             </value>
         </inputAssignments>
-        <object>Task</object>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_MC_Triggers</name>
+        <label>Update MC Trigger</label>
+        <locationX>314</locationX>
+        <locationY>1880</locationY>
+        <connector>
+            <targetReference>Get_Updated_Opp</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Template_Selection__c</field>
+            <value>
+                <stringValue>PA issued - awaiting OTP (attach PA certificate)</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>emailSendTrigger__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Person_with_new_Email</name>
+        <label>Update Person with new Email</label>
+        <locationX>204</locationX>
+        <locationY>1322</locationY>
+        <connector>
+            <targetReference>Is_Main_Applicant_FHB</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Opportunity.AccountId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>PersonEmail</field>
+            <value>
+                <elementReference>EmailField</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
     </recordUpdates>
     <recordUpdates>
         <name>Update_Task_Call_Outcome_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0</name>
         <label>Update Task Call Outcome</label>
-        <locationX>50</locationX>
-        <locationY>1214</locationY>
+        <locationX>182</locationX>
+        <locationY>2180</locationY>
         <connector>
             <targetReference>Update_Wrap_Up_Comment</targetReference>
         </connector>
@@ -444,8 +586,11 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_Wrap_Up_Comment</name>
         <label>Update Wrap Up Comment</label>
-        <locationX>50</locationX>
-        <locationY>1322</locationY>
+        <locationX>182</locationX>
+        <locationY>2288</locationY>
+        <connector>
+            <targetReference>Post_to_Chatter</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -464,30 +609,122 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     </recordUpdates>
     <runInMode>DefaultMode</runInMode>
     <screens>
-        <name>regenWrapUpButtons</name>
-        <label>regenWrapUpButtons</label>
-        <locationX>226</locationX>
-        <locationY>998</locationY>
-        <allowBack>true</allowBack>
+        <name>emailIssuePA</name>
+        <label>emailIssuePA</label>
+        <locationX>314</locationX>
+        <locationY>1772</locationY>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <connector>
-            <targetReference>Schedule_or_Close_0</targetReference>
+            <targetReference>Update_MC_Triggers</targetReference>
         </connector>
         <fields>
-            <name>headingWrapUp</name>
+            <name>Copy_1_of_emailTxt</name>
+            <fieldText>&lt;p&gt;Hi &lt;strong&gt;{!Get_Opportunity.Owner.FirstName}!&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Below is the preview of the selected email template to send. Upon confirmation, this mail will be sent to: &lt;strong&gt;{!Get_Opportunity.Account.FirstName} {!Get_Opportunity.Account.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>paIssueMail_0</name>
+            <extensionName>flowruntime:image</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>imageName</name>
+                <value>
+                    <stringValue>BBPA_E06_PAissued_awaitingOTP_attachedPAcert</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>horizontalAlignment</name>
+                <value>
+                    <stringValue>Center</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>imageWidth</name>
+                <value>
+                    <stringValue>45%</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <nextOrFinishButtonLabel>Send Email</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>emailIssuePA_FHB</name>
+        <label>emailIssuePA_FHB</label>
+        <locationX>50</locationX>
+        <locationY>1772</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Update_MC_Trigger</targetReference>
+        </connector>
+        <fields>
+            <name>emailTxt</name>
+            <fieldText>&lt;p&gt;Hi &lt;strong&gt;{!Get_Opportunity.Owner.FirstName}!&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Below is the preview of the selected email template to send. Upon confirmation, this mail will be sent to: &lt;strong&gt;{!Get_Opportunity.Account.FirstName} {!Get_Opportunity.Account.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>paIssueMail</name>
+            <extensionName>flowruntime:image</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>imageName</name>
+                <value>
+                    <stringValue>BBFHB_E05_PAissued_sendingPACert_awaitingOTP</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>horizontalAlignment</name>
+                <value>
+                    <stringValue>Center</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>imageWidth</name>
+                <value>
+                    <stringValue>45%</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <nextOrFinishButtonLabel>Send Email</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>mainEmailBlank</name>
+        <label>mainEmailBlank</label>
+        <locationX>336</locationX>
+        <locationY>1106</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>New_Email_Populated</targetReference>
+        </connector>
+        <fields>
+            <name>missingEmail</name>
             <extensionName>c:customFlowBanner</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>label</name>
                 <value>
-                    <elementReference>wrapUpHeading</elementReference>
+                    <stringValue>Missing Email Address</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
                 <name>cssCustomStyle</name>
                 <value>
-                    <stringValue>margin-bottom: 8px</stringValue>
+                    <stringValue>margin-bottom: 7px</stringValue>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -495,52 +732,76 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>regenEmailBtn</name>
-            <extensionName>runtime_industries_lending:flowButton</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>buttonLabel</name>
-                <value>
-                    <stringValue>Send Customer Email</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <name>personTxt</name>
+            <fieldText>&lt;p&gt;The email address has not been populated for the following customer: &lt;strong&gt;{!Get_Opportunity.Account.FirstName} {!Get_Opportunity.Account.LastName}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>scheduleNext_Btn</name>
-            <extensionName>runtime_industries_lending:flowButton</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>buttonLabel</name>
-                <value>
-                    <stringValue>Schedule Next Follow Up</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <name>mainEmailBlank_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>mainEmailBlank_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>capturetxt</name>
+                    <fieldText>&lt;p&gt;Please capture the missing information in order to continue with the email send:&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <fields>
+                    <name>EmailField</name>
+                    <dataType>String</dataType>
+                    <fieldText>Email</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>false</isRequired>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Please enter a valid email address.&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                        <formulaExpression>REGEX({!EmailField},{!$Label.EmailRegex})</formulaExpression>
+                    </validationRule>
+                </fields>
+                <fields>
+                    <name>emailBlankError</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;The Email field is required to continue with the email send.&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>emailBlank</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>mainEmailBlank_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
-        <fields>
-            <name>closeLostBtn</name>
-            <extensionName>runtime_industries_lending:flowButton</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>buttonLabel</name>
-                <value>
-                    <stringValue>Close Opportunity</stringValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
-        </fields>
-        <showFooter>false</showFooter>
+        <nextOrFinishButtonLabel>Continue Email Send</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>100</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Opportunity</targetReference>
@@ -548,15 +809,15 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     </start>
     <status>Active</status>
     <subflows>
-        <name>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0</name>
+        <name>Accept_or_Override_Follow_Up_H2</name>
         <label>Accept or Override Follow Up H2</label>
-        <locationX>226</locationX>
-        <locationY>1622</locationY>
+        <locationX>182</locationX>
+        <locationY>2504</locationY>
         <flowName>Accept_or_Override_Follow_Up_H2</flowName>
         <inputAssignments>
             <name>recordId</name>
             <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
+                <elementReference>Get_Updated_Opp.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -565,11 +826,17 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
                 <elementReference>wrapUpCommentVar</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <name>regenPAInputVar</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
     </subflows>
     <subflows>
         <name>Applicant_ValidationFlow</name>
         <label>Applicant Validation Flow</label>
-        <locationX>226</locationX>
+        <locationX>182</locationX>
         <locationY>782</locationY>
         <connector>
             <targetReference>CaseAfterPaGen_0</targetReference>
@@ -594,35 +861,15 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </value>
         </inputAssignments>
     </subflows>
-    <subflows>
-        <name>Close_Opportunity_Lost_or_Won_Subflow_0_0_0_0_0_0_0_0</name>
-        <label>Close Opportunity Lost or Won - Subflow</label>
-        <locationX>578</locationX>
-        <locationY>1214</locationY>
-        <flowName>Close_Opportunity_Lost_or_Won_Subflow</flowName>
-        <inputAssignments>
-            <name>recordId</name>
-            <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>MC_Email_Template_Selection_Multi_select_picklist_0_0_0_0_0</name>
-        <label>MC Email Template Selection - Multi select picklist</label>
-        <locationX>314</locationX>
-        <locationY>1322</locationY>
-        <connector>
-            <targetReference>Accept_or_Override_Follow_Up_H2_0_0_0_0_0_0_0_0</targetReference>
-        </connector>
-        <flowName>MC_Email_Template_Selection_Multi_select_picklist</flowName>
-        <inputAssignments>
-            <name>recordId</name>
-            <value>
-                <elementReference>Get_Opportunity.Id</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
+    <textTemplates>
+        <name>chatterMessage</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;---- Customer Email Sent ----&gt;
+Template Selection: {!theTemplate}
+Sent To: 
+Sent From: @[{!$User.Id}]
+Sent Date: {!sentTime}</text>
+    </textTemplates>
     <variables>
         <name>blankCallBack</name>
         <dataType>Boolean</dataType>
