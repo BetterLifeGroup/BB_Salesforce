@@ -64,7 +64,7 @@ public with sharing class SRVAFFPreapprovalController {
         ];
 
         List<LoanApplicant> applicantList = [
-                SELECT Id, Name, Personal_ID_Number__c, Bond_Settlement_Amount__c, Bond_Repayment_Amount__c, Is_Main_Applicant__c, Contact.Account.Identification_Number__c, Contact.Account.Passport_Number__c
+                SELECT Id, Name, Personal_ID_Number__c, Bond_Settlement_Amount__c, Bond_Repayment_Amount__c, Is_Main_Applicant__c, Contact.Account.Identification_Number__c, Contact.Account.Passport_Number__c, Contact.Account.FirstName, Contact.Account.LastName
                 FROM LoanApplicant
                 WHERE LoanApplicationId = :rla.Id AND IsActive__c = TRUE
                 ORDER BY Is_Main_Applicant__c DESC
@@ -98,7 +98,20 @@ public with sharing class SRVAFFPreapprovalController {
 
         for (LoanApplicant app : applicantList) {
             SRVAFFApplicants applicant = new SRVAFFApplicants();
-            applicant.applicantFullName = app.Name;
+            String str = app.Contact.Account.FirstName;
+
+            str = str.trim();
+            String initials = str.substring(0, 1);
+            while (str.contains(' ')) {
+
+                Integer index = str.indexOf(' ');
+                initials = initials + str.substring(index + 1, index + 2);
+                str = str.substring(index + 1);
+            }
+            initials = initials.replaceAll(' ', '');
+
+
+            applicant.applicantFullName = initials + ' ' + app.Contact.Account.LastName;
 //            applicant.applicantIdNumber = app.Personal_ID_Number__c;
             applicant.applicantIdNumber = app.Contact.Account.Identification_Number__c != null ? app.Contact.Account.Identification_Number__c : app.Contact.Account.Passport_Number__c;
             bondRepaymentToBeSettled += app?.Bond_Settlement_Amount__c != null ? app.Bond_Settlement_Amount__c : 0;
@@ -121,7 +134,7 @@ public with sharing class SRVAFFPreapprovalController {
         System.debug(rla.Total_Liability_Amount__c);
         System.debug(rla.Total_Deductions_Amount__c);
         paCert__c includeSettlementAmount = paCert__c.getOrgDefaults();
-        if(includeSettlementAmount.includeSettlementAmount__c == false && bondRepaymentToBeSettled > 0) {
+        if (includeSettlementAmount.includeSettlementAmount__c == false && bondRepaymentToBeSettled > 0) {
             req.totalExpenses -= existingBondRepayment;
         }
         req.additionalPaymentPerMonthTotal = 0;
