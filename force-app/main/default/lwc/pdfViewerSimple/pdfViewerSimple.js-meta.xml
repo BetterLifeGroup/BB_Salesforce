@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Pdf_Viewer_Simple</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Pdf_Viewer_Simple</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Loan Applicant Record Id"
+                      description="Loan Applicant Record Id"/>
+            <property name="mode" type="String" label="Mode"
+                      description="Mode PreApproval OR Credit Check"/>
+            <property name="affordabilityAmount" type="String" label="Affordability Amount"
+                      description="Affordability Amount"/>
+            <property name="runningNotes" type="String" label="Running Notes"
+                      description="Running Notes"/>
+            <property name="selectedFailureReason" type="String" label="Failure Reason"
+                      description="Failure Reason"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

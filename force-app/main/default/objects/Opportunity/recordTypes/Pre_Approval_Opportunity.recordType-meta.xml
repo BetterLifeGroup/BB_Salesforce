@@ -1625,6 +1625,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>PA not issued - Converted to Bond</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>PA not issued - Credit profile</fullName>
             <default>false</default>
         </values>
