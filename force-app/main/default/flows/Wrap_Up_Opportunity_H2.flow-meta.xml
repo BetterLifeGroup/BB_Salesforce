@@ -154,8 +154,8 @@
     <assignments>
         <name>callBackDateBlank</name>
         <label>callBackDateBlank</label>
-        <locationX>3076</locationX>
-        <locationY>3617</locationY>
+        <locationX>3178</locationX>
+        <locationY>3731</locationY>
         <assignmentItems>
             <assignToReference>blankCallBack</assignToReference>
             <operator>Assign</operator>
@@ -689,7 +689,7 @@
             <name>Convert_Gen_To_Bond</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>convertToBond.renderNext</leftValueReference>
+                <leftValueReference>convertToBondBtn.renderNext</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -704,14 +704,14 @@
             <name>Convert_PA_to_Bond</name>
             <conditionLogic>or</conditionLogic>
             <conditions>
-                <leftValueReference>convertToBondNotNurture.renderNext</leftValueReference>
+                <leftValueReference>convertToBondNotNurtureBtn.renderNext</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <conditions>
-                <leftValueReference>convertToBondNurture.renderNext</leftValueReference>
+                <leftValueReference>convertToBondNurtureBtn.renderNext</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -922,6 +922,49 @@
                 <targetReference>moveRehabToConsent</targetReference>
             </connector>
             <label>Rehab</label>
+        </rules>
+        <rules>
+            <name>General_Opp_Closed</name>
+            <conditionLogic>(1 AND 2 AND 3) AND (4 OR 5)</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>General_Opportunity</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.PreApprovalOpportunity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.Bond_Opportunity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Won</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity.StageName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Closed Lost</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>genOppClosed</targetReference>
+            </connector>
+            <label>General Opp Closed</label>
         </rules>
     </decisions>
     <decisions>
@@ -1184,10 +1227,10 @@
     <decisions>
         <name>Is_Cancel_Clicked</name>
         <label>Is Cancel Clicked?</label>
-        <locationX>2722</locationX>
-        <locationY>3432</locationY>
+        <locationX>2759</locationX>
+        <locationY>3357</locationY>
         <defaultConnector>
-            <targetReference>Call_Outcomes</targetReference>
+            <targetReference>Is_Upload_OTP_Clicked</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Proceed</defaultConnectorLabel>
         <rules>
@@ -1415,6 +1458,38 @@
                 <targetReference>errorScr_0_0_0</targetReference>
             </connector>
             <label>Case in Progress</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Upload_OTP_Clicked</name>
+        <label>Is Upload OTP Clicked?</label>
+        <locationX>3162</locationX>
+        <locationY>3367</locationY>
+        <defaultConnector>
+            <targetReference>Call_Outcomes</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Proceed</defaultConnectorLabel>
+        <rules>
+            <name>Upload_OTP_Clicked</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>convertToBondNotNurtureBtn.renderNext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>convertToBondNurtureBtn.renderNext</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>continueWithUploadPrompt</targetReference>
+            </connector>
+            <label>Upload OTP Clicked</label>
         </rules>
     </decisions>
     <decisions>
@@ -2142,8 +2217,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Updated_General</name>
         <label>Get Updated General</label>
-        <locationX>4285</locationX>
-        <locationY>4454</locationY>
+        <locationX>4310</locationX>
+        <locationY>4557</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Bond_Wrap_Up_0_0_0</targetReference>
@@ -2855,6 +2930,47 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     </recordUpdates>
     <runInMode>DefaultMode</runInMode>
     <screens>
+        <name>continueWithUploadPrompt</name>
+        <label>continueWithUploadPrompt</label>
+        <locationX>3170</locationX>
+        <locationY>3574</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>No</backButtonLabel>
+        <connector>
+            <targetReference>Call_Outcomes</targetReference>
+        </connector>
+        <fields>
+            <name>continueUploadOTP</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Continue with Upload OTP</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 9px</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>areYouSure</name>
+            <fieldText>&lt;p&gt;Are you sure you want to convert into a Bond Opportunity?&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Yes</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>crucialChecks</name>
         <label>crucialChecks</label>
         <locationX>3131</locationX>
@@ -2937,8 +3053,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <screens>
         <name>errorScr_0_0</name>
         <label>errorScr</label>
-        <locationX>2834</locationX>
-        <locationY>1181</locationY>
+        <locationX>2849</locationX>
+        <locationY>1081</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3055,9 +3171,34 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>error_BondInProgress</name>
+            <name>error_BondInProgressGen</name>
             <fieldText>&lt;p&gt;An associated &lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Bond &lt;/span&gt;Opportunity is in progress: {!Link_Bond}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;You are not able to work the General Opportunity.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Opportunity.RecordType.DeveloperName</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>General_Opportunity</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>paMsg</name>
+            <fieldText>&lt;p&gt;An associated Bond Opportunity is in progress: {!Link_Bond}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;You are not able to work the Pre-Approval Opportunity.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Opportunity.RecordType.DeveloperName</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>Pre_Approval_Opportunity</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -3132,6 +3273,43 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <fieldText>&lt;p&gt;You do not have the necessary permissions to work this opportunity.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please contact your System Administrator to ensure that your User is linked to the following Permission sets:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Mortgage&lt;/li&gt;&lt;li&gt;Financial Services Cloud Standard&lt;/li&gt;&lt;/ul&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>genOppClosed</name>
+        <label>genOppClosed</label>
+        <locationX>2911</locationX>
+        <locationY>1177</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>genClosedHeader</name>
+            <extensionName>c:customFlowBanner</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>General Opportunity Closed</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>cssCustomStyle</name>
+                <value>
+                    <stringValue>margin-bottom: 9px</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>closedGen</name>
+            <fieldText>&lt;p&gt;The General Opportunity Stage is Closed and cannot be worked.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Please create a repeat General Opportunity from Create Manual Opportunity &amp;gt; Convert Existing Customer.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Cancel</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
@@ -3293,7 +3471,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <name>theBigMainScreen</name>
         <label>theBigMainScreen</label>
         <locationX>2606</locationX>
-        <locationY>3430</locationY>
+        <locationY>3429</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3550,6 +3728,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
                     <defaultSelectedChoiceReference>Yes_issue</defaultSelectedChoiceReference>
                     <fieldText>Issue PA:</fieldText>
                     <fieldType>MultiSelectCheckboxes</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>false</isRequired>
                 </fields>
                 <inputParameters>
@@ -3603,6 +3782,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </defaultValue>
             <fieldText>Call Outcome</fieldText>
             <fieldType>DropdownBox</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <fields>
@@ -3650,6 +3830,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </defaultValue>
             <fieldText>Set Next Manual SLA</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);&quot;&gt;You are not allowed to set&amp;nbsp;the follow up prior to the current date/time.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -3681,6 +3862,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </defaultValue>
             <fieldText>Call Back Date Time</fieldText>
             <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
             <validationRule>
                 <errorMessage>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 0, 0);&quot;&gt;You are not allowed to set&amp;nbsp;the follow up prior to the current date/time.&lt;/span&gt;&lt;/p&gt;</errorMessage>
@@ -3747,6 +3929,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </defaultValue>
             <fieldText>Wrap Up Comment</fieldText>
             <fieldType>LargeTextArea</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <fields>
@@ -3817,7 +4000,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </visibilityRule>
         </fields>
         <fields>
-            <name>convertToBond</name>
+            <name>convertToBondBtn</name>
             <extensionName>runtime_industries_lending:flowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -3869,7 +4052,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </visibilityRule>
         </fields>
         <fields>
-            <name>convertToBondNurture</name>
+            <name>convertToBondNurtureBtn</name>
             <extensionName>runtime_industries_lending:flowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -4059,7 +4242,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             </visibilityRule>
         </fields>
         <fields>
-            <name>convertToBondNotNurture</name>
+            <name>convertToBondNotNurtureBtn</name>
             <extensionName>runtime_industries_lending:flowButton</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -4702,8 +4885,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <subflows>
         <name>Bond_Wrap_Up_0_0_0</name>
         <label>Bond - Wrap Up</label>
-        <locationX>4397</locationX>
-        <locationY>4454</locationY>
+        <locationX>4442</locationX>
+        <locationY>4557</locationY>
         <flowName>Wrap_Up_Opportunity_Bond_Subflow</flowName>
         <inputAssignments>
             <name>bypassBlock</name>
@@ -4935,7 +5118,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
         <locationX>4076</locationX>
         <locationY>4658</locationY>
         <connector>
-            <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0</targetReference>
+            <targetReference>Get_Updated_General</targetReference>
         </connector>
         <flowName>Create_Pre_Approval_or_Bond_Opportunity_H2</flowName>
         <inputAssignments>

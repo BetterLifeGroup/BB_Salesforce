@@ -106,6 +106,31 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>Update_Case_Closed</name>
+        <label>Update Case Closed</label>
+        <locationX>2172</locationX>
+        <locationY>7543</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>updateOpportunity_0_0</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Case</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_Latest_Case_0</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>updateOpportunity</name>
         <label>updateOpportunity</label>
         <locationX>736</locationX>
@@ -1446,8 +1471,15 @@
                 <stringValue>Automated</stringValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Latest_Case_0.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Converted to Bond</stringValue>
+            </value>
+        </assignmentItems>
         <connector>
-            <targetReference>updateOpportunity_0_0</targetReference>
+            <targetReference>Update_Case_Closed</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -1476,8 +1508,15 @@
                 <stringValue>Automated</stringValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get_Latest_Case_0.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Converted to Bond</stringValue>
+            </value>
+        </assignmentItems>
         <connector>
-            <targetReference>updateOpportunity_0_0</targetReference>
+            <targetReference>Update_Case_Closed</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -4741,6 +4780,30 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Close_Case</name>
+        <label>Close Case</label>
+        <locationX>3291</locationX>
+        <locationY>6350</locationY>
+        <connector>
+            <targetReference>Get_Updated_PA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Case.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Converted to Bond</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Case</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Close_Open_Tasks_General</name>
         <label>Close Open Tasks General</label>
         <locationX>770</locationX>
@@ -4891,7 +4954,7 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
         <locationX>3039</locationX>
         <locationY>6286</locationY>
         <connector>
-            <targetReference>Get_Updated_PA</targetReference>
+            <targetReference>Close_Case</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -4924,10 +4987,10 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
     <recordUpdates>
         <name>Close_PA_Converted_to_Bond_Won</name>
         <label>Close PA - Converted to Bond - Won</label>
-        <locationX>3311</locationX>
-        <locationY>6190</locationY>
+        <locationX>3291</locationX>
+        <locationY>6183</locationY>
         <connector>
-            <targetReference>Get_Updated_PA</targetReference>
+            <targetReference>Close_Case</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>

@@ -304,6 +304,13 @@
                     <stringValue>Direct</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Assign_to</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Verification_Team</elementReference>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Assign_Case_Owner</targetReference>
             </connector>
@@ -1005,6 +1012,7 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
             <defaultSelectedChoiceReference>Verification_Team</defaultSelectedChoiceReference>
             <fieldText>Assign to:</fieldText>
             <fieldType>RadioButtons</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>false</isRequired>
         </fields>
         <fields>
