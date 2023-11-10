@@ -1,0 +1,25 @@
+/**
+ * Created by frans fourie on 2022/09/21.
+ */
+
+.margin {
+    margin-right: 6px;
+    margin-top: 6px;
+}
+.red {
+    color: red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.standard {
+    color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.mandatoryNotSatisfied {
+    color: red;
+    border: red solid 1px;
+    border-radius: 5px;
+}
