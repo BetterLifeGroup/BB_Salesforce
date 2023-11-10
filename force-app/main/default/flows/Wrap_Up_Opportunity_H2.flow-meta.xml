@@ -3,8 +3,8 @@
     <actionCalls>
         <name>DetailPageNavigation_Bond</name>
         <label>DetailPageNavigation</label>
-        <locationX>4109</locationX>
-        <locationY>4306</locationY>
+        <locationX>4122</locationX>
+        <locationY>4167</locationY>
         <actionName>c:DetailPageNavigation</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -696,7 +696,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2</targetReference>
+                <targetReference>Is_running_user_and_Opp_Owner_match_0_0_0_0</targetReference>
             </connector>
             <label>Convert Gen To Bond</label>
         </rules>
@@ -1356,6 +1356,31 @@
             </conditions>
             <connector>
                 <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0_0_0_0_0</targetReference>
+            </connector>
+            <label>Owner Match</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_running_user_and_Opp_Owner_match_0_0_0_0</name>
+        <label>Is running user and Opp Owner match</label>
+        <locationX>3424</locationX>
+        <locationY>4357</locationY>
+        <defaultConnector>
+            <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Owner No Match</defaultConnectorLabel>
+        <rules>
+            <name>Owner_Match_0_0_0_0</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$User.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>ownerTrimmedVar</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Pre_Approval_or_Bond_Opportunity_H2</targetReference>
             </connector>
             <label>Owner Match</label>
         </rules>
@@ -2171,8 +2196,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordLookups>
         <name>Get_Updated_Gen_Opportunity</name>
         <label>Get Updated Gen Opportunity</label>
-        <locationX>3950</locationX>
-        <locationY>4306</locationY>
+        <locationX>3964</locationX>
+        <locationY>4167</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>DetailPageNavigation_Bond</targetReference>
@@ -2303,8 +2328,8 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <recordUpdates>
         <name>Update_General_Opp_Stage_to_Bond</name>
         <label>Update General Opp Stage to Bond</label>
-        <locationX>3808</locationX>
-        <locationY>4306</locationY>
+        <locationX>3821</locationX>
+        <locationY>4167</locationY>
         <connector>
             <targetReference>Get_Updated_Gen_Opportunity</targetReference>
         </connector>
@@ -5006,12 +5031,46 @@ IF({!mainMissingBankS} = &quot;Bank Statement&quot;, &quot;Bank Statement&quot;+
     <subflows>
         <name>Create_Pre_Approval_or_Bond_Opportunity_H2</name>
         <label>Create Pre-Approval or Bond Opportunity H2</label>
-        <locationX>3660</locationX>
-        <locationY>4306</locationY>
+        <locationX>3672</locationX>
+        <locationY>4167</locationY>
         <connector>
             <targetReference>Update_General_Opp_Stage_to_Bond</targetReference>
         </connector>
         <flowName>Create_Pre_Approval_or_Bond_Opportunity_H2</flowName>
+        <inputAssignments>
+            <name>foreignOwner</name>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>paOrBond</name>
+            <value>
+                <stringValue>Bond</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>Get_Opportunity.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Create_Pre_Approval_or_Bond_Opportunity_H2_0</name>
+        <label>Create Pre-Approval or Bond Opportunity H2</label>
+        <locationX>3765</locationX>
+        <locationY>4361</locationY>
+        <connector>
+            <targetReference>Update_General_Opp_Stage_to_Bond</targetReference>
+        </connector>
+        <flowName>Create_Pre_Approval_or_Bond_Opportunity_H2</flowName>
+        <inputAssignments>
+            <name>foreignOwner</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <name>paOrBond</name>
             <value>
