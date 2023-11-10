@@ -4711,6 +4711,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Visibility__c</picklist>
+        <values>
+            <fullName>Always Visible</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Hidden</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Visible for Bond Only</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Visible for General and Pre-Approval</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>et4ae5__Mobile_Country_Code__c</picklist>
         <values>
             <fullName>AC</fullName>

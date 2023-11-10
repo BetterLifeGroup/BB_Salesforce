@@ -232,6 +232,31 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
         <versionSegment>1</versionSegment>
     </actionCalls>
+    <actionCalls>
+        <name>updateOpportunity</name>
+        <label>updateOpportunity</label>
+        <locationX>2562</locationX>
+        <locationY>2096</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Get_General_Opp_Region</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_Bond_Opportunity</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>58.0</apiVersion>
     <assignments>
         <name>Add_Bond_OTP_File_to_PA</name>
@@ -307,8 +332,8 @@
     <assignments>
         <name>Assign_Bond_Vars</name>
         <label>Assign Bond Vars</label>
-        <locationX>2522</locationX>
-        <locationY>1878</locationY>
+        <locationX>2423</locationX>
+        <locationY>2096</locationY>
         <assignmentItems>
             <assignToReference>Get_Bond_Opportunity.Wrap_Up_Reason__c</assignToReference>
             <operator>Assign</operator>
@@ -320,28 +345,28 @@
             <assignToReference>Get_Bond_Opportunity.Network__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue></stringValue>
+                <elementReference>Get_Classification_Network.Id</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Get_Bond_Opportunity.Agency__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue></stringValue>
+                <elementReference>Get_Classification_Agency.Id</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Get_Bond_Opportunity.Branch__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue></stringValue>
+                <elementReference>Get_ClassificationBranch.Id</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>Get_Bond_Opportunity.Real_Estate_Agent__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue></stringValue>
+                <elementReference>Get_Classification_Contact.Id</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -352,7 +377,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_Bond_Opp</targetReference>
+            <targetReference>updateOpportunity</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -406,6 +431,22 @@
         </assignmentItems>
         <connector>
             <targetReference>Is_Comment_Populated</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Classification</name>
+        <label>Assign Classification</label>
+        <locationX>2238</locationX>
+        <locationY>1735</locationY>
+        <assignmentItems>
+            <assignToReference>classificationVar</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.noAgentClassification__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Classification_Contact</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -1145,7 +1186,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Assign_Bond_Vars</targetReference>
+                <targetReference>Assign_Classification</targetReference>
             </connector>
             <label>No Agent</label>
         </rules>
@@ -1573,6 +1614,90 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Classification_Agency</name>
+        <label>Get Classification Agency</label>
+        <locationX>2109</locationX>
+        <locationY>2096</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Classification_Network</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Classification_Contact.Account.ParentId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Classification_Contact</name>
+        <label>Get Classification Contact</label>
+        <locationX>2109</locationX>
+        <locationY>1735</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_ClassificationBranch</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>classificationVar</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Contact</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Classification_Network</name>
+        <label>Get Classification Network</label>
+        <locationX>2299</locationX>
+        <locationY>2096</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Bond_Vars</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Classification_Contact.Account.Parent.ParentId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_ClassificationBranch</name>
+        <label>Get Classification Branch</label>
+        <locationX>2109</locationX>
+        <locationY>1900</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Classification_Agency</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Classification_Contact.AccountId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_COP_Co_Applicant</name>
         <label>Get COP Co Applicant</label>
         <locationX>2040</locationX>
@@ -1954,7 +2079,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Agent_Details</name>
         <label>Update Agent Details</label>
-        <locationX>3010</locationX>
+        <locationX>3009</locationX>
         <locationY>1984</locationY>
         <connector>
             <targetReference>Get_General_Opp_Region</targetReference>
@@ -2000,16 +2125,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>ResidentialLoanApplication</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Bond_Opp</name>
-        <label>Update Bond Opp</label>
-        <locationX>2522</locationX>
-        <locationY>1999</locationY>
-        <connector>
-            <targetReference>Get_General_Opp_Region</targetReference>
-        </connector>
-        <inputReference>Get_Bond_Opportunity</inputReference>
-    </recordUpdates>
-    <recordUpdates>
         <name>Update_Bond_Opp_with_Application_Type</name>
         <label>Update Bond Opp with Application Type</label>
         <locationX>2732</locationX>
@@ -2042,8 +2157,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_No_Agent_Details</name>
         <label>Update No Agent Details</label>
-        <locationX>2402</locationX>
-        <locationY>2096</locationY>
+        <locationX>2534</locationX>
+        <locationY>1903</locationY>
         <connector>
             <targetReference>Get_General_Opp_Region</targetReference>
         </connector>
@@ -2941,7 +3056,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <inputParameters>
                 <name>queryFilter</name>
                 <value>
-                    <stringValue> AND( RecordType.Name = &apos;Real Estate Agent&apos; OR RecordType.Name = &apos;Development Agent&apos;)</stringValue>
+                    <stringValue>AND( RecordType.Name = &apos;Real Estate Agent&apos; OR RecordType.Name = &apos;Development Agent&apos;) AND Visibility__c != &apos;Hidden&apos; AND Visibility__c != &apos;Visible for General and Pre-Approval&apos;</stringValue>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -3180,8 +3295,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <screens>
         <name>OTP_Source_Select</name>
         <label>OTP Source Select</label>
-        <locationX>2620</locationX>
-        <locationY>1728</locationY>
+        <locationX>2538</locationX>
+        <locationY>1660</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -3951,6 +4066,13 @@ Phone: {!Mobile}</text>
         <value>
             <booleanValue>false</booleanValue>
         </value>
+    </variables>
+    <variables>
+        <name>classificationVar</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>ConsentRefused</name>
