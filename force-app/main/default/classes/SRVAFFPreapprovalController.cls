@@ -98,7 +98,7 @@ public with sharing class SRVAFFPreapprovalController {
 
         for (LoanApplicant app : applicantList) {
             SRVAFFApplicants applicant = new SRVAFFApplicants();
-            String str = app.Contact.Account.FirstName;
+            String str = app.Contact.Account.FirstName != null ? app.Contact.Account.FirstName : 'a a';
 
             str = str.trim();
             String initials = str.substring(0, 1);
@@ -112,7 +112,6 @@ public with sharing class SRVAFFPreapprovalController {
 
 
             applicant.applicantFullName = initials + ' ' + app.Contact.Account.LastName;
-//            applicant.applicantIdNumber = app.Personal_ID_Number__c;
             applicant.applicantIdNumber = app.Contact.Account.Identification_Number__c != null ? app.Contact.Account.Identification_Number__c : app.Contact.Account.Passport_Number__c;
             bondRepaymentToBeSettled += app?.Bond_Settlement_Amount__c != null ? app.Bond_Settlement_Amount__c : 0;
             existingBondRepayment += app?.Bond_Repayment_Amount__c != null ? app.Bond_Repayment_Amount__c : 0;
@@ -121,7 +120,6 @@ public with sharing class SRVAFFPreapprovalController {
         }
 
         req.applicants = affApplicants;
-
         req.depositPercentage1 = Integer.valueOf(rla.Deposit_1__c);
         req.depositPercentage2 = Integer.valueOf(rla.Deposit_2__c);
         req.depositPercentage3 = Integer.valueOf(rla.Deposit_3__c);
@@ -130,9 +128,6 @@ public with sharing class SRVAFFPreapprovalController {
         req.certificateValidUntilInMonths = 3;
         req.grossIncome = rla.Total_Income_Amount__c;
         req.totalExpenses = Double.valueOf(rla.Total_Contractual_Expenses_Amount__c + rla.Total_Liability_Amount__c + rla.Total_Deductions_Amount__c);
-        System.debug(rla.Total_Contractual_Expenses_Amount__c);
-        System.debug(rla.Total_Liability_Amount__c);
-        System.debug(rla.Total_Deductions_Amount__c);
         paCert__c includeSettlementAmount = paCert__c.getOrgDefaults();
         if (includeSettlementAmount.includeSettlementAmount__c == false && bondRepaymentToBeSettled > 0) {
             req.totalExpenses -= existingBondRepayment;
@@ -198,16 +193,16 @@ public with sharing class SRVAFFPreapprovalController {
                 Map<String, Object> affordabilityParams = new Map<String, Object>{
                         'SRVAFFCertificateDataApi' => req
                 };
-
-                SRVAFFCertificateDataResponse affordabilityResp = affordabilityApi.postCertificateData(affordabilityParams);
+                SRVAFFCertificateDataResponse affordabilityResp = new SRVAFFCertificateDataResponse();
+                if (!Test.isRunningTest()) {
+                    affordabilityResp = affordabilityApi.postCertificateData(affordabilityParams);
+                } else {
+                    affordabilityResp.purchasePrice = 'R 1 234';
+                }
                 System.debug(affordabilityResp);
 
-                Decimal affordabilityAmount = Decimal.valueOf(affordabilityResp.purchasePrice.replaceAll('R','').replaceAll(' ',''));
-//                if (!Test.isRunningTest()) {
-//                    affordabilityAmount = SRVAFFPreapprovalController.GetAffordability((Double) req.grossIncome, (Double) rla.Total_Nett_Income__c, req.totalExpenses, (Double) req.existingBondRepayment - req.bondRepaymentToBeSettled);
-//                } else {
-//                    affordabilityAmount = 2211;
-//                }
+                Decimal affordabilityAmount = Decimal.valueOf(affordabilityResp.purchasePrice.replaceAll('R', '').replaceAll(' ', ''));
+
                 update new Opportunity(Id = opportunityId, Wrap_Up_Reason__c = 'Automated', Affordability_Amount__c = affordabilityAmount);
 
                 Datetime dt = System.Datetime.now();
@@ -239,8 +234,6 @@ public with sharing class SRVAFFPreapprovalController {
 
     @AuraEnabled
     public static Boolean PaCertExists(String opportunityId) {
-
-//        ResidentialLoanApplication rla = [SELECT Id FROM ResidentialLoanApplication WHERE OpportunityId = :opportunityId LIMIT 1];
 
 
         System.debug(opportunityId);
@@ -290,55 +283,55 @@ public with sharing class SRVAFFPreapprovalController {
 
     }
 
-    public static Double GetInterestRate() {
-
-        SRVAFFClient client = new SRVAFFClient();
-        SRVAFFRatesApi api = new SRVAFFRatesApi(client);
-        Integration_Parameter__mdt integrationParam = Integration_Parameter__mdt.getInstance('Subscription_Key');
-        ((OAS.ApiKeyAuth) client.getAuthentication('apiKeyHeader')).setApiKey(integrationParam.Parameter_Value__c);
-
-        String str = api.getGetinterestrate();
-
-        Double interestRate = Double.valueOf(str);
-
-        return interestRate;
-
-    }
-
-    public static Decimal GetAffordability(Double grossIncome, Double netIncome, Double totalExpenses, Double existingBondRepayments) {
-
-        SRVAFFClient client = new SRVAFFClient();
-        SRVAFFCalculatorApi api = new SRVAFFCalculatorApi(client);
-        Integration_Parameter__mdt integrationParam = Integration_Parameter__mdt.getInstance('Subscription_Key');
-        ((OAS.ApiKeyAuth) client.getAuthentication('apiKeyHeader')).setApiKey(integrationParam.Parameter_Value__c);
-
-        SRVAFFAffordabilityRequestModel req = new SRVAFFAffordabilityRequestModel();
-
-        req.grossMonthlyIncome = grossIncome;
-        req.netMonthlyIncome = netIncome;
-        req.roundData = true;
+//    public static Double GetInterestRate() {
+//
+//        SRVAFFClient client = new SRVAFFClient();
+//        SRVAFFRatesApi api = new SRVAFFRatesApi(client);
+//        Integration_Parameter__mdt integrationParam = Integration_Parameter__mdt.getInstance('Subscription_Key');
+//        ((OAS.ApiKeyAuth) client.getAuthentication('apiKeyHeader')).setApiKey(integrationParam.Parameter_Value__c);
+//
+//        String str = api.getGetinterestrate();
+//
+//        Double interestRate = Double.valueOf(str);
+//
+//        return interestRate;
+//
+//    }
+//
+//    public static Decimal GetAffordability(Double grossIncome, Double netIncome, Double totalExpenses, Double existingBondRepayments) {
+//
+//        SRVAFFClient client = new SRVAFFClient();
+//        SRVAFFCalculatorApi api = new SRVAFFCalculatorApi(client);
+//        Integration_Parameter__mdt integrationParam = Integration_Parameter__mdt.getInstance('Subscription_Key');
+//        ((OAS.ApiKeyAuth) client.getAuthentication('apiKeyHeader')).setApiKey(integrationParam.Parameter_Value__c);
+//
+//        SRVAFFAffordabilityRequestModel req = new SRVAFFAffordabilityRequestModel();
+//
+//        req.grossMonthlyIncome = grossIncome;
+//        req.netMonthlyIncome = netIncome;
+//        req.roundData = true;
+////        if (!Test.isRunningTest()) {
+////            req.interestRate = SRVAFFPreapprovalController.GetInterestRate();
+////        } else {
+////            req.interestRate = 11;
+////        }
+//        req.repaymentTermInYears = 20;
+//        req.totalMonthlyExpenses = totalExpenses;
+//        req.existingBondRepayments = existingBondRepayments;
+//
+//        Map<String, Object> params = new Map<String, Object>{
+//                'SRVAFFAffordabilityRequestModel' => req
+//        };
+//
+//        SRVAFFAffordabilityResultVm result = new SRVAFFAffordabilityResultVm();
 //        if (!Test.isRunningTest()) {
-//            req.interestRate = SRVAFFPreapprovalController.GetInterestRate();
+//            result = api.postCalculateaffordability(params);
 //        } else {
-//            req.interestRate = 11;
+//            result = SRVAFFAffordabilityResultVm.getExample();
 //        }
-        req.repaymentTermInYears = 20;
-        req.totalMonthlyExpenses = totalExpenses;
-        req.existingBondRepayments = existingBondRepayments;
-
-        Map<String, Object> params = new Map<String, Object>{
-                'SRVAFFAffordabilityRequestModel' => req
-        };
-
-        SRVAFFAffordabilityResultVm result = new SRVAFFAffordabilityResultVm();
-        if (!Test.isRunningTest()) {
-            result = api.postCalculateaffordability(params);
-        } else {
-            result = SRVAFFAffordabilityResultVm.getExample();
-        }
-        System.debug(result);
-
-        return result.loanAmount;
-    }
+//        System.debug(result);
+//
+//        return result.loanAmount;
+//    }
 
 }
