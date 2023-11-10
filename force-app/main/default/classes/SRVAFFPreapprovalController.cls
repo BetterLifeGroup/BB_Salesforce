@@ -191,12 +191,23 @@ public with sharing class SRVAFFPreapprovalController {
         try {
             if (base64String != null) {
 
-                Decimal affordabilityAmount;
-                if (!Test.isRunningTest()) {
-                    affordabilityAmount = SRVAFFPreapprovalController.GetAffordability((Double) req.grossIncome, (Double) rla.Total_Nett_Income__c, req.totalExpenses, (Double) req.existingBondRepayment - req.bondRepaymentToBeSettled);
-                } else {
-                    affordabilityAmount = 2211;
-                }
+                SRVAFFCertificateDataApi affordabilityApi = new SRVAFFCertificateDataApi(client);
+                ((OAS.ApiKeyAuth) client.getAuthentication('apiKeyHeader')).setApiKey(integrationParam.Parameter_Value__c);
+
+                System.debug(JSON.serialize(req));
+                Map<String, Object> affordabilityParams = new Map<String, Object>{
+                        'SRVAFFCertificateDataApi' => req
+                };
+
+                SRVAFFCertificateDataResponse affordabilityResp = affordabilityApi.postCertificateData(affordabilityParams);
+                System.debug(affordabilityResp);
+
+                Decimal affordabilityAmount = Decimal.valueOf(affordabilityResp.purchasePrice.replaceAll('R','').replaceAll(' ',''));
+//                if (!Test.isRunningTest()) {
+//                    affordabilityAmount = SRVAFFPreapprovalController.GetAffordability((Double) req.grossIncome, (Double) rla.Total_Nett_Income__c, req.totalExpenses, (Double) req.existingBondRepayment - req.bondRepaymentToBeSettled);
+//                } else {
+//                    affordabilityAmount = 2211;
+//                }
                 update new Opportunity(Id = opportunityId, Wrap_Up_Reason__c = 'Automated', Affordability_Amount__c = affordabilityAmount);
 
                 Datetime dt = System.Datetime.now();
@@ -306,11 +317,11 @@ public with sharing class SRVAFFPreapprovalController {
         req.grossMonthlyIncome = grossIncome;
         req.netMonthlyIncome = netIncome;
         req.roundData = true;
-        if (!Test.isRunningTest()) {
-            req.interestRate = SRVAFFPreapprovalController.GetInterestRate();
-        } else {
-            req.interestRate = 11;
-        }
+//        if (!Test.isRunningTest()) {
+//            req.interestRate = SRVAFFPreapprovalController.GetInterestRate();
+//        } else {
+//            req.interestRate = 11;
+//        }
         req.repaymentTermInYears = 20;
         req.totalMonthlyExpenses = totalExpenses;
         req.existingBondRepayments = existingBondRepayments;
