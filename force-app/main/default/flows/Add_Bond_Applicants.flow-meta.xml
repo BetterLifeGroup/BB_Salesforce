@@ -1694,12 +1694,6 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Name_Title__c</field>
-            <value>
-                <elementReference>coLoanApplicant.Name_Title__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_Bond_Applicant_Record_Type.Id</elementReference>
@@ -1786,12 +1780,6 @@ IF(ISPICKVAL({!loanApplicant.Are_you_buying_your_first_home__c}, &quot;&quot;), 
             <field>Name</field>
             <value>
                 <elementReference>coLoanApplicantName</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name_Title__c</field>
-            <value>
-                <elementReference>coLoanApplicant.Name_Title__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
