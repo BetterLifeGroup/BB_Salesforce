@@ -14,7 +14,6 @@
         <isOptional>false</isOptional>
     </lookupFilter>
     <referenceTo>Contact</referenceTo>
-    <relationshipLabel>CampaignContacts</relationshipLabel>
     <relationshipName>CampaignContacts</relationshipName>
     <required>true</required>
     <trackHistory>false</trackHistory>
