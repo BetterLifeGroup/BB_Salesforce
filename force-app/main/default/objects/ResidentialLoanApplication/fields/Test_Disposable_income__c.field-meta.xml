@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Disposable_income__c</fullName>
+    <externalId>false</externalId>
+    <formula>Total_Nett_Income__c - Total_Liability_Amount__c - Total_Contractual_Expenses_Amount__c + Existing_Bond_Repayments_to_be_Settled__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Monthly Disposable income</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <type>Currency</type>
+</CustomField>
