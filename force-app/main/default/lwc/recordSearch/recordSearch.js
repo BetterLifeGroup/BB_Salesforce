@@ -27,6 +27,7 @@ export default class recordSearch extends LightningElement {
     @track showSearchResults = false;
     @track iconName = 'standard:record_lookup'
     @api contactContactScope = false;
+    @api workOppScope = false;
     @api campaignScope = false;
     @api suburbScope = false;
     @api agentMode = false;
@@ -122,6 +123,25 @@ export default class recordSearch extends LightningElement {
                 this.recordsList = undefined;
                 this.message = 'No Records Found'
             });
+
+        } else if (this.workOppScope === true) {
+            getAgents({
+                searchKey: this.searchKey,
+                objectName: this.queriedObjectType,
+                queryFilter: this.queryFilter,
+                searchField: this.searchField,
+                userId: this.userId
+            }).then((result) => {
+                this.recordsList = [...result];
+                this.message = "";
+                // }
+                this.error = undefined;
+            }).catch((error) => {
+                this.error = error;
+                this.recordsList = undefined;
+                this.message = 'No Records Found'
+            });
+
         } else if (this.userScope === true) {
             getUsers({
                 searchKey: this.searchKey,
