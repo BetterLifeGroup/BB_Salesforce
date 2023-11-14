@@ -1,0 +1,15 @@
+<!--
+ - Created by frans fourie on 2023/10/30.
+ -->
+
+<!-- User Management Delete Agent -->
+<template>
+    <div style='width: 65%'>
+        <c-user-management-record-search
+                account-mode={constantTrue}
+                account-scope='agents'
+                onrecordselected={onDataBubbles}
+                onselectioncleared={handleSelectionCleared}
+        ></c-user-management-record-search>
+    </div>
+</template>

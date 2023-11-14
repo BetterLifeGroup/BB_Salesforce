@@ -50,8 +50,23 @@ public with sharing class UserManagementController {
             when 'reAll' {
                 return [SELECT Id, Name FROM Account WHERE (RecordType.Name = 'Real Estate Branch' OR RecordType.Name = 'Real Estate Agency' OR RecordType.Name = 'Real Estate Network') AND Name LIKE :searchAcc];
             }
+            when 'inactiveAgents' {
+                return [
+                        SELECT Id, Name, Email, MobilePhone, FinServ__PreferredName__c
+                        FROM Contact
+                        WHERE RecordType.Name = 'Real Estate Agent' AND
+                        (Name LIKE :searchAcc OR Email LIKE :searchAcc OR MobilePhone LIKE :searchAcc OR FinServ__PreferredName__c LIKE :searchAcc)
+                        LIMIT 40
+                ];
+            }
             when 'agents' {
-                return [SELECT Id, Name, Email, MobilePhone, FinServ__PreferredName__c FROM Contact WHERE RecordType.Name = 'Real Estate Agent' AND (Name LIKE :searchAcc OR Email LIKE :searchAcc OR MobilePhone LIKE :searchAcc OR FinServ__PreferredName__c LIKE :searchAcc) LIMIT 20];
+                return [
+                        SELECT Id, Name, Email, MobilePhone, FinServ__PreferredName__c
+                        FROM Contact
+                        WHERE RecordType.Name = 'Real Estate Agent' AND Active__c = TRUE AND
+                        (Name LIKE :searchAcc OR Email LIKE :searchAcc OR MobilePhone LIKE :searchAcc OR FinServ__PreferredName__c LIKE :searchAcc)
+                        LIMIT 40
+                ];
             }
         }
         return new List<Account>();
@@ -303,13 +318,6 @@ public with sharing class UserManagementController {
             try {
                 regionAcr = [SELECT Id, CommissionEntityId__c, SkillGroup__c FROM AccountContactRelation WHERE Account.RecordType.Name = 'Region' AND AccountId = :acr.Account.Parent.ParentId AND ContactId IN (SELECT Id FROM Contact WHERE Consultant__c = :userId AND RecordType.Name = 'Betterbond Contact') ORDER BY CreatedDate LIMIT 1];
             } catch (Exception e) {
-//                try{
-//                    delete acr;
-//                } catch (Exception ex) {
-//                    delete [SELECT Id, Account.Name, Contact.Name, AccountId, Account.Parent.Name, Account.Parent.Parent.Name, Account.Parent.ParentId FROM AccountContactRelation WHERE ContactId IN (SELECT Id FROM Contact WHERE Consultant__c = :userId AND RecordType.Name = 'Betterbond Contact') AND IsDirect = FALSE];
-//                    update new Contact(Id = acr.ContactId , AccountId = null);
-//                }
-//                continue;
             }
             SubBranch sb = new SubBranch();
             sb.subBranchId = acr.AccountId;
@@ -391,7 +399,7 @@ public with sharing class UserManagementController {
         Set<Opportunity> returnSet = new Set<Opportunity>();
 
         List<Opportunity> openOpps = [
-                SELECT Id, Name, StageName, Affordability_Amount__c, PreApprovalOpportunity__c, RecordType.Name, Consultant_Region_Name__c, Bond_Opportunity__c,Status__c,Campaign_Type__c,BLG_Campaign__r.Name,SLA_Deadline__c, PreApprovalOpportunity__r.OwnerId, Bond_Opportunity__r.OwnerId
+                SELECT Id, Name, StageName, Affordability_Amount__c, PreApprovalOpportunity__c, RecordType.Name, Consultant_Region_Name__c, Bond_Opportunity__c, Status__c, Campaign_Type__c, BLG_Campaign__r.Name, SLA_Deadline__c, PreApprovalOpportunity__r.OwnerId, Bond_Opportunity__r.OwnerId
                 FROM Opportunity
                 WHERE StageName != 'Closed Won' AND StageName != 'Closed Lost' AND OwnerId = :userId
                 ORDER BY Name
@@ -401,7 +409,7 @@ public with sharing class UserManagementController {
             if ((opp.RecordType.Name == 'General Opportunity' && opp.PreApprovalOpportunity__c == null && opp.Bond_Opportunity__c == null) || (opp.PreApprovalOpportunity__c != null && opp.PreApprovalOpportunity__r?.OwnerId != userId) || (opp.Bond_Opportunity__c != null && opp.Bond_Opportunity__r.OwnerId != userId)) {
                 returnSet.add(opp);
             }
-            if ((opp.RecordType.Name == 'Pre-Approval Opportunity' && opp.Bond_Opportunity__c == null) || opp.Bond_Opportunity__r.OwnerId != userId) {
+            if ((opp.RecordType.Name == 'Pre-Approval Opportunity' && opp.Bond_Opportunity__c == null) || (opp.Bond_Opportunity__c != null && opp.Bond_Opportunity__r.OwnerId != userId)) {
                 returnSet.add(opp);
             } else if (opp.RecordType.Name == 'Bond Opportunity') {
                 returnSet.add(opp);
@@ -512,6 +520,7 @@ public with sharing class UserManagementController {
             for (Integer i = 0; i < oppsToUpdate.size(); i++) {
 
             }
+            System.debug(new List<Opportunity>(oppsToUpdate));
             update new List<Opportunity>(oppsToUpdate);
             return true;
 
@@ -801,7 +810,7 @@ public with sharing class UserManagementController {
     public static AgentDetails getAgentDetails(String contactId) {
 
         AgentDetails ad = new AgentDetails();
-        ad.agent = [SELECT Id, Name, FirstName, FinServ__PreferredName__c, LastName, Email, MobilePhone, Account.Name, Account.Parent.Name, Account.Parent.Parent.Name, P40_Indicator__c, X4DX_Indicator__c FROM Contact WHERE Id = :contactId];
+        ad.agent = [SELECT Id, Active__c, Name, FirstName, AccountId, FinServ__PreferredName__c, LastName, Email, MobilePhone, Account.Name, Account.Parent.Name, Account.Parent.Parent.Name, P40_Indicator__c, X4DX_Indicator__c,Visibility__c FROM Contact WHERE Id = :contactId];
         try {
             ad.network = ad.agent.Account.Parent.Parent.Name;
         } catch (Exception e) {
@@ -812,6 +821,7 @@ public with sharing class UserManagementController {
         }
         try {
             ad.branch = ad.agent.Account.Name;
+            ad.commId = [SELECT Id, CommissionEntityId__c FROM AccountContactRelation WHERE ContactId = :ad.agent.Id AND AccountId = :ad.agent.AccountId LIMIT 1].CommissionEntityId__c;
         } catch (Exception e) {
         }
         try {
@@ -823,17 +833,26 @@ public with sharing class UserManagementController {
     }
 
     @AuraEnabled
-    public static Boolean updateAgent(Contact agent) {
+    public static Boolean updateAgent(Contact agent, String commId) {
         agent.et4ae5__HasOptedOutOfMobile__c = true;
         try {
             if (agent.Id != null) {
                 update agent;
-                return true;
             } else {
                 agent.RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Agent' AND SobjectType = 'Contact' LIMIT 1].Id;
                 insert agent;
-                return true;
             }
+            if (commId != null && agent.AccountId != null) {
+                try {
+                    AccountContactRelation acr = [SELECT Id,CommissionEntityId__c FROM AccountContactRelation WHERE ContactId = :agent.Id AND AccountId = :agent.AccountId LIMIT 1];
+                    acr.CommissionEntityId__c = commId;
+                    update acr;
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+            return true;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
 
@@ -846,15 +865,18 @@ public with sharing class UserManagementController {
     }
 
     @AuraEnabled
-    public static LwcResult userManagementNetworks(String searchString, Boolean reState) {
+    public static LwcResult userManagementNetworks(String searchString, Boolean reState, Boolean searchByContact) {
 
         String searchKey = '%' + String.escapeSingleQuotes(searchString) + '%';
         searchKey = searchKey.replaceAll(' ', '%');
 
         LwcResult res = new LwcResult();
+        res.contacts = new List<Contact>();
         List<String> contactParentIds = new List<String>();
         if (reState) {
-            res.contacts = [SELECT Id, Name, AccountId, Account.ParentId, Account.Parent.ParentId FROM Contact WHERE Name LIKE :searchKey AND RecordType.Name = 'Real Estate Agent' LIMIT 50];
+            if (searchByContact) {
+                res.contacts = [SELECT Id, Name, AccountId, Account.ParentId, Account.Parent.ParentId FROM Contact WHERE Name LIKE :searchKey AND RecordType.Name = 'Real Estate Agent' LIMIT 50];
+            }
         } else {
             res.contacts = [SELECT Id, Name, AccountId, Account.ParentId, Account.Parent.ParentId FROM Contact WHERE Name LIKE :searchKey AND RecordType.Name = 'BetterBond Contact' LIMIT 50];
         }
@@ -869,8 +891,10 @@ public with sharing class UserManagementController {
                 contactParentIds.add(con.Account.Parent.ParentId);
             }
         }
-        if (reState) {
+        if (reState && !searchByContact) {
             res.accounts = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE (Name LIKE :searchKey AND (RecordType.Name = 'Real Estate Network' OR RecordType.Name = 'Real Estate Agency' OR RecordType.Name = 'Real Estate Branch')) OR (Id IN :contactParentIds) LIMIT 50];
+        } else if (reState && searchByContact) {
+            res.accounts = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE (RecordType.Name = 'Real Estate Network' OR RecordType.Name = 'Real Estate Agency' OR RecordType.Name = 'Real Estate Branch') AND (Id IN :contactParentIds) LIMIT 50];
         } else {
             res.accounts = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE (Name LIKE :searchKey AND (RecordType.Name = 'Region' OR RecordType.Name = 'Branch' OR RecordType.Name = 'Sub-Branch')) OR (Id IN :contactParentIds) LIMIT 50];
         }
@@ -891,29 +915,77 @@ public with sharing class UserManagementController {
             }
         }
 
-        List<Account> accountList = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE ParentId IN :childAccountIds OR Parent.ParentId IN :childAccountIds OR Id IN :parentAccountIds LIMIT 50];
-        accountSet.addAll(accountList);
-        res.accounts.addAll(accountSet);
-
+        if (!searchByContact) {
+            List<Account> accountList = [SELECT Id, Name, Parent.ParentId, RecordType.Name FROM Account WHERE ParentId IN :childAccountIds OR Parent.ParentId IN :childAccountIds OR Id IN :parentAccountIds LIMIT 50];
+            accountSet.addAll(accountList);
+            res.accounts.addAll(accountSet);
+        }
         return res;
     }
 
     @AuraEnabled
-    public static Boolean CreateNetwork(String name) {
-        insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Network'].Id, Type = 'Other');
-        return true;
+    public static String CreateNetworkAgencyBranch(String networkName, String networkId, String agencyName, String agencyId, String branchName) {
+        try {
+            if (networkId == null) {
+                Account acc = new Account(Name = networkName, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Network'].Id, Type = 'Other');
+                insert acc;
+                networkId = acc.Id;
+            }
+
+            if (agencyId == null) {
+                Account acc = new Account(Name = agencyName, ParentId = networkId, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Agency'].Id, Type = 'Other');
+                insert acc;
+                agencyId = acc.Id;
+                if(branchName == null){
+                    return agencyId;
+                }
+            }
+
+            if (branchName != null) {
+                Account acc = new Account(Name = branchName, ParentId = agencyId, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Branch'].Id, Type = 'Other');
+                insert acc;
+                return acc.Id;
+            }
+            return 'success';
+        } catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     @AuraEnabled
-    public static Boolean CreateAgency(String name, String parentId) {
-        insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Agency'].Id, Type = 'Other', ParentId = parentId);
-        return true;
+    public static String CreateNetwork(String name) {
+        try {
+            insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Network'].Id, Type = 'Other');
+        } catch (Exception e) {
+            System.debug('Error occurred' + e.getMessage());
+            return e.getMessage();
+        }
+        return 'success';
     }
 
     @AuraEnabled
-    public static Boolean CreateReBranch(String name, String parentId) {
-        insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Branch'].Id, Type = 'Other', ParentId = parentId);
-        return true;
+    public static String CreateAgency(String name, String parentId) {
+        try {
+            insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Agency'].Id, Type = 'Other', ParentId = parentId);
+        } catch (Exception e) {
+            System.debug('Error occurred' + e.getMessage());
+            return e.getMessage();
+        }
+        return 'success';
+    }
+
+    @AuraEnabled
+    public static String CreateReBranch(String name, String parentId) {
+        try {
+            Account acc = new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Branch'].Id, Type = 'Other', ParentId = parentId);
+            insert acc;
+            return acc.Id;
+        } catch (Exception e) {
+            System.debug('Error occurred' + e.getMessage());
+            return e.getMessage();
+        }
+
+
     }
 
     @AuraEnabled
@@ -1027,6 +1099,164 @@ public with sharing class UserManagementController {
         return results;
     }
 
+    @AuraEnabled
+    public static Account getAccount(String recordId) {
+        try {
+            return [SELECT Id, Name, RecordType.Name FROM Account WHERE Id = :recordId LIMIT 1];
+
+        } catch (Exception e) {
+            System.debug('Error' + e.getMessage());
+            return new Account();
+        }
+    }
+
+    @AuraEnabled
+    public static String updateAccountName(Account acc) {
+        try {
+            update acc;
+            return 'success';
+        } catch (Exception e) {
+            System.debug('Error Updating Account Name' + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+
+    @AuraEnabled
+    public static String deleteAccount(String recordId) {
+
+        try {
+            List<Account> accounts = new List<Account>();
+            Set<String> accountIds = new Set<String>();
+            Set<SObject> recordsToDelete = new Set<SObject>();
+            Account selectedAccount = [SELECT Id, Name, RecordType.Name, Parent.ParentId, ParentId FROM Account WHERE Id = :recordId];
+            if (selectedAccount.RecordType.Name == 'Real Estate Network') {
+                accounts.add(selectedAccount);
+                accounts.addAll([SELECT Id, Name FROM Account WHERE ParentId = :recordId]);
+                accounts.addAll([SELECT Id, Name FROM Account WHERE Parent.ParentId = :recordId]);
+            } else if (selectedAccount.RecordType.Name == 'Real Estate Agency') {
+                accounts.add(selectedAccount);
+                accounts.addAll([SELECT Id, Name FROM Account WHERE ParentId = :recordId]);
+                accountIds.add(selectedAccount.ParentId);
+            } else if (selectedAccount.RecordType.Name == 'Real Estate Branch') {
+                accounts.add(selectedAccount);
+                accountIds.add(selectedAccount.ParentId);
+                accountIds.add(selectedAccount.Parent.ParentId);
+            }
+
+            for (Account acc : accounts) {
+                accountIds.add(acc.Id);
+            }
+            List<AccountContactRelation> acrList = [SELECT Id, ContactId FROM AccountContactRelation WHERE AccountId IN :accountIds AND IsDirect = FALSE];
+            List<String> contactIds = new List<String>();
+
+            for (AccountContactRelation acr : acrList) {
+                contactIds.add(acr.ContactId);
+                recordsToDelete.add(acr);
+
+            }
+            List<Contact> contactList = [SELECT Id, AccountId FROM Contact WHERE Id IN :contactIds];
+
+            for (Contact ct : contactList) {
+                ct.AccountId = null;
+            }
+
+            delete new List<AccountContactRelation>(acrList);
+            update contactList;
+            delete new List<Account>(accounts);
+
+            return 'success';
+        } catch (Exception e) {
+            System.debug('Unable to delete records - ' + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static Boolean CreateCampaign(
+            String name,
+            Decimal sla,
+            Date endDate,
+            Date startDate,
+            Boolean active,
+            String branchId,
+            String campaignList,
+            String typeOfCampaign,
+            String typeOfLead,
+            String priority,
+            String campaignOwner,
+            String campaignGroup) {
+
+        try {
+
+            Account branch = [SELECT Id, Name, ParentId, Parent.ParentId FROM Account WHERE Id = :branchId LIMIT 1];
+
+            BLG_Campaign__c camp = new BLG_Campaign__c();
+            camp.End_Date__c = endDate;
+            camp.Campaign_List__c = campaignList;
+            camp.Type_of_Campaign__c = typeOfCampaign;
+            camp.Type_of_Lead__c = typeOfLead;
+            camp.Priority__c = priority;
+            camp.Campaign_Owner__c = campaignOwner;
+            camp.Group__c = campaignGroup;
+            camp.Name = branch.Name;
+            camp.Start_Date__c = startDate;
+            camp.Active__c = active;
+            camp.SLA__c = sla;
+            camp.Branch__c = branchId;
+            camp.Agency__c = branch.ParentId;
+            camp.Network__c = branch.Parent.ParentId;
+
+            insert camp;
+
+            return true;
+        } catch (Exception e) {
+            System.debug('error');
+            return false;
+        }
+    }
+
+    @AuraEnabled
+    public static String deactivateAgent(String contactId) {
+
+        try {
+            List<FinServ__ContactContactRelation__c> ccrList = [SELECT Id FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :contactId];
+            delete ccrList;
+
+            List<AccountContactRelation> acrList = [SELECT Id FROM AccountContactRelation WHERE ContactId = :contactId AND IsDirect = FALSE];
+            delete acrList;
+
+
+            update new Contact(Id = contactId, AccountId = null, Active__c = false);
+            return 'success';
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static String reactivateAgent(String contactId) {
+        try {
+            update new Contact(Id = contactId, Active__c = true);
+            return 'success';
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static String getSobjectType(Id recordId) {
+        try {
+            return recordId.getSobjectType().getDescribe().getName();
+        } catch (Exception e) {
+            System.debug('error occurred');
+            return 'error';
+        }
+    }
+
+
     public class LwcResult {
         @AuraEnabled public List<Account> accounts;
         @AuraEnabled public List<Contact> contacts;
@@ -1039,6 +1269,7 @@ public with sharing class UserManagementController {
         @AuraEnabled public String agency;
         @AuraEnabled public String branch;
         @AuraEnabled public String linkedConsultantName;
+        @AuraEnabled public String commId;
     }
 
     public class RelatedReAccounts {
