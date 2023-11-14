@@ -20,7 +20,7 @@
         <inputParameters>
             <name>emailSubject</name>
             <value>
-                <stringValue>Updated: BetterBond Lead Credentials</stringValue>
+                <stringValue>Updated: BetterBond External Lead Source Credentials</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -301,7 +301,7 @@ This flow send an email with the credentials for External Sources. The fields ar
             <targetReference>Get_BB_Campaign</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <textTemplates>
         <name>text_temp_Email_Body</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
