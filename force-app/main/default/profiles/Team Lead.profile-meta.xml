@@ -211,7 +211,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>CampaignContact__c.Last_sent__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -261,9 +261,9 @@
         <recordType>Contact.External_Source_Contact</recordType>
     </layoutAssignments>
     <objectPermissions>
-        <allowCreate>false</allowCreate>
+        <allowCreate>true</allowCreate>
         <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
+        <allowEdit>true</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>BLG_Campaign__c</object>
