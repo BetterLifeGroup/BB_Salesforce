@@ -200,20 +200,21 @@ export default class UserManagementNetworksModal extends LightningModal {
             agencyId: agencyId,
             branchName: branchName
         }).then(result => {
-            console.log('resultttt',result)
+            console.log('resultttt', result)
             if (branchName !== null) {
                 this.createCampaign(result)
             } else {
                 this.disableClose = false;
-                if (result) {
+                if (result === 'success') {
                     this.close('success');
                 } else {
-                    this.close('fail');
+                    this.close(result);
                 }
             }
 
         }).catch(error => {
             console.log('error occurred', error);
+            this.close(error)
         })
 
     }
@@ -249,12 +250,12 @@ export default class UserManagementNetworksModal extends LightningModal {
         this.disableClose = true;
         CreateNetwork({name: this.newNetworkName}).then(result => {
             this.disableClose = false;
-            if (result === true) {
+            if (result === 'success') {
                 this.close('success');
                 this.success = true;
             } else {
                 this.failure = true;
-                this.close('fail');
+                this.close(result);
             }
         })
 
@@ -295,12 +296,12 @@ export default class UserManagementNetworksModal extends LightningModal {
             this.disableClose = true;
             CreateAgency({name: this.newAgencyName, parentId: this.selectedNetworkId}).then(result => {
                 this.disableClose = false;
-                if (result === true) {
+                if (result === 'success') {
                     this.success = true;
                     this.close('success');
                 } else {
                     this.failure = true;
-                    this.close('fail');
+                    this.close(result);
                 }
             })
         }
@@ -322,6 +323,10 @@ export default class UserManagementNetworksModal extends LightningModal {
 
             this.disableClose = true;
             CreateBranch({name: this.newBranchName, parentId: this.selectedAgencyId}).then(result => {
+                if (result !== 'success') {
+                    this.failure = true;
+                    this.close(result);
+                }
                 this.createCampaign(result)
                 // this.disableClose = false;
             })
@@ -446,19 +451,17 @@ export default class UserManagementNetworksModal extends LightningModal {
         this.handleSaveEnable();
     }
 
+
     handleSaveEnable() {
         this.enableSave =
-            // this.campaignActive === true &&
             this.selectedGroup.length > 0 &&
-            // this.endDateValue.length > 1 &&
             this.selectedTypeOfCampaign.length > 0 &&
-            // this.priority.length > 0 &&
             this.campaignOwner.length > 0 &&
             this.selectedCampaignList.length > 0 &&
-            // this.selectedTypeOfLead.length > 0 &&
             this.newBranchName.length > 0 &&
             this.startDateValue.length > 1 &&
-            this.slaValue.length > 0 && (this.startDateValue < this.endDateValue)
+            this.slaValue.length > 0 &&
+            (this.endDateValue.length > 0 ? this.startDateValue < this.endDateValue : true)
 
     }
 
