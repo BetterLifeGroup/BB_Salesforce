@@ -212,7 +212,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>CampaignContact__c.Last_sent__c</field>
         <readable>true</readable>
     </fieldPermissions>
