@@ -2,13 +2,36 @@
  * Created by frans fourie on 2023/06/23.
  */
 
-import {LightningElement, track} from 'lwc';
+import {LightningElement, track, wire} from 'lwc';
 import updateAgent from '@salesforce/apex/UserManagementController.updateAgent';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import getRealEstateBranches from '@salesforce/apex/UserManagementController.getRealEstateBranches';
 import emailRegex from '@salesforce/label/c.EmailRegex';
 
+import {getObjectInfo, getPicklistValues} from "lightning/uiObjectInfoApi";
+
+import Contact from '@salesforce/schema/Contact';
+import Visibility from '@salesforce/schema/Contact.Visibility__c';
+
 export default class UserManagementAddNewAgent extends LightningElement {
+
+    @wire(getObjectInfo, {objectApiName: Contact})
+    contactObjectInfo;
+
+    @track vizOptions;
+
+    @wire(getPicklistValues, {
+        recordTypeId: '$contactObjectInfo.data.defaultRecordTypeId',
+        fieldApiName: Visibility
+    })
+    VizFieldInfo({data, error}) {
+        if (data) {
+            this.vizOptions = data.values;
+        }
+        if (error) {
+            console.error(error)
+        }
+    }
 
     @track agent = [];
 
@@ -23,24 +46,60 @@ export default class UserManagementAddNewAgent extends LightningElement {
 
     regex = emailRegex;
 
+    @track queryFilter = ' AND RecordType.Name = \'Real Estate Branch\'';
+
+    @track constantTrue = true;
+
     connectedCallback() {
-        getRealEstateBranches({}).then(result => {
-            for (let i = 0; i < result.length; i++) {
-                this.branchOptions.push({label: result[i].Name, id: result[i].Id})
-            }
-        })
+        // getRealEstateBranches({}).then(result => {
+        //     for (let i = 0; i < result.length; i++) {
+        //         this.branchOptions.push({label: result[i].Name, id: result[i].Id})
+        //     }
+        // })
         this.agent.agent = {};
         this.agent.agent.FirstName = '';
         this.agent.agent.LastName = '';
         this.agent.agent.Email = '';
         this.agent.agent.MobilePhone = '';
         this.agent.agent.AccountId = '';
+        this.agent.agent.Visibility__c = 'Always Visible';
         this.agent.agent.FinServ__PreferredName__c = '';
+
     }
 
     handleBranchSelected(event) {
         this.agent.agent.AccountId = event.detail.id;
         this.checkValidity();
+    }
+
+    @track branchSelected = false;
+
+    handleBranchSelectedRs(event) {
+        this.agent.commId = '';
+        this.agent.agent.AccountId = event.detail.id;
+        this.branchSelected = true;
+        this.checkValidity();
+    }
+
+    handleRemoveBranchRs(event) {
+        this.agent.agent.AccountId = null;
+        this.branchSelected = false;
+        this.checkValidity();
+    }
+
+    @track commIdSupplied = false;
+
+    handleAgentCommIdChangeNew(event) {
+        let field = this.template.querySelector("[data-field='commId']")
+        if (event.target.value.length > 0) {
+            this.agent.commId = event.detail.value;
+            this.commIdSupplied = true;
+            this.checkValidity();
+        } else {
+            this.agent.commId = '';
+            this.commIdSupplied = false;
+            this.checkValidity();
+        }
     }
 
     handleAgentMobilePhoneChange(event) {
@@ -61,6 +120,21 @@ export default class UserManagementAddNewAgent extends LightningElement {
             field.validity = {valid: false};
             field.setCustomValidity("Invalid input");
             this.checkValidity();
+        }
+    }
+
+
+    handleAgentVizChange(event) {
+        let field = this.template.querySelector("[data-field='viz']")
+        if (event.target.value.length > 0) {
+            field.validity = {valid: true};
+            field.setCustomValidity("");
+            this.agent.agent.Visibility__c = event.detail.value;
+            this.checkValidity();
+        } else {
+            this.showUpdate = false;
+            field.validity = {valid: false};
+            field.setCustomValidity("Invalid input");
         }
     }
 
@@ -110,14 +184,23 @@ export default class UserManagementAddNewAgent extends LightningElement {
         this.checkValidity();
     }
 
+
     checkValidity() {
-        this.saveEnabled = this.agent?.agent?.LastName?.length > 0 && this.emailIsValid && this.mobileIsValid;
+        this.saveEnabled =
+            this.agent?.agent?.LastName?.length > 0
+            && this.emailIsValid
+            && this.mobileIsValid
+            && (this.agent.agent.AccountId ? this.agent?.commId?.length > 0 : true)
+            && (this.commIdSupplied ? this.agent?.agent?.AccountId?.length > 0 : true);
     }
 
     handleCreate(event) {
         console.log(this.agent)
         this.working = true;
-        updateAgent({agent: this.agent.agent}).then(result => {
+        updateAgent({
+            agent: this.agent.agent,
+            commId: this.agent?.commId ? this.agent.commId : null
+        }).then(result => {
                 if (result) {
                     this.showToast('Created successfully', 'Created successfully', 'success')
                     this.agent.agent = {};
@@ -127,6 +210,7 @@ export default class UserManagementAddNewAgent extends LightningElement {
                     this.agent.agent.MobilePhone = '';
                     this.agent.agent.AccountId = '';
                     this.agent.agent.FinServ__PreferredName__c = '';
+                    this.agent.commId = '';
                 }
                 this.working = false;
             }
