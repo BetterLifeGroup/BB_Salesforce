@@ -51,6 +51,7 @@ export default class UserManagementNetworks extends LightningElement {
         this.dispatchEvent(event);
     }
 
+
     handleClick() {
         modal.open({
             size: 'small'
@@ -58,9 +59,11 @@ export default class UserManagementNetworks extends LightningElement {
             console.log(result)
             if (result === 'success') {
                 this.showToast('Success', 'Success', 'success')
-            } else if (result === 'fail') {
-                this.showToast('Error', 'An Error Occurred', 'error')
+            } else if (result !== 'success') {
+                this.showToast('Error', result, 'error')
             }
+        }).catch(error => {
+            this.showToast('Error', error, 'error')
         });
     }
 
