@@ -4,18 +4,27 @@
 
 <!-- User Management Networks -->
 <template>
-    <div style='margin-bottom: 12px;display: flex;flex-direction: row; gap: 8px;align-items: end'>
-        <div style='width: 50%'>
-        <lightning-input
-                label='Search'
-                placeholder='Search for Network, Agency, Branch or Agent'
-                onchange={handleSearchChange}
-        ></lightning-input>
+    <div style='margin-bottom: 12px;display: flex;flex-direction: row; gap: 8px;align-items: center'>
+        <div style='width: 50%;display: flex;flex-direction: column;gap: 4px'>
+            <lightning-input
+                    label='Search'
+                    placeholder='Search for Network, Agency, Branch or Agent'
+                    onchange={handleSearchChange}
+                    is-loading={isLoading}
+                    type='search'
+            ></lightning-input>
+            <lightning-input
+                    label='Search by agent'
+                    type='checkbox'
+                    onchange={handleSearchByAgentCheck}
+            ></lightning-input>
         </div>
-        <lightning-button
-                onclick={handleClick}
-                label="Create">
-        </lightning-button>
+        <div style='margin-bottom: 1px'>
+            <lightning-button
+                    onclick={handleClick}
+                    label="Create">
+            </lightning-button>
+        </div>
     </div>
     <div style=''>
         <lightning-tree
