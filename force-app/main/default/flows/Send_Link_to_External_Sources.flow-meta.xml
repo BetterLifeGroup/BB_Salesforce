@@ -20,7 +20,7 @@
         <inputParameters>
             <name>emailSubject</name>
             <value>
-                <stringValue>Updated: BetterBond Lead Credentials</stringValue>
+                <stringValue>Updated: BetterBond External Lead Source Credentials</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -261,7 +261,7 @@ This flow send an email with the credentials for External Sources. The fields ar
     <screens>
         <name>screen_Error_CampaignContact_not_found</name>
         <label>screen Error CampaignContact not found</label>
-        <locationX>505</locationX>
+        <locationX>506</locationX>
         <locationY>535</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
@@ -287,7 +287,7 @@ This flow send an email with the credentials for External Sources. The fields ar
         </connector>
         <fields>
             <name>text_Info_About_Button</name>
-            <fieldText>&lt;p&gt;The External Source credentials were lasts sent:&lt;/p&gt;&lt;p&gt;{!Get_CampaignContact.Last_sent__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Clicking the Send Email button will send the External Source credentials.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!Get_BB_Campaign.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Reciever: {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Email: {!Get_CampaignContact.Contact__r.Email}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;The External Source credentials were last sent:&lt;/p&gt;&lt;p&gt;{!Get_CampaignContact.Last_sent__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Clicking the Send Email button will send the External Source credentials.&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;{!Get_BB_Campaign.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;Reciever: {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Email: {!Get_CampaignContact.Contact__r.Email}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Send Email</nextOrFinishButtonLabel>
@@ -301,11 +301,11 @@ This flow send an email with the credentials for External Sources. The fields ar
             <targetReference>Get_BB_Campaign</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <textTemplates>
         <name>text_temp_Email_Body</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;&lt;img src=&quot;https://betterbondsa--bbdev2.sandbox.file.force.com/sfc/servlet.shepherd/version/download/0682z000001dXja?asPdf=false&amp;amp;operationContext=CHATTER&quot; alt=&quot;logo.jpg&quot;&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Good day,&lt;/span&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt; {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;Kindly find the updated credentials:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;Certificate&lt;/strong&gt;&lt;strong&gt;:&lt;/strong&gt; {!Get_CampaignContact.Cetificate__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!Get_CampaignContact.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key:&lt;/strong&gt; {!Get_CampaignContact.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key:&lt;/strong&gt; {!Get_BB_Campaign.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json:&amp;nbsp;&lt;/strong&gt;{!Get_CampaignContact.Json__c}&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;</text>
+        <text>&lt;p&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Good day,&lt;/span&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt; {!Get_CampaignContact.Contact__r.FirstName} {!Get_CampaignContact.Contact__r.LastName}&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 16px;&quot;&gt;Kindly find the updated credentials:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;Certificate&lt;/strong&gt;&lt;strong&gt;:&lt;/strong&gt; {!Get_CampaignContact.Cetificate__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!Get_CampaignContact.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key:&lt;/strong&gt; {!Get_CampaignContact.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key:&lt;/strong&gt; {!Get_BB_Campaign.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json:&amp;nbsp;&lt;/strong&gt;{!Get_CampaignContact.Json__c}﻿&lt;/p&gt;</text>
     </textTemplates>
     <variables>
         <name>recordId</name>
