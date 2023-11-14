@@ -946,32 +946,32 @@ public with sharing class UserManagementController {
                 insert acc;
                 return acc.Id;
             }
-            return '';
+            return 'success';
         } catch (Exception e) {
-            return 'error';
+            return e.getMessage();
         }
     }
 
     @AuraEnabled
-    public static Boolean CreateNetwork(String name) {
+    public static String CreateNetwork(String name) {
         try {
             insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Network'].Id, Type = 'Other');
         } catch (Exception e) {
             System.debug('Error occurred' + e.getMessage());
-            return false;
+            return e.getMessage();
         }
-        return true;
+        return 'success';
     }
 
     @AuraEnabled
-    public static Boolean CreateAgency(String name, String parentId) {
+    public static String CreateAgency(String name, String parentId) {
         try {
             insert new Account(Name = name, RecordTypeId = [SELECT Id FROM RecordType WHERE Name = 'Real Estate Agency'].Id, Type = 'Other', ParentId = parentId);
         } catch (Exception e) {
             System.debug('Error occurred' + e.getMessage());
-            return false;
+            return e.getMessage();
         }
-        return true;
+        return 'success';
     }
 
     @AuraEnabled
@@ -1111,15 +1111,16 @@ public with sharing class UserManagementController {
     }
 
     @AuraEnabled
-    public static Boolean updateAccountName(Account acc) {
+    public static String updateAccountName(Account acc) {
         try {
             update acc;
-            return true;
+            return 'success';
         } catch (Exception e) {
             System.debug('Error Updating Account Name' + e.getMessage());
-            return false;
+            return e.getMessage();
         }
     }
+
 
     @AuraEnabled
     public static String deleteAccount(String recordId) {

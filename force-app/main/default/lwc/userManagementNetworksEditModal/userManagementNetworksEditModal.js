@@ -71,8 +71,14 @@ export default class UserManagementNetworksEditModal extends LightningModal {
         this.showSpinner = true;
         updateAccountName({acc: this.accountData}).then(result => {
             console.log('updated');
-            this.showSpinner = false;
-            this.close('success');
+            if (result === 'success') {
+                this.showSpinner = false;
+                this.close('success');
+            } else {
+                this.showSpinner = false;
+                this.close(result);
+            }
+
         }).catch(error => {
             this.showSpinner = false;
             console.error(error);
