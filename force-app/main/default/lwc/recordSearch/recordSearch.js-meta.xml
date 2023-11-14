@@ -25,6 +25,8 @@
                       description="Search Key"/>
             <property name="contactContactScope" type="Boolean" label="Contact Contact Scope"
                       description="Contact Contact Scope"/>
+            <property name="workOppScope" type="Boolean" label="Work Opp Scope"
+                      description="Work Opp Scope"/>
             <property name="campaignScope" type="Boolean" label="campaignScope"
                       description="campaignScope"/>
             <property name="userId" type="String" label="userId"
