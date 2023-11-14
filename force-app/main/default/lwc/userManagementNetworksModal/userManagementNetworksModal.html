@@ -6,7 +6,7 @@
 
 <template>
     <div>
-        <lightning-modal-header label="Create New Network, Agency or Branch"></lightning-modal-header>
+        <lightning-modal-header label='Create New Network, Agency or Branch'></lightning-modal-header>
         <lightning-modal-body>
             <template if:false={disableClose}>
                 <div style='padding-bottom: 20px'>
@@ -23,26 +23,6 @@
                                 value={selectedNewComboboxValue}
                         ></lightning-combobox>
                     </div>
-                    <template if:true={success}>
-                        <lightning-icon
-                                class='checkGreen'
-                                icon-name="utility:check"
-                                size="x-small"
-                        ></lightning-icon>
-                        <lightning-formatted-text
-                        value='Created Successfully'
-                        ></lightning-formatted-text>
-                    </template>
-                    <template if:true={failure}>
-                        <lightning-icon
-                                class='checkRed'
-                                icon-name="utility:error"
-                                size="x-small"
-                        ></lightning-icon>
-                        <lightning-formatted-text
-                                value='Created Successfully'
-                        ></lightning-formatted-text>
-                    </template>
                 </div>
                 <template if:true={createNewNetwork}>
                     <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%'>
@@ -65,17 +45,35 @@
                     </div>
                 </template>
                 <template if:true={createNewAgency}>
-                    <div style='width: 40%'>
-                        <c-user-management-record-search
-                                label='Please select a network'
-                                account-mode={constantTrue}
-                                account-scope='Network'
-                                onrecordselected={networkSelected}
-                                onselectioncleared={handleSelectionCleared}
-                        ></c-user-management-record-search>
+                    <div style='display: flex; flex-direction: column; justify-content: start; gap: 6px; margin-bottom: 12px'>
+                        <lightning-input
+                                type='checkbox'
+                                value={newNetwork}
+                                label='Create New Network?'
+                                onchange={handleNewNetworkCheckbox}
+                        ></lightning-input>
+                        <template if:false={newNetwork}>
+                            <div style='width: 40%'>
+                                <c-user-management-record-search
+                                        label='Please select a network'
+                                        account-mode={constantTrue}
+                                        account-scope='Network'
+                                        onrecordselected={networkSelected}
+                                        onselectioncleared={handleSelectionCleared}
+                                ></c-user-management-record-search>
+                            </div>
+                        </template>
                     </div>
+                    <template if:true={newNetwork}>
+                        <div style='width: 40%'>
+                            <lightning-input
+                                    label='Network Name'
+                                    onchange={handleNewNetworkName}
+                            ></lightning-input>
+                        </div>
+                    </template>
                     <template if:true={selectedNetworkName}>
-                        <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%'>
+                        <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%;margin-left: 36px;padding-top: 6px;margin-top: 8px'>
                             <lightning-input
                                     label='New Agency Name'
                                     onchange={handleNewAgencyName}
@@ -98,57 +96,206 @@
 
 
                 <template if:true={createNewBranch}>
-                    <div style='width: 40%'>
-                        <c-user-management-record-search
-                                label='Please select a network'
-                                account-mode={constantTrue}
-                                account-scope='Network'
-                                onrecordselected={networkSelected}
-                                onselectioncleared={handleSelectionCleared}
-                        ></c-user-management-record-search>
+                    <div style='display: flex; flex-direction: column; justify-content: start; gap: 6px'>
+                        <lightning-input
+                                type='checkbox'
+                                value={newNetwork}
+                                label='Create New Network?'
+                                onchange={handleNewNetworkCheckbox}
+                        ></lightning-input>
+                        <template if:false={newNetwork}>
+                            <div style='width: 36%'>
+                                <c-user-management-record-search
+                                        label='Please select a network'
+                                        account-mode={constantTrue}
+                                        account-scope='Network'
+                                        onrecordselected={networkSelected}
+                                        onselectioncleared={handleSelectionCleared}
+                                ></c-user-management-record-search>
+                            </div>
+                        </template>
                     </div>
-                    <template if:true={selectedNetworkName}>
-                        <div style='width: 40%'>
-                            <c-user-management-record-search
-                                    label='Please select a agency'
-                                    account-mode={constantTrue}
-                                    account-scope='Agency'
-                                    onrecordselected={agencySelected}
-                                    onselectioncleared={handleSelectionCleared}
-                                    user-management-additional-search={selectedNetworkId}
-                            ></c-user-management-record-search>
+                    <template if:true={newNetwork}>
+                        <div style='width: 36%'>
+                            <lightning-input
+                                    label='Network Name'
+                                    onchange={handleNewNetworkName}
+                            ></lightning-input>
                         </div>
+                    </template>
+                    <template if:true={selectedNetworkName}>
+                        <div style='display: flex; flex-direction: column; justify-content: start; gap: 6px; margin-top: 8px; ; padding-top: 6px; margin-left: 36px'>
+                            <lightning-input
+                                    type='checkbox'
+                                    value={newAgency}
+                                    label='Create New Agency?'
+                                    onchange={handleNewAgencyCheckbox}
+                            ></lightning-input>
+                            <template if:false={newAgency}>
+                                <div style='width: 40%'>
+                                    <c-user-management-record-search
+                                            label='Please select an agency'
+                                            account-mode={constantTrue}
+                                            account-scope='Agency'
+                                            onrecordselected={agencySelected}
+                                            onselectioncleared={handleSelectionCleared}
+                                            user-management-additional-search={selectedNetworkId}
+                                    ></c-user-management-record-search>
+                                </div>
+                            </template>
+                            <template if:true={newAgency}>
+                                <div style='width: 40%'>
+                                    <lightning-input
+                                            label='Agency Name'
+                                            onchange={handleNewAgencyName}
+                                    ></lightning-input>
+                                </div>
+                            </template>
+                        </div>
+
+
                     </template>
                     <template if:true={selectedAgencyName}>
-                        <div style='display: flex;flex-direction: row;align-items: end; gap: 6px;width: 40%'>
-                            <lightning-input
-                                    label='New Branch Name'
-                                    onchange={handleNewBranchName}
-                            ></lightning-input>
-                            <template if:true={enableSave}>
-                                <lightning-button
-                                        label='Save'
-                                        onclick={handleClickNewBranchSaveButton}
-                                ></lightning-button>
-                            </template>
-                            <template if:false={enableSave}>
-                                <lightning-button
-                                        label='Save'
-                                        disabled
-                                ></lightning-button>
-                            </template>
+                        <div style='; padding-top: 6px; margin-top: 8px'>
+                            <div style='width: 60%; margin-left: 72px'>
+                                <lightning-input
+                                        label='New Branch Name'
+                                        onchange={handleNewBranchName}
+                                ></lightning-input>
+                                <div style=';padding-top: 6px; margin-top: 8px'>
+                                    <div style='display: flex;flex-direction: column;margin-left:36px '>
+                                        <div class='slds-text-heading_small' style='padding-top: 14px'>
+                                            Campaign Details
+                                        </div>
+                                        <div style='display: flex;flex-direction: row; gap: 24px;align-items: end'>
+                                            <div style='width: 50%'>
+                                                <lightning-input
+                                                        label='SLA (In minutes)'
+                                                        type='number'
+                                                        onchange={handleSlaChange}
+                                                        required
+                                                ></lightning-input>
+                                            </div>
+                                            <div style='width: 50%'>
+                                                <lightning-combobox
+                                                        options={campaignListOptions}
+                                                        label='Campaign List'
+                                                        onchange={handleCampaignListChange}
+                                                        required
+                                                ></lightning-combobox>
+                                            </div>
+                                        </div>
+                                        <div style='display: flex;flex-direction: row; gap: 24px'>
+                                            <div style='width: 50%'>
+                                                <lightning-input
+                                                        label='Start Date'
+                                                        type='date'
+                                                        onchange={handleStartDateChange}
+                                                        required
+                                                        max={endDateValue}
+                                                ></lightning-input>
+                                            </div>
+                                            <div style='width: 50%'>
+                                                <lightning-input
+                                                        label='End Date'
+                                                        type='date'
+                                                        onchange={handleEndDateChange}
+                                                        min={startDateValue}
+                                                ></lightning-input>
+                                            </div>
+                                        </div>
+                                        <div style='display: flex;flex-direction: row; gap: 24px'>
+                                            <div style='width: 50%'>
+                                                <lightning-combobox
+                                                        options={typeOfCampaignOptions}
+                                                        label='Type of Campaign'
+                                                        onchange={handleTypeOfCampaignChange}
+                                                        required
+                                                ></lightning-combobox>
+                                            </div>
+                                            <template if:true={showTypeOfLead}>
+                                                <div style='width: 50%'>
+                                                    <lightning-combobox
+                                                            options={typeOfLeadOptions}
+                                                            label='Type of Lead'
+                                                            onchange={handleTypeOfLeadChange}
+                                                    ></lightning-combobox>
+                                                </div>
+                                            </template>
+                                            <template if:false={showTypeOfLead}>
+                                                <div style='width: 50%'>
+                                                    <lightning-combobox
+                                                            options={typeOfLeadOptions}
+                                                            label='Type of Lead'
+                                                            placeholder='Select Type of Campaign'
+                                                            disabled
+                                                    ></lightning-combobox>
+                                                </div>
+                                            </template>
+                                        </div>
+                                        <div style='display: flex;flex-direction: row; gap: 24px'>
+                                            <div style='width: 50%'>
+                                                <lightning-combobox
+                                                        options={priorityOptions}
+                                                        label='Priority'
+                                                        onchange={handlePriorityChange}
+                                                ></lightning-combobox>
+                                            </div>
+                                            <div style='width: 50%'>
+                                                <lightning-combobox
+                                                        options={campaignOwnerOptions}
+                                                        label='Campaign Owner'
+                                                        onchange={handleCampaignOwnerChange}
+                                                        required
+                                                ></lightning-combobox>
+                                            </div>
+                                        </div>
+                                        <div style='width: 50%;padding-top: 12px; padding-bottom: 4px'>
+                                            <lightning-input
+                                                    type='checkbox'
+                                                    label='Active'
+                                                    onchange={handleActiveChange}
+                                                    checked={campaignActive}
+                                            ></lightning-input>
+                                        </div>
+                                        <div>
+                                            <lightning-dual-listbox
+                                                    options={groupOptions}
+                                                    label='Group'
+                                                    onchange={handleGroupChange}
+                                                    required
+                                            ></lightning-dual-listbox>
+                                        </div>
+                                        <template if:true={enableSave}>
+                                            <div style='padding-top: 6px'>
+                                                <lightning-button
+                                                        label='Save'
+                                                        onclick={handleClickNewBranchSaveButton}
+                                                ></lightning-button>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </div>
+                                <template if:false={enableSave}>
+                                    <div style='padding-top: 6px;margin-left: 36px'>
+                                        <lightning-button
+                                                label='Save'
+                                                disabled
+                                        ></lightning-button>
+                                    </div>
+                                </template>
+                            </div>
                         </div>
                     </template>
-
                 </template>
 
 
             </template>
             <template if:true={disableClose}>
-                <div style='position: relative; display: inline-block; margin-left: 50%; transform: translateX(-50%); width: 55px; vertical-align: middle; padding-top: 20px; white-space: nowrap;'>
+                <div style=' padding-top: 20px;margin-left: 36px'>
                     <lightning-spinner
-                            size="small"
-                            variant="brand"
+                            size='small'
+                            variant='brand'
                     ></lightning-spinner>
                 </div>
             </template>
