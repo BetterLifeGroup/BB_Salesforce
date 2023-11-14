@@ -42,7 +42,8 @@
                                                 <center> {message}</center>
                                             </template>
                                             <template for:each={recordsList} for:item="record">
-                                                <div onclick={onRecordSelection} data-name={record.Name} data-key={record.Id} key={record.Id}>
+                                                <div onclick={onRecordSelection} data-name={record.Name}
+                                                     data-key={record.Id} key={record.Id}>
                                                     <li id={record.Id} key={record.Id}
                                                         role="presentation"
                                                         class="slds-listbox__item">
@@ -131,13 +132,10 @@
                          style='width: 100%'>
                         <lightning-input type="text" value={searchKey}
                                          onchange={handleKeyChange} class="slds-combobox__input "
-                                         id="combobox-id-23"
-                                         aria-autocomplete="list" aria-controls="listbox-id-23"
                                          placeholder="Start typing to search..."
                                          onfocus={handleSearchFocus}
                                          oncommit={handleSearchEscape}
                         ></lightning-input>
-                        <!--            <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">-->
                         <div
                                 style='margin-top: 0'
                                 class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
@@ -162,7 +160,8 @@
                                             <center> {message}</center>
                                         </template>
                                         <template for:each={recordsList} for:item="accountRecord">
-                                            <div onclick={onRecordSelection} data-name={accountRecord.Name} data-key={accountRecord.Id} key={accountRecord.Id}>
+                                            <div onclick={onRecordSelection} data-name={accountRecord.Name}
+                                                 data-key={accountRecord.Id} key={accountRecord.Id}>
                                                 <li id={accountRecord.Id} key={accountRecord.Id}
                                                     role="presentation"
                                                     class="slds-listbox__item">
@@ -269,10 +268,19 @@
     </template>
     <template if:true={agentMode}>
         <div>
-            <lightning-formatted-text
-                    class='slds-item_label'
-                    value={label}
-            ></lightning-formatted-text>
+            <div style='display: flex'>
+                <template if:true={required}>
+                    <div style='color: #c33136;padding-right: 2px;'>
+                        *
+                    </div>
+                </template>
+                <div style='padding-bottom: 3px;color: #444444'>
+                    <lightning-formatted-text
+                            class='slds-item_label'
+                            value={label}
+                    ></lightning-formatted-text>
+                </div>
+            </div>
             <template if:false={selectedValue}>
                 <div style='position: relative'>
                     <div data-key="searchdiv"
@@ -286,6 +294,7 @@
                                placeholder="Start typing to search..."
                                onfocus={handleSearchFocus}
                                oncommit={handleSearchEscape}
+                               onblur={handleSearchEscape}
                                class="slds-input slds-combobox__input slds-combobox__input-value slds-input-has-icon_right"
                         ></input>
                         <!--            <span class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">-->
@@ -313,7 +322,8 @@
                                             <center> {message}</center>
                                         </template>
                                         <template for:each={recordsList} for:item="accountRecord">
-                                            <div onclick={onRecordSelection} data-name={accountRecord.Name} data-key={accountRecord.Id} key={accountRecord.Id}>
+                                            <div onclick={onRecordSelection} data-name={accountRecord.Name}
+                                                 data-key={accountRecord.Id} key={accountRecord.Id}>
                                                 <li id={accountRecord.Id} key={accountRecord.Id}
                                                     role="presentation"
                                                     class="slds-listbox__item">
