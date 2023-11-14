@@ -16,7 +16,7 @@
                 <field>Contact__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Last_sent__c</field>
             </layoutItems>
         </layoutColumns>
