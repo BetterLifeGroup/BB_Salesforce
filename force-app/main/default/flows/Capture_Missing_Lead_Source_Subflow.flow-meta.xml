@@ -240,8 +240,8 @@
         <locationY>350</locationY>
         <defaultConnectorLabel>Other</defaultConnectorLabel>
         <rules>
-            <name>Website_API_Lead</name>
-            <conditionLogic>and</conditionLogic>
+            <name>Website_Lead</name>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Opportunity_BB_Campaign.Type_of_Campaign__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -249,10 +249,17 @@
                     <stringValue>Website/API</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity_BB_Campaign.Type_of_Campaign__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Website/URL</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Check_Opportunity_Record_Type</targetReference>
             </connector>
-            <label>Website/API Lead</label>
+            <label>Website Lead</label>
         </rules>
     </decisions>
     <description>Flow Description: Flow to capture missing Lead Source when it is a Website/API campaign type Opportunity, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
