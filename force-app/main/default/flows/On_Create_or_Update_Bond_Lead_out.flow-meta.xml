@@ -2,11 +2,33 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>58.0</apiVersion>
     <decisions>
+        <name>If_opportunity_record_type_is_correct</name>
+        <label>If opportunity record type is correct</label>
+        <locationX>545</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>End</defaultConnectorLabel>
+        <rules>
+            <name>Continue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordTypeId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Opportunity_Record_Types.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Loan_Application</targetReference>
+            </connector>
+            <label>Continue</label>
+        </rules>
+    </decisions>
+    <decisions>
         <description>This will tell us if the triggering record can upsert to the API.</description>
         <name>Is_API_Upsert_required</name>
         <label>Is API Upsert required?</label>
         <locationX>446</locationX>
-        <locationY>971</locationY>
+        <locationY>1187</locationY>
         <defaultConnectorLabel>Upsert not Required</defaultConnectorLabel>
         <rules>
             <name>Upsert_Required</name>
@@ -29,7 +51,7 @@
         <name>Is_it_a_New_Record</name>
         <label>Is it a New Record?</label>
         <locationX>248</locationX>
-        <locationY>863</locationY>
+        <locationY>1079</locationY>
         <defaultConnector>
             <targetReference>Is_API_Upsert_required</targetReference>
         </defaultConnector>
@@ -90,7 +112,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>Create_Pre_Approval_Opportunity_Out_Event</name>
         <label>Create: Pre-Approval Opportunity - Out Event</label>
         <locationX>50</locationX>
-        <locationY>971</locationY>
+        <locationY>1187</locationY>
         <inputAssignments>
             <field>Agent_Agency_ID__c</field>
         </inputAssignments>
@@ -209,7 +231,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>Update_Pre_Approval_Opportunity_Out</name>
         <label>Update: Pre-Approval Opportunity Out</label>
         <locationX>314</locationX>
-        <locationY>1079</locationY>
+        <locationY>1295</locationY>
         <inputAssignments>
             <field>Applicants_Name__c</field>
             <value>
@@ -219,7 +241,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <inputAssignments>
             <field>Applicants__c</field>
             <value>
-                <elementReference>Get_Main_Applicant.Domain_Id__c</elementReference>
+                <elementReference>Get_Main_Applicant.DomainId__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -241,7 +263,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>Get_Co_Applicants</name>
         <label>Get Co-Applicants</label>
         <locationX>248</locationX>
-        <locationY>539</locationY>
+        <locationY>755</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>get_contact</targetReference>
@@ -262,7 +284,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>get_contact</name>
         <label>get contact</label>
         <locationX>248</locationX>
-        <locationY>647</locationY>
+        <locationY>863</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Subflow_Get_Commission_Entity_Id</targetReference>
@@ -283,7 +305,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>Get_Loan_Application</name>
         <label>Get Loan Application</label>
         <locationX>248</locationX>
-        <locationY>323</locationY>
+        <locationY>539</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Main_Applicant</targetReference>
@@ -304,7 +326,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>Get_Main_Applicant</name>
         <label>Get  Main Applicant</label>
         <locationX>248</locationX>
-        <locationY>431</locationY>
+        <locationY>647</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Co_Applicants</targetReference>
@@ -328,27 +350,40 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <object>LoanApplicant</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <start>
-        <locationX>122</locationX>
-        <locationY>0</locationY>
+    <recordLookups>
+        <name>Get_Opportunity_Record_Types</name>
+        <label>Get Opportunity Record Types</label>
+        <locationX>545</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Loan_Application</targetReference>
+            <targetReference>If_opportunity_record_type_is_correct</targetReference>
         </connector>
         <filterLogic>or</filterLogic>
         <filters>
-            <field>RecordTypeId</field>
+            <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>0128d000000clbOAAQ</stringValue>
+                <stringValue>Pre_Approval_Opportunity</stringValue>
             </value>
         </filters>
         <filters>
-            <field>RecordTypeId</field>
+            <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>0128d000000cbf0AAA</stringValue>
+                <stringValue>Bond_Opportunity</stringValue>
             </value>
         </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>419</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Opportunity_Record_Types</targetReference>
+        </connector>
         <object>Opportunity</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
@@ -359,7 +394,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
         <name>Subflow_Get_Commission_Entity_Id</name>
         <label>Subflow: Get Commission Entity Id</label>
         <locationX>248</locationX>
-        <locationY>755</locationY>
+        <locationY>971</locationY>
         <connector>
             <targetReference>Is_it_a_New_Record</targetReference>
         </connector>
