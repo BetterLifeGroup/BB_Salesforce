@@ -179,7 +179,6 @@
         <searchResultsAdditionalFields>Question__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Answer__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>General_Opportunity__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields xsi:nil></searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
