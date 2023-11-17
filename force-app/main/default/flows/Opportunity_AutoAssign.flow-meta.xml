@@ -9,7 +9,7 @@
         <defaultConnectorLabel>Or Not To Round Robin</defaultConnectorLabel>
         <rules>
             <name>Round_Robin</name>
-            <conditionLogic>(1 AND 2)OR 3</conditionLogic>
+            <conditionLogic>((1 AND 2)OR 3) AND 4</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.RecordType.Name</leftValueReference>
                 <operator>EqualTo</operator>
@@ -29,6 +29,13 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Reassign</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.automationMessage__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>doNotReassign</stringValue>
                 </rightValue>
             </conditions>
             <connector>
