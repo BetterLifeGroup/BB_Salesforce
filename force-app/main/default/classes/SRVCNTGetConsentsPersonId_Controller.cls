@@ -86,6 +86,7 @@ public without sharing class SRVCNTGetConsentsPersonId_Controller {
             }
             returnedConsents.add(result);
         }
+        System.debug(returnedConsents);
         return returnedConsents;
     }
 
