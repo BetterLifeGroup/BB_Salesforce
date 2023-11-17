@@ -1248,14 +1248,8 @@ public with sharing class UserManagementController {
 
     @AuraEnabled
     public static String getSobjectType(Id recordId) {
-        try {
             return recordId.getSobjectType().getDescribe().getName();
-        } catch (Exception e) {
-            System.debug('error occurred');
-            return 'error';
         }
-    }
-
 
     public class LwcResult {
         @AuraEnabled public List<Account> accounts;
