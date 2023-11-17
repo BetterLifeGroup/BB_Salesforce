@@ -66,11 +66,14 @@ export default class ConsentViewer extends LightningElement {
     wiredResult(value) {
         if (value.error) {
             this.error = value?.error?.body?.message;
-            this.showToast('Unable to load consents from domain,click on upper right cross to close', 'Unable to load consents from domain,click on upper right cross to close', 'warning')
+            this.showToast('Unable to load consents from domain', 'Unable to load consents from domain', 'warning')
         } else if (value.data) {
             console.log('consent list', value.data)
             // this.consentsList = [...value.data];
             this.consentsList = JSON.parse(JSON.stringify(value.data));
+            this.consentsList = this.consentsList.filter(cl => {
+                return cl.consentTypeSnapshot.name === 'Broad consent BB'
+            })
             this.consentsList = this.consentsList.sort(function (a, b) {
                 let x = a.consentTypeSnapshot.description.toLowerCase();
                 let y = b.consentTypeSnapshot.description.toLowerCase();

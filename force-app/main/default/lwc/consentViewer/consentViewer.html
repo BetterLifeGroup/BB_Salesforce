@@ -78,11 +78,11 @@
             ></lightning-formatted-rich-text>
         </div>
         <div style='display: flex;justify-content: center; gap: 5px; padding-bottom: 15px'>
-            <lightning-button
-                    label="Telephonic Consent"
-                    variant="brand"
-                    onclick={handleTelephonicClick}
-            ></lightning-button>
+            <!--            <lightning-button-->
+            <!--                    label="Telephonic Consent"-->
+            <!--                    variant="brand"-->
+            <!--                    onclick={handleTelephonicClick}-->
+            <!--            ></lightning-button>-->
             <lightning-button
                     label="Manual Consent"
                     variant="brand"
@@ -112,18 +112,36 @@
             <div>SOMETHING WENT WRONG<br/>{error}</div>
         </template>
 
-        <table if:false={error}>
+<!--        <table if:false={error}>-->
             <template for:each={consentsList} for:item="cr" for:index="index">
+                <div key={cr.consentTypeId} >
+                    <!--                    <tr key={cr.consentTypeId}>-->
+                    <!---->
+                    <!--                        <td style='border-bottom: 1px lightgray; display: flex; justify-content: end'>-->
 
-                <tr key={cr.consentTypeId}>
-                    <td style='border-bottom: 1px lightgray'>
-                        {cr.consentTypeSnapshot.description}
-                        <lightning-helptext content={cr.consentTypeSnapshot.declaration}></lightning-helptext>
-                    </td>
-                    <td>
-                        <div if:true={cr.notSet} class="slds-is-relative">
+
+                    <lightning-formatted-rich-text
+                            value={cr.consentTypeSnapshot.declaration}
+                    ></lightning-formatted-rich-text>
+                    <!--                        {cr.consentTypeSnapshot.description}-->
+                    <!--                        <lightning-helptext content={cr.consentTypeSnapshot.declaration}></lightning-helptext>-->
+                    <!--                        </td>-->
+                    <!--                        <td>-->
+                    <div if:true={cr.notSet} class="slds-is-relative" style='display: flex;justify-content: end'>
+                        <lightning-radio-group options={options}
+                                               data-index={index}
+                                               variant="label-hidden"
+                                               required
+                                               type="button"
+                                               onchange={handleChange}
+                                               data-id={cr.consentTypeId}
+                                               class="slds-m-around_small"></lightning-radio-group>
+                    </div>
+                    <div if:false={cr.notSet}>
+                        <div if:false={cr.granted} class="slds-is-relative" style='display: flex;justify-content: end'>
                             <lightning-radio-group options={options}
                                                    data-index={index}
+                                                   value="false"
                                                    variant="label-hidden"
                                                    required
                                                    type="button"
@@ -131,36 +149,25 @@
                                                    data-id={cr.consentTypeId}
                                                    class="slds-m-around_small"></lightning-radio-group>
                         </div>
-                        <div if:false={cr.notSet}>
-                            <div if:false={cr.granted} class="slds-is-relative">
-                                <lightning-radio-group options={options}
-                                                       data-index={index}
-                                                       value="false"
-                                                       variant="label-hidden"
-                                                       required
-                                                       type="button"
-                                                       onchange={handleChange}
-                                                       data-id={cr.consentTypeId}
-                                                       class="slds-m-around_small"></lightning-radio-group>
-                            </div>
-                            <div if:true={cr.granted} class="slds-is-relative">
-                                <lightning-radio-group options={options}
-                                                       data-index={index}
-                                                       value="true"
-                                                       variant="label-hidden"
-                                                       required
-                                                       type="button"
-                                                       onchange={handleChange}
-                                                       data-id={cr.consentTypeId}
-                                                       class="slds-m-around_small"></lightning-radio-group>
-                            </div>
+                        <div if:true={cr.granted} class="slds-is-relative" style='display: flex;justify-content: end'>
+                            <lightning-radio-group options={options}
+                                                   data-index={index}
+                                                   value="true"
+                                                   variant="label-hidden"
+                                                   required
+                                                   type="button"
+                                                   onchange={handleChange}
+                                                   data-id={cr.consentTypeId}
+                                                   class="slds-m-around_small"></lightning-radio-group>
                         </div>
-                    </td>
-                </tr>
+                    </div>
+                    <!--                        </td>-->
+                    <!--                    </tr>-->
+                </div>
             </template>
-            <tr style="border-top: 1px solid lightgray">
-            </tr>
-        </table>
+<!--            <tr style="border-top: 1px solid lightgray">-->
+<!--            </tr>-->
+<!--        </table>-->
         <div class="slds-p-around_medium lgc-bg">
             <div style='display: flex;justify-content: space-around'>
                 <div style='display: flex; flex-direction: column;'>
@@ -245,7 +252,7 @@
             </template>
             <template if:false={allowUpdate}>
                 <lightning-button variant="brand" label="Update Consents" title="Update Consents"
-                                   disabled
+                                  disabled
                 ></lightning-button>
             </template>
         </div>
