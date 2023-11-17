@@ -371,7 +371,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Bond_Opportunity</stringValue>
+                <stringValue>Bond</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
