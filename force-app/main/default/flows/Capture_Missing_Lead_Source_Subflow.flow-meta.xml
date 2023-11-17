@@ -30,10 +30,6 @@
                 <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>agentSearchs</targetReference>
-        </connector>
     </assignments>
     <assignments>
         <name>AssignAgent_Blank_True</name>
@@ -47,10 +43,6 @@
                 <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>agent_Search</targetReference>
-        </connector>
     </assignments>
     <decisions>
         <name>Agent_Select</name>
@@ -512,7 +504,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <targetReference>AgentSelected</targetReference>
         </connector>
         <fields>
-            <name>lead_SourceMissing</name>
+            <name>leadSource_Missing</name>
             <extensionName>c:customFlowBanner</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -538,12 +530,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <name>agent_Search_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Copy_1_of_camp</name>
+                    <name>campTxt</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;BLG Campaign: &lt;/strong&gt;{!Get_Opportunity.BLG_Campaign__r.Name}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>Copy_1_of_campType</name>
+                    <name>TxtcampType</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Type of Campaign: &lt;/strong&gt;{!Get_Opportunity.BLG_Campaign__r.Type_of_Campaign__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
@@ -576,12 +568,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <name>agent_Search_Section2_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Copy_1_of_capture</name>
+                    <name>Copy_2_of_capture</name>
                     <fieldText>&lt;p&gt;Please select the lead source/agent before continuing to work the opportunity:&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>Copy_1_of_agentRecordSearch</name>
+                    <name>Copy_2_of_agentRecordSearch</name>
                     <extensionName>c:recordSearch</extensionName>
                     <fieldType>ComponentInstance</fieldType>
                     <inputParameters>
@@ -622,7 +614,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     </outputParameters>
                 </fields>
                 <fields>
-                    <name>Copy_1_of_required</name>
+                    <name>Copy_2_of_required</name>
                     <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;The agent field is required.&lt;/span&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                     <visibilityRule>
@@ -657,6 +649,11 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </fields>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Copy_1_of_forceSpace</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
@@ -819,6 +816,11 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
+        <fields>
+            <name>forceSpace</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
@@ -834,7 +836,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <targetReference>Agent_Select</targetReference>
         </connector>
         <fields>
-            <name>leadSource_Missing</name>
+            <name>Copy_2_of_leadSourceMissing</name>
             <extensionName>c:customFlowBanner</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
@@ -860,12 +862,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <name>agentSearchs_Section1_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Copy_1_of_Copy_1_of_camp</name>
+                    <name>Copy_1_of_camp</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;BLG Campaign: &lt;/strong&gt;{!Get_Opportunity.BLG_Campaign__r.Name}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>Copy_1_of_Copy_1_of_campType</name>
+                    <name>Copy_1_of_campType</name>
                     <fieldText>&lt;p&gt;&lt;strong&gt;Type of Campaign: &lt;/strong&gt;{!Get_Opportunity.BLG_Campaign__r.Type_of_Campaign__c}&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
@@ -898,12 +900,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <name>agentSearchs_Section2_Column1</name>
                 <fieldType>Region</fieldType>
                 <fields>
-                    <name>Copy_1_of_Copy_1_of_capture</name>
+                    <name>Copy_1_of_capture</name>
                     <fieldText>&lt;p&gt;Please select the lead source/agent before continuing to work the opportunity:&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
-                    <name>Copy_1_of_Copy_1_of_agentRecordSearch</name>
+                    <name>Copy_1_of_agentRecordSearch</name>
                     <extensionName>c:recordSearch</extensionName>
                     <fieldType>ComponentInstance</fieldType>
                     <inputParameters>
@@ -944,7 +946,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                     </outputParameters>
                 </fields>
                 <fields>
-                    <name>Copy_1_of_Copy_1_of_required</name>
+                    <name>Copy_1_of_required</name>
                     <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;The agent field is required.&lt;/span&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                     <visibilityRule>
@@ -979,6 +981,11 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </fields>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>Copy_2_of_forceSpace</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
