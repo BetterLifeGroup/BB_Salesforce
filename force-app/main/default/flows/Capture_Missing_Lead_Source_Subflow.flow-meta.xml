@@ -351,6 +351,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>selectedAgent</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
@@ -373,6 +379,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>Real_Estate_Agent__c</field>
             <value>
                 <elementReference>selectedAgent</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -399,6 +411,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>selectedAgent</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
@@ -418,6 +436,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>Real_Estate_Agent__c</field>
             <value>
                 <elementReference>selectedAgent</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
@@ -441,6 +465,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <elementReference>selectedAgent</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
@@ -460,6 +490,12 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             <field>Real_Estate_Agent__c</field>
             <value>
                 <elementReference>selectedAgent</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
             </value>
         </inputAssignments>
         <object>Opportunity</object>
