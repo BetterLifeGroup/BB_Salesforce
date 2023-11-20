@@ -908,6 +908,7 @@
         <connector>
             <targetReference>GetQuestionIDS</targetReference>
         </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>
         <filters>
             <field>automationMessage__c</field>
@@ -917,7 +918,7 @@
             </value>
         </filters>
         <object>Opportunity</object>
-        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
