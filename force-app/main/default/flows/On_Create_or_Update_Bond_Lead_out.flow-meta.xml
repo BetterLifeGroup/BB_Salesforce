@@ -20,6 +20,13 @@
                     <elementReference>Get_Opportunity.Id</elementReference>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.General_Opportunity__r.Domain_Id__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Get_Loan_Application</targetReference>
             </connector>
@@ -308,7 +315,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
             <field>Consultant__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Consultant__c</elementReference>
+                <elementReference>$Record.OwnerId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -426,7 +433,7 @@ ISCHANGED({!$Record.Main_Applicant_ID__c})</expression>
             </value>
         </inputAssignments>
         <outputAssignments>
-            <assignToReference>Create_Pre_Approval_Opportunity_Out_Event</assignToReference>
+            <assignToReference>Com_Entity_ID</assignToReference>
             <name>Commission_Entity_Id</name>
         </outputAssignments>
     </subflows>
