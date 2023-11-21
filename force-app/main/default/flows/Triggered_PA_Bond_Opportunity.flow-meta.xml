@@ -443,6 +443,8 @@
             <label>Bond Applicant</label>
         </rules>
     </decisions>
+    <description>Flow Description: Triggers the Business Rule engine to create relevant opportunities.
+No front-end access, record triggered.</description>
     <environments>Default</environments>
     <formulas>
         <name>f_ApplicantRecordTypeId</name>
@@ -604,12 +606,6 @@
             <field>Name</field>
             <value>
                 <elementReference>Get_Applicant_Person_Account.Name</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name_Title__c</field>
-            <value>
-                <elementReference>Get_Applicant_Person_Account.PersonTitle</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
