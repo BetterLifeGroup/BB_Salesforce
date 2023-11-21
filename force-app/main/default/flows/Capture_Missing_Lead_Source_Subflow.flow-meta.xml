@@ -241,6 +241,13 @@
                     <stringValue>Create lead/manual</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>Get_Opportunity_BB_Campaign.Type_of_Campaign__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Website/URL</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>Check_Opportunity_Record_Type</targetReference>
             </connector>
