@@ -191,7 +191,7 @@
             <name>General_Agent_Missing_0</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Opportunity.Real_Estate_Agent__c</leftValueReference>
+                <leftValueReference>Get_Opportunity.General_Opportunity__r.Real_Estate_Agent__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -213,7 +213,7 @@
             <name>General_Agent_Missing_0_0</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Opportunity.Real_Estate_Agent__c</leftValueReference>
+                <leftValueReference>Get_Opportunity.General_Opportunity__r.Real_Estate_Agent__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>true</booleanValue>
@@ -236,16 +236,9 @@
             <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Opportunity_BB_Campaign.Type_of_Campaign__c</leftValueReference>
-                <operator>EqualTo</operator>
+                <operator>NotEqualTo</operator>
                 <rightValue>
-                    <stringValue>Website/API</stringValue>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Opportunity_BB_Campaign.Type_of_Campaign__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Website/URL</stringValue>
+                    <stringValue>Create lead/manual</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -901,7 +894,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Copy_1_of_capture</name>
-                    <fieldText>&lt;p&gt;Please select the lead source/agent before continuing to work the opportunity:&lt;/p&gt;</fieldText>
+                    <fieldText>&lt;p&gt;Please select the lead source/agent before continuing to work the opportunity, the selected information will be populated on the &lt;strong&gt;General Opportunity&lt;/strong&gt;:&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <fields>
