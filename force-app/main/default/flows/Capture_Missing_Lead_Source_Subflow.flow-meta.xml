@@ -160,6 +160,28 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_DigiApp_Campaign</name>
+        <label>Is DigiApp Campaign?</label>
+        <locationX>1799</locationX>
+        <locationY>350</locationY>
+        <defaultConnectorLabel>Other</defaultConnectorLabel>
+        <rules>
+            <name>Digi_App</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Opportunity_BB_Campaign.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>DigiApp</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_Opportunity_Record_Type</targetReference>
+            </connector>
+            <label>Digi App</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_General_Opp_Agent_Populated</name>
         <label>Is General Opp Agent Populated?</label>
         <locationX>380</locationX>
@@ -225,28 +247,6 @@
             <label>General Agent Missing</label>
         </rules>
     </decisions>
-    <decisions>
-        <name>Is_Website_API_Lead</name>
-        <label>Is Website API Lead?</label>
-        <locationX>1799</locationX>
-        <locationY>350</locationY>
-        <defaultConnectorLabel>Other</defaultConnectorLabel>
-        <rules>
-            <name>Website_Lead</name>
-            <conditionLogic>or</conditionLogic>
-            <conditions>
-                <leftValueReference>Get_Opportunity_BB_Campaign.Type_of_Campaign__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue>Create lead/manual</stringValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Check_Opportunity_Record_Type</targetReference>
-            </connector>
-            <label>Website Lead</label>
-        </rules>
-    </decisions>
     <description>Flow Description: Flow to capture missing Lead Source when it is a Website/API campaign type Opportunity, launched from Wrap Up Opportunity H2 (main flow that houses entire skeleton of working opps)
 
 Front-End Access: Work Opportunity button on the Opportunity page.</description>
@@ -300,7 +300,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Is_Website_API_Lead</targetReference>
+            <targetReference>Is_DigiApp_Campaign</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
