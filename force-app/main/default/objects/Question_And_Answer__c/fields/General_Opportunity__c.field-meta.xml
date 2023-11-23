@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>General_Opportunity__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>This is the related general opportunity</description>
+    <externalId>false</externalId>
+    <label>General Opportunity</label>
+    <referenceTo>Opportunity</referenceTo>
+    <relationshipLabel>Question And Answers</relationshipLabel>
+    <relationshipName>Question_And_Answers</relationshipName>
+    <required>true</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>
