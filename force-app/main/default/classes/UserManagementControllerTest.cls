@@ -135,6 +135,8 @@ public with sharing class UserManagementControllerTest {
         insert role;
 
     }
+
+
     @IsTest
     public static void testSetupMethods() {
 
@@ -188,7 +190,7 @@ public with sharing class UserManagementControllerTest {
         Account subBranch3 = [SELECT Id FROM Account WHERE Name = 'Sub Branch3'];
         Account Branch3 = [SELECT Id FROM Account WHERE Name = 'Branch3'];
         Account Region3 = [SELECT Id FROM Account WHERE Name = 'Region3'];
-        Contact contact1 = [SELECT Id FROM Contact WHERE LastName = 'test69' LIMIT 1];
+        Contact contact1 = [SELECT Id, AccountId FROM Contact WHERE LastName = 'test69' LIMIT 1];
         Contact contact2 = [SELECT Id FROM Contact WHERE LastName = 'test40' LIMIT 1];
         User user1 = [SELECT Id FROM User WHERE LastName = 'test69' LIMIT 1];
         Test.startTest();
@@ -286,12 +288,12 @@ public with sharing class UserManagementControllerTest {
         Assert.isNotNull(UserManagementController.CreateRegion('Region'));
         Assert.isNotNull(UserManagementController.CreateReBranch('Branch', [SELECT Id FROM Account WHERE Name = 'Region' LIMIT 1].Id));
         Assert.isNotNull(UserManagementController.CreateSubBranch('subBranch', [SELECT Id FROM Account WHERE Name = 'Branch' LIMIT 1].Id));
-        Assert.isNotNull(UserManagementController.userManagementNetworks('', false));
-        Assert.isNotNull(UserManagementController.userManagementNetworks('', true));
+        Assert.isNotNull(UserManagementController.userManagementNetworks('', false, false));
+        Assert.isNotNull(UserManagementController.userManagementNetworks('', true, false));
         Assert.isNotNull(UserManagementController.deleteCCRById([SELECT Id FROM FinServ__ContactContactRelation__c LIMIT 1].Id));
         Assert.isNotNull(UserManagementController.getAllConsultantsNotLinkedToRunningAgent(contact1.Id));
         Assert.isNotNull(UserManagementController.getAllConsultants());
-        Assert.isNotNull(UserManagementController.updateAgent(contact1));
+        Assert.isNotNull(UserManagementController.updateAgent(contact1, 'fakeCommId'));
         try {
             Assert.isNotNull(UserManagementController.getAgentDetails(contact1.Id));
         } catch (Exception e) {
@@ -299,13 +301,13 @@ public with sharing class UserManagementControllerTest {
         }
         contact1.Id = null;
         try {
-            Assert.isNotNull(UserManagementController.updateAgent(contact1));
+            Assert.isNotNull(UserManagementController.updateAgent(contact1, 'fakeCommId'));
         } catch (Exception e) {
             System.debug(e.getMessage());
         }
         contact1.LastName = 'test';
         try {
-            Assert.isNotNull(UserManagementController.updateAgent(contact1));
+            Assert.isNotNull(UserManagementController.updateAgent(contact1, 'fakeCommId'));
         } catch (Exception e) {
             System.debug(e.getMessage());
         }
@@ -335,5 +337,53 @@ public with sharing class UserManagementControllerTest {
             Assert.isNotNull(UserManagementController.officeAdminCanBeDeleted(us.Id));
         } catch (Exception e) {
         }
+    }
+
+    @IsTest
+    public static void CreateNetworkAgencyBranchTest() {
+        Assert.isNotNull(UserManagementController.CreateNetworkAgencyBranch('newNetwork69', null, 'newAgency69', null, 'newBranch69'));
+
+    }
+
+    @IsTest
+    public static void getAccountTest() {
+//        User us = [SELECT Id, FirstName, LastName, MobilePhone, ProfileId, Email, TimeZoneSidKey, LocaleSidKey, EmailEncodingKey, LanguageLocaleKey FROM User WHERE FirstName = 'testClassUser69' LIMIT 1];
+//        Account subBranch = [SELECT Id FROM Account WHERE Name = 'Sub Branch'];
+        Account Branch = [SELECT Id FROM Account WHERE Name = 'Branch'];
+//        Account Region = [SELECT Id FROM Account WHERE Name = 'Region'];
+        Assert.isNotNull(UserManagementController.getAccount(Branch.Id));
+
+    }
+    @IsTest
+    public static void updateAccountNameTest() {
+        Account Branch = [SELECT Id FROM Account WHERE Name = 'Branch'];
+        Assert.isNotNull(UserManagementController.updateAccountName(Branch));
+
+    }
+    @IsTest
+    public static void deleteAccountTest() {
+        Account Branch = [SELECT Id FROM Account WHERE Name = 'Branch'];
+        Assert.isNotNull(UserManagementController.deleteAccount(Branch.Id));
+
+    }
+    @IsTest
+    public static void CreateCampaignTest() {
+        Account Branch = [SELECT Id FROM Account WHERE Name = 'Branch'];
+        Assert.isTrue(UserManagementController.CreateCampaign('faekName', 5, null, null, true, Branch.Id, 'Direct Agent', 'Create lead/manual', 'Manual', '1', 'Direct', 'Bond'));
+
+    }
+    @IsTest
+    public static void deactivateAgentTest() {
+        Contact contact1 = [SELECT Id, AccountId FROM Contact WHERE LastName = 'test69' LIMIT 1];
+        Assert.isNotNull(UserManagementController.deactivateAgent(contact1.Id));
+
+    }
+    @IsTest
+    public static void reactivateAgentTest() {
+        Contact contact1 = [SELECT Id, AccountId FROM Contact WHERE LastName = 'test69' LIMIT 1];
+        Assert.isNotNull(UserManagementController.reactivateAgent(contact1.Id));
+        Assert.isNotNull(UserManagementController.reactivateAgent('fakeId'));
+        Assert.isNotNull(UserManagementController.getSobjectType(contact1.Id));
+
     }
 }

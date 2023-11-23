@@ -1027,6 +1027,158 @@ public with sharing class UserManagementController {
         return results;
     }
 
+    @AuraEnabled
+    public static Account getAccount(String recordId) {
+        try {
+            return [SELECT Id, Name, RecordType.Name FROM Account WHERE Id = :recordId LIMIT 1];
+
+        } catch (Exception e) {
+            System.debug('Error' + e.getMessage());
+            return new Account();
+        }
+    }
+
+    @AuraEnabled
+    public static String updateAccountName(Account acc) {
+        try {
+            update acc;
+            return 'success';
+        } catch (Exception e) {
+            System.debug('Error Updating Account Name' + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+
+    @AuraEnabled
+    public static String deleteAccount(String recordId) {
+
+        try {
+            List<Account> accounts = new List<Account>();
+            Set<String> accountIds = new Set<String>();
+            Set<SObject> recordsToDelete = new Set<SObject>();
+            Account selectedAccount = [SELECT Id, Name, RecordType.Name, Parent.ParentId, ParentId FROM Account WHERE Id = :recordId];
+            if (selectedAccount.RecordType.Name == 'Real Estate Network') {
+                accounts.add(selectedAccount);
+                accounts.addAll([SELECT Id, Name FROM Account WHERE ParentId = :recordId]);
+                accounts.addAll([SELECT Id, Name FROM Account WHERE Parent.ParentId = :recordId]);
+            } else if (selectedAccount.RecordType.Name == 'Real Estate Agency') {
+                accounts.add(selectedAccount);
+                accounts.addAll([SELECT Id, Name FROM Account WHERE ParentId = :recordId]);
+                accountIds.add(selectedAccount.ParentId);
+            } else if (selectedAccount.RecordType.Name == 'Real Estate Branch') {
+                accounts.add(selectedAccount);
+                accountIds.add(selectedAccount.ParentId);
+                accountIds.add(selectedAccount.Parent.ParentId);
+            }
+
+            for (Account acc : accounts) {
+                accountIds.add(acc.Id);
+            }
+            List<AccountContactRelation> acrList = [SELECT Id, ContactId FROM AccountContactRelation WHERE AccountId IN :accountIds AND IsDirect = FALSE];
+            List<String> contactIds = new List<String>();
+
+            for (AccountContactRelation acr : acrList) {
+                contactIds.add(acr.ContactId);
+                recordsToDelete.add(acr);
+
+            }
+            List<Contact> contactList = [SELECT Id, AccountId FROM Contact WHERE Id IN :contactIds];
+
+            for (Contact ct : contactList) {
+                ct.AccountId = null;
+            }
+
+            delete new List<AccountContactRelation>(acrList);
+            update contactList;
+            delete new List<Account>(accounts);
+
+            return 'success';
+        } catch (Exception e) {
+            System.debug('Unable to delete records - ' + e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static Boolean CreateCampaign(
+            String name,
+            Decimal sla,
+            Date endDate,
+            Date startDate,
+            Boolean active,
+            String branchId,
+            String campaignList,
+            String typeOfCampaign,
+            String typeOfLead,
+            String priority,
+            String campaignOwner,
+            String campaignGroup) {
+
+        try {
+
+            Account branch = [SELECT Id, Name, ParentId, Parent.ParentId FROM Account WHERE Id = :branchId LIMIT 1];
+
+            BLG_Campaign__c camp = new BLG_Campaign__c();
+            camp.End_Date__c = endDate;
+            camp.Campaign_List__c = campaignList;
+            camp.Type_of_Campaign__c = typeOfCampaign;
+            camp.Type_of_Lead__c = typeOfLead;
+            camp.Priority__c = priority;
+            camp.Campaign_Owner__c = campaignOwner;
+            camp.Group__c = campaignGroup;
+            camp.Name = branch.Name;
+            camp.Start_Date__c = startDate;
+            camp.Active__c = active;
+            camp.SLA__c = sla;
+            camp.Branch__c = branchId;
+            camp.Agency__c = branch.ParentId;
+            camp.Network__c = branch.Parent.ParentId;
+
+            insert camp;
+
+            return true;
+        } catch (Exception e) {
+            System.debug('error');
+            return false;
+        }
+    }
+
+    @AuraEnabled
+    public static String deactivateAgent(String contactId) {
+
+        try {
+            List<FinServ__ContactContactRelation__c> ccrList = [SELECT Id FROM FinServ__ContactContactRelation__c WHERE FinServ__Contact__c = :contactId];
+            delete ccrList;
+
+            List<AccountContactRelation> acrList = [SELECT Id FROM AccountContactRelation WHERE ContactId = :contactId AND IsDirect = FALSE];
+            delete acrList;
+
+
+            update new Contact(Id = contactId, AccountId = null, Active__c = false);
+            return 'success';
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static String reactivateAgent(String contactId) {
+        try {
+            update new Contact(Id = contactId, Active__c = true);
+            return 'success';
+        } catch (Exception e) {
+            System.debug(e.getMessage());
+            return e.getMessage();
+        }
+    }
+
+    @AuraEnabled
+    public static String getSobjectType(Id recordId) {
+            return recordId.getSobjectType().getDescribe().getName();
+        }
+
     public class LwcResult {
         @AuraEnabled public List<Account> accounts;
         @AuraEnabled public List<Contact> contacts;
