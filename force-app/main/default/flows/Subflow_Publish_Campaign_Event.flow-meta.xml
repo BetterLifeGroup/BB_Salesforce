@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This will determine the current environment (production or sandbox), will return true if running on production</description>
+        <name>Determine_Environment</name>
+        <label>Determine Environment</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <actionName>Better_Home__FlowActionIsProduction</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Is_Production_Org</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Create_Error_Log_Message2</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <nameSegment>Better_Home__FlowActionIsProduction</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <description>This will set to production campaign link</description>
+        <name>Production_Campaign_URL_Link</name>
+        <label>Production Campaign URL Link</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>v_Campaign_URL_Link</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>iv_BB_Campaign_Record.Production_URL__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_Campaign_Platform_Event</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>This will set the link to Dev URL link</description>
+        <name>Sandbox_Campaign_URL_Link</name>
+        <label>Sandbox Campaign URL Link</label>
+        <locationX>314</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>v_Campaign_URL_Link</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>iv_BB_Campaign_Record.Test_URL__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_Campaign_Platform_Event</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Check if the given input record is valid.</description>
+        <name>Is_Input_Record_Valid</name>
+        <label>Is Input Record Valid?</label>
+        <locationX>644</locationX>
+        <locationY>134</locationY>
+        <defaultConnectorLabel>Record Not Valid</defaultConnectorLabel>
+        <rules>
+            <name>Record_Valid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>iv_BB_Campaign_Record</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Determine_Environment</targetReference>
+            </connector>
+            <label>Record Valid</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Check if the flow is currently running in production org.</description>
+        <name>Is_Production_Org</name>
+        <label>Is Production Org?</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
+        <defaultConnector>
+            <targetReference>Sandbox_Campaign_URL_Link</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Production Org</defaultConnectorLabel>
+        <rules>
+            <name>Production_Org</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Determine_Environment.isProduction</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Production_Campaign_URL_Link</targetReference>
+            </connector>
+            <label>Production Org</label>
+        </rules>
+    </decisions>
+    <description>This sub-flow will publish a Campaign Event - Out</description>
+    <environments>Default</environments>
+    <interviewLabel>Subflow: Publish Campaign Event {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Subflow: Publish Campaign Event</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Create (Publish Event) Campaign Platform Event.</description>
+        <name>Create_Campaign_Platform_Event</name>
+        <label>Create: Campaign Platform Event</label>
+        <locationX>182</locationX>
+        <locationY>650</locationY>
+        <faultConnector>
+            <targetReference>Create_Error_Log_Message</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Domain_Id__c</field>
+            <value>
+                <elementReference>iv_BB_Campaign_Record.Domain_Id__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Record_Id__c</field>
+            <value>
+                <elementReference>iv_BB_Campaign_Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>BB_Campaign__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Create Error log record</description>
+        <name>Create_Error_Log_Message</name>
+        <label>Create: Error Log Message</label>
+        <locationX>578</locationX>
+        <locationY>758</locationY>
+        <inputAssignments>
+            <field>Better_Home__Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Better_Home__Type__c</field>
+            <value>
+                <stringValue>ERROR</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Better_Home__Log_Message__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>This will log the error that occurred in APEX flow action</description>
+        <name>Create_Error_Log_Message2</name>
+        <label>Create: Error Log Message</label>
+        <locationX>842</locationX>
+        <locationY>350</locationY>
+        <inputAssignments>
+            <field>Better_Home__Message__c</field>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Better_Home__Type__c</field>
+            <value>
+                <stringValue>ERROR</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Better_Home__Log_Message__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <start>
+        <locationX>518</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Input_Record_Valid</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>This will hold the BB Campaign record that will be used as input</description>
+        <name>iv_BB_Campaign_Record</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>BLG_Campaign__c</objectType>
+    </variables>
+    <variables>
+        <description>This will hold the campaign URL</description>
+        <name>v_Campaign_URL_Link</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
