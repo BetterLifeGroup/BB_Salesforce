@@ -3732,12 +3732,6 @@ IF(ISPICKVAL({!mainApplicant.What_is_your_credit_status__c}, &quot;&quot;), &quo
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Name_Title__c</field>
-            <value>
-                <elementReference>Get_Person_Account.PersonTitle</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Nationality__c</field>
             <value>
                 <elementReference>mainApplicant.Nationality__c</elementReference>
