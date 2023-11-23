@@ -75,7 +75,7 @@ public with sharing class SRVCRDCreditCheckController {
                         creditCheckJudgements__c, creditCheckMonthsInArrears__c, creditCheckNotices__c, creditCheckNumberAdverseJudgements1Year__c,
                         creditCheckNumberJudgementsLast5Years__c, creditCheckOverdueBalances__c, creditCheckScore__c, creditCheckSequestration__c,
                         creditCheckThinFile__c, creditCheckTotalValueMonthlyInstallments__c, idvFinalScore__c, Contact.Account.Identification_Type__c,
-                        CreditCheckDate__c, Contact.Account.Passport_Number__c , CreditCheckGroupId__c, Contact.Id, Contact.Account.Identification_Number__c
+                        CreditCheckDate__c, Contact.Account.Passport_Number__c, CreditCheckGroupId__c, Contact.Id, Contact.Account.Identification_Number__c
                 FROM LoanApplicant
                 WHERE Id = :loanApplicantId
                 LIMIT 1
@@ -99,7 +99,6 @@ public with sharing class SRVCRDCreditCheckController {
         }
 
 
-
         param.clientConsent = 'Y';
         param.forcePerformNewCheck = true;
         param.doAffordabilityCheck = true;
@@ -121,36 +120,57 @@ public with sharing class SRVCRDCreditCheckController {
         SRVCRDCreditCheck_DeligateApi crd = new SRVCRDCreditCheck_DeligateApi(client);
 
         if (la.CreditCheckDate__c < Date.today().addDays(30) || la.creditCheckScore__c == null) {
-
             try {
-                obj = crd.postCreditcheckSimpleDeligate(params);
-            } catch (OAS.ApiException e) {
-                System.debug(e);
-                throw new AuraHandledException(e.getBody());
+
+                try {
+                    obj = crd.postCreditcheckSimpleDeligate(params);
+                } catch (OAS.ApiException e) {
+                    System.debug(e);
+                    throw new AuraHandledException(e.getBody());
+                }
+
+                Boolean thinFile = false;
+
+                for (SRVCRDCreditCheckAppClientCustomScor cScore : obj.clientScores) {
+                    if (cScore.scoreValue != null) {
+                        if (cScore.thinFileIndicator == 'Y') {
+
+                            thinFile = true;
+                            la.creditCheckRagIndicator__c = obj.affordabilityResponseModel.ragIndicator;
+                            la.creditCheckScore__c = Decimal.valueOf(cScore.scoreValue);
+                            la.creditCheckThinFile__c = 'Yes';
+                        }
+                    }
+                }
+
+                if (!thinFile) {
+                    la.creditCheckTotalValueMonthlyInstallments__c = obj.affordabilityResponseModel.installment;
+                    la.creditCheckRagIndicator__c = obj.affordabilityResponseModel.ragIndicator;
+                    la.creditCheckAdverse__c = obj.affordabilityResponseModel.adverse;
+                    la.creditCheckArrears__c = Integer.valueOf(obj.affordabilityResponseModel.arrears);
+                    la.creditCheckDebtReview__c = obj.affordabilityResponseModel.debtReview;
+                    la.creditCheckDebtReviewGranted__c = obj.affordabilityResponseModel.debtReviewGranted;
+                    la.creditCheckDebtReviewRequested__c = obj.affordabilityResponseModel.debtReviewRequested;
+                    la.creditCheckDeceased__c = obj.affordabilityResponseModel.deceased;
+                    la.creditCheckJudgements__c = obj.affordabilityResponseModel.judgements;
+                    la.creditCheckMonthsInArrears__c = obj.affordabilityResponseModel.monthsInArrears;
+                    la.creditCheckNotices__c = obj.affordabilityResponseModel.notices;
+                    la.creditCheckNumberAdverseJudgements1Year__c = obj.affordabilityResponseModel.numberAdverseJudgements1Year;
+                    la.creditCheckNumberJudgementsLast5Years__c = obj.affordabilityResponseModel.numberJudgementsLast5Years;
+                    la.creditCheckOverdueBalances__c = obj.affordabilityResponseModel.overdueBalances;
+                    la.creditCheckScore__c = Integer.valueOf(obj.affordabilityResponseModel.score);
+                    la.creditCheckSequestration__c = obj.affordabilityResponseModel.sequestration;
+                    la.creditCheckThinFile__c = obj.affordabilityResponseModel.thinFile;
+                    la.creditCheckDispute__c = obj.affordabilityResponseModel.dispute;
+                    la.CreditCheckDate__c = Date.today();
+                    la.CreditCheckGroupId__c = obj.groupId;
+                }
+
+                update la;
+            } catch (Exception e) {
+                System.debug(e.getMessage());
+                return la;
             }
-
-            la.creditCheckTotalValueMonthlyInstallments__c = obj.affordabilityResponseModel.installment;
-            la.creditCheckRagIndicator__c = obj.affordabilityResponseModel.ragIndicator;
-            la.creditCheckAdverse__c = obj.affordabilityResponseModel.adverse;
-            la.creditCheckArrears__c = Integer.valueOf(obj.affordabilityResponseModel.arrears);
-            la.creditCheckDebtReview__c = obj.affordabilityResponseModel.debtReview;
-            la.creditCheckDebtReviewGranted__c = obj.affordabilityResponseModel.debtReviewGranted;
-            la.creditCheckDebtReviewRequested__c = obj.affordabilityResponseModel.debtReviewRequested;
-            la.creditCheckDeceased__c = obj.affordabilityResponseModel.deceased;
-            la.creditCheckJudgements__c = obj.affordabilityResponseModel.judgements;
-            la.creditCheckMonthsInArrears__c = obj.affordabilityResponseModel.monthsInArrears;
-            la.creditCheckNotices__c = obj.affordabilityResponseModel.notices;
-            la.creditCheckNumberAdverseJudgements1Year__c = obj.affordabilityResponseModel.numberAdverseJudgements1Year;
-            la.creditCheckNumberJudgementsLast5Years__c = obj.affordabilityResponseModel.numberJudgementsLast5Years;
-            la.creditCheckOverdueBalances__c = obj.affordabilityResponseModel.overdueBalances;
-            la.creditCheckScore__c = Integer.valueOf(obj.affordabilityResponseModel.score);
-            la.creditCheckSequestration__c = obj.affordabilityResponseModel.sequestration;
-            la.creditCheckThinFile__c = obj.affordabilityResponseModel.thinFile;
-            la.creditCheckDispute__c = obj.affordabilityResponseModel.dispute;
-            la.CreditCheckDate__c = Date.today();
-            la.CreditCheckGroupId__c = obj.groupId;
-
-            update la;
         }
         System.debug(obj);
         return la;
