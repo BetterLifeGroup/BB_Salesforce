@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This event will be fired when a Pre-Approval Opportunity is created or updated</description>
+    <eventType>HighVolume</eventType>
+    <label>Pre-Approval Opportunity - Out</label>
+    <pluralLabel>Pre-Approval Opportunities - In</pluralLabel>
+    <publishBehavior>PublishAfterCommit</publishBehavior>
+</CustomObject>
