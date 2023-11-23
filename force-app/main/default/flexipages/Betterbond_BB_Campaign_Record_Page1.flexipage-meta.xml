@@ -9,6 +9,9 @@
                         <valueListItems>
                             <value>BLG_Campaign__c.Collaboration_Group</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>BLG_Campaign__c.Send_External_Link</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
