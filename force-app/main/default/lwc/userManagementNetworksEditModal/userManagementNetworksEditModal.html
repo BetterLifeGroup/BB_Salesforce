@@ -1,0 +1,72 @@
+<!--
+ - Created by frans fourie on 2023/06/21.
+ -->
+
+<!-- User Management Networks Modal -->
+
+<template>
+    <div>
+        <lightning-modal-header label="Update or Delete Existing Account"></lightning-modal-header>
+        <lightning-modal-body>
+            <template if:true={showSpinner}>
+                <div>
+                    <lightning-spinner>
+
+                    </lightning-spinner>
+                </div>
+            </template>
+            <template if:true={dataHasLoaded}>
+                <template if:false={deleteSelected}>
+                    <div style='display: flex; flex-direction: row;gap: 8px;align-items: end'>
+                        <div style='width: 40%'>
+                            <lightning-input
+                                    label={label}
+                                    value={accountData.Name}
+                                    onchange={handleNameChange}
+                            ></lightning-input>
+                        </div>
+                        <div>
+                            <lightning-button
+                                    label='Update Name'
+                                    onclick={handleUpdate}
+                            ></lightning-button>
+                        </div>
+                        <div>
+                            <lightning-button
+                                    label={deleteLabel}
+                                    onclick={handleDeletePrompt}
+                                    variant="destructive"
+                            ></lightning-button>
+                        </div>
+                    </div>
+                </template>
+                <template if:true={deleteSelected}>
+                    <div class='slds-align_absolute-center' style='padding: 24px'>
+                        <lightning-formatted-text
+                                value='Are you sure you want to delete the selected account? Deleting this account will delete all child accounts and Account-Contact Relationships linked to this account. This action cannot be undone.'
+                        ></lightning-formatted-text>
+                    </div>
+                    <div style='display: flex; flex-direction: row; justify-content: end;gap: 6px'>
+                        <lightning-button
+                                label='Delete'
+                                onclick={handleDelete}
+                                variant="destructive"
+                        ></lightning-button>
+                        <lightning-button
+                                label='Cancel'
+                                onclick={handleDeleteCancel}
+                        ></lightning-button>
+                    </div>
+                </template>
+            </template>
+            <template if:false={deleteSelected}>
+                <div style='display: flex;align-items: end;justify-content: end;margin-top: 12px'>
+                    <lightning-button
+                            label='Close'
+                            onclick={handleOptionClick}
+                    ></lightning-button>
+                </div>
+            </template>
+        </lightning-modal-body>
+    </div>
+</template>

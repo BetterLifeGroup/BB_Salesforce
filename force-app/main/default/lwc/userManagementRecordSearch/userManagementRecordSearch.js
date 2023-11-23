@@ -33,16 +33,14 @@ export default class userManagementRecordSearch extends LightningElement {
     @api userManagementAdditionalSearch;
     @api additionalInfoVisible = false;
     @api includeInactiveUsers = false;
+    @api required = 'false';
 
-
-    connectedCallback() {
-        console.log('search mode',this.contactMode)
-    }
 
     addDebounce = (fn, wait = 600) => {
         clearTimeout(this.timerId);
         this.timerId = setTimeout(fn, wait);
     }
+
     handleKeyChange(event) {
         this.searchKey = event.detail.value
         this.addDebounce(() => this.getRecords(event), 600)
@@ -132,9 +130,9 @@ export default class userManagementRecordSearch extends LightningElement {
             });
         } else if (this.accountMode === true) {
             getAccounts({
-                accountScope:this.accountScope,
-                searchKey:this.searchKey,
-                parentId : this.userManagementAdditionalSearch
+                accountScope: this.accountScope,
+                searchKey: this.searchKey,
+                parentId: this.userManagementAdditionalSearch
             })
 
                 .then((result) => {
@@ -148,7 +146,7 @@ export default class userManagementRecordSearch extends LightningElement {
                 this.error = error;
                 this.recordsList = undefined;
             });
-        }else {
+        } else {
             getSobjectRecords({
                 searchKey: this.searchKey,
                 objectName: this.queriedObjectType,
@@ -161,10 +159,10 @@ export default class userManagementRecordSearch extends LightningElement {
                         this.recordsList = [];
                         this.message = "No Records Found";
                     } else {
-                        console.log('sRecords',result)
+                        console.log('sRecords', result)
                         this.recordsList = result;
-                        this.recordsList.map(re => re.Profile ? re.Profile : re.Profile = {Name:''});
-                        console.log('sRecords2',result)
+                        this.recordsList.map(re => re.Profile ? re.Profile : re.Profile = {Name: ''});
+                        console.log('sRecords2', result)
                         this.message = "";
                     }
                     this.error = undefined;
@@ -180,8 +178,10 @@ export default class userManagementRecordSearch extends LightningElement {
         this.queriedRecordId = event.target.dataset.key;
         this.selectedValue = event.target.dataset.name;
         this.searchKey = "";
-
-        const selectedRecord = new CustomEvent('recordselected', {bubbles: true, detail: {id:this.queriedRecordId,name:event.target.dataset.name}});
+        const selectedRecord = new CustomEvent('recordselected', {
+            bubbles: true,
+            detail: {id: this.queriedRecordId, name: event.target.dataset.name}
+        });
         this.dispatchEvent(selectedRecord);
 
     }

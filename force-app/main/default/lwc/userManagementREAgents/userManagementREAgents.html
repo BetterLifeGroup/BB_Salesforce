@@ -5,53 +5,24 @@
 <!-- User Management Re Agents -->
 <template>
     <lightning-tabset variant="scoped">
-<!--        <lightning-tab label='Agents By Network'>-->
-<!--            <div style='display: flex;flex-direction: row;gap: 8px;margin-right: 4px'>-->
-<!--                <div id="Networks" style='width: 40%'>-->
-<!--                    <c-user-management-record-search-->
-<!--                            label='Search Agents by Network, Agency or Branch'-->
-<!--                            account-mode={constantTrue}-->
-<!--                            account-scope='reAll'-->
-<!--                            onrecordselected={accountSelected}-->
-<!--                            onselectioncleared={handleSelectionCleared}-->
-<!--                    ></c-user-management-record-search>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <template if:true={dataHasLoaded}>-->
-<!--                <div style='display: flex;flex-wrap: wrap'>-->
-<!--                    <div for:each={returnedAgents} for:item="agent" key={agent.Id} style='width:33%;'>-->
-<!--                        <div style='display: flex;flex-direction: row;gap: 4px; border: solid #e8e8e8 1.5px; border-radius: 4px;margin: 4px;padding: 6px'>-->
-
-<!--                            <lightning-icon-->
-<!--                                    icon-name='standard:record_lookup'-->
-<!--                                    size="small"-->
-<!--                            ></lightning-icon>-->
-
-<!--                            <lightning-formatted-text-->
-<!--                                    value={agent.Name}-->
-<!--                                    class='accountCard'-->
-<!--                            ></lightning-formatted-text>-->
-<!--                            &lt;!&ndash;                            </div>&ndash;&gt;-->
-
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </template>-->
-<!--        </lightning-tab>-->
 
         <lightning-tab label="Manage Agents">
-<c-user-management-agents >
+            <c-user-management-agents>
 
-
-</c-user-management-agents>
-
+            </c-user-management-agents>
         </lightning-tab>
-        <lightning-tab label="New Agent">
-            <c-user-management-add-new-agent >
 
+        <lightning-tab label="Add New Agent">
+            <c-user-management-add-new-agent>
 
             </c-user-management-add-new-agent>
-
         </lightning-tab>
+
+<!--        <lightning-tab label="Delete Agent">-->
+<!--            <c-user-management-delete-agent >-->
+
+<!--            </c-user-management-delete-agent>-->
+<!--        </lightning-tab>-->
+
     </lightning-tabset>
 </template>

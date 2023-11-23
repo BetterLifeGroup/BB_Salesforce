@@ -2,13 +2,12 @@
  * Created by frans fourie on 2023/06/22.
  */
 
-import {LightningElement, track} from 'lwc';
+import {LightningElement, track, wire} from 'lwc';
 import getAgentDetails from '@salesforce/apex/UserManagementController.getAgentDetails'
 import updateAgent from '@salesforce/apex/UserManagementController.updateAgent'
 import getRealEstateBranches from '@salesforce/apex/UserManagementController.getRealEstateBranches'
-import getAllConsultants from '@salesforce/apex/UserManagementController.getAllConsultants'
-// import deleteCCR from '@salesforce/apex/UserManagementController.deleteCCR'
-// import createCCR from '@salesforce/apex/UserManagementController.createCCR'
+import deactivateAgent from '@salesforce/apex/UserManagementController.deactivateAgent'
+import reactivateAgent from '@salesforce/apex/UserManagementController.reactivateAgent'
 import getAllLinkedConsultants from '@salesforce/apex/UserManagementController.getAllLinkedConsultants'
 import deleteCCRById from '@salesforce/apex/UserManagementController.deleteCCRById'
 import createCCRByAgent from '@salesforce/apex/UserManagementController.createCCRByAgent'
@@ -16,6 +15,11 @@ import getAllConsultantsNotLinkedToRunningAgent
     from '@salesforce/apex/UserManagementController.getAllConsultantsNotLinkedToRunningAgent'
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import emailRegex from '@salesforce/label/c.EmailRegex';
+
+import {getObjectInfo, getPicklistValues} from "lightning/uiObjectInfoApi";
+
+import Contact from '@salesforce/schema/Contact';
+import Visibility from '@salesforce/schema/Contact.Visibility__c';
 
 export default class UserManagementAgents extends LightningElement {
 
@@ -25,28 +29,52 @@ export default class UserManagementAgents extends LightningElement {
     @track selectedAgentId;
     @track agent;
 
-    @track branchOptions = [];
+    // @track branchOptions = [];
 
     @track agentSelected = false;
-    @track disableUpdate = false;
+    @track showUpdate = false;
 
     @track working = false;
+    @track reloadView = false;
     @track showLinkedConsultants = false;
+    @track activeAgent = false;
 
     @track linkedConsultants = [];
     @track linkedConsultantOptions = [];
+
+    @track accountScope = 'agents';
+
+    @track queryFilter = ' AND RecordType.Name = \'Real Estate Branch\'';
 
     tempWorking = false;
 
     regex = emailRegex;
 
 
+    @wire(getObjectInfo, {objectApiName: Contact})
+    contactObjectInfo;
+
+    @track vizOptions;
+
+    @wire(getPicklistValues, {
+        recordTypeId: '$contactObjectInfo.data.defaultRecordTypeId',
+        fieldApiName: Visibility
+    })
+    VizFieldInfo({data, error}) {
+        if (data) {
+            this.vizOptions = data.values;
+        }
+        if (error) {
+            console.error(error)
+        }
+    }
+
     connectedCallback() {
-        getRealEstateBranches({}).then(result => {
-            for (let i = 0; i < result.length; i++) {
-                this.branchOptions.push({label: result[i].Name, id: result[i].Id})
-            }
-        })
+        // getRealEstateBranches({}).then(result => {
+        //     for (let i = 0; i < result.length; i++) {
+        //         this.branchOptions.push({label: result[i].Name, id: result[i].Id})
+        //     }
+        // })
 
 
     }
@@ -59,6 +87,10 @@ export default class UserManagementAgents extends LightningElement {
 
         getAgentDetails({contactId: this.selectedAgentId}).then(result => {
             this.agent = result;
+            this.agent.commId = this.agent.commId ? this.agent.commId : '' ;
+            console.log('this.agent',JSON.parse(JSON.stringify(this.agent)))
+            this.activeAgent = this.agent.agent.Active__c;
+            // this.showUpdate = !this.agent.agent.Active__c;
             this.agentSelected = true;
             this.reloadLinkedConsultants()
         })
@@ -163,13 +195,41 @@ export default class UserManagementAgents extends LightningElement {
             field.validity = {valid: true};
             field.setCustomValidity("");
             this.agent.agent.MobilePhone = event.detail.value;
-            this.disableUpdate = false;
+            this.validateInput();
         } else {
-            this.disableUpdate = true;
+            this.showUpdate = false;
             field.validity = {valid: false};
             field.setCustomValidity("Invalid input");
         }
 
+    }
+
+    handleAgentCommIdChange(event) {
+        let field = this.template.querySelector("[data-field='commId']")
+        if (event.target.value.length > 0) {
+            field.validity = {valid: true};
+            field.setCustomValidity("");
+            this.agent.commId = event.detail.value;
+            this.validateInput();
+        } else {
+            this.showUpdate = false;
+            field.validity = {valid: false};
+            field.setCustomValidity("Invalid input");
+        }
+    }
+
+    handleAgentVizChange(event) {
+        let field = this.template.querySelector("[data-field='viz']")
+        if (event.target.value.length > 0) {
+            field.validity = {valid: true};
+            field.setCustomValidity("");
+            this.agent.agent.Visibility__c = event.detail.value;
+            this.validateInput();
+        } else {
+            this.showUpdate = false;
+            field.validity = {valid: false};
+            field.setCustomValidity("Invalid input");
+        }
     }
 
     handleAgentEmailChange(event) {
@@ -178,9 +238,9 @@ export default class UserManagementAgents extends LightningElement {
             field.validity = {valid: true};
             field.setCustomValidity("");
             this.agent.agent.Email = event.detail.value;
-            this.disableUpdate = false;
+            this.validateInput();
         } else {
-            this.disableUpdate = true;
+            this.showUpdate = false;
             field.validity = {valid: false};
             field.setCustomValidity("Invalid input");
         }
@@ -189,25 +249,32 @@ export default class UserManagementAgents extends LightningElement {
 
     handleAgentLastNameChange(event) {
         this.agent.agent.LastName = event.detail.value;
+        this.validateInput();
 
     }
 
     handleAgentFirstNameChange(event) {
         this.agent.agent.FirstName = event.detail.value;
+        this.validateInput();
     }
 
-    handleP40Change(event){
+    handleP40Change(event) {
         this.agent.agent.P40_Indicator__c = event.target.checked;
     }
 
-    handle4dxChange(event){
+    handleAgentPreferredNameChange(event) {
+        this.agent.agent.FinServ__PreferredName__c = event.detail.value;
+        this.validateInput();
+    }
+
+    handle4dxChange(event) {
         this.agent.agent.X4DX_Indicator__c = event.target.checked;
     }
 
     handleUpdate(event) {
         console.log(this.agent)
         this.working = true;
-        updateAgent({agent: this.agent.agent}).then(result => {
+        updateAgent({agent: this.agent.agent,commId:this.agent?.commId ? this.agent.commId : null}).then(result => {
                 this.working = false;
                 if (result) {
                     this.showToast('Updated successfully', 'Updated successfully', 'success')
@@ -230,7 +297,7 @@ export default class UserManagementAgents extends LightningElement {
     handleBranchSelected(event) {
         this.working = true;
         this.agent.agent.AccountId = event.detail.id;
-        updateAgent({agent: this.agent.agent}).then(result => {
+        updateAgent({agent: this.agent.agent,commId:this.agent?.commId ? this.agent.commId : null}).then(result => {
             if (result) {
                 this.showToast('Updated successfully', 'Updated successfully', 'success')
             }
@@ -239,6 +306,81 @@ export default class UserManagementAgents extends LightningElement {
             this.working = false;
             this.showToast('Failed to update', error.body.message, 'error')
         })
+    }
+
+    handleDeactivate() {
+        this.working = true;
+        this.reloadView = true;
+        deactivateAgent({contactId: this.selectedAgentId}).then(result => {
+            this.reloadView = false;
+            this.agentSelected = false;
+            this.agent = {};
+            this.working = false;
+            this.showToast('Success', 'Success', 'success');
+        }).catch(error => {
+            this.showToast('Error', 'Something Went Wrong', 'error');
+            console.error(error)
+        })
+    }
+
+    handleReactivate() {
+        this.working = true;
+        this.reloadView = true;
+        reactivateAgent({contactId: this.selectedAgentId}).then(result => {
+            this.reloadView = false;
+            this.agentSelected = false;
+            this.agent = {};
+            this.working = false;
+            this.showToast('Success', 'Success', 'success');
+        }).catch(error => {
+            this.showToast('Error', 'Something Went Wrong', 'error');
+            console.error(error)
+        })
+    }
+
+    handleInactiveSearchChange(event) {
+        this.accountScope = event.detail.checked ? 'inactiveAgents' : 'agents';
+    }
+
+    valid = true;
+    handleRemoveBranchRs(event) {
+        this.agent.agent.AccountId = null;
+        this.valid = false;
+        this.validateInput();
+    }
+
+    handleBranchSelectedRs(event) {
+        console.log('in here')
+        // this.working = true;
+        this.agent.agent.AccountId = event.detail.id;
+        this.agent.commId = '';
+        this.valid = true;
+        this.validateInput();
+        // updateAgent({agent: this.agent.agent,commId:this.agent?.commId ? this.agent.commId : null}).then(result => {
+        //     if (result) {
+        //         this.valid = true;
+        //         this.validateInput();
+        //         this.showToast('Updated successfully', 'Updated successfully', 'success')
+        //     }
+        //     this.validateInput();
+        //     this.working = false;
+        // }).catch(error => {
+        //     this.working = false;
+        //     this.showToast('Failed to update', error.body.message, 'error')
+        // })
+    }
+
+    validateInput() {
+        this.showUpdate = (
+            // this.agent?.agent?.FirstName?.length > 0
+            this.agent?.commId?.length > 0
+            && this.agent?.agent?.Active__c
+            && this.agent?.agent?.LastName?.length > 0
+            && this.agent?.agent?.Email?.length > 0
+            && this.valid
+            // && this.agent?.agent?.MobilePhone?.length > 0
+            // && this.agent?.agent?.AccountId != null
+        )
     }
 
 }
