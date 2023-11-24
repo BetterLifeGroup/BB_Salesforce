@@ -18,7 +18,8 @@ trigger trgContentVersion on ContentVersion (after insert, after update) {
         }
 
 
-        if (parentObjectType == 'LoanApplicant' && cv.Category__c != 'NotSpecified' && fileNames.contains(cv.Title) && Trigger.isInsert && (cv.Title.contains('Consent Document') || cv.Title.contains('Credit Report') || cv.Title.contains('Offer To Purchase') || cv.Title.contains('Preapproval'))) {
+//        if (parentObjectType == 'LoanApplicant' && cv.Category__c != 'NotSpecified' && fileNames.contains(cv.Title) && Trigger.isInsert && (cv.Title.contains('Consent Document') || cv.Title.contains('Credit Report') || cv.Title.contains('Offer To Purchase') || cv.Title.contains('Preapproval'))) {
+        if (parentObjectType == 'LoanApplicant' && cv.Category__c != 'NotSpecified' && fileNames.contains(cv.Title) && Trigger.isInsert ) {
             System.debug('intrigger1' + cv.Category__c);
             LoanApplicant la = [SELECT Id, Name, Requested_Documents__c, Received_Documents__c, relatedFilesIds__c FROM LoanApplicant WHERE Id = :cv.FirstPublishLocationId LIMIT 1];
 
