@@ -4,7 +4,7 @@
         <name>Business_Rules_Engine_LT</name>
         <label>Business Rules Engine LT</label>
         <locationX>380</locationX>
-        <locationY>923</locationY>
+        <locationY>1031</locationY>
         <actionName>dmPAorBondAnswerIDs</actionName>
         <actionType>runDecisionMatrix</actionType>
         <connector>
@@ -63,7 +63,7 @@
         <name>Assign_Bond_Applicant_Record_Type_ID</name>
         <label>Assign Bond Applicant Record Type ID</label>
         <locationX>1590</locationX>
-        <locationY>1463</locationY>
+        <locationY>1571</locationY>
         <assignmentItems>
             <assignToReference>v_BondApplicantRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -79,7 +79,7 @@
         <name>Assign_Bond_Application_Record_Type_ID</name>
         <label>Assign Bond Application Record Type ID</label>
         <locationX>1062</locationX>
-        <locationY>1463</locationY>
+        <locationY>1571</locationY>
         <assignmentItems>
             <assignToReference>v_BondApplicationRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -95,7 +95,7 @@
         <name>Assign_Bond_Opp_Record_Type_ID</name>
         <label>Assign Bond Opp Record Type ID</label>
         <locationX>534</locationX>
-        <locationY>1463</locationY>
+        <locationY>1571</locationY>
         <assignmentItems>
             <assignToReference>v_BondOppRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -111,7 +111,7 @@
         <name>Assign_PA_Applicant_Record_Type_ID</name>
         <label>Assign PA Applicant Record Type ID</label>
         <locationX>1326</locationX>
-        <locationY>1463</locationY>
+        <locationY>1571</locationY>
         <assignmentItems>
             <assignToReference>v_PAApplicantRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -127,7 +127,7 @@
         <name>Assign_PA_Application_Record_Type_ID</name>
         <label>Assign PA Application Record Type ID</label>
         <locationX>798</locationX>
-        <locationY>1463</locationY>
+        <locationY>1571</locationY>
         <assignmentItems>
             <assignToReference>v_PAApplicationRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -143,7 +143,7 @@
         <name>Assign_PA_Opp_Record_Type_ID</name>
         <label>Assign PA Opp Record Type ID</label>
         <locationX>270</locationX>
-        <locationY>1463</locationY>
+        <locationY>1571</locationY>
         <assignmentItems>
             <assignToReference>v_PAOppRecordTypeId</assignToReference>
             <operator>Assign</operator>
@@ -159,7 +159,7 @@
         <name>AssignA1</name>
         <label>AssignA1</label>
         <locationX>468</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <assignmentItems>
             <assignToReference>v_A1</assignToReference>
             <operator>Assign</operator>
@@ -175,7 +175,7 @@
         <name>AssignA2</name>
         <label>AssignA2</label>
         <locationX>732</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <assignmentItems>
             <assignToReference>v_A2</assignToReference>
             <operator>Assign</operator>
@@ -191,7 +191,7 @@
         <name>AssignA3</name>
         <label>AssignA3</label>
         <locationX>996</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <assignmentItems>
             <assignToReference>v_A3</assignToReference>
             <operator>Assign</operator>
@@ -207,7 +207,7 @@
         <name>AssignA4</name>
         <label>AssignA4</label>
         <locationX>1260</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <assignmentItems>
             <assignToReference>v_A4</assignToReference>
             <operator>Assign</operator>
@@ -223,7 +223,7 @@
         <name>Bond_or_PA</name>
         <label>Bond or PA?</label>
         <locationX>182</locationX>
-        <locationY>2171</locationY>
+        <locationY>2387</locationY>
         <defaultConnector>
             <targetReference>Link_PA_Opp_to_Gen_Opp</targetReference>
         </defaultConnector>
@@ -245,10 +245,32 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_General_Opportunity</name>
+        <label>Is General Opportunity</label>
+        <locationX>611</locationX>
+        <locationY>323</locationY>
+        <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_gen_opp</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.Name</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>General</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetQuestionIDS</targetReference>
+            </connector>
+            <label>Yes,gen opp</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>New_Bond_PA_Opportunity</name>
         <label>New Bond / PA Opportunity?</label>
         <locationX>380</locationX>
-        <locationY>1031</locationY>
+        <locationY>1139</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>New_Opportunity</name>
@@ -277,7 +299,7 @@
         <name>QuestionID</name>
         <label>QuestionID</label>
         <locationX>996</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <defaultConnector>
             <targetReference>lp_Assign_Answer</targetReference>
         </defaultConnector>
@@ -347,7 +369,7 @@
         <name>Which_Record_Type</name>
         <label>Which Record Type?</label>
         <locationX>1062</locationX>
-        <locationY>1355</locationY>
+        <locationY>1463</locationY>
         <defaultConnector>
             <targetReference>Loop_Record_Types</targetReference>
         </defaultConnector>
@@ -515,7 +537,7 @@ No front-end access, record triggered.</description>
         <name>Loop_Record_Types</name>
         <label>Loop Record Types</label>
         <locationX>182</locationX>
-        <locationY>1247</locationY>
+        <locationY>1355</locationY>
         <collectionReference>Get_Record_Types</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -529,7 +551,7 @@ No front-end access, record triggered.</description>
         <name>lp_Assign_Answer</name>
         <label>lp_AssignQNA_IDs</label>
         <locationX>380</locationX>
-        <locationY>431</locationY>
+        <locationY>539</locationY>
         <collectionReference>GetQuestionIDS</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -562,9 +584,9 @@ No front-end access, record triggered.</description>
         <name>Create_New_Applicant</name>
         <label>Create New Applicant</label>
         <locationX>182</locationX>
-        <locationY>2063</locationY>
+        <locationY>2171</locationY>
         <connector>
-            <targetReference>Bond_or_PA</targetReference>
+            <targetReference>Update_Records_3</targetReference>
         </connector>
         <inputAssignments>
             <field>ContactId</field>
@@ -633,7 +655,7 @@ No front-end access, record triggered.</description>
         <name>Create_New_Application</name>
         <label>Create New Application</label>
         <locationX>182</locationX>
-        <locationY>1847</locationY>
+        <locationY>1955</locationY>
         <assignRecordIdToReference>v_NewApplicationId</assignRecordIdToReference>
         <connector>
             <targetReference>Get_Applicant_Person_Account</targetReference>
@@ -668,7 +690,7 @@ No front-end access, record triggered.</description>
         <name>Create_New_Opportunity</name>
         <label>Create New Opportunity</label>
         <locationX>182</locationX>
-        <locationY>1739</locationY>
+        <locationY>1847</locationY>
         <assignRecordIdToReference>v_NewOppID</assignRecordIdToReference>
         <connector>
             <targetReference>Create_New_Application</targetReference>
@@ -769,7 +791,7 @@ No front-end access, record triggered.</description>
         <name>Get_Applicant_Person_Account</name>
         <label>Get Applicant Person Account</label>
         <locationX>182</locationX>
-        <locationY>1955</locationY>
+        <locationY>2063</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Create_New_Applicant</targetReference>
@@ -790,7 +812,7 @@ No front-end access, record triggered.</description>
         <name>Get_Record_Types</name>
         <label>Get Record Types</label>
         <locationX>182</locationX>
-        <locationY>1139</locationY>
+        <locationY>1247</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Record_Types</targetReference>
@@ -846,7 +868,7 @@ No front-end access, record triggered.</description>
         <name>GetQuestionIDS</name>
         <label>GetQuestionIDS</label>
         <locationX>380</locationX>
-        <locationY>323</locationY>
+        <locationY>431</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>lp_Assign_Answer</targetReference>
@@ -867,7 +889,7 @@ No front-end access, record triggered.</description>
         <name>Link_Bond_Opp_to_Gen_Opp</name>
         <label>Link Bond Opp to Gen Opp</label>
         <locationX>50</locationX>
-        <locationY>2279</locationY>
+        <locationY>2495</locationY>
         <inputAssignments>
             <field>Bond_Opportunity__c</field>
             <value>
@@ -883,7 +905,7 @@ No front-end access, record triggered.</description>
         <name>Link_PA_Opp_to_Gen_Opp</name>
         <label>Link PA Opp to Gen Opp</label>
         <locationX>314</locationX>
-        <locationY>2279</locationY>
+        <locationY>2495</locationY>
         <inputAssignments>
             <field>PreApprovalOpportunity__c</field>
             <value>
@@ -898,19 +920,55 @@ No front-end access, record triggered.</description>
         </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
+    <recordUpdates>
+        <name>Update_Records_3</name>
+        <label>Update Records 3</label>
+        <locationX>182</locationX>
+        <locationY>2279</locationY>
+        <connector>
+            <targetReference>Bond_or_PA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>locked__c</field>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
     <start>
-        <locationX>254</locationX>
+        <locationX>485</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetQuestionIDS</targetReference>
+            <targetReference>Is_General_Opportunity</targetReference>
         </connector>
-        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>
         <filters>
             <field>automationMessage__c</field>
             <operator>EqualTo</operator>
             <value>
                 <stringValue>AllQuestionsReceived</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>automationMessage__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <object>Opportunity</object>

@@ -14,14 +14,98 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>X4_Questions</targetReference>
+            <targetReference>Answer_1_Available</targetReference>
         </connector>
     </assignments>
+    <collectionProcessors>
+        <name>Answer_1_Available</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Answer 1 Available?</label>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
+        <assignNextValueToReference>currentItem_Copy_3_of_Answer_1_Available</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_All_Related_Q_A</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Copy_3_of_Answer_1_Available.Question_ID__c</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <numberValue>1.0</numberValue>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Answer_2_Available</targetReference>
+        </connector>
+    </collectionProcessors>
+    <collectionProcessors>
+        <name>Answer_2_Available</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Answer 2 Available?</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <assignNextValueToReference>currentItem_Copy_3_of_Answer_1_Available</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_All_Related_Q_A</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Copy_3_of_Answer_1_Available.Question_ID__c</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <numberValue>1.0</numberValue>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Answer_3_Available</targetReference>
+        </connector>
+    </collectionProcessors>
+    <collectionProcessors>
+        <name>Answer_3_Available</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Answer 3 Available?</label>
+        <locationX>182</locationX>
+        <locationY>755</locationY>
+        <assignNextValueToReference>currentItem_Copy_3_of_Answer_1_Available</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_All_Related_Q_A</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Copy_3_of_Answer_1_Available.Question_ID__c</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <numberValue>3.0</numberValue>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>Answer_4_Available</targetReference>
+        </connector>
+    </collectionProcessors>
+    <collectionProcessors>
+        <name>Answer_4_Available</name>
+        <elementSubtype>FilterCollectionProcessor</elementSubtype>
+        <label>Answer 4 Available?</label>
+        <locationX>182</locationX>
+        <locationY>863</locationY>
+        <assignNextValueToReference>currentItem_Copy_3_of_Answer_1_Available</assignNextValueToReference>
+        <collectionProcessorType>FilterCollectionProcessor</collectionProcessorType>
+        <collectionReference>Get_All_Related_Q_A</collectionReference>
+        <conditionLogic>and</conditionLogic>
+        <conditions>
+            <leftValueReference>currentItem_Copy_3_of_Answer_1_Available.Question_ID__c</leftValueReference>
+            <operator>EqualTo</operator>
+            <rightValue>
+                <numberValue>4.0</numberValue>
+            </rightValue>
+        </conditions>
+        <connector>
+            <targetReference>X4_Questions</targetReference>
+        </connector>
+    </collectionProcessors>
     <decisions>
         <name>X4_Questions</name>
         <label>4 Questions?</label>
         <locationX>182</locationX>
-        <locationY>539</locationY>
+        <locationY>971</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>All_Received</name>
@@ -31,6 +115,34 @@
                 <operator>EqualTo</operator>
                 <rightValue>
                     <numberValue>4.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Answer_1_Available</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Answer_2_Available</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Answer_3_Available</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Answer_4_Available</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -86,7 +198,7 @@
         <name>Update_Opp_to_trigger_BRE</name>
         <label>Update Opp to trigger BRE</label>
         <locationX>50</locationX>
-        <locationY>647</locationY>
+        <locationY>1079</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -119,7 +231,15 @@
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
+    <variables>
+        <name>currentItem_Copy_3_of_Answer_1_Available</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Question_And_Answer__c</objectType>
+    </variables>
     <variables>
         <name>v_ListLength</name>
         <dataType>Number</dataType>
