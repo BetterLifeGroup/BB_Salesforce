@@ -307,6 +307,9 @@
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Opportunity.Combine</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

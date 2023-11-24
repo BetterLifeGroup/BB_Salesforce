@@ -1,0 +1,160 @@
+<!--
+ - Created by frans fourie on 2023/11/21.
+ -->
+
+<!-- Opportunity Merge -->
+<template>
+    <template if:true={spinner}>
+        <lightning-spinner ></lightning-spinner>
+    </template>
+    <template if:true={searchScope}>
+        <template if:true={mainOppLoaded}>
+            <div class='slds-align_absolute-center slds-text-heading_small'>
+                Combine this opportunity:
+            </div>
+            <div id="mainOpportunity" class="mainOpp">
+                <div style='display: flex;flex-direction: column'>
+                    <lightning-icon
+                            icon-name='utility:opportunity'
+                    ></lightning-icon>
+                    <lightning-formatted-text
+                            value={mainOpportunity.Name}
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                            value={mainOpportunity.StageName}
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                            value={mainOpportunity.Status__c}
+                    ></lightning-formatted-text>
+                    <div style='margin-top: 18px'>
+                        <lightning-input
+                                type='checkbox'
+                                label='This will be the Master Opportunity'
+                                checked={masterOppIsMaster}
+                                onchange={handleMasterIsMaster}
+                        ></lightning-input>
+                    </div>
+                </div>
+                <div style='display: flex;flex-direction: row'>
+                    <div for:each={mainOpportunity.Loan_Applicants__r} for:item='applicant' key={applicant.Id}
+                         class='applicantDiv'>
+                        <lightning-icon
+                                icon-name='utility:people'
+                        ></lightning-icon>
+                        <lightning-formatted-text
+                                value={applicant.Name}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.Identification_Number__c}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.Passport_Number__c}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.PersonEmail}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.Phone}
+                        ></lightning-formatted-text>
+
+                    </div>
+                </div>
+            </div>
+        </template>
+        <div class='slds-align_absolute-center slds-text-heading_small' style='margin-bottom: 6px'>
+            With an opportunity selected below:
+        </div>
+        <div style='display: flex;flex-direction: row;justify-content: space-between; align-items: end'>
+            <div style='width: 60%'>
+                <lightning-input
+                        type='search'
+                        label='Search Opportunities by Name, or Applicants By Phone, Email, ID or Passport Number'
+                        is-loading={isLoading}
+                        onchange={handleOppSearchChange}
+                ></lightning-input>
+            </div>
+            <div>
+                <template if:true={allowProceed}>
+                    <lightning-button
+                            label='Combine'
+                            onclick={clickedCombine}
+                    ></lightning-button>
+                </template>
+                <template if:false={allowProceed}>
+                    <lightning-button
+                            label='Combine'
+                            disabled
+                    ></lightning-button>
+                </template>
+            </div>
+        </div>
+        <!--    <template if:true={isLoading}>-->
+        <!--        <div style='height: 250px;'>-->
+
+        <!--        </div>-->
+        <!--    </template>-->
+        <template if:false={isLoading}>
+
+            <div style='display: flex;flex-wrap: wrap; justify-content: space-evenly'>
+                <div for:each={relatedOppsList}
+                     for:item='relatedOpp'
+                     key={relatedOpp.Id}
+                     data-id={relatedOpp.Id}
+                     data-field='card'
+                     class='card'
+                     onmouseover={mouseOverCard}
+                     onmouseleave={mouseLeaveCard}
+                     onclick={selectCard}
+                >
+                    <lightning-icon
+                            icon-name='utility:opportunity'
+                    ></lightning-icon>
+                    <lightning-formatted-text
+                            value={relatedOpp.Name}
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                            value={relatedOpp.StageName}
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                            value={relatedOpp.Status__c}
+                    ></lightning-formatted-text>
+
+                    <div for:each={relatedOpp.Loan_Applicants__r} for:item='applicant' key={applicant.Id}
+                         class='applicantDiv'>
+                        <lightning-icon
+                                icon-name='utility:people'
+                        ></lightning-icon>
+                        <lightning-formatted-text
+                                value={applicant.Name}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.Identification_Number__c}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.Passport_Number__c}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.PersonEmail}
+                        ></lightning-formatted-text>
+                        <lightning-formatted-text
+                                value={applicant.Contact.Account.Phone}
+                        ></lightning-formatted-text>
+
+
+                    </div>
+                    <div>
+                        <lightning-input
+                                data-id={relatedOpp.Id}
+                                type='checkbox'
+                                label='This will be the Master Opportunity'
+                                checked={relatedOpp.selectedAsMaster}
+                                onchange={handleSlaveIsMaster}
+                        ></lightning-input>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </template>
+    <template if:false={searchScope}>
+    </template>
+</template>
