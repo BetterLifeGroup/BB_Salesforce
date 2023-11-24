@@ -43,10 +43,12 @@ export default class OpportunityMerge extends LightningElement {
 
     @track isLoading = false;
     @track relatedOppsList;
+    @track relatedNotLoaded = true;
 
     relatedOppSearch(event) {
         searchOpportunities({searchTerm: event.detail.value, excludedOppId: this.recordId}).then(relatedOpps => {
             this.relatedOppsList = relatedOpps
+            // this.relatedNotLoaded = !this.relatedOppsList.length > 0;
             // this.relatedOppsList = this.relatedOppsList.map(ro =>{
             //    [...ro], ro.selectedAsMaster = false
             // });
@@ -153,6 +155,7 @@ export default class OpportunityMerge extends LightningElement {
     }
 
     handleSlaveIsMaster(event) {
+        this.relatedNotLoaded = false;
         // this.relatedOppsList.filter((ro) => ro.Id !== event.currentTarget.dataset.id).forEach((ab) => {
         //     ab.selectedAsMaster = false;
         // })
@@ -164,7 +167,7 @@ export default class OpportunityMerge extends LightningElement {
     }
 
     handleMasterIsMaster() {
-        for (let i = 0; i < this.relatedOppsList.length; i++) {
+        for (let i = 0; i < this.relatedOppsList?.length; i++) {
             this.relatedOppsList[i].selectedAsMaster = false;
 
         }
