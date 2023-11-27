@@ -127,8 +127,8 @@
     <decisions>
         <name>Credit_Check_Done_for_Main_Applicant</name>
         <label>Credit Check Done for Main Applicant?</label>
-        <locationX>571</locationX>
-        <locationY>720</locationY>
+        <locationX>483</locationX>
+        <locationY>669</locationY>
         <defaultConnector>
             <targetReference>Get_Co_Applicant</targetReference>
         </defaultConnector>
@@ -242,6 +242,13 @@
                 <operator>LessThanOrEqualTo</operator>
                 <rightValue>
                     <numberValue>678.0</numberValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Main_Applicant.creditCheckThinFile__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>Yes</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -609,8 +616,8 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
     <recordUpdates>
         <name>Update_Main_Applicant_to_Awaiting_Credit_Check</name>
         <label>Update Main Applicant to Awaiting Credit Check</label>
-        <locationX>578</locationX>
-        <locationY>566</locationY>
+        <locationX>581</locationX>
+        <locationY>536</locationY>
         <connector>
             <targetReference>Credit_Check_Done_for_Main_Applicant</targetReference>
         </connector>
