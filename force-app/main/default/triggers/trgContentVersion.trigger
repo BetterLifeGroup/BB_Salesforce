@@ -7,9 +7,16 @@ trigger trgContentVersion on ContentVersion (after insert, after update) {
 
     for (ContentVersion cv : Trigger.new) {
 
-        System.debug('intrigger');
-        String parentObjectType = String.valueOf(cv.FirstPublishLocationId.getSobjectType()).removeEnd('__c');
-
+//        System.debug(Trigger.new);
+        if(cv.VersionNumber != '1'){
+            cv.addError('Your organization does not support the uploading of new document versions. Please upload documents from the file upload screen');
+        }
+        String parentObjectType;
+        try {
+            parentObjectType = String.valueOf(cv.FirstPublishLocationId.getSobjectType()).removeEnd('__c');
+        } catch (Exception e) {
+            System.debug('');
+        }
         List<FileManagerGetMDT.MetaData> md = FileManagerGetMDT.getGlobalPickList('ContentVersion', 'Category__c', 'FileClassification__c');
         String fileNames = '';
         for (Integer i = 0; i < md.size(); i++) {
@@ -19,7 +26,7 @@ trigger trgContentVersion on ContentVersion (after insert, after update) {
 
 
 //        if (parentObjectType == 'LoanApplicant' && cv.Category__c != 'NotSpecified' && fileNames.contains(cv.Title) && Trigger.isInsert && (cv.Title.contains('Consent Document') || cv.Title.contains('Credit Report') || cv.Title.contains('Offer To Purchase') || cv.Title.contains('Preapproval'))) {
-        if (parentObjectType == 'LoanApplicant' && cv.Category__c != 'NotSpecified' && fileNames.contains(cv.Title) && Trigger.isInsert ) {
+        if (parentObjectType == 'LoanApplicant' && cv.Category__c != 'NotSpecified' && fileNames.contains(cv.Title) && Trigger.isInsert) {
             System.debug('intrigger1' + cv.Category__c);
             LoanApplicant la = [SELECT Id, Name, Requested_Documents__c, Received_Documents__c, relatedFilesIds__c FROM LoanApplicant WHERE Id = :cv.FirstPublishLocationId LIMIT 1];
 
