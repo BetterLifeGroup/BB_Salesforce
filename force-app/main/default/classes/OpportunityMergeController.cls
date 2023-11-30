@@ -41,17 +41,17 @@ public without sharing class OpportunityMergeController {
 
             List<SObject> listToUpsert = new List<SObject>();
 
-            Opportunity masterOpportunity = [SELECT Id, (SELECT Id FROM Lending_Applications LIMIT 1),(SELECT Id FROM Tasks) FROM Opportunity WHERE Id = :masterOpp];
+            Opportunity masterOpportunity = [SELECT Id, (SELECT Id FROM Lending_Applications LIMIT 1) FROM Opportunity WHERE Id = :masterOpp];
             
             String loanApplicationId = masterOpportunity.Lending_Applications[0].Id;
 
-            Opportunity slaveOpportunity = [SELECT Id FROM Opportunity WHERE Id = :slaveOpp];
+            Opportunity slaveOpportunity = [SELECT Id, (SELECT Id FROM Tasks) FROM Opportunity WHERE Id = :slaveOpp];
             slaveOpportunity.StageName = 'Closed Lost';
             slaveOpportunity.Status__c = 'Duplicate';
             slaveOpportunity.Wrap_Up_Reason__c = 'Automated';
             listToUpsert.add(slaveOpportunity);
 
-            for(Task ta : masterOpportunity.Tasks) {
+            for(Task ta : slaveOpportunity.Tasks) {
                 ta.locked__c = false;
                 ta.Status = 'Completed';
                 listToUpsert.add(ta);
