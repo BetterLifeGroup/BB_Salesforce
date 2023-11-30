@@ -20,16 +20,26 @@ export default class OpportunityMerge extends LightningElement {
 
     @track mainOppLoaded = false;
 
+    @track applicantLimitReached = false;
+
 
     connectedCallback() {
         this.searchScope = true;
         getOpportunity({recordId: this.recordId}).then(mainOpp => {
+            console.log(JSON.parse(JSON.stringify(mainOpp)))
+            if (mainOpp.Loan_Applicants__r.length > 1) {
+                this.applicantLimitReached = true;
+            }
             this.mainOppLoaded = true;
             this.mainOpportunity = mainOpp;
-            console.log(JSON.parse(JSON.stringify(mainOpp)))
+            this.spinner = false;
         }).catch(error => {
-            console.error('Error occurred retrieving main opportunity');
+            console.error('Error occurred retrieving main opportunity', error);
         })
+    }
+
+    handleMaxAppCloseClick() {
+        this.handleNextClick();
     }
 
     showToast(title, message, variant) {
@@ -96,7 +106,7 @@ export default class OpportunityMerge extends LightningElement {
     selectCard(event) {
         this.allowProceed = true;
         this.selectedOpportunityId = event.currentTarget.dataset.id;
-        console.warn('selected Opp Id',this.selectedOpportunityId)
+        console.warn('selected Opp Id', this.selectedOpportunityId)
         let slaveIsMaster = false;
         for (let i = 0; i < this.relatedOppsList.length; i++) {
             if (this.relatedOppsList[i].selectedAsMaster === true) {
@@ -120,28 +130,28 @@ export default class OpportunityMerge extends LightningElement {
         this.enableNext();
     }
 
-    @track spinner = false;
+    @track spinner = true;
 
     clickedCombine() {
         this.spinner = true;
         this.searchScope = false;
         this.selectScope = true;
-        console.log('master',this.recordId)
-        console.log('slave',this.selectedOpportunityId)
+        console.log('master', this.recordId)
+        console.log('slave', this.selectedOpportunityId)
         let master = this.recordId;
         let slave = this.selectedOpportunityId;
-        if(this.slaveOppIsMaster){
-             slave = this.recordId;
-             master = this.selectedOpportunityId;
+        if (this.slaveOppIsMaster) {
+            slave = this.recordId;
+            master = this.selectedOpportunityId;
         }
-        console.log('master',master)
-        console.log('slave',slave)
+        console.log('master', master)
+        console.log('slave', slave)
 
         mergeOpps({masterOpp: master, slaveOpp: slave}).then(result => {
-            console.log('merge result',result)
+            console.log('merge result', result)
             this.spinner = false;
-            if(result){
-            this.showToast('Merged successfully', 'Merged successfully', 'success')
+            if (result) {
+                this.showToast('Merged successfully', 'Merged successfully', 'success')
             } else {
                 this.showToast('Merged failed', 'Merged failed', 'error')
             }
