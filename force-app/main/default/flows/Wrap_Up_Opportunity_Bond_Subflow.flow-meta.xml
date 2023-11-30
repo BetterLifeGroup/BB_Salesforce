@@ -179,7 +179,7 @@
         <actionName>StringToList</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Copy_OTP_File_to_PA</targetReference>
+            <targetReference>Copy_OTP_to_PA</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -233,9 +233,34 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>Update_General_Opp_OTP_Received_Date_0</name>
+        <label>Update General Opp OTP Received Date</label>
+        <locationX>2163</locationX>
+        <locationY>2660</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_Application_Loan_Type</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_General_Opp_Region</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>updateOpportunity</name>
         <label>updateOpportunity</label>
-        <locationX>2562</locationX>
+        <locationX>2565</locationX>
         <locationY>2096</locationY>
         <actionName>updateOpportunity</actionName>
         <actionType>apex</actionType>
@@ -250,7 +275,7 @@
         <inputParameters>
             <name>sObjectToUpdate</name>
             <value>
-                <elementReference>Get_Bond_Opportunity</elementReference>
+                <elementReference>Get_Updated_Bond_Opp</elementReference>
             </value>
         </inputParameters>
         <nameSegment>updateOpportunity</nameSegment>
@@ -268,6 +293,13 @@
             <operator>Add</operator>
             <value>
                 <elementReference>Get_OTP_Content_Version.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>paRelatedFiles</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>bondRelatedFiles</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -377,7 +409,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>updateOpportunity</targetReference>
+            <targetReference>Get_Updated_Bond_Opp</targetReference>
         </connector>
     </assignments>
     <assignments>
@@ -568,6 +600,22 @@
             <targetReference>OTP_Source_Select</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Copy_OTP_to_PA</name>
+        <label>Copy OTP to PA</label>
+        <locationX>1971</locationX>
+        <locationY>2660</locationY>
+        <assignmentItems>
+            <assignToReference>Get_PA_Related_Files.relatedFilesIds__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>finalRelatedFiles</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_General_Opp_OTP_Received_Date_0</targetReference>
+        </connector>
+    </assignments>
     <choices>
         <name>Development_Agent</name>
         <choiceText>Development Agent</choiceText>
@@ -728,7 +776,7 @@
         <name>Files_contain_semi_colon</name>
         <label>Files contain semi-colon?</label>
         <locationX>2101</locationX>
-        <locationY>2324</locationY>
+        <locationY>2323</locationY>
         <defaultConnector>
             <targetReference>Get_OTP_Content_Version_0</targetReference>
         </defaultConnector>
@@ -1596,7 +1644,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <name>Get_Bond_OTP_File</name>
         <label>Get Bond OTP File</label>
         <locationX>2239</locationX>
-        <locationY>2322</locationY>
+        <locationY>2321</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Files_contain_semi_colon</targetReference>
@@ -1965,6 +2013,27 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <object>Contact</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Updated_Bond_Opp</name>
+        <label>Get Updated Bond Opp</label>
+        <locationX>2465</locationX>
+        <locationY>2228</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>updateOpportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Bond_Opportunity.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Opportunity</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Clear_Out_SLA_for_OTP_Received</name>
         <label>Clear Out SLA for OTP Received</label>
@@ -1992,30 +2061,6 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         </inputAssignments>
         <inputAssignments>
             <field>SLA_Deadline__c</field>
-        </inputAssignments>
-        <object>Opportunity</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Copy_OTP_File_to_PA</name>
-        <label>Copy OTP File to PA</label>
-        <locationX>1981</locationX>
-        <locationY>2660</locationY>
-        <connector>
-            <targetReference>Update_Application_Loan_Type</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_PA_Related_Files.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>relatedFilesIds__c</field>
-            <value>
-                <elementReference>finalRelatedFiles</elementReference>
-            </value>
         </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
