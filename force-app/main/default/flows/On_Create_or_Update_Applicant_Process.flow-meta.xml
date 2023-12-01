@@ -16,6 +16,9 @@
             <conditions>
                 <leftValueReference>$Record.LastModifiedBy.Email</leftValueReference>
                 <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>no-reply@betterbond.co.za</stringValue>
+                </rightValue>
             </conditions>
             <label>Is Integration User</label>
         </rules>
@@ -23,7 +26,7 @@
     <decisions>
         <name>IsNew</name>
         <label>IsNew</label>
-        <locationX>226</locationX>
+        <locationX>248</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -72,7 +75,7 @@
     <recordCreates>
         <name>Create_Event_Record</name>
         <label>Create Event Record</label>
-        <locationX>138</locationX>
+        <locationX>182</locationX>
         <locationY>647</locationY>
         <inputAssignments>
             <field>AccountId__c</field>
@@ -108,7 +111,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <start>
-        <locationX>100</locationX>
+        <locationX>122</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>IsNew</targetReference>
