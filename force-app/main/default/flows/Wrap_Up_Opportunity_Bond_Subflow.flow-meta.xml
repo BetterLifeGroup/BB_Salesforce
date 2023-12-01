@@ -233,6 +233,31 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
+        <name>Update_PA_Opp_with_OTP</name>
+        <label>Update PA Opp with OTP</label>
+        <locationX>2163</locationX>
+        <locationY>2660</locationY>
+        <actionName>updateOpportunity</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Update_Application_Loan_Type</targetReference>
+        </connector>
+        <dataTypeMappings>
+            <typeName>T__sObjectToUpdate</typeName>
+            <typeValue>Opportunity</typeValue>
+        </dataTypeMappings>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>sObjectToUpdate</name>
+            <value>
+                <elementReference>Get_PA_Related_Files</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>updateOpportunity</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <actionCalls>
         <name>updateOpportunity</name>
         <label>updateOpportunity</label>
         <locationX>2562</locationX>
@@ -566,6 +591,22 @@
         </assignmentItems>
         <connector>
             <targetReference>OTP_Source_Select</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Copy_OTP_to_PA</name>
+        <label>Copy OTP to PA</label>
+        <locationX>1973</locationX>
+        <locationY>2660</locationY>
+        <assignmentItems>
+            <assignToReference>Get_PA_Related_Files.relatedFilesIds__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>finalRelatedFiles</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_PA_Opp_with_OTP</targetReference>
         </connector>
     </assignments>
     <choices>
