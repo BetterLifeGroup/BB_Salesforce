@@ -2,13 +2,29 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>59.0</apiVersion>
     <decisions>
-        <name>IsNew</name>
-        <label>IsNew</label>
-        <locationX>182</locationX>
-        <locationY>323</locationY>
+        <name>Created_By</name>
+        <label>Created By</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
         <defaultConnector>
             <targetReference>Create_Event_Record</targetReference>
         </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Is_Integration_User</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LastModifiedBy.Email</leftValueReference>
+                <operator>EqualTo</operator>
+            </conditions>
+            <label>Is Integration User</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IsNew</name>
+        <label>IsNew</label>
+        <locationX>226</locationX>
+        <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_New</name>
@@ -56,12 +72,18 @@
     <recordCreates>
         <name>Create_Event_Record</name>
         <label>Create Event Record</label>
-        <locationX>182</locationX>
-        <locationY>623</locationY>
+        <locationX>138</locationX>
+        <locationY>647</locationY>
         <inputAssignments>
             <field>AccountId__c</field>
             <value>
                 <elementReference>$Record.Contact.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Applicant_RecordType__c</field>
+            <value>
+                <elementReference>$Record.RecordType.Name</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -76,11 +98,17 @@
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>IsNew__c</field>
+            <value>
+                <elementReference>f_Is_New</elementReference>
+            </value>
+        </inputAssignments>
         <object>Applicant_Out__e</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <start>
-        <locationX>56</locationX>
+        <locationX>100</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>IsNew</targetReference>
@@ -96,7 +124,7 @@
         <locationX>50</locationX>
         <locationY>431</locationY>
         <connector>
-            <targetReference>Create_Event_Record</targetReference>
+            <targetReference>Created_By</targetReference>
         </connector>
         <flowName>Subflow_Get_Applicant_Consent_Document</flowName>
         <inputAssignments>
