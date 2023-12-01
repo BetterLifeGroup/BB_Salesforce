@@ -223,7 +223,7 @@
         <name>Bond_or_PA</name>
         <label>Bond or PA?</label>
         <locationX>182</locationX>
-        <locationY>2387</locationY>
+        <locationY>2171</locationY>
         <defaultConnector>
             <targetReference>Link_PA_Opp_to_Gen_Opp</targetReference>
         </defaultConnector>
@@ -581,119 +581,13 @@ No front-end access, record triggered.</description>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
-        <name>Create_New_Applicant</name>
-        <label>Create New Applicant</label>
-        <locationX>182</locationX>
-        <locationY>2171</locationY>
-        <connector>
-            <targetReference>Update_Records_3</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>ContactId</field>
-            <value>
-                <elementReference>Get_Applicant_Person_Account.PersonContactId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Email_Address__c</field>
-            <value>
-                <elementReference>Get_Applicant_Person_Account.PersonEmail</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>IsActive__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Is_Main_Applicant__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>LoanApplicationId</field>
-            <value>
-                <elementReference>v_NewApplicationId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Mobile_Phone_Number__c</field>
-            <value>
-                <elementReference>Get_Applicant_Person_Account.PersonMobilePhone</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>Get_Applicant_Person_Account.Name</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>f_ApplicantRecordTypeId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>SourceOpportunity__c</field>
-            <value>
-                <elementReference>v_NewOppID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Status__c</field>
-            <value>
-                <elementReference>outApplicantstatus</elementReference>
-            </value>
-        </inputAssignments>
-        <object>LoanApplicant</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
-    <recordCreates>
-        <name>Create_New_Application</name>
-        <label>Create New Application</label>
-        <locationX>182</locationX>
-        <locationY>1955</locationY>
-        <assignRecordIdToReference>v_NewApplicationId</assignRecordIdToReference>
-        <connector>
-            <targetReference>Get_Applicant_Person_Account</targetReference>
-        </connector>
-        <inputAssignments>
-            <field>AccountId</field>
-            <value>
-                <elementReference>$Record.AccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Name</field>
-            <value>
-                <elementReference>f_CreatedApplicationName</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>OpportunityId</field>
-            <value>
-                <elementReference>v_NewOppID</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>RecordTypeId</field>
-            <value>
-                <elementReference>f_ApplicationRecordTypeId</elementReference>
-            </value>
-        </inputAssignments>
-        <object>ResidentialLoanApplication</object>
-    </recordCreates>
-    <recordCreates>
         <name>Create_New_Opportunity</name>
         <label>Create New Opportunity</label>
         <locationX>182</locationX>
         <locationY>1847</locationY>
         <assignRecordIdToReference>v_NewOppID</assignRecordIdToReference>
         <connector>
-            <targetReference>Create_New_Application</targetReference>
+            <targetReference>Get_Applicant_Person_Account</targetReference>
         </connector>
         <inputAssignments>
             <field>AccountId</field>
@@ -791,10 +685,10 @@ No front-end access, record triggered.</description>
         <name>Get_Applicant_Person_Account</name>
         <label>Get Applicant Person Account</label>
         <locationX>182</locationX>
-        <locationY>2063</locationY>
+        <locationY>1955</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Create_New_Applicant</targetReference>
+            <targetReference>Update_Records_3</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -889,7 +783,7 @@ No front-end access, record triggered.</description>
         <name>Link_Bond_Opp_to_Gen_Opp</name>
         <label>Link Bond Opp to Gen Opp</label>
         <locationX>50</locationX>
-        <locationY>2495</locationY>
+        <locationY>2279</locationY>
         <inputAssignments>
             <field>Bond_Opportunity__c</field>
             <value>
@@ -905,7 +799,7 @@ No front-end access, record triggered.</description>
         <name>Link_PA_Opp_to_Gen_Opp</name>
         <label>Link PA Opp to Gen Opp</label>
         <locationX>314</locationX>
-        <locationY>2495</locationY>
+        <locationY>2279</locationY>
         <inputAssignments>
             <field>PreApprovalOpportunity__c</field>
             <value>
@@ -924,7 +818,7 @@ No front-end access, record triggered.</description>
         <name>Update_Records_3</name>
         <label>Update Records 3</label>
         <locationX>182</locationX>
-        <locationY>2279</locationY>
+        <locationY>2063</locationY>
         <connector>
             <targetReference>Bond_or_PA</targetReference>
         </connector>
@@ -940,12 +834,6 @@ No front-end access, record triggered.</description>
             <field>Status</field>
             <value>
                 <stringValue>Completed</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>locked__c</field>
-            <value>
-                <booleanValue>false</booleanValue>
             </value>
         </inputAssignments>
         <object>Task</object>
@@ -975,7 +863,7 @@ No front-end access, record triggered.</description>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>OpportunityRecordType</name>
         <dataType>String</dataType>
