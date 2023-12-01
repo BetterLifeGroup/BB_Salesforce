@@ -233,8 +233,8 @@
         <versionSegment>1</versionSegment>
     </actionCalls>
     <actionCalls>
-        <name>Update_General_Opp_OTP_Received_Date_0</name>
-        <label>Update General Opp OTP Received Date</label>
+        <name>Update_PA_Opp_with_OTP</name>
+        <label>Update PA Opp with OTP</label>
         <locationX>2163</locationX>
         <locationY>2660</locationY>
         <actionName>updateOpportunity</actionName>
@@ -250,7 +250,7 @@
         <inputParameters>
             <name>sObjectToUpdate</name>
             <value>
-                <elementReference>Get_General_Opp_Region</elementReference>
+                <elementReference>Get_PA_Related_Files</elementReference>
             </value>
         </inputParameters>
         <nameSegment>updateOpportunity</nameSegment>
@@ -603,7 +603,7 @@
     <assignments>
         <name>Copy_OTP_to_PA</name>
         <label>Copy OTP to PA</label>
-        <locationX>1971</locationX>
+        <locationX>1973</locationX>
         <locationY>2660</locationY>
         <assignmentItems>
             <assignToReference>Get_PA_Related_Files.relatedFilesIds__c</assignToReference>
@@ -613,7 +613,7 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Update_General_Opp_OTP_Received_Date_0</targetReference>
+            <targetReference>Update_PA_Opp_with_OTP</targetReference>
         </connector>
     </assignments>
     <choices>
