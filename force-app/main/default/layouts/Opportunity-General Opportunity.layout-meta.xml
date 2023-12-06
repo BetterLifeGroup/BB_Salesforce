@@ -75,6 +75,10 @@
                 <behavior>Readonly</behavior>
                 <field>Record_Type_Name__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CommissionEntityId__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
