@@ -39,6 +39,10 @@
                 <behavior>Readonly</behavior>
                 <field>Campaign_ID__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Online_Offline__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -80,7 +84,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>CampaignContact__c</field>
+                <field>Credentials__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Send_Email_Trigger__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

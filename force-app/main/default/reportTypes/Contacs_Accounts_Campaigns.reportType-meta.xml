@@ -786,4 +786,37 @@
         </columns>
         <masterLabel>Contacts</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Domain_Id__c</field>
+            <table>Contact.AccountContactRelations.BLG_Campaigns_Branch__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>CampaignContact__c</field>
+            <table>Contact.AccountContactRelations.BLG_Campaigns_Branch__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Entity_Id__c</field>
+            <table>Contact.AccountContactRelations.BLG_Campaigns_Branch__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Credentials__c</field>
+            <table>Contact.AccountContactRelations.BLG_Campaigns_Branch__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Online_Offline__c</field>
+            <table>Contact.AccountContactRelations.BLG_Campaigns_Branch__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Send_Email_Trigger__c</field>
+            <table>Contact.AccountContactRelations.BLG_Campaigns_Branch__r</table>
+        </columns>
+        <masterLabel>Betterbond (BB) Campaigns</masterLabel>
+    </sections>
 </ReportType>
