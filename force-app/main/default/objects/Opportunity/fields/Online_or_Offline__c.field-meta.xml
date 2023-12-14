@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Online_or_Offline__c</fullName>
+    <externalId>false</externalId>
+    <formula>CASE(BLG_Campaign__r.Online_Offline__c,
+  &quot;Online&quot;, &quot;Online&quot;,
+  &quot;Offline&quot;, &quot;Offline&quot;,
+  &quot;Offline&quot;
+)</formula>
+    <label>Online or Offline</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
