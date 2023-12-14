@@ -51,7 +51,7 @@
         <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_the_Send_Email_Trigger_to_True</targetReference>
+            <targetReference>Send_Link_to_External_Source</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -87,10 +87,10 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>Update_Last_Sent_Value_to_Current_Time</name>
-        <label>Update Last Sent Value to Current Time</label>
+        <name>Update_the_Last_Sent_field_with_the_Current_Time</name>
+        <label>Update the Last Sent field with the Current Time</label>
         <locationX>176</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Update_the_Send_Email_Trigger_to_False</targetReference>
         </connector>
@@ -99,7 +99,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>recordId.Credentials__r.Id</elementReference>
+                <elementReference>Get_Credentials_by_Record_Id.Id</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -114,7 +114,7 @@
         <name>Update_the_Send_Email_Trigger_to_False</name>
         <label>Update the Send Email Trigger to False</label>
         <locationX>176</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -135,9 +135,9 @@
         <name>Update_the_Send_Email_Trigger_to_True</name>
         <label>Update the Send Email Trigger to True</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>566</locationY>
         <connector>
-            <targetReference>Update_Last_Sent_Value_to_Current_Time</targetReference>
+            <targetReference>Update_the_Last_Sent_field_with_the_Current_Time</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -155,6 +155,26 @@
         </inputAssignments>
         <object>BLG_Campaign__c</object>
     </recordUpdates>
+    <screens>
+        <name>Send_Link_to_External_Source</name>
+        <label>Send Link to External Source</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Update_the_Send_Email_Trigger_to_True</targetReference>
+        </connector>
+        <fields>
+            <name>txt_Credentials</name>
+            <fieldText>&lt;p&gt;Hi {!Get_Credentials_by_Record_Id.Name},&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Kindly find the updated lead credentials:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Certificate: &lt;/strong&gt;{!Get_Credentials_by_Record_Id.Certficate__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!Get_Credentials_by_Record_Id.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key: &lt;/strong&gt;{!Get_Credentials_by_Record_Id.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key: &lt;/strong&gt;{!Get_BB_Camapign_by_Record_Id.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json: &lt;/strong&gt;{!Get_Credentials_by_Record_Id.Json__c}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
@@ -162,7 +182,7 @@
             <targetReference>Get_BB_Camapign_by_Record_Id</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>recordId</name>
         <dataType>SObject</dataType>
