@@ -5,7 +5,7 @@
         <name>Open_Opps_Found</name>
         <label>Open Opps Found?</label>
         <locationX>182</locationX>
-        <locationY>503</locationY>
+        <locationY>611</locationY>
         <defaultConnectorLabel>No - Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Yes</name>
@@ -54,7 +54,7 @@
         <name>Get_Duplicate_Record_Type</name>
         <label>Get Duplicate Record Type</label>
         <locationX>50</locationX>
-        <locationY>611</locationY>
+        <locationY>719</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_as_duplicate</targetReference>
@@ -99,7 +99,7 @@
         <locationY>395</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Open_Opps_Found</targetReference>
+            <targetReference>Update_Automated_Message_Field</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -145,11 +145,27 @@
         <name>Update_as_duplicate</name>
         <label>Update as duplicate</label>
         <locationX>50</locationX>
-        <locationY>719</locationY>
+        <locationY>827</locationY>
         <inputAssignments>
             <field>RecordTypeId</field>
             <value>
                 <elementReference>Get_Duplicate_Record_Type.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Automated_Message_Field</name>
+        <label>Update Automated Message Field</label>
+        <locationX>182</locationX>
+        <locationY>503</locationY>
+        <connector>
+            <targetReference>Open_Opps_Found</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>automationMessage__c</field>
+            <value>
+                <stringValue>Reassign</stringValue>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>
@@ -166,4 +182,5 @@
         <triggerType>RecordBeforeSave</triggerType>
     </start>
     <status>Active</status>
+    <triggerOrder>300</triggerOrder>
 </Flow>

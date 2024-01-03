@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_Task_record</fullName>
+    <active>true</active>
+    <errorConditionFormula>($User.Alias!=&apos;noreply&apos;) &amp;&amp; IF(locked__c = false,false,IF(NOT((PRIORVALUE(locked__c) = false &amp;&amp; locked__c = true)),True,false))</errorConditionFormula>
+    <errorMessage>This record is locked for manual editing.</errorMessage>
+</ValidationRule>
