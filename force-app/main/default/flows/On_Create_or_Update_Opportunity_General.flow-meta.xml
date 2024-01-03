@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>Did_Record_Owner_Change</name>
+        <label>Did Record Owner Change?</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Is_Updated_By_Integration_User</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Record Owner Did Not Change</defaultConnectorLabel>
+        <rules>
+            <name>Record_Owner_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SubFlow_PUT_General_Opportunity_Owner</targetReference>
+            </connector>
+            <label>Record Owner Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Created_By_Integration_User</name>
+        <label>Is Created By Integration User?</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>SubFlow_POST_General_Opportunity_Owner</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Created By Integration User</defaultConnectorLabel>
+        <rules>
+            <name>Created_By_Integration_User</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CreatedById</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>no-reply@betterbond.co.za</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Created By Integration User</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_New_Record</name>
+        <label>Is New Record?</label>
+        <locationX>314</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Did_Record_Owner_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Existing Record</defaultConnectorLabel>
+        <rules>
+            <name>New_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Is_New</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Created_By_Integration_User</targetReference>
+            </connector>
+            <label>New Record</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Updated_By_Integration_User</name>
+        <label>Is Updated By Integration User?</label>
+        <locationX>578</locationX>
+        <locationY>731</locationY>
+        <defaultConnectorLabel>Not Updated By Integration User</defaultConnectorLabel>
+        <rules>
+            <name>Updated_By_Integration_User</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.LastModifiedBy.Email</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>no-reply@betterbond.co.za</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Updated By Integration User</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>f_Is_Changed</name>
+        <dataType>Boolean</dataType>
+        <expression>ISCHANGED({!$Record.OwnerId})</expression>
+    </formulas>
+    <formulas>
+        <name>f_Is_New</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <interviewLabel>On Create or Update: Opportunity(General) {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>On Create or Update: Opportunity(General)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>188</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_New_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>General Opportunity</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>SubFlow_POST_General_Opportunity_Owner</name>
+        <label>SubFlow: POST General Opportunity Owner</label>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
+        <flowName>SubFlow_Post_General_Opportunity_Owner</flowName>
+        <inputAssignments>
+            <name>iv_General_Opportunity</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>SubFlow_PUT_General_Opportunity_Owner</name>
+        <label>SubFlow: PUT General Opportunity Owner</label>
+        <locationX>446</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Is_Updated_By_Integration_User</targetReference>
+        </connector>
+        <flowName>SubFlow_Post_General_Opportunity_Owner</flowName>
+        <inputAssignments>
+            <name>iv_General_Opportunity</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>
