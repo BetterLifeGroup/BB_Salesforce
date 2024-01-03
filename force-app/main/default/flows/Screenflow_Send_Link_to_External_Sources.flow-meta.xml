@@ -4,7 +4,7 @@
     <decisions>
         <name>Is_Network_Account_and_Credentials_Null</name>
         <label>Is Network Account and Credentials Null</label>
-        <locationX>176</locationX>
+        <locationX>182</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>Update_the_Send_Email_Trigger_to_True</targetReference>
@@ -27,6 +27,9 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Error_No_Network_Account_or_Credentials_Found</targetReference>
+            </connector>
             <label>True Path</label>
         </rules>
     </decisions>
@@ -55,7 +58,7 @@
     <recordLookups>
         <name>Get_BB_Camapign_by_Record_Id</name>
         <label>Get BB Camapign by Record Id</label>
-        <locationX>176</locationX>
+        <locationX>182</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -76,7 +79,7 @@
     <recordUpdates>
         <name>Update_Send_Email_Trigger_to_False</name>
         <label>Update: Send Email Trigger to False</label>
-        <locationX>176</locationX>
+        <locationX>182</locationX>
         <locationY>134</locationY>
         <connector>
             <targetReference>Get_BB_Camapign_by_Record_Id</targetReference>
@@ -100,7 +103,7 @@
     <recordUpdates>
         <name>Update_the_Last_Sent_field_with_the_Current_Time</name>
         <label>Update the Last Sent field with the Current Time</label>
-        <locationX>308</locationX>
+        <locationX>314</locationX>
         <locationY>674</locationY>
         <connector>
             <targetReference>Update_the_Send_Email_Trigger_to_False</targetReference>
@@ -124,7 +127,7 @@
     <recordUpdates>
         <name>Update_the_Send_Email_Trigger_to_False</name>
         <label>Update the Send Email Trigger to False</label>
-        <locationX>308</locationX>
+        <locationX>314</locationX>
         <locationY>782</locationY>
         <filterLogic>and</filterLogic>
         <filters>
@@ -145,7 +148,7 @@
     <recordUpdates>
         <name>Update_the_Send_Email_Trigger_to_True</name>
         <label>Update the Send Email Trigger to True</label>
-        <locationX>308</locationX>
+        <locationX>314</locationX>
         <locationY>458</locationY>
         <connector>
             <targetReference>Send_Link_to_External_Source</targetReference>
@@ -167,9 +170,25 @@
         <object>BLG_Campaign__c</object>
     </recordUpdates>
     <screens>
+        <name>Error_No_Network_Account_or_Credentials_Found</name>
+        <label>Error: No Network Account or Credentials Found</label>
+        <locationX>50</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>txt_Missing_Information</name>
+            <fieldText>&lt;p&gt;No Network Account or No Credentials assigned to {!recordId.Name} &lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Send_Link_to_External_Source</name>
         <label>Send Link to External Source</label>
-        <locationX>308</locationX>
+        <locationX>314</locationX>
         <locationY>566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -179,7 +198,7 @@
         </connector>
         <fields>
             <name>txt_Credentials</name>
-            <fieldText>&lt;p&gt;Hi {!recordId.Credentials__r.Name}&lt;/p&gt;&lt;p&gt;Kindly find the updated lead credentials:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Certificate: &lt;/strong&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!recordId.Credentials__r.Certficate__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!recordId.Credentials__r.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key: &lt;/strong&gt;{!recordId.Credentials__r.Secret_Key__c}﻿&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key: &lt;/strong&gt;{!Get_BB_Camapign_by_Record_Id.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json: &lt;/strong&gt;{!recordId.Credentials__r.Json__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Email address: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!recordId.Network__r.External_Source_Email__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Hi {!recordId.Credentials__r.Name}&lt;/p&gt;&lt;p&gt;Kindly find the updated lead credentials:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Last Sent: &lt;/strong&gt;{!recordId.Credentials__r.Last_sent__c}&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Certificate: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!recordId.Credentials__r.Certficate__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!recordId.Credentials__r.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key: &lt;/strong&gt;{!recordId.Credentials__r.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key: &lt;/strong&gt;{!Get_BB_Camapign_by_Record_Id.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json: &lt;/strong&gt;{!recordId.Credentials__r.Json__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Email address: &lt;/strong&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!recordId.Network__r.External_Source_Email__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
@@ -187,13 +206,13 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Update_Send_Email_Trigger_to_False</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Draft</status>
     <variables>
         <name>recordId</name>
         <dataType>SObject</dataType>
