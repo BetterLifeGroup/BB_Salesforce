@@ -26,7 +26,6 @@ export default class OpportunityMerge extends LightningElement {
     connectedCallback() {
         this.searchScope = true;
         getOpportunity({recordId: this.recordId}).then(mainOpp => {
-            console.log(JSON.parse(JSON.stringify(mainOpp)))
             if (mainOpp.Loan_Applicants__r.length > 1) {
                 this.applicantLimitReached = true;
             }
@@ -58,10 +57,6 @@ export default class OpportunityMerge extends LightningElement {
     relatedOppSearch(event) {
         searchOpportunities({searchTerm: event.detail.value, excludedOppId: this.recordId}).then(relatedOpps => {
             this.relatedOppsList = relatedOpps
-            // this.relatedNotLoaded = !this.relatedOppsList.length > 0;
-            // this.relatedOppsList = this.relatedOppsList.map(ro =>{
-            //    [...ro], ro.selectedAsMaster = false
-            // });
             for (let i = 0; i < this.relatedOppsList.length; i++) {
                 this.relatedOppsList[i].selectedAsMaster = false;
 
@@ -71,8 +66,6 @@ export default class OpportunityMerge extends LightningElement {
             this.isLoading = false;
             console.error('Error retrieving related opportunities')
         })
-        // this.isLoading = true;
-        // event.detail.value
     }
 
     addDebounce = (fn, wait = 600) => {
@@ -115,11 +108,7 @@ export default class OpportunityMerge extends LightningElement {
         }
         if (slaveIsMaster) {
             for (let i = 0; i < this.relatedOppsList.length; i++) {
-                if (this.relatedOppsList[i].Id !== event.currentTarget.dataset.id) {
-                    this.relatedOppsList[i].selectedAsMaster = false;
-                } else {
-                    this.relatedOppsList[i].selectedAsMaster = true;
-                }
+                this.relatedOppsList[i].selectedAsMaster = this.relatedOppsList[i].Id === event.currentTarget.dataset.id;
             }
         }
         this.template.querySelectorAll("[data-field='card']").forEach(ad => {
@@ -136,28 +125,23 @@ export default class OpportunityMerge extends LightningElement {
         this.spinner = true;
         this.searchScope = false;
         this.selectScope = true;
-        console.log('master', this.recordId)
-        console.log('slave', this.selectedOpportunityId)
         let master = this.recordId;
         let slave = this.selectedOpportunityId;
         if (this.slaveOppIsMaster) {
             slave = this.recordId;
             master = this.selectedOpportunityId;
         }
-        console.log('master', master)
-        console.log('slave', slave)
 
         mergeOpps({masterOpp: master, slaveOpp: slave}).then(result => {
-            console.log('merge result', result)
             this.spinner = false;
             if (result) {
                 this.showToast('Merged successfully', 'Merged successfully', 'success')
             } else {
-                this.showToast('Merged failed', 'Merged failed', 'error')
+                this.showToast('Merge failed', 'Merge failed', 'error')
             }
             this.handleNextClick();
         }).catch(error => {
-            this.showToast('Merged failed', 'Merged failed', 'error')
+            this.showToast('Merge failed', 'Merge failed', 'error')
             console.error('error occurred merging - ', error)
             this.spinner = false;
 
@@ -166,9 +150,6 @@ export default class OpportunityMerge extends LightningElement {
 
     handleSlaveIsMaster(event) {
         this.relatedNotLoaded = false;
-        // this.relatedOppsList.filter((ro) => ro.Id !== event.currentTarget.dataset.id).forEach((ab) => {
-        //     ab.selectedAsMaster = false;
-        // })
         for (let i = 0; i < this.relatedOppsList.length; i++) {
             this.relatedOppsList[i].selectedAsMaster = !(this.relatedOppsList[i].Id !== event.currentTarget.dataset.id);
         }
@@ -181,9 +162,6 @@ export default class OpportunityMerge extends LightningElement {
             this.relatedOppsList[i].selectedAsMaster = false;
 
         }
-        // this.relatedOppsList.map(ro => {
-        //     ro.selectedAsMaster = false;
-        // })
         this.masterOppIsMaster = true;
         this.slaveOppIsMaster = false;
     }
