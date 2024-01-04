@@ -50,7 +50,7 @@
                         <div for:each={mainOpportunity.Loan_Applicants__r} for:item='applicant' key={applicant.Id}
                              class='applicantDiv'>
                             <lightning-icon
-                                    icon-name='utility:people'
+                                    icon-name='utility:user'
                             ></lightning-icon>
                             <lightning-formatted-text
                                     value={applicant.Name}
@@ -134,7 +134,7 @@
                             <div for:each={relatedOpp.Loan_Applicants__r} for:item='applicant' key={applicant.Id}
                                  class='applicantDiv'>
                                 <lightning-icon
-                                        icon-name='utility:people'
+                                        icon-name='utility:user'
                                 ></lightning-icon>
                                 <lightning-formatted-text
                                         value={applicant.Name}
