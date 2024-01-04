@@ -20,19 +20,26 @@ public without sharing class OpportunityMergeController {
         String searchString = '%' + String.escapeSingleQuotes(searchTerm) + '%';
         searchString = searchString.replaceAll(' ', '%');
         System.debug(searchString);
-        return [
+        List<Opportunity> oppsList = [
                 SELECT Id, Name, StageName, Status__c, (
                         SELECT Id, Name, Contact.Account.PersonEmail, Contact.Account.Phone, Contact.Account.Identification_Number__c, Contact.Account.Passport_Number__c
                         FROM Loan_Applicants__r
-                        WHERE Is_Main_Applicant__c = TRUE
-                        LIMIT 1
+                        WHERE IsActive__c = TRUE
                 )
                 FROM Opportunity
                 WHERE (RecordType.Name = 'Pre-Approval Opportunity' AND Id != :excludedOppId) AND
-                (Name LIKE :searchString OR Account.PersonEmail LIKE :searchString OR Account.Name LIKE :searchString OR Account.Phone LIKE :searchString OR Account.Identification_Number__c LIKE :searchString OR Account.Passport_Number__c LIKE :searchTerm)
+                (Name LIKE :searchString OR Account.PersonEmail LIKE :searchString OR Account.Name LIKE :searchString OR Account.Phone LIKE :searchString OR Account.Identification_Number__c LIKE :searchString OR Account.Passport_Number__c LIKE :searchString)
+                AND (NOT StageName LIKE '%Closed%')
                 ORDER BY Name DESC
                 LIMIT 18
         ];
+
+        for (Integer i = oppsList.size() - 1; i >= 0; i--) {
+            if(oppsList[i].Loan_Applicants__r.size() > 1){
+                oppsList.remove(i);
+            }
+        }
+        return oppsList;
     }
 
     @AuraEnabled
@@ -42,7 +49,7 @@ public without sharing class OpportunityMergeController {
             List<SObject> listToUpsert = new List<SObject>();
 
             Opportunity masterOpportunity = [SELECT Id, (SELECT Id FROM Lending_Applications LIMIT 1) FROM Opportunity WHERE Id = :masterOpp];
-            
+
             String loanApplicationId = masterOpportunity.Lending_Applications[0].Id;
 
             Opportunity slaveOpportunity = [SELECT Id, (SELECT Id FROM Tasks) FROM Opportunity WHERE Id = :slaveOpp];
@@ -51,7 +58,7 @@ public without sharing class OpportunityMergeController {
             slaveOpportunity.Wrap_Up_Reason__c = 'Automated';
             listToUpsert.add(slaveOpportunity);
 
-            for(Task ta : slaveOpportunity.Tasks) {
+            for (Task ta : slaveOpportunity.Tasks) {
                 ta.locked__c = false;
                 ta.Status = 'Completed';
                 listToUpsert.add(ta);
@@ -93,15 +100,13 @@ public without sharing class OpportunityMergeController {
                             Total_Contractual_Expenses__c, Total_Deduction_Amount__c, Total_Living_Expense_Amount__c, Gross_Income_RTI__c,
                             Total_Nett_Income__c, relatedFilesIds__c, IDNumber__c, Opportunity_Owner_DigiApp_Link__c, Opportunity_Owner_Email__c,
                             Opportunity_Owner_First_Name__c, Opportunity_Owner_ID__c, Opportunity_Owner_Last_Name__c, Opportunity_Owner_Mobile__c,
-                            Template_Selection__c, MC_Template_Selection__c,
-                    (SELECT Id, OwnerId, IsDeleted, Name, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastViewedDate, LastReferencedDate, LoanApplicationId, LoanApplicantId, IncomeSourceType, MonthlyIncomeAmount, IncomeExtIdentifier, Amount__c, Description__c, Frequency__c, Status__c FROM LoanApplicantIncomes),
-                    (SELECT Id, IsDeleted, Name, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastViewedDate, LastReferencedDate, LoanApplicantId, LoanApplicationLiabilityId, Role, Amount__c, ExpenseType__c, Medical_Monthly__c, Status__c, Expense_Category__c, Settled__c FROM LoanApplicantLiabilityRelations)
+                            Template_Selection__c, MC_Template_Selection__c, (SELECT Id, OwnerId, IsDeleted, Name, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastViewedDate, LastReferencedDate, LoanApplicationId, LoanApplicantId, IncomeSourceType, MonthlyIncomeAmount, IncomeExtIdentifier, Amount__c, Description__c, Frequency__c, Status__c FROM LoanApplicantIncomes), (SELECT Id, IsDeleted, Name, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastViewedDate, LastReferencedDate, LoanApplicantId, LoanApplicationLiabilityId, Role, Amount__c, ExpenseType__c, Medical_Monthly__c, Status__c, Expense_Category__c, Settled__c FROM LoanApplicantLiabilityRelations)
                     FROM LoanApplicant
                     WHERE LoanApplication.OpportunityId = :slaveOpp AND IsActive__c = TRUE AND Is_Main_Applicant__c = TRUE
                     LIMIT 1
             ];
 
-            LoanApplicant newApplicant = slaveApplicant.clone(false,true,true,true);
+            LoanApplicant newApplicant = slaveApplicant.clone(false, true, true, true);
             newApplicant.LoanApplicationId = loanApplicationId;
             newApplicant.SourceOpportunity__c = masterOpp;
             newApplicant.Is_Main_Applicant__c = false;
@@ -109,33 +114,33 @@ public without sharing class OpportunityMergeController {
             insert newApplicant;
 
             List<LoanApplicationLiability> oldApplicationLiabilities = [SELECT Id, OwnerId, IsDeleted, Name, RecordTypeId, CreatedDate, CreatedById, LastModifiedDate, LastModifiedById, SystemModstamp, LastViewedDate, LastReferencedDate, LoanApplicationId, LoanApplicationAssetId, AccountType, LoanType, OtherLiabilityType, CreditorName, AccountNumber, MonthlyPaymentAmount, UnpaidBalanceAmount, ShouldBePaidInFull, IsJointLiability, CreditLimitAmount, LiabilityClass, LiabilityExtIdentifier, Description__c, Exclude_Expense_From_Calculation__c, Expense_Category__c, I_confirm_that_I_have_no_credit_expenses__c, Institution_Name__c, Last_Payment_Date__c, Monthly_Instalment_Amount__c, Opening_Balance_Amount__c, Outstanding_Balance_Amount__c, Reason_for_Deleting_Expense__c, Reason_why_Expenses_changed__c FROM LoanApplicationLiability WHERE Id IN (SELECT LoanApplicationLiabilityId FROM LoanApplicantLiability WHERE LoanApplicantId = :slaveApplicant.Id)];
-            Map<String,LoanApplicationLiability> newApplicationLiabilityMap = new Map<String, LoanApplicationLiability>();
+            Map<String, LoanApplicationLiability> newApplicationLiabilityMap = new Map<String, LoanApplicationLiability>();
             List<LoanApplicationLiability> loanApplicationLiabilityToInsert = new List<LoanApplicationLiability>();
 
 
-            for(LoanApplicationLiability lal : oldApplicationLiabilities) {
+            for (LoanApplicationLiability lal : oldApplicationLiabilities) {
 
-                LoanApplicationLiability newApplicationLiability = lal.clone(false,true,true,true);
+                LoanApplicationLiability newApplicationLiability = lal.clone(false, true, true, true);
                 newApplicationLiability.LoanApplicationId = loanApplicationId;
                 loanApplicationLiabilityToInsert.add(newApplicationLiability);
             }
             insert loanApplicationLiabilityToInsert;
 
-            for(LoanApplicationLiability lal : loanApplicationLiabilityToInsert) {
-                newApplicationLiabilityMap.put(lal.MonthlyPaymentAmount + lal.Expense_Category__c,lal);
+            for (LoanApplicationLiability lal : loanApplicationLiabilityToInsert) {
+                newApplicationLiabilityMap.put(lal.MonthlyPaymentAmount + lal.Expense_Category__c, lal);
             }
-            
-            for(LoanApplicantLiability lai : slaveApplicant.LoanApplicantLiabilityRelations) {
-                LoanApplicantLiability newLal = lai.clone(false,true,true,true);
+
+            for (LoanApplicantLiability lai : slaveApplicant.LoanApplicantLiabilityRelations) {
+                LoanApplicantLiability newLal = lai.clone(false, true, true, true);
                 newLal.LoanApplicationLiabilityId = newApplicationLiabilityMap.get(lai.Amount__c + lai.Expense_Category__c).Id;
                 newLal.LoanApplicantId = newApplicant.Id;
                 System.debug(newLal);
                 listToUpsert.add(newLal);
             }
 
-            for(LoanApplicantIncome lai : slaveApplicant.LoanApplicantIncomes) {
+            for (LoanApplicantIncome lai : slaveApplicant.LoanApplicantIncomes) {
 
-                LoanApplicantIncome newLai = lai.clone(false,true,true,true);
+                LoanApplicantIncome newLai = lai.clone(false, true, true, true);
                 newLai.LoanApplicationId = loanApplicationId;
                 newLai.LoanApplicantId = newApplicant.Id;
 
