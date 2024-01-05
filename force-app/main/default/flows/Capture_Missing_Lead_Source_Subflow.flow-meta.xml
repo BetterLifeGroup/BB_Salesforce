@@ -30,6 +30,10 @@
                 <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>agentSearchs</targetReference>
+        </connector>
     </assignments>
     <assignments>
         <name>AssignAgent_Blank_True</name>
@@ -43,6 +47,10 @@
                 <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>agent_Search</targetReference>
+        </connector>
     </assignments>
     <decisions>
         <name>Agent_Select</name>
