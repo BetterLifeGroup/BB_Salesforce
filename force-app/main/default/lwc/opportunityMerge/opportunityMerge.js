@@ -11,7 +11,6 @@ import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 
 export default class OpportunityMerge extends LightningElement {
 
-
     @api recordId;
 
     @track mainOpportunity;
@@ -21,6 +20,8 @@ export default class OpportunityMerge extends LightningElement {
     @track mainOppLoaded = false;
 
     @track applicantLimitReached = false;
+
+    @track searchBoxLabel = '<p>Search Opportunities by Name, or Applicants By Phone, Email, ID, or Passport Number.</p><br><p><strong>NOTE: </strong>If the opportunity that you are trying to merge with is either in a closed state, or already contains more than 1 applicant, it will not appear in the search results.</p>'
 
 
     connectedCallback() {
