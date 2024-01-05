@@ -78,12 +78,21 @@
                 </div>
                 <div style='display: flex;flex-direction: row;justify-content: space-between; align-items: end'>
                     <div style='width: 60%'>
+                        <lightning-formatted-rich-text
+                        value={searchBoxLabel}
+                        ></lightning-formatted-rich-text>
                         <lightning-input
+                                label=''
                                 type='search'
-                                label='Search Opportunities by Name, or Applicants By Phone, Email, ID or Passport Number'
                                 is-loading={isLoading}
                                 onchange={handleOppSearchChange}
+                                variant="label-hidden"
                         ></lightning-input>
+                        <div style='font-size: small; padding-top: 2px'>
+                            <lightning-formatted-rich-text
+                                    value=''
+                            ></lightning-formatted-rich-text>
+                        </div>
                     </div>
                     <div>
                         <template if:true={allowProceed}>
@@ -100,11 +109,6 @@
                         </template>
                     </div>
                 </div>
-                <!--    <template if:true={isLoading}>-->
-                <!--        <div style='height: 250px;'>-->
-
-                <!--        </div>-->
-                <!--    </template>-->
                 <template if:false={isLoading}>
 
                     <div style='display: flex;flex-wrap: wrap; justify-content: space-evenly'>
