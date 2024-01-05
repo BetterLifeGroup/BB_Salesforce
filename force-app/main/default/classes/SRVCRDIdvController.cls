@@ -307,4 +307,16 @@ public class SRVCRDIdvController {
         }
     }
 
+    @AuraEnabled
+    public static List<String> documentCheck(String loanApplicantId){
+
+        List<String> result = new List<String>();
+        List<ContentVersion> cvList = [SELECT Id,Title FROM ContentVersion WHERE FirstPublishLocationId = :loanApplicantId];
+        for(ContentVersion cv : cvList){
+            result.add(cv.Title);
+        }
+        return result;
+
+    }
+
 }
