@@ -20,6 +20,7 @@ import {updateRecord} from "lightning/uiRecordApi";
 import updateLoanApplicant from '@salesforce/apex/SRVCRDIdvController.updateLoanApplicant';
 import biometricUpdates from '@salesforce/apex/SRVCRDIdvController.biometricUpdates';
 import closeOppBiometricLowXdsScore from '@salesforce/apex/SRVCRDIdvController.closeOppBiometricLowXdsScore';
+import documentCheck from '@salesforce/apex/SRVCRDIdvController.documentCheck';
 import * as idVerify from 'c/saIdVerify'
 
 export default class ConsentViewer extends LightningElement {
@@ -188,6 +189,19 @@ export default class ConsentViewer extends LightningElement {
 
     connectedCallback() {
         this.label = {telephonicConsentScript,};
+        documentCheck({loanApplicantId:this.recordId}).then(result => {
+            if (result.includes('Consent Document')){
+                this.consentFileUploaded = true;
+            }
+            if (result.includes('Credit Report')){
+                this.creditReportUploaded = true;
+            }
+            if (result.includes('Copy of ID')){
+                this.idFileUploaded = true;
+            }
+        }).catch(error => {
+            console.log('error checking uploaded documents',error)
+        })
     }
 
     getApplicantDetail() {
