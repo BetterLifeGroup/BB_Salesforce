@@ -11,7 +11,7 @@
             <name>Contact_Found</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Contact_by_Consultant_c.Id</leftValueReference>
+                <leftValueReference>Get_Contact.Id</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -45,35 +45,9 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
-    <recordCreates>
-        <name>Create_General_Opportunity_Out</name>
-        <label>Create: General Opportunity Out</label>
-        <locationX>50</locationX>
-        <locationY>458</locationY>
-        <inputAssignments>
-            <field>Commission_Entity_Id__c</field>
-            <value>
-                <elementReference>v_Comm_Entity_Id</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>General_Lead_ID__c</field>
-            <value>
-                <elementReference>iv_General_Opportunity.Domain_Id__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Opportunity_ID__c</field>
-            <value>
-                <elementReference>iv_General_Opportunity.Id</elementReference>
-            </value>
-        </inputAssignments>
-        <object>General_Opportunity_Out__e</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordCreates>
     <recordLookups>
-        <name>Get_Contact_by_Consultant_c</name>
-        <label>Get: Contact by Consultant__c</label>
+        <name>Get_Contact</name>
+        <label>Get Contact</label>
         <locationX>182</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -96,18 +70,15 @@
         <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Contact_by_Consultant_c</targetReference>
+            <targetReference>Get_Contact</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <subflows>
         <name>Subflow_Get_Commission_Entity_Id</name>
         <label>Subflow: Get Commission Entity Id</label>
         <locationX>50</locationX>
         <locationY>350</locationY>
-        <connector>
-            <targetReference>Create_General_Opportunity_Out</targetReference>
-        </connector>
         <flowName>Subflow_Get_Commission_Entity_Id</flowName>
         <inputAssignments>
             <name>iv_AccountId</name>
@@ -118,7 +89,7 @@
         <inputAssignments>
             <name>iv_ContactId</name>
             <value>
-                <elementReference>Get_Contact_by_Consultant_c.Id</elementReference>
+                <elementReference>Get_Contact.Id</elementReference>
             </value>
         </inputAssignments>
         <outputAssignments>
@@ -139,6 +110,6 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
-        <isOutput>false</isOutput>
+        <isOutput>true</isOutput>
     </variables>
 </Flow>
