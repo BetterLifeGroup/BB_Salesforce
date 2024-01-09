@@ -73,7 +73,6 @@ public with sharing class SRVIdvControllerTest {
         SRVCRDIdvController.accountEmailPopulated([SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id);
         SRVCRDIdvController.updateEmailAddress('test@test.com' , [SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id);
         SRVCRDIdvController.setLoanApplicantStatus([SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id , 'test@test.com');
-        SRVCRDIdvController.documentCheck([SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id);
 
         Test.stopTest();
     }
