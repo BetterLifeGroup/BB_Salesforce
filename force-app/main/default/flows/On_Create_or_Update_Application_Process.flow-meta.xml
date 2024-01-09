@@ -3,15 +3,15 @@
     <apiVersion>59.0</apiVersion>
     <decisions>
         <name>Created_By</name>
-        <label>Created By</label>
+        <label>Created By?</label>
         <locationX>50</locationX>
-        <locationY>539</locationY>
+        <locationY>431</locationY>
         <defaultConnector>
-            <targetReference>Create_Applicant_out</targetReference>
+            <targetReference>Subflow_Get_Commission_Entity_ID</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <defaultConnectorLabel>Not Integration User</defaultConnectorLabel>
         <rules>
-            <name>Is_Integration_User</name>
+            <name>Integration_User</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.LastModifiedBy.Email</leftValueReference>
@@ -20,17 +20,17 @@
                     <stringValue>no-reply@betterbond.co.za</stringValue>
                 </rightValue>
             </conditions>
-            <label>Is Integration User</label>
+            <label>Integration User</label>
         </rules>
     </decisions>
     <decisions>
-        <name>IsNew</name>
-        <label>IsNew</label>
+        <name>Is_New_Record</name>
+        <label>Is New Record?</label>
         <locationX>248</locationX>
         <locationY>323</locationY>
-        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <defaultConnectorLabel>Existing Record</defaultConnectorLabel>
         <rules>
-            <name>Is_New</name>
+            <name>New_Record</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>f_Is_New</leftValueReference>
@@ -40,9 +40,9 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Applicant_Consent_Document</targetReference>
+                <targetReference>Created_By</targetReference>
             </connector>
-            <label>Is New</label>
+            <label>New Record</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -51,8 +51,8 @@
         <dataType>Boolean</dataType>
         <expression>ISNEW()</expression>
     </formulas>
-    <interviewLabel>On Create or Update: Applicant Process {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>On Create or Update: Applicant Process</label>
+    <interviewLabel>On Create or Update: Application Process {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>On Create or Update: Application Process</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -73,86 +73,57 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
-        <name>Create_Applicant_out</name>
-        <label>Create: Applicant - out</label>
+        <name>Create_Application_Out</name>
+        <label>Create: Application Out</label>
         <locationX>182</locationX>
         <locationY>647</locationY>
         <inputAssignments>
-            <field>AccountId__c</field>
-            <value>
-                <elementReference>$Record.Contact.AccountId</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Applicant_RecordType__c</field>
-            <value>
-                <elementReference>$Record.RecordType.Name</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>Application_DomainId__c</field>
-            <value>
-                <elementReference>$Record.LoanApplication.DomainId__c</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>DomainId__c</field>
             <value>
                 <elementReference>$Record.DomainId__c</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>Id__c</field>
+            <field>Application_Id__c</field>
             <value>
                 <elementReference>$Record.Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>IsNew__c</field>
+            <field>Commission_Entity_Id__c</field>
             <value>
-                <elementReference>f_Is_New</elementReference>
+                <elementReference>Subflow_Get_Commission_Entity_ID.v_Comm_Entity_Id</elementReference>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <field>Is_Main_Applicant__c</field>
-            <value>
-                <elementReference>$Record.Is_Main_Applicant__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>Applicant_Out__e</object>
+        <object>Application_out__e</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <start>
         <locationX>122</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>IsNew</targetReference>
+            <targetReference>Is_New_Record</targetReference>
         </connector>
-        <object>LoanApplicant</object>
+        <object>ResidentialLoanApplication</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
     <subflows>
-        <name>Get_Applicant_Consent_Document</name>
-        <label>Get: Applicant Consent Document</label>
-        <locationX>50</locationX>
-        <locationY>431</locationY>
+        <name>Subflow_Get_Commission_Entity_ID</name>
+        <label>Subflow: Get Commission Entity ID</label>
+        <locationX>182</locationX>
+        <locationY>539</locationY>
         <connector>
-            <targetReference>Created_By</targetReference>
+            <targetReference>Create_Application_Out</targetReference>
         </connector>
-        <flowName>Subflow_Get_Applicant_Consent_Document</flowName>
+        <flowName>SubFlow_Post_General_Opportunity_Owner</flowName>
         <inputAssignments>
-            <name>iv_Account_Id</name>
+            <name>iv_General_Opportunity</name>
             <value>
-                <elementReference>$Record.Contact.AccountId</elementReference>
+                <elementReference>$Record.Opportunity</elementReference>
             </value>
         </inputAssignments>
-        <inputAssignments>
-            <name>iv_Applicant_Id</name>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </subflows>
 </Flow>
