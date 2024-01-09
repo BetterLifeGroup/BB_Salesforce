@@ -311,7 +311,8 @@ public class SRVCRDIdvController {
     public static List<String> documentCheck(String loanApplicantId){
 
         List<String> result = new List<String>();
-        List<ContentVersion> cvList = [SELECT Id,Title FROM ContentVersion WHERE FirstPublishLocationId = :loanApplicantId];
+        List<String> cvIds = [SELECT relatedFilesIds__c FROM LoanApplicant WHERE Id = :loanApplicantId].relatedFilesIds__c.split(';');
+        List<ContentVersion> cvList = [SELECT Id,Title FROM ContentVersion WHERE Id IN :cvIds];
         for(ContentVersion cv : cvList){
             result.add(cv.Title);
         }
