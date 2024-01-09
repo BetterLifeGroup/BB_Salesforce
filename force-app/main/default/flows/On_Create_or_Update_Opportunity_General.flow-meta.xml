@@ -77,7 +77,7 @@
         <name>Is_Updated_By_Integration_User</name>
         <label>Is Updated By Integration User?</label>
         <locationX>578</locationX>
-        <locationY>731</locationY>
+        <locationY>839</locationY>
         <defaultConnectorLabel>Not Updated By Integration User</defaultConnectorLabel>
         <rules>
             <name>Updated_By_Integration_User</name>
@@ -124,6 +124,61 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_General_Opportunity_Out</name>
+        <label>Create: General Opportunity Out</label>
+        <locationX>182</locationX>
+        <locationY>647</locationY>
+        <inputAssignments>
+            <field>Commission_Entity_Id__c</field>
+            <value>
+                <elementReference>SubFlow_POST_General_Opportunity_Owner.v_Comm_Entity_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>General_Lead_ID__c</field>
+            <value>
+                <elementReference>$Record.Domain_Id__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Opportunity_ID__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>General_Opportunity_Out__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Update_General_Opportunity_Out</name>
+        <label>Create: Update General Opportunity Out</label>
+        <locationX>446</locationX>
+        <locationY>647</locationY>
+        <connector>
+            <targetReference>Is_Updated_By_Integration_User</targetReference>
+        </connector>
+        <inputAssignments>
+            <field>Commission_Entity_Id__c</field>
+            <value>
+                <elementReference>SubFlow_POST_General_Opportunity_Owner.v_Comm_Entity_Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>General_Lead_ID__c</field>
+            <value>
+                <elementReference>$Record.Domain_Id__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Opportunity_ID__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>General_Opportunity_Out__e</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <start>
         <locationX>188</locationX>
         <locationY>0</locationY>
@@ -148,6 +203,9 @@
         <label>SubFlow: POST General Opportunity Owner</label>
         <locationX>182</locationX>
         <locationY>539</locationY>
+        <connector>
+            <targetReference>Create_General_Opportunity_Out</targetReference>
+        </connector>
         <flowName>SubFlow_Post_General_Opportunity_Owner</flowName>
         <inputAssignments>
             <name>iv_General_Opportunity</name>
@@ -155,6 +213,7 @@
                 <elementReference>$Record</elementReference>
             </value>
         </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
     </subflows>
     <subflows>
         <name>SubFlow_PUT_General_Opportunity_Owner</name>
@@ -162,7 +221,7 @@
         <locationX>446</locationX>
         <locationY>539</locationY>
         <connector>
-            <targetReference>Is_Updated_By_Integration_User</targetReference>
+            <targetReference>Create_Update_General_Opportunity_Out</targetReference>
         </connector>
         <flowName>SubFlow_Post_General_Opportunity_Owner</flowName>
         <inputAssignments>
