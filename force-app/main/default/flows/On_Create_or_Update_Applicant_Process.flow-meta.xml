@@ -5,7 +5,7 @@
         <name>Created_By</name>
         <label>Created By</label>
         <locationX>50</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <defaultConnector>
             <targetReference>Create_Applicant_out</targetReference>
         </defaultConnector>
@@ -76,7 +76,7 @@
         <name>Create_Applicant_out</name>
         <label>Create: Applicant - out</label>
         <locationX>182</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <inputAssignments>
             <field>AccountId__c</field>
             <value>
@@ -134,12 +134,29 @@
     </start>
     <status>Active</status>
     <subflows>
+        <name>Assign_LoanApplicant_to_Genral_Opp</name>
+        <label>Assign LoanApplicant to Genral Opp</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>Created_By</targetReference>
+        </connector>
+        <flowName>Subflow_Assign_Applicant_to_General_Opportunity</flowName>
+        <inputAssignments>
+            <name>iov_Applicant</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </subflows>
+    <subflows>
         <name>Get_Applicant_Consent_Document</name>
         <label>Get: Applicant Consent Document</label>
         <locationX>50</locationX>
         <locationY>431</locationY>
         <connector>
-            <targetReference>Created_By</targetReference>
+            <targetReference>Assign_LoanApplicant_to_Genral_Opp</targetReference>
         </connector>
         <flowName>Subflow_Get_Applicant_Consent_Document</flowName>
         <inputAssignments>
