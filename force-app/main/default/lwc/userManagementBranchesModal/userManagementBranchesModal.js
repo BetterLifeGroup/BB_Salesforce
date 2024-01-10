@@ -60,6 +60,9 @@ export default class UserManagementNetworksModal extends LightningModal {
         this.createNewAgency = event.detail.value === 'Branch';
         this.createNewBranch = event.detail.value === 'Sub-Branch';
 
+        // this.createNewNetwork = false;
+        // this.createNewAgency = false;
+
         console.log(this.selectedNewComboboxValue)
     }
 
