@@ -41,7 +41,7 @@ export default class UserManagementBranches extends LightningElement {
     handleSearchChangeAfterDebounce(event) {
 
         console.log(event.detail.value)
-        userManagementNetworks({searchString: event.detail.value, reState: false}).then(result => {
+        userManagementNetworks({searchString: event.detail.value, reState: false, searchByContact:false}).then(result => {
 
             if (result.accounts.length > 0) {
                 let nodeMap = new Map();
