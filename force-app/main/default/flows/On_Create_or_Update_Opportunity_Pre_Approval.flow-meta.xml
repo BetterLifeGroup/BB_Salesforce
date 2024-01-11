@@ -2,10 +2,32 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>59.0</apiVersion>
     <decisions>
+        <name>Did_Record_Owner_Change</name>
+        <label>Did Record Owner Change?</label>
+        <locationX>622</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Record Owner Did Not Change</defaultConnectorLabel>
+        <rules>
+            <name>Record_Owner_Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record__Prior.OwnerId</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Subflow_Pre_Approval_Opportunity_Owner_Changed</targetReference>
+            </connector>
+            <label>Record Owner Changed</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_Applicant_linked_to_General_Opportunity_and_Application_not_linked_to_Pre_App</name>
         <label>Is Applicant linked to General Opportunity and Application not linked to Pre-Approval Opportunity</label>
         <locationX>182</locationX>
-        <locationY>431</locationY>
+        <locationY>539</locationY>
         <defaultConnectorLabel>False Path</defaultConnectorLabel>
         <rules>
             <name>True_Path</name>
@@ -30,7 +52,37 @@
             <label>True Path</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Is_New_Record</name>
+        <label>Is New Record?</label>
+        <locationX>402</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Did_Record_Owner_Change</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Existing Record</defaultConnectorLabel>
+        <rules>
+            <name>New_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>f_Is_New</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Loan_Application_by_OpportunityId</targetReference>
+            </connector>
+            <label>New Record</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>f_Is_New</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
     <interviewLabel>On Create or Update: Opportunity (Pre-Approval) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>On Create or Update: Opportunity (Pre-Approval)</label>
     <processMetadataValues>
@@ -56,7 +108,7 @@
         <name>Get_Loan_Application_by_OpportunityId</name>
         <label>Get: Loan Application by OpportunityId</label>
         <locationX>182</locationX>
-        <locationY>323</locationY>
+        <locationY>431</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Applicant_linked_to_General_Opportunity_and_Application_not_linked_to_Pre_App</targetReference>
@@ -77,7 +129,7 @@
         <name>Update_Applicant</name>
         <label>Update: Applicant</label>
         <locationX>50</locationX>
-        <locationY>647</locationY>
+        <locationY>755</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -98,7 +150,7 @@
         <name>Update_Loan_Application</name>
         <label>Update: Loan Application</label>
         <locationX>50</locationX>
-        <locationY>539</locationY>
+        <locationY>647</locationY>
         <connector>
             <targetReference>Update_Applicant</targetReference>
         </connector>
@@ -119,10 +171,10 @@
         <object>ResidentialLoanApplication</object>
     </recordUpdates>
     <start>
-        <locationX>56</locationX>
+        <locationX>276</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Loan_Application_by_OpportunityId</targetReference>
+            <targetReference>Is_New_Record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -137,4 +189,17 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Subflow_Pre_Approval_Opportunity_Owner_Changed</name>
+        <label>Subflow: Pre-Approval Opportunity Owner Changed</label>
+        <locationX>490</locationX>
+        <locationY>539</locationY>
+        <flowName>Subflow_Pre_Approval_Opportunity_Owner_Changed</flowName>
+        <inputAssignments>
+            <name>iv_Pre_Approval_Record</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
 </Flow>
