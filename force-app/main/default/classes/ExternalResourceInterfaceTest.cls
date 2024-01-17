@@ -25,6 +25,7 @@ public with sharing class ExternalResourceInterfaceTest {
         Account acc = new Account();
 
         acc.Name = 'testAccount';
+        acc.Phone = '+27739871234';
 
         insert acc;
 
