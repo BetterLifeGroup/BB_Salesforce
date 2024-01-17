@@ -6,8 +6,6 @@ public with sharing class ExternalResourceInterfaceTest {
 
     @TestSetup
     public static void createTestData() {
-        LwcLookupControllerTest.createTestData();
-        FileManagerContentVersionControllerTest.createData();
 
         List<ExternalResources__c> erList = new List<ExternalResources__c>();
         for (Integer i = 0; i < 2; i++) {
@@ -33,7 +31,7 @@ public with sharing class ExternalResourceInterfaceTest {
         opp.CloseDate = date.newInstance(2023,01,01);
         opp.StageName = 'Working';
         opp.AccountId = acc.Id;
-        opp.Name = 'testOpportunity';
+        opp.Name = 'test69';
 
         insert opp;
 
