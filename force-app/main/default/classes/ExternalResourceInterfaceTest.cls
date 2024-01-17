@@ -22,18 +22,6 @@ public with sharing class ExternalResourceInterfaceTest {
         }
         insert erList;
 
-
-
-        Blob b;
-        b = Blob.valueOf('testdata');
-        ContentVersion cv = new ContentVersion();
-        cv.VersionData = b;
-        cv.Title = 'Preapproval';
-        cv.PathOnClient = 'testPath.pdf';
-        cv.FirstPublishLocationId = [SELECT Id FROM Opportunity WHERE Name LIKE '%test69%'].Id;
-
-        insert cv;
-
         Account acc = new Account();
 
         acc.Name = 'testAccount';
@@ -58,22 +46,42 @@ public with sharing class ExternalResourceInterfaceTest {
         LoanApplicant la = new LoanApplicant();
         la.Name = 'test69';
         la.LoanApplicationId = rla.Id;
+        la.Received_Documents__c = 'Payslip;Bank Statement';
 
         insert la;
+
+
+
+        Blob b;
+        b = Blob.valueOf('testdata');
+        ContentVersion cv = new ContentVersion();
+        cv.VersionData = b;
+        cv.Title = 'Preapproval';
+        cv.PathOnClient = 'testPath.pdf';
+        cv.FirstPublishLocationId = [SELECT Id FROM Opportunity WHERE Name LIKE '%test69%' LIMIT 1].Id;
+
+        insert cv;
+
+        Blob b2;
+        b2 = Blob.valueOf('testdata');
+        ContentVersion cv2 = new ContentVersion();
+        cv2.VersionData = b2;
+        cv2.Title = 'Consent Document';
+        cv2.PathOnClient = 'testPath.pdf';
+        cv2.FirstPublishLocationId = [SELECT Id FROM LoanApplicant WHERE Name LIKE '%test69%' LIMIT 1].Id;
+
+        insert cv2;
+
 
     }
 
 
     @IsTest
     public static void testExternalResources() {
-//        ExternalResourceInterface.CreateExternalResourceRecord('fileName',350,'pdf','0012z00000-c-b7r-i-a-a-t','0012z00000CB7rIAAT');
-//        Assert.isNotNull(ExternalResourceInterface.GetExternalResource('testFile0','0012z00000-c-b7r-i-a-a-t'));
-//        Assert.isNotNull(ExternalResourceInterface.DeleteExternalResource('testFile0','0012z00000-c-b7r-i-a-a-t','0012z00000CB7rIAAT'));
         Assert.isNotNull(ExternalResourceInterface.getAllFiles([SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id ));
         Assert.isNotNull(ExternalResourceInterface.getAllFiles([SELECT Id FROM Opportunity WHERE Name = 'test69' LIMIT 1].Id ));
-        Assert.isNotNull(ExternalResourceInterface.deleteFile([SELECT Id FROM ContentDocument LIMIT 1].Id));
-
-
+        ExternalResourceInterface.prepFileForDelete([SELECT Id,ContentDocumentId FROM ContentVersion WHERE Title LIKE '%Preapproval%' LIMIT 1].ContentDocumentId);
+        Assert.isNotNull(ExternalResourceInterface.deleteFile([SELECT Id,ContentDocumentId FROM ContentVersion WHERE Title LIKE '%Preapproval%' LIMIT 1].ContentDocumentId,[SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id));
 //        trgContentVersion Coverage
         Blob b;
         b = Blob.valueOf('testdata');
