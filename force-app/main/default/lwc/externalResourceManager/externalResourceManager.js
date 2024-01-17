@@ -3,11 +3,14 @@
  */
 
 import {LightningElement, track, api} from 'lwc';
-import {ShowToastEvent} from 'lightning/platformShowToastEvent';
-import * as RecordIdService from 'c/recordIdService'
-import DeleteExternalResource from '@salesforce/apex/ExternalResourceInterface.DeleteExternalResource';
-import GetExternalResource from '@salesforce/apex/ExternalResourceInterface.GetExternalResource';
+// import {ShowToastEvent} from 'lightning/platformShowToastEvent';
+// import * as RecordIdService from 'c/recordIdService'
+// import DeleteExternalResource from '@salesforce/apex/ExternalResourceInterface.DeleteExternalResource';
+// import GetExternalResource from '@salesforce/apex/ExternalResourceInterface.GetExternalResource';
 import getAllFiles from '@salesforce/apex/ExternalResourceInterface.getAllFiles';
+import prepFileForDelete from '@salesforce/apex/ExternalResourceInterface.prepFileForDelete';
+import deleteFile from '@salesforce/apex/ExternalResourceInterface.deleteFile';
+import {RefreshEvent} from 'lightning/refresh';
 import {NavigationMixin} from "lightning/navigation";
 
 export default class ExternalResourceManager extends NavigationMixin(LightningElement) {
@@ -37,12 +40,31 @@ export default class ExternalResourceManager extends NavigationMixin(LightningEl
     @api opportunityScope = false;
     fileExtension;
     working = false;
-    // MAX_CHUNK_SIZE = 3000000;
 
+    // MAX_CHUNK_SIZE = 3000000;
 
 
     connectedCallback() {
         this.getAllFiles()
+    }
+
+    handleClickFileDelete(event) {
+        let docId = event.target.dataset.id;
+
+        this.categoryFiles.filter(cg => cg.documentId === docId).forEach(cgf => {
+            cgf.working = true;
+        })
+
+        prepFileForDelete({contentDocumentId: docId}).then(result => {
+            deleteFile({contentDocumentId: docId, applicantId: this.recordId}).then(result => {
+                console.log('delete file result', result);
+                this.getAllFiles();
+                this.dispatchEvent(new RefreshEvent());
+            }).catch(error => {
+                console.log('error deleting file', error);
+            })
+        })
+        console.log('delete', event.target.dataset.id);
     }
 
     getAllFiles() {
@@ -56,7 +78,7 @@ export default class ExternalResourceManager extends NavigationMixin(LightningEl
             for (const element of this.filesList) {
                 for (const elementB of this.category.fileName) {
                     if (this.opportunityScope === true) {
-                        if (element.Title.includes(elementB.substring(4,7)) || (element.Title.includes(elementB))) {
+                        if (element.Title.includes(elementB.substring(4, 7)) || (element.Title.includes(elementB))) {
                             this.categoryFiles.push({
                                 'name': element.Title,
                                 'createdDate': 'Created - ' + element.createdDate,
@@ -67,6 +89,7 @@ export default class ExternalResourceManager extends NavigationMixin(LightningEl
                                 'size': (Math.round((element.ContentSize / 1000000) * 100) / 100) + 'MB',
                                 'id': element.Id,
                                 'documentId': element.ContentDocumentId,
+                                'working': false,
                                 'thumbUrl': '/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB240BY180&versionId=' + element.Id
                             })
                         }
@@ -82,6 +105,7 @@ export default class ExternalResourceManager extends NavigationMixin(LightningEl
                                 'size': (Math.round((element.ContentSize / 1000000) * 100) / 100) + 'MB',
                                 'id': element.Id,
                                 'documentId': element.ContentDocumentId,
+                                'working': false,
                                 'thumbUrl': '/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB240BY180&versionId=' + element.Id
                             })
                         }
@@ -97,7 +121,8 @@ export default class ExternalResourceManager extends NavigationMixin(LightningEl
 
     get dataHasChanged() {
         if (this.refreshVar !== this.localRefreshVar) {
-            this.getAllFiles()
+            this.getAllFiles();
+            this.dispatchEvent(new RefreshEvent());
             this.localRefreshVar = this.refreshVar
         }
     }
