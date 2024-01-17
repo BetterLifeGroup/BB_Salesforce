@@ -9,7 +9,7 @@
     <!--        <div>-->
     <!--            <template for:each={categories} for:item='category'>-->
     <!--                <lightning-tab label={category} key={category}>-->
-    <div style='display: flex; margin-bottom: 6px'>
+    <div style='margin-bottom: 6px'>
         <!--        <div style='margin-right: 3px'>-->
         <!--            <lightning-button-icon-->
 
@@ -20,13 +20,20 @@
         <!--            </lightning-button-icon>-->
         <!--        </div>-->
         <template if:false={uploadButtonDisabled}>
-            <div>
-                <lightning-button
-                        label='Upload Files'
-                        onclick={handleUploadFileButton}
-                >
+            <div style='display: flex;flex-direction: column'>
+                <div class='slds-text-heading_small slds-align_absolute-center'>
+                    <template if:true={consentScope}>
+                        Manage Applicant Files
+                    </template>
+                </div>
+                <div style='padding-bottom: 8px'>
+                    <lightning-button
+                            label='Upload Files'
+                            onclick={handleUploadFileButton}
+                    >
 
-                </lightning-button>
+                    </lightning-button>
+                </div>
             </div>
         </template>
     </div>

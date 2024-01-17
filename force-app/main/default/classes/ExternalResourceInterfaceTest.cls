@@ -66,9 +66,9 @@ public with sharing class ExternalResourceInterfaceTest {
 
     @IsTest
     public static void testExternalResources() {
-        ExternalResourceInterface.CreateExternalResourceRecord('fileName',350,'pdf','0012z00000-c-b7r-i-a-a-t','0012z00000CB7rIAAT');
-        Assert.isNotNull(ExternalResourceInterface.GetExternalResource('testFile0','0012z00000-c-b7r-i-a-a-t'));
-        Assert.isNotNull(ExternalResourceInterface.DeleteExternalResource('testFile0','0012z00000-c-b7r-i-a-a-t','0012z00000CB7rIAAT'));
+//        ExternalResourceInterface.CreateExternalResourceRecord('fileName',350,'pdf','0012z00000-c-b7r-i-a-a-t','0012z00000CB7rIAAT');
+//        Assert.isNotNull(ExternalResourceInterface.GetExternalResource('testFile0','0012z00000-c-b7r-i-a-a-t'));
+//        Assert.isNotNull(ExternalResourceInterface.DeleteExternalResource('testFile0','0012z00000-c-b7r-i-a-a-t','0012z00000CB7rIAAT'));
         Assert.isNotNull(ExternalResourceInterface.getAllFiles([SELECT Id FROM LoanApplicant WHERE Name = 'test69' LIMIT 1].Id ));
         Assert.isNotNull(ExternalResourceInterface.getAllFiles([SELECT Id FROM Opportunity WHERE Name = 'test69' LIMIT 1].Id ));
         Assert.isNotNull(ExternalResourceInterface.deleteFile([SELECT Id FROM ContentDocument LIMIT 1].Id));

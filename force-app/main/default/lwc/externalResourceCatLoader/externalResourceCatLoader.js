@@ -9,11 +9,8 @@ import createContentVersion from '@salesforce/apex/FileManagerContentVersionCont
 import documentController from '@salesforce/apex/FileManagerContentVersionController.documentController';
 import getGlobalPickList from '@salesforce/apex/FileManagerGetMDT.getGlobalPickList';
 import {updateRecord} from "lightning/uiRecordApi";
-// import RetrieveMDT from '@salesforce/apex/FileManagerGetMDT.RetrieveMDT';
-// import PutBlockAzure from '@salesforce/apex/AzureService.UploadToAzurePutBlock';
-import CreateExternalResource from '@salesforce/apex/ExternalResourceInterface.CreateExternalResourceRecord';
 import * as RecordIdService from 'c/recordIdService';
-// todo import cv class and test
+
 export default class ExternalResourceCatLoader extends LightningElement {
 
     @api opportunityScope = false;
@@ -31,6 +28,7 @@ export default class ExternalResourceCatLoader extends LightningElement {
     @api requestedDocs = [];
     @api receivedDocs = [];
     @api outstandingDocs = [];
+    @api consentScope = false;
     fileName;
     blockId;
     fileSize;
@@ -65,8 +63,6 @@ export default class ExternalResourceCatLoader extends LightningElement {
 
 
     handleLightningUpload(event) {
-        console.log('abcd', event.detail.files)
-        console.log('abcd', event.detail.files[0].contentVersionId)
         const fields = {};
         fields.Id = event.detail.files[0].contentVersionId;
         fields.Category__c = this.selectedCategory;
@@ -91,7 +87,6 @@ export default class ExternalResourceCatLoader extends LightningElement {
         this.filesList = filesList;
 
         if (event.target.files.length > 0) {
-            // this.consentFileUploaded = true
 
             console.log('file size', event.target.files[0].length)
             if (event.target.files[0].length > this.MAX_FILE_SIZE) {
@@ -146,13 +141,6 @@ export default class ExternalResourceCatLoader extends LightningElement {
                 fileName: this.fileName
 
             }).then(() => {
-                // this.CreateExternalResource({
-                //     fileName: this.fileName,
-                // fileSize: this.contentTotalLength,
-                // container: RecordIdService.convertIdToLowerCase(this.recordId),
-                // fileType: this.fileExtension,
-                // recordId: this.recordId
-                // })
                 this.checkDocuments()
                 this.refreshVar = !this.refreshVar
             })
@@ -177,7 +165,14 @@ export default class ExternalResourceCatLoader extends LightningElement {
     }
 
     handleModalCancelClick() {
+        // if (this.consentScope) {
+        //     console.log('event fired 1')
+        //     const filemodalclose = new CustomEvent('filemodalclose', {bubbles: true, detail: this.queriedRecordId});
+        //     this.dispatchEvent(filemodalclose);
+        //     console.log('event fired 2')
+        // } else {
         this.showModal = false
+        // }
     }
 
     progressBarUpdate() {
@@ -324,6 +319,7 @@ export default class ExternalResourceCatLoader extends LightningElement {
         this.fileName = event.detail.value
     }
 
+
     handleCategoryChange(event) {
         this.fileUploadDisabled = true;
         this.fileNameOptions = []
@@ -336,12 +332,21 @@ export default class ExternalResourceCatLoader extends LightningElement {
 
 
         }
+
+        // if (this.consentScope) {
+        //     if (this.fileNameList.findIndex(fno => fno.label === 'Invoices') >= 0) {
+        //         this.fileNameList.splice(this.fileNameList.findIndex(fno => fno.label === 'Invoices'), 1);
+        //     }
+        // }
         if (this.fileNameOptions.findIndex(fno => fno.label === 'Credit Report') >= 0) {
-            this.fileNameOptions.splice(this.fileNameOptions.findIndex(fno => fno.label === 'Credit Report'), 1);
+            if (!this.consentScope) {
+                this.fileNameOptions.splice(this.fileNameOptions.findIndex(fno => fno.label === 'Credit Report'), 1);
+            }
         }
         if (this.fileNameOptions.findIndex(fno => fno.label === 'Preapproval') >= 0) {
             this.fileNameOptions.splice(this.fileNameOptions.findIndex(fno => fno.label === 'Preapproval'), 1);
         }
+
         this.fileNameOptions.sort(function (a, b) {
             let x = a.value.toLowerCase();
             let y = b.value.toLowerCase();
@@ -355,6 +360,11 @@ export default class ExternalResourceCatLoader extends LightningElement {
         })
         this.fileNameOptionsDisabled = false
 
+    }
+
+    renderedCallback() {
+        console.log('rendered run');
+        this.checkDocuments();
     }
 
     checkDocuments() {
@@ -384,11 +394,8 @@ export default class ExternalResourceCatLoader extends LightningElement {
 
                     if (this.receivedDocs[i] === this.requestedDocs[j]) {
                         this.addVar = false;
-
                     }
-
                 }
-
                 if (this.addVar === true) {
                     this.notRequestedReceivedDocs.push({name: this.receivedDocs[i], received: true})
                 }
@@ -414,14 +421,6 @@ export default class ExternalResourceCatLoader extends LightningElement {
     }
 
     getMDT() {
-        // RetrieveMDT({recordId: this.recordId}).then(result => {
-        //     console.log(result)
-        //     this.categories = result
-        //     for (const element of result) {
-        //         this.categoryOptions.push({label: element.category, value: element.category})
-        //     }
-        //     this.uploadButtonDisabled = false
-        // })
         getGlobalPickList({
             objectName: 'ContentVersion',
             controllingField: 'Category__c',
@@ -432,6 +431,18 @@ export default class ExternalResourceCatLoader extends LightningElement {
             for (const element of result) {
 
                 this.categoryOptions.push({label: element.category, value: element.category})
+            }
+            if (this.consentScope) {
+                // if (this.categoryOptions.findIndex(fno => fno.label === 'Invoices') >= 0) {
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Invoices'), 1);
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Bank Statements'), 1);
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Financial Documents'), 1);
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Payslips'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Invoices'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Bank Statements'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Financial Documents'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Payslips'), 1);
+                // }
             }
             if (this.opportunityScope === true) {
                 this.categories.splice(this.categories.findIndex(co => co.category === 'Bank Statements'), 1);
