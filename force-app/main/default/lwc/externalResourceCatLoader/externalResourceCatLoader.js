@@ -31,6 +31,8 @@ export default class ExternalResourceCatLoader extends LightningElement {
     @api requestedDocs = [];
     @api receivedDocs = [];
     @api outstandingDocs = [];
+    @api consentScope = false;
+    @api disableClose = false;
     fileName;
     blockId;
     fileSize;
@@ -58,6 +60,7 @@ export default class ExternalResourceCatLoader extends LightningElement {
     @api fileViewMode;
     @track buttonIcon = 'utility:opened_folder'
     addVar;
+    @api biometricsScope = false;
     selectedCategory;
 
     testEventFire(event) {
@@ -433,6 +436,22 @@ export default class ExternalResourceCatLoader extends LightningElement {
 
                 this.categoryOptions.push({label: element.category, value: element.category})
             }
+            if (this.consentScope) {
+                // if (this.categoryOptions.findIndex(fno => fno.label === 'Invoices') >= 0) {
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Invoices'), 1);
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Bank Statements'), 1);
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Financial Documents'), 1);
+                this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Payslips'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Invoices'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Bank Statements'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Financial Documents'), 1);
+                this.categories.splice(this.categories.findIndex(fno => fno.category === 'Payslips'), 1);
+                if(!this.biometricsScope){
+                    this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Credit Report'), 1);
+                    this.categories.splice(this.categories.findIndex(fno => fno.category === 'Credit Report'), 1);
+                }
+                // }
+            }
             if (this.opportunityScope === true) {
                 this.categories.splice(this.categories.findIndex(co => co.category === 'Bank Statements'), 1);
                 this.categories.splice(this.categories.findIndex(co => co.category === 'Invoices'), 1);
@@ -461,5 +480,23 @@ export default class ExternalResourceCatLoader extends LightningElement {
             variant: variant,
         });
         this.dispatchEvent(event);
+    }
+
+    handleEnableClose() {
+        this.dispatchEvent(new CustomEvent('enableclose', {
+            composed: true,
+            bubbles: true,
+        }));
+        console.log('enable event received')
+        this.disableClose = false;
+    }
+
+    handleDisableClose() {
+        this.dispatchEvent(new CustomEvent('disableclose', {
+            composed: true,
+            bubbles: true,
+        }));
+        console.log('disable event received')
+        this.disableClose = true;
     }
 }

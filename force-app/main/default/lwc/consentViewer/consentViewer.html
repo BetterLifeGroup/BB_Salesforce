@@ -4,15 +4,39 @@
 
 <!-- Consent Viewer -->
 <template>
-    <template if:true={showHtmlErrorToast}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_error" role="status" style='justify-content: center'>
-                <span class="slds-assistive-text">error</span>
-                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top"
-                      title="Description of icon when needed">
-</span>
-                <div class="slds-notify__content">
-                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+    <div if:true={showUploader}>
+        <div id={fileModal}>
+
+            <section role="dialog" tabindex="-1" aria-modal="true"
+                     class="slds-modal slds-fade-in-open slds-modal_small">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__content slds-p-around_medium" id="file-modal-content-id-1"
+                         style='border: #5d5d5d solid 2px;border-radius: 10px;'>
+                        <c-external-resource-cat-loader
+                                record-id={recordId}
+                                consent-scope={constantTrue}
+                                onfilemodalclose={handleFileModalClose}
+                                onenableclose={handleEnableClose}
+                                ondisableclose={handleDisableClose}
+                                biometrics-scope={biometricsSelected}
+                        ></c-external-resource-cat-loader>
+                        <div class="slds-modal__footer">
+                            <!--                        <button onclick={handleModalCancelClick} class="slds-button slds-button_neutral"-->
+                            <!--                                aria-label="Cancel and close">Cancel-->
+                            <!--                        </button>-->
+                            <template if:false={disableClose}>
+                                <button class="slds-button slds-button_brand"
+                                        onclick={closeFileUploaderModal}>Close
+                                </button>
+                            </template>
+                            <template if:true={disableClose}>
+                                <lightning-button
+                                        label='Close'
+                                        disabled
+                                ></lightning-button>
+                            </template>
+                        </div>
+                    </div>
                 </div>
                 <div class="slds-notify__close">
                     <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
@@ -114,12 +138,8 @@
 
 <!--        <table if:false={error}>-->
             <template for:each={consentsList} for:item="cr" for:index="index">
-                <div key={cr.consentTypeId} >
-                    <!--                    <tr key={cr.consentTypeId}>-->
-                    <!---->
-                    <!--                        <td style='border-bottom: 1px lightgray; display: flex; justify-content: end'>-->
-
-
+                <div key={cr.consentTypeId} class="slds-scrollable_y"
+                     style='height: 23vh;border: #e3dcdc solid 3px;padding: 9px;border-radius: 5px;' tabindex="0">
                     <lightning-formatted-rich-text
                             value={cr.consentTypeSnapshot.declaration}
                     ></lightning-formatted-rich-text>

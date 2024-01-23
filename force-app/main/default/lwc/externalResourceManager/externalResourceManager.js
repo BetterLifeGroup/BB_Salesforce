@@ -45,6 +45,34 @@ export default class ExternalResourceManager extends NavigationMixin(LightningEl
         this.getAllFiles()
     }
 
+    handleClickFileDelete(event) {
+
+        this.dispatchEvent(new CustomEvent('disableclose', {
+            composed: true,
+            bubbles: true,
+        }));
+        let docId = event.target.dataset.id;
+
+        this.categoryFiles.filter(cg => cg.documentId === docId).forEach(cgf => {
+            cgf.working = true;
+        })
+
+        prepFileForDelete({contentDocumentId: docId}).then(result => {
+            deleteFile({contentDocumentId: docId, applicantId: this.recordId}).then(result => {
+                console.log('delete file result', result);
+                this.dispatchEvent(new RefreshEvent());
+                this.dispatchEvent(new CustomEvent('enableclose', {
+                    composed: true,
+                    bubbles: true,
+                }));
+                this.getAllFiles();
+            }).catch(error => {
+                console.log('error deleting file', error);
+            })
+        })
+        console.log('delete', event.target.dataset.id);
+    }
+
     getAllFiles() {
         getAllFiles({
             recordId: this.recordId
