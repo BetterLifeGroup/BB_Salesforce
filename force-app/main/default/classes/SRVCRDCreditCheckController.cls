@@ -67,7 +67,9 @@ public with sharing class SRVCRDCreditCheckController {
     }
 
     @AuraEnabled
-    public static LoanApplicant creditCheckSimple(String loanApplicantId) {
+    public static LoanApplicantResponse creditCheckSimple(String loanApplicantId) {
+
+        LoanApplicantResponse response = new LoanApplicantResponse();
 
         LoanApplicant la = [
                 SELECT Id, Personal_ID_Number__c, creditCheckRagIndicator__c, creditCheckDispute__c, creditCheckAdverse__c, creditCheckArrears__c,
@@ -83,7 +85,10 @@ public with sharing class SRVCRDCreditCheckController {
 
         if (la.idvFinalScore__c < 60 || la.idvFinalScore__c == null) {
 
-            return new LoanApplicant(creditCheckScore__c = 0);
+
+            response.applicant = new LoanApplicant(creditCheckScore__c = 0);
+            response.errorMessage = 'No IDV';
+            return response;
         }
 //        Account acc = [SELECT Id,Identification_Number__c FROM Account WHERE Id = :[SELECT Id,Contact.AccountId from LoanApplicant where Id = :loanApplicantId].Contact.AccountId];
 
@@ -120,13 +125,15 @@ public with sharing class SRVCRDCreditCheckController {
         SRVCRDCreditCheck_DeligateApi crd = new SRVCRDCreditCheck_DeligateApi(client);
 
         if (la.CreditCheckDate__c < Date.today().addDays(30) || la.creditCheckScore__c == null) {
-            try {
+//            try {
 
                 try {
                     obj = crd.postCreditcheckSimpleDeligate(params);
                 } catch (OAS.ApiException e) {
                     System.debug(e);
-                    throw new AuraHandledException(e.getBody());
+                    response.errorOccurred = true;
+                    response.errorMessage = e.getBody();
+                    return response;
                 }
 
                 Boolean thinFile = false;
@@ -167,17 +174,21 @@ public with sharing class SRVCRDCreditCheckController {
                 }
 
                 update la;
-            } catch (Exception e) {
-                System.debug(e.getMessage());
-                return la;
-            }
+//            } catch (Exception e) {
+//                System.debug(e.getMessage());
+//                return la;
+//            }
         }
         System.debug(obj);
-        return la;
+        response.applicant = la;
+        response.errorOccurred = false;
+        return response;
     }
 
     @AuraEnabled
-    public static LoanApplicant getLoanApplicant(String loanApplicantId) {
+    public static LoanApplicantResponse getLoanApplicant(String loanApplicantId) {
+
+        LoanApplicantResponse response = new LoanApplicantResponse();
 
 
         LoanApplicant la = [
@@ -192,9 +203,16 @@ public with sharing class SRVCRDCreditCheckController {
                 LIMIT 1
         ];
         if (la.creditCheckScore__c == null) {
-            return SRVCRDCreditCheckController.creditCheckSimple(loanApplicantId);
+
+            response = SRVCRDCreditCheckController.creditCheckSimple(loanApplicantId);
         }
-        return la;
+        return response;
+    }
+
+    public class LoanApplicantResponse{
+        @AuraEnabled public LoanApplicant applicant;
+        @AuraEnabled public String errorMessage;
+        @AuraEnabled public Boolean errorOccurred;
     }
 
 

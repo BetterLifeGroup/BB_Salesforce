@@ -13,8 +13,8 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="recordId" type="String" label="Loan Applicant Record Id"
                       description="Loan Applicant Record Id"/>
-<!--            <property name="idTypeValue" type="String" label="Id Type"-->
-<!--                      description="Id type, Sa ID or passport, not required"/>-->
+            <property name="mustExitFlow" type="Boolean" label="Must Exit Flow"
+                      description="Variable passed back to flow"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>
