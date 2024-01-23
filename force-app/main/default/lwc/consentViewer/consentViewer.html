@@ -10,20 +10,31 @@
             <section role="dialog" tabindex="-1" aria-modal="true"
                      class="slds-modal slds-fade-in-open slds-modal_small">
                 <div class="slds-modal__container">
-                    <div class="slds-modal__content slds-p-around_medium" id="file-modal-content-id-1" style='border: #5d5d5d solid 2px;border-radius: 10px;'>
+                    <div class="slds-modal__content slds-p-around_medium" id="file-modal-content-id-1"
+                         style='border: #5d5d5d solid 2px;border-radius: 10px;'>
                         <c-external-resource-cat-loader
                                 record-id={recordId}
                                 consent-scope={constantTrue}
                                 onfilemodalclose={handleFileModalClose}
-
+                                onenableclose={handleEnableClose}
+                                ondisableclose={handleDisableClose}
+                                biometrics-scope={biometricsSelected}
                         ></c-external-resource-cat-loader>
                         <div class="slds-modal__footer">
                             <!--                        <button onclick={handleModalCancelClick} class="slds-button slds-button_neutral"-->
                             <!--                                aria-label="Cancel and close">Cancel-->
                             <!--                        </button>-->
-                            <button class="slds-button slds-button_brand"
-                                    onclick={closeFileUploaderModal}>Close
-                            </button>
+                            <template if:false={disableClose}>
+                                <button class="slds-button slds-button_brand"
+                                        onclick={closeFileUploaderModal}>Close
+                                </button>
+                            </template>
+                            <template if:true={disableClose}>
+                                <lightning-button
+                                        label='Close'
+                                        disabled
+                                ></lightning-button>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -146,7 +157,8 @@
             </template>
 
             <template for:each={consentsList} for:item="cr" for:index="index">
-                <div key={cr.consentTypeId} class="slds-scrollable_y" style='height: 23vh;border: #e3dcdc solid 3px;padding: 9px;border-radius: 5px;' tabindex="0">
+                <div key={cr.consentTypeId} class="slds-scrollable_y"
+                     style='height: 23vh;border: #e3dcdc solid 3px;padding: 9px;border-radius: 5px;' tabindex="0">
                     <lightning-formatted-rich-text
                             value={cr.consentTypeSnapshot.declaration}
                     ></lightning-formatted-rich-text>
