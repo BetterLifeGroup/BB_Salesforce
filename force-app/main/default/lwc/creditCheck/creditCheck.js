@@ -22,6 +22,7 @@ export default class CreditCheck extends LightningElement {
     @track showHtmlWarningToast = false;
     @track toastMessage;
     recordDate;
+    @api mustExitFlow = false;
 
     connectedCallback() {
         this.loanApplicant()
@@ -30,35 +31,58 @@ export default class CreditCheck extends LightningElement {
     loanApplicant() {
 
         getLoanApplicant({loanApplicantId: this.recordId}).then(result => {
+            console.log('defg', result)
+            if (!result.errorOccurred) {
 
-            this.resultData = result
-            this.loading = false
-            this.scoreClass = result.creditCheckRagIndicator__c
-            if (result.idvFinalScore__c > 59) {
-                this.idvPassed = true
+                this.resultData = result.applicant
+                this.loading = false;
+                this.scoreClass = result.applicant.creditCheckRagIndicator__c
+                if (result.applicant.idvFinalScore__c > 59) {
+                    this.idvPassed = true
+                }
+
+                this.recordDate = new Date(result.applicant.CreditCheckDate__c).getTime() + 2592000000
+                this.refreshDisabled = !(this.recordDate < Date.now());
+            } else {
+                this.idvPassed = true;
+                this.showToast('DOMAIN RESPONSE ERROR: Please contact support desk', result.errorMessage, 'error');
+                this.showCancel = true;
             }
-
-            this.recordDate = new Date(result.CreditCheckDate__c).getTime() + 2592000000
-            this.refreshDisabled = !(this.recordDate < Date.now());
-
         }).catch((error) => {
             this.showToast('DOMAIN RESPONSE ERROR: Please contact support desk', 'DOMAIN RESPONSE ERROR: Please contact support desk', 'error')
         })
     }
 
+    showCancel = false;
+
+    handleCancel(){
+
+        this.mustExitFlow = true;
+        const navigateNextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(navigateNextEvent);
+
+    }
 
     doCreditCheck() {
         this.loading = true
         simpleCreditCheck({loanApplicantId: this.recordId}).then(result => {
-            this.refreshDisabled = true;
-            if (result.creditCheckScore__c > 0) {
-                this.idvPassed = true
+            console.log('abcd', result)
+            if (!result.errorOccurred) {
+                this.refreshDisabled = true;
+                if (result.applicant.creditCheckScore__c > 0) {
+                    this.idvPassed = true
+                }
+
+                this.scoreClass = result.applicant.creditCheckRagIndicator__c
+
+                this.loading = false
+                this.resultData = result.applicant
+            } else {
+                this.idvPassed = true;
+                this.showToast('DOMAIN RESPONSE ERROR: Please contact support desk', result.errorMessage, 'error');
+                this.showCancel = true;
+
             }
-
-            this.scoreClass = result.creditCheckRagIndicator__c
-
-            this.loading = false
-            this.resultData = result
         }).catch(error => {
             this.showToast('DOMAIN RESPONSE ERROR: Please contact support desk', 'DOMAIN RESPONSE ERROR: Please contact support desk', 'error');
             this.loading = false
@@ -118,7 +142,6 @@ export default class CreditCheck extends LightningElement {
         this.showHtmlErrorToast = false;
 
     }
-
 
 
 }

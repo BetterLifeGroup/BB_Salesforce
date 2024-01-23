@@ -98,11 +98,18 @@
                 ></lightning-button>
             </div>
         </template>
+        <template if:true={showCancel}>
+            <div style='display: flex;justify-content: end;margin-top: 8px'>
+                <lightning-button
+                        label='Cancel'
+                        onclick={handleCancel}
+                ></lightning-button>
+            </div>
+        </template>
         <div style='display: flex; justify-content: center; align-items: center; font-size: larger; font-weight: bold'>
             <lightning-formatted-rich-text
                     value='Credit Check'
             ></lightning-formatted-rich-text>
-
         </div>
     </lightning-card>
     <lightning-card>
