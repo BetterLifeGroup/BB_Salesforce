@@ -29,6 +29,7 @@ export default class ExternalResourceCatLoader extends LightningElement {
     @api receivedDocs = [];
     @api outstandingDocs = [];
     @api consentScope = false;
+    @api disableClose = false;
     fileName;
     blockId;
     fileSize;
@@ -56,6 +57,7 @@ export default class ExternalResourceCatLoader extends LightningElement {
     @api fileViewMode;
     @track buttonIcon = 'utility:opened_folder'
     addVar;
+    @api biometricsScope = false;
     selectedCategory;
 
     testEventFire(event) {
@@ -442,6 +444,10 @@ export default class ExternalResourceCatLoader extends LightningElement {
                 this.categories.splice(this.categories.findIndex(fno => fno.category === 'Bank Statements'), 1);
                 this.categories.splice(this.categories.findIndex(fno => fno.category === 'Financial Documents'), 1);
                 this.categories.splice(this.categories.findIndex(fno => fno.category === 'Payslips'), 1);
+                if(!this.biometricsScope){
+                    this.categoryOptions.splice(this.categoryOptions.findIndex(fno => fno.label === 'Credit Report'), 1);
+                    this.categories.splice(this.categories.findIndex(fno => fno.category === 'Credit Report'), 1);
+                }
                 // }
             }
             if (this.opportunityScope === true) {
@@ -472,5 +478,23 @@ export default class ExternalResourceCatLoader extends LightningElement {
             variant: variant,
         });
         this.dispatchEvent(event);
+    }
+
+    handleEnableClose() {
+        this.dispatchEvent(new CustomEvent('enableclose', {
+            composed: true,
+            bubbles: true,
+        }));
+        console.log('enable event received')
+        this.disableClose = false;
+    }
+
+    handleDisableClose() {
+        this.dispatchEvent(new CustomEvent('disableclose', {
+            composed: true,
+            bubbles: true,
+        }));
+        console.log('disable event received')
+        this.disableClose = true;
     }
 }
