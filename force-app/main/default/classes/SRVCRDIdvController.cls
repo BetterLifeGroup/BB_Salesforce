@@ -220,7 +220,6 @@ public class SRVCRDIdvController {
             LoanApplicant la = [SELECT Id, Is_Main_Applicant__c, LoanApplication.OpportunityId FROM LoanApplicant WHERE Id = :applicantId];
             la.creditCheckScore__c = Decimal.valueOf(xdsScore);
             la.Status__c = 'Poor Credit';
-            System.debug(la);
             update la;
             if (la.Is_Main_Applicant__c) {
                 Opportunity opp = new Opportunity(Id = la.LoanApplication.OpportunityId, StageName = 'Closed Lost',Status__c = 'Poor credit', Wrap_Up_Reason__c = 'Automated');
@@ -305,6 +304,18 @@ public class SRVCRDIdvController {
         } catch (Exception e) {
             System.debug(e);
         }
+    }
+
+    @AuraEnabled
+    public static List<String> documentCheck(String loanApplicantId){
+
+        List<String> result = new List<String>();
+        List<String> cvIds = [SELECT relatedFilesIds__c FROM LoanApplicant WHERE Id = :loanApplicantId].relatedFilesIds__c.split(';');
+        List<ContentVersion> cvList = [SELECT Id,Title FROM ContentVersion WHERE Id IN :cvIds];
+        for(ContentVersion cv : cvList){
+            result.add(cv.Title);
+        }
+        return result;
     }
 
 }
