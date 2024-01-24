@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>Is_General_opportunity_or_Pre_Approval_Opportunity</name>
+        <label>Is General opportunity or Pre-Approval Opportunity</label>
+        <locationX>182</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Update_Application_Bond_Opportunity_using_Applicant_Id</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Is Bond Opportunity</defaultConnectorLabel>
+        <rules>
+            <name>Is_Pre_Approval_Opportunity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.PreApprovalOpportunity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Bond_Opportunity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Application_Pre_Approval_using_Applicant_Id</targetReference>
+            </connector>
+            <label>Is Pre-Approval Opportunity</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <interviewLabel>On Update: Opportunity (General Opportunity) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>On Update: Opportunity (General Opportunity)</label>
@@ -24,10 +56,34 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>Update_Application_using_Applicant_Id</name>
-        <label>Update: Application using Applicant_Id</label>
-        <locationX>176</locationX>
-        <locationY>323</locationY>
+        <name>Update_Application_Bond_Opportunity_using_Applicant_Id</name>
+        <label>Update: Application Bond Opportunity using Applicant_Id</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <connector>
+            <targetReference>Update_Bond_Opportunity_base_on_General_Opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Loan_Applicant__r.LoanApplicationId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>OpportunityId</field>
+            <value>
+                <elementReference>$Record.Bond_Opportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>ResidentialLoanApplication</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Application_Pre_Approval_using_Applicant_Id</name>
+        <label>Update: Application (Pre-Approval Opportunity) using Applicant_Id</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
         <connector>
             <targetReference>Update_Pre_Approval_Opportunity_base_on_General_Opportunity</targetReference>
         </connector>
@@ -48,10 +104,31 @@
         <object>ResidentialLoanApplication</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Bond_Opportunity_base_on_General_Opportunity</name>
+        <label>Update: Bond Opportunity base on General Opportunity</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Loan_Applicant__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>SourceOpportunity__c</field>
+            <value>
+                <elementReference>$Record.Bond_Opportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Pre_Approval_Opportunity_base_on_General_Opportunity</name>
         <label>Update: Pre-Approval Opportunity base on General Opportunity</label>
-        <locationX>176</locationX>
-        <locationY>431</locationY>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -69,17 +146,24 @@
         <object>LoanApplicant</object>
     </recordUpdates>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Update_Application_using_Applicant_Id</targetReference>
+            <targetReference>Is_General_opportunity_or_Pre_Approval_Opportunity</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND 2 AND ( 3 OR 4)</filterLogic>
         <filters>
             <field>Loan_Applicant__c</field>
             <operator>IsChanged</operator>
             <value>
                 <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>General Opportunity</stringValue>
             </value>
         </filters>
         <filters>
@@ -90,10 +174,10 @@
             </value>
         </filters>
         <filters>
-            <field>Record_Type_Name__c</field>
-            <operator>EqualTo</operator>
+            <field>Bond_Opportunity__c</field>
+            <operator>IsNull</operator>
             <value>
-                <stringValue>General Opportunity</stringValue>
+                <booleanValue>false</booleanValue>
             </value>
         </filters>
         <object>Opportunity</object>
