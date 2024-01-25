@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>FinServ__General</fullName>
-    <active>true</active>
+    <active>false</active>
     <businessProcess>FinServ__Opportunity Process</businessProcess>
     <label>General</label>
     <picklistValues>
@@ -1822,6 +1822,25 @@
         </values>
         <values>
             <fullName>Unemployed</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>What_is_your_next_step__c</picklist>
+        <values>
+            <fullName>I have found a home and I%27m waiting for my offer to be accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I have found a home and my signed Offer to Purchase has been accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I%27m house-hunting and want to be pre-approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I%27m thinking about buying and want to know what I can afford</fullName>
             <default>false</default>
         </values>
     </picklistValues>
