@@ -459,6 +459,28 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Must_Exit_Flow2</name>
+        <label>Must Exit Flow?</label>
+        <locationX>1809</locationX>
+        <locationY>657</locationY>
+        <defaultConnector>
+            <targetReference>UpdatedApplicantRecord_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Exit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>v_CreditCheckMustExitFlow</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes,Exit</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Rag_Indicator</name>
         <label>Rag Indicator</label>
         <locationX>1722</locationX>
@@ -1469,7 +1491,7 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>UpdatedApplicantRecord_0</targetReference>
+            <targetReference>Must_Exit_Flow2</targetReference>
         </connector>
         <fields>
             <name>creditCheck</name>
@@ -1497,7 +1519,10 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <outputParameters>
+                <assignToReference>v_CreditCheckMustExitFlow</assignToReference>
+                <name>mustExitFlow</name>
+            </outputParameters>
         </fields>
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
@@ -2066,6 +2091,16 @@ Front-End Access: Work Opportunity button on the Opportunity page.</description>
         <isOutput>false</isOutput>
         <value>
             <booleanValue>true</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>v_CreditCheckMustExitFlow</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
         </value>
     </variables>
 </Flow>
