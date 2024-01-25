@@ -9,79 +9,201 @@
     </template>
     <template if:false={working}>
         <div>
-            <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
-                <lightning-input
-                        label='First Name'
-                        class='inputClass'
-                        onchange={handleAgentFirstNameChange}
-                ></lightning-input>
-                <lightning-input
-                        label='Preferred Name'
-                        class='inputClass'
-                        onchange={handleAgentPreferredNameChange}
-                ></lightning-input>
-                <lightning-input
-                        label='Last Name'
-                        class='inputClass'
-                        onchange={handleAgentLastNameChange}
-                        required
-                ></lightning-input>
-                <div style='display: flex;flex-direction: row;align-items: end' class='searchClass'>
-                    <div style='display: flex;flex-direction: column'>
-                        <lightning-input
-                                label='4DX Indicator'
-                                type='Checkbox'
-                                checked={agent.agent.X4DX_Indicator__c}
-                                onchange={handle4dxChange}
-                        ></lightning-input>
-                        <lightning-input
-                                label='P40 Indicator'
-                                type='Checkbox'
-                                checked={agent.agent.P40_Indicator__c}
-                                onchange={handleP40Change}
-                        ></lightning-input>
-                    </div>
-                    <template if:true={saveEnabled}>
-                        <div style='display: flex;justify-content: start;padding-top: 8px' class='searchClass'>
-                            <lightning-button
-                                    label='Create'
-                                    onclick={handleCreate}
-                            ></lightning-button>
-                        </div>
-                    </template>
-                    <template if:false={saveEnabled}>
-                        <div style='display: flex;justify-content: start; padding-top: 8px' class='searchClass'>
-                            <lightning-button
-                                    label='Create'
-                                    disabled
-                            ></lightning-button>
-                        </div>
-                    </template>
+
+            <div style='font-size: larger;margin: 12px;display: flex;flex-direction: row; gap: 4px'>
+                <div>
+                    <lightning-icon icon-name="utility:record" size="xx-small"
+                                    aria-hidden="true"></lightning-icon>
+                </div>
+                <div style="margin-top: 1px">
+                    Personal Details
                 </div>
             </div>
             <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
-                <lightning-input
-                        label='Email'
-                        class='inputClass'
-                        onchange={handleAgentEmailChange}
-                        data-field="email"
-                        required
-                ></lightning-input>
-                <lightning-input
-                        label='Phone'
-                        class='inputClass'
-                        onchange={handleAgentMobilePhoneChange}
-                        data-field="mobile"
-                ></lightning-input>
-                <c-searchable-combobox
-                        class='searchClass'
-                        label='Assigned Branch'
-                        options={branchOptions}
-                        onrecordselected={handleBranchSelected}
-                        onrecordremoved={handleRecordRemoved}
-                ></c-searchable-combobox>
-            </div>
+                <div class='slds-input-has-icon slds-input-has-icon_right'>
+                    <lightning-input
+                            label='First Name'
+                            class='inputClass'
+                            onchange={handleAgentFirstNameChange}
+                    ></lightning-input>
+                    <div style='margin-top: 2px'
+                         class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                        <lightning-icon icon-name="utility:edit_form" size="xx-small"
+                                        class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                        aria-hidden="true"></lightning-icon>
+                    </div>
+                </div>
+                <div class='slds-input-has-icon slds-input-has-icon_right'>
+                    <lightning-input
+                            label='Last Name'
+                            class='inputClass'
+                            onchange={handleAgentLastNameChange}
+                            required
+                    ></lightning-input>
+                    <div style='margin-top: 2px'
+                         class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                        <lightning-icon icon-name="utility:edit_form" size="xx-small"
+                                        class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                        aria-hidden="true"></lightning-icon>
+                    </div>
+                </div>
+                <div class='slds-input-has-icon slds-input-has-icon_right'>
+                    <lightning-input
+                            label='Preferred Name'
+                            class='inputClass'
+                            onchange={handleAgentPreferredNameChange}
+                    ></lightning-input>
+                    <div style='margin-top: 2px'
+                         class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                        <lightning-icon icon-name="utility:edit_form" size="xx-small"
+                                        class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                        aria-hidden="true"></lightning-icon>
+                    </div>
+                </div>
+                <!--            </div>-->
+                <!--            <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>-->
+                <div class='slds-input-has-icon slds-input-has-icon_right'>
+                    <lightning-input
+                            label='Email'
+                            class='inputClass'
+                            onchange={handleAgentEmailChange}
+                            data-field="email"
+                            required
+                    ></lightning-input>
+                    <div style='margin-top: 2px'
+                         class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                        <lightning-icon icon-name="utility:email" size="xx-small"
+                                        class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                        aria-hidden="true"></lightning-icon>
+                    </div>
+                </div>
+                <div class='slds-input-has-icon slds-input-has-icon_right'>
+                    <lightning-input
+                            label='Phone'
+                            class='inputClass '
+                            onchange={handleAgentMobilePhoneChange}
+                            data-field="mobile"
+                    ></lightning-input>
 
+                    <div style='margin-top: 2px'
+                         class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                        <lightning-icon icon-name="utility:phone_portrait" size="xx-small"
+                                        class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                        aria-hidden="true"></lightning-icon>
+                    </div>
+                </div>
+            </div>
+            <div style='border-bottom: solid 1px #c9c9c9; width: 90%;margin: 16px 5%;'></div>
+
+
+            <div style='font-size: larger;margin: 12px;display: flex;flex-direction: row; gap: 4px'>
+                <div>
+                    <lightning-icon icon-name="utility:record" size="xx-small"
+                                    aria-hidden="true"></lightning-icon>
+                </div>
+                <div style="margin-top: 1px">
+                    System Details
+                </div>
+            </div>
+            <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+                <div style='width: 25%'>
+                    <c-user-management-record-search
+                            label='Assigned Branch'
+                            onrecordselected={handleBranchSelectedRs}
+                            onselectioncleared={handleRemoveBranchRs}
+                            selected-value={agent.branch}
+                            queried-object-type='Account'
+                            query-filter={queryFilter}
+                            search-field='Name'
+                            agent-mode={constantTrue}
+                            contact-mode={constantTrue}
+                            required={commIdSupplied}
+                    ></c-user-management-record-search>
+                </div>
+                <div style='min-width: 190px'>
+                    <lightning-combobox
+                            options={vizOptions}
+                            label='Visibility'
+                            class='inputClass'
+                            value={agent.agent.Visibility__c}
+                            onchange={handleAgentVizChange}
+                            data-field="viz"
+                    ></lightning-combobox>
+                </div>
+                <div class='slds-input-has-icon slds-input-has-icon_right'>
+                    <lightning-input
+                            label='Commission Entity Id'
+                            class='inputClass'
+                            value={agent.commId}
+                            onchange={handleAgentCommIdChangeNew}
+                            data-field="commId"
+                            required={branchSelected}
+                    ></lightning-input>
+                    <div style='margin-top: 2px'
+                         class="slds-icon_container slds-icon-utility-search slds-input__icon slds-input__icon_right">
+                        <lightning-icon icon-name="utility:edit_form" size="xx-small"
+                                        class="slds-icon slds-icon slds-icon_x-small slds-icon-text-default slds-align_absolute-center"
+                                        aria-hidden="true"></lightning-icon>
+                    </div>
+                </div>
+                <div style='display: flex;flex-direction: column'>
+                    <lightning-input
+                            label='4DX Indicator'
+                            type='Checkbox'
+                            checked={agent.agent.X4DX_Indicator__c}
+                            onchange={handle4dxChange}
+                    ></lightning-input>
+                    <lightning-input
+                            label='P40 Indicator'
+                            type='Checkbox'
+                            checked={agent.agent.P40_Indicator__c}
+                            onchange={handleP40Change}
+                    ></lightning-input>
+                </div>
+                <!--            </div>-->
+                <!--            <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>-->
+
+            </div>
+        </div>
+        <div style='border-bottom: solid 1px #c9c9c9; width: 90%;margin: 16px 5%;'></div>
+        <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+
+
+            <div style='display: flex;flex-direction: row;align-items: end' class='searchClass'>
+
+                <template if:true={saveEnabled}>
+                    <div style='display: flex;justify-content: start;padding-top: 8px' class='searchClass'>
+                        <lightning-button
+                                label='Create'
+                                onclick={handleCreate}
+                        ></lightning-button>
+                    </div>
+                </template>
+                <template if:false={saveEnabled}>
+                    <div style='display: flex;justify-content: start; padding-top: 8px' class='searchClass'>
+                        <lightning-button
+                                label='Create'
+                                disabled
+                        ></lightning-button>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+
+            <!--                <c-searchable-combobox-->
+            <!--                        class='searchClass'-->
+            <!--                        label='Assigned Branch'-->
+            <!--                        options={branchOptions}-->
+            <!--                        onrecordselected={handleBranchSelected}-->
+            <!--                        onrecordremoved={handleRecordRemoved}-->
+            <!--                ></c-searchable-combobox>-->
+
+        </div>
+        <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+            <div class='inputClass'>
+
+            </div>
         </div>
     </template>
 </template>

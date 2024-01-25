@@ -8,15 +8,44 @@
         <template if:true={working}>
             <lightning-spinner size='small'></lightning-spinner>
         </template>
-        <div id="Networks" style='width: 40%'>
-            <c-user-management-record-search
-                    label='Search Real Estate Agents'
-                    account-mode={constantTrue}
-                    account-scope='agents'
-                    onrecordselected={contactSelected}
-                    onselectioncleared={handleSelectionCleared}
-                    additional-info-visible={constantTrue}
-            ></c-user-management-record-search>
+        <lightning-input
+                label='Include Inactive Agents'
+                onchange={handleInactiveSearchChange}
+                type='checkbox'
+        ></lightning-input>
+        <div style='display: flex;flex-direction: row; gap: 12px;align-items: end'>
+            <div id="Networks" style='width: 40%'>
+                <template if:false={reloadView}>
+                    <c-user-management-record-search
+                            label=''
+                            account-mode={constantTrue}
+                            account-scope={accountScope}
+                            onrecordselected={contactSelected}
+                            onselectioncleared={handleSelectionCleared}
+                            additional-info-visible={constantTrue}
+                    ></c-user-management-record-search>
+                </template>
+            </div>
+            <div>
+                <template if:true={agentSelected}>
+                    <template if:true={activeAgent}>
+                        <div style='margin-bottom: 9px'>
+                            <lightning-button
+                                    label='Deactivate'
+                                    onclick={handleDeactivate}
+                            ></lightning-button>
+                        </div>
+                    </template>
+                    <template if:false={activeAgent}>
+                        <div style='margin-bottom: 9px'>
+                            <lightning-button
+                                    label='Reactivate'
+                                    onclick={handleReactivate}
+                            ></lightning-button>
+                        </div>
+                    </template>
+                </template>
+            </div>
         </div>
         <template if:true={agentSelected}>
             <div>
@@ -55,7 +84,7 @@
                                     onchange={handleP40Change}
                             ></lightning-input>
                         </div>
-                        <template if:false={disableUpdate}>
+                        <template if:true={showUpdate}>
                             <div style='display: flex;justify-content: start; align-items: end' class='inputClass'>
                                 <lightning-button
                                         label='Update'
@@ -63,7 +92,7 @@
                                 ></lightning-button>
                             </div>
                         </template>
-                        <template if:true={disableUpdate}>
+                        <template if:false={showUpdate}>
                             <div style='display: flex;justify-content: start; align-items: end' class='inputClass'>
                                 <lightning-button
                                         label='Update'
@@ -91,13 +120,50 @@
                             onchange={handleAgentMobilePhoneChange}
                             data-field="mobile"
                     ></lightning-input>
-                    <c-searchable-combobox
-                            class='searchClass'
-                            label='Assigned Branch'
-                            options={branchOptions}
-                            onrecordselected={handleBranchSelected}
-                            selected-value={agent.branch}
-                    ></c-searchable-combobox>
+                    <!--                    <c-searchable-combobox-->
+                    <!--                            class='searchClass'-->
+                    <!--                            label='Assigned Branch'-->
+                    <!--                            options={branchOptions}-->
+                    <!--                            onrecordselected={handleBranchSelected}-->
+                    <!--                            selected-value={agent.branch}-->
+                    <!--                    ></c-searchable-combobox>-->
+                    <div style='width: 25%'>
+                        <c-user-management-record-search
+                                label='Assigned Branch'
+                                onrecordselected={handleBranchSelectedRs}
+                                onselectioncleared={handleRemoveBranchRs}
+                                selected-value={agent.branch}
+
+                                queried-object-type='Account'
+                                query-filter={queryFilter}
+                                search-field='Name'
+                                agent-mode={constantTrue}
+                                contact-mode={constantTrue}
+                        ></c-user-management-record-search>
+                    </div>
+                </div>
+                <div style='display: flex;flex-direction: row;gap: 6px;align-items: end'>
+                    <div class='inputClass'>
+                        <lightning-input
+                                label='Commission Entity Id'
+                                class='inputClass'
+                                value={agent.commId}
+                                onchange={handleAgentCommIdChange}
+                                data-field="commId"
+                                required
+                        ></lightning-input>
+                    </div>
+                    <div class='inputClass'>
+                        <lightning-combobox
+                                options={vizOptions}
+                                label='Visibility'
+                                class='inputClass'
+                                value={agent.agent.Visibility__c}
+                                onchange={handleAgentVizChange}
+                                data-field="viz"
+                                required
+                        ></lightning-combobox>
+                    </div>
                 </div>
             </div>
             <template if:true={showLinkedConsultants}>
