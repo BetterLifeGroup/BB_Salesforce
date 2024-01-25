@@ -50,6 +50,8 @@
                                 refresh-var={refreshVar}
                                 record-id={recordId}
                                 opportunity-scope={opportunityScope}
+                                ondisableclose={handleDisableClose}
+                                onenableclose={handleEnableClose}
                         >
                         </c-external-resource-manager>
                     </div>
@@ -153,12 +155,17 @@
                         </div>
                     </div>
                     <div class="slds-modal__footer">
-                        <!--                        <button onclick={handleModalCancelClick} class="slds-button slds-button_neutral"-->
-                        <!--                                aria-label="Cancel and close">Cancel-->
-                        <!--                        </button>-->
-                        <button class="slds-button slds-button_brand"
-                                onclick={handleModalCancelClick}>Close
-                        </button>
+                        <template if:false={disableClose}>
+                            <button class="slds-button slds-button_brand"
+                                    onclick={handleModalCancelClick}>Close
+                            </button>
+                        </template>
+                        <template if:true={disableClose}>
+                            <lightning-button
+                            label="Close"
+                            disabled
+                            ></lightning-button>
+                        </template>
                     </div>
                 </div>
             </section>

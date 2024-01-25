@@ -71,6 +71,7 @@ export default class ConsentViewer extends LightningElement {
             console.log('consent list', value.data)
             // this.consentsList = [...value.data];
             this.consentsList = JSON.parse(JSON.stringify(value.data));
+            console.log('consents list', JSON.parse(JSON.stringify(this.consentsList)))
             this.consentsList = this.consentsList.filter(cl => {
                 return cl.consentTypeSnapshot.name === 'Broad consent BB'
             })
@@ -112,7 +113,11 @@ export default class ConsentViewer extends LightningElement {
 
 
     validate() {
-        this.allowUpdate = (this.biometricsSelected ? this.creditReportUploaded && this.idValid && this.xdsScore?.length > 0 : true) && this.idFileUploaded && this.consentFileUploaded;
+        console.log('bio selected', this.biometricsSelected)
+        setTimeout(() => {
+            this.allowUpdate = (this.biometricsSelected ? this.creditReportUploaded && this.idValid && this.xdsScore?.length > 0 : true) && this.idFileUploaded && this.consentFileUploaded;
+        }, 10)
+
     }
 
     handleConfirmBiometricsClick() {
@@ -188,7 +193,26 @@ export default class ConsentViewer extends LightningElement {
 
     connectedCallback() {
         this.label = {telephonicConsentScript,};
+        this.allowUpdate = false;
+        documentCheck({loanApplicantId: this.recordId}).then(result => {
+            this.consentFileUploaded = false;
+            this.idFileUploaded = false;
+            this.creditReportUploaded = false
+            if (result.includes('Consent Document')) {
+                this.consentFileUploaded = true;
+            }
+            if (result.includes('Credit Report')) {
+                this.creditReportUploaded = true;
+            }
+            if (result.includes('Copy of ID')) {
+                this.idFileUploaded = true;
+            }
+            this.validate();
+        }).catch(error => {
+            console.log('error checking uploaded documents', error)
+        })
     }
+
 
     getApplicantDetail() {
 
@@ -308,127 +332,131 @@ export default class ConsentViewer extends LightningElement {
     }
 
     handleUpdate() {
-        this.allowUpdate = false;
-        this.isLoaded = false;
-        if (this.consentFileUploaded === false && this.manualConsent === true) {
-            this.showToast('Consent Manager', 'Consent document required to continue', 'error');
-        } else if (this.idFileUploaded === false && this.manualConsent === true) {
-            this.showToast('Consent Manager', 'Identification document required to continue', 'error');
-        } else {
-            //this.isLoaded = false;
-            let canContinue = true;
-            for (const consentKey in this.consentsList) {
+        this.validate();
+        if (this.allowUpdate) {
+            this.allowUpdate = false;
+            this.isLoaded = false;
+            if (this.consentFileUploaded === false && this.manualConsent === true) {
+                this.showToast('Consent Manager', 'Consent document required to continue', 'error');
+            } else if (this.idFileUploaded === false && this.manualConsent === true) {
+                this.showToast('Consent Manager', 'Identification document required to continue', 'error');
+            } else {
+                let canContinue = true;
+                for (const consentKey in this.consentsList) {
 
-                if (typeof this.consentsList[consentKey].granted === 'undefined') {
-                    // Check if it is required
-                    if (typeof this.consentsList[consentKey].required === 'undefined') {
+                    if (typeof this.consentsList[consentKey].granted === 'undefined') {
+                        // Check if it is required
+                        if (typeof this.consentsList[consentKey].required === 'undefined') {
+                            continue;
+                        } else {
+                            canContinue = false;
+                            continue;
+                        }
+                    } else if (this.consentsList[consentKey].required === this.consentsList[consentKey].granted.toString()) {
                         continue;
-                    } else {
+                    }
+                    if (this.consentsList[consentKey].required === 'false' && this.consentsList[consentKey].granted.toString() === 'true') {
+                        continue;
+                    } else if (typeof this.consentsList[consentKey].required === 'undefined') {
+                        continue;
+                    } else if (typeof this.consentsList[consentKey].required === 'string') {
                         canContinue = false;
                         continue;
                     }
-                } else if (this.consentsList[consentKey].required === this.consentsList[consentKey].granted.toString()) {
-                    continue;
                 }
-                if (this.consentsList[consentKey].required === 'false' && this.consentsList[consentKey].granted.toString() === 'true') {
-                    continue;
-                } else if (typeof this.consentsList[consentKey].required === 'undefined') {
-                    continue;
-                } else if (typeof this.consentsList[consentKey].required === 'string') {
-                    canContinue = false;
-                    continue;
+
+                if (canContinue) {
+                } else {
+                    this.completeConsentsWarningVisible = true
+                    this.manualConsent = false
+                    this.telephonicConsent = false
+                    this.typeOfConsent = true
+                    this.showToast('Consent Manager', 'Consent requirements not met', 'error')
+                    return
                 }
-            }
-
-            if (canContinue) {
-            } else {
-                this.completeConsentsWarningVisible = true
-                this.manualConsent = false
-                this.telephonicConsent = false
-                this.typeOfConsent = true
-                this.showToast('Consent Manager', 'Consent requirements not met', 'error')
-                return
-            }
-            if (this.manualConsent === true && canContinue) {
-                updateConsentRequirements({
-                    personId: this.personId,
-                    consentRequirementsMet: canContinue,
-                    applicantId: this.recordId
-                }).then(result => {
-                    if (this.biometricsSelected) {
-                        updateLoanApplicant({
-                            loanApplicantId: this.recordId,
-                            idNumber: this.idNumber,
-                            idType: 'SID',
-                            passportNumber: ''
-                        }).then(result => {
-                            if(this.xdsScore > 678){
-                            biometricUpdates({loanApplicantId:this.recordId,xdsScore:this.xdsScore}).then(result => {
-                                console.log('bio update',result)
-                                const navigateNextEvent = new FlowNavigationNextEvent()
-                                this.dispatchEvent(navigateNextEvent);
-                            })}else {
-                                closeOppBiometricLowXdsScore({applicantId:this.recordId,xdsScore:this.xdsScore}).then(result => {
-                                    const navigateNextEvent = new FlowNavigationNextEvent()
-                                    this.dispatchEvent(navigateNextEvent);
-                                    console.log('opp closed, or if coapp, only coapp updated',result)
-                                })
-                            }
-                        }).catch(error => {
-                            console.log('error updating',error)
-                        })
-                    } else {
-                        const navigateNextEvent = new FlowNavigationNextEvent()
-                        this.dispatchEvent(navigateNextEvent);
-                    }
-                }).catch((error) => {
-                    this.showToast(error, error, 'warning')
-                })
-            }
-            if (this.updatesList.length > 0 && this.manualConsent === true) {
-                updateConsents({personId: this.personId, consentReqList: this.updatesList})
-                    .then((result) => {
-                        this.success = result;
-                        this.error = undefined;
-                    })
-                    .catch((error) => {
-                        this.error = error;
-                        this.success = undefined;
-                        this.isLoaded = true;
-                    });
-            } else if (this.updatesList.length > 0) {
-                updateConsents({personId: this.personId, consentReqList: this.updatesList})
-                    .then((result) => {
-
-                        this.success = result;
-                        this.error = undefined;
-                        // this.isLoaded = true;
-                        // if(){
-                        updateConsentRequirements({
-                            personId: this.personId,
-                            consentRequirementsMet: canContinue,
-                            applicantId: null
-                        }).then(result => {
-                            // setOpportunityStatus({
-                            //     loanApplicantId: this.recordId,
-                            //     status: 'No PA consent received',
-                            //     stageName: 'Working',
-                            //     wrapUpReason: 'Automated'
-                            // }).then(result => {
+                if (this.manualConsent === true && canContinue) {
+                    updateConsentRequirements({
+                        personId: this.personId,
+                        consentRequirementsMet: canContinue,
+                        applicantId: this.recordId
+                    }).then(result => {
+                        if (this.biometricsSelected) {
+                            updateLoanApplicant({
+                                loanApplicantId: this.recordId,
+                                idNumber: this.idNumber,
+                                idType: 'SID',
+                                passportNumber: ''
+                            }).then(result => {
+                                if (this.xdsScore > 678) {
+                                    biometricUpdates({
+                                        loanApplicantId: this.recordId,
+                                        xdsScore: this.xdsScore
+                                    }).then(result => {
+                                        console.log('bio update', result)
+                                        const navigateNextEvent = new FlowNavigationNextEvent()
+                                        this.dispatchEvent(navigateNextEvent);
+                                    })
+                                } else {
+                                    closeOppBiometricLowXdsScore({
+                                        applicantId: this.recordId,
+                                        xdsScore: this.xdsScore
+                                    }).then(result => {
+                                        const navigateNextEvent = new FlowNavigationNextEvent()
+                                        this.dispatchEvent(navigateNextEvent);
+                                        console.log('opp closed, or if coapp, only coapp updated', result)
+                                    })
+                                }
+                            }).catch(error => {
+                                console.log('error updating', error)
+                            })
+                        } else {
                             const navigateNextEvent = new FlowNavigationNextEvent()
                             this.dispatchEvent(navigateNextEvent);
-                            // })
-                        })
+                        }
+                    }).catch((error) => {
+                        this.showToast(error, error, 'warning')
                     })
-                    .catch((error) => {
-                        this.error = error;
-                        this.success = undefined;
-                        this.isLoaded = true;
-                    });
-            } else {
-                const navigateNextEvent = new FlowNavigationNextEvent()
-                this.dispatchEvent(navigateNextEvent);
+                }
+                if (this.updatesList.length > 0 && this.manualConsent === true) {
+                    updateConsents({personId: this.personId, consentReqList: this.updatesList})
+                        .then((result) => {
+                            this.success = result;
+                            this.error = undefined;
+                        })
+                        .catch((error) => {
+                            this.error = error;
+                            this.success = undefined;
+                            this.isLoaded = true;
+                        });
+                } else if (this.updatesList.length > 0) {
+                    updateConsents({personId: this.personId, consentReqList: this.updatesList})
+                        .then((result) => {
+
+                            this.success = result;
+                            this.error = undefined;
+                            updateConsentRequirements({
+                                personId: this.personId,
+                                consentRequirementsMet: canContinue,
+                                applicantId: null
+                            }).then(result => {
+                                const navigateNextEvent = new FlowNavigationNextEvent()
+                                this.dispatchEvent(navigateNextEvent);
+                                // })
+                            })
+                        })
+                        .catch((error) => {
+                            this.error = error;
+                            this.success = undefined;
+                            this.isLoaded = true;
+                        });
+                } else {
+                    const navigateNextEvent = new FlowNavigationNextEvent()
+                    this.dispatchEvent(navigateNextEvent);
+                }
             }
+        } else {
+            this.allowUpdate = false;
+            this.connectedCallback();
         }
     }
 
@@ -540,4 +568,31 @@ export default class ConsentViewer extends LightningElement {
         this.showHtmlWarningToast = false;
         this.showHtmlErrorToast = false;
     }
+
+    @track showUploader = false;
+
+    handleManageFiles() {
+        this.allowUpdate = false;
+        this.showUploader = !this.showUploader;
+        this.fadeDiv = this.fadeDiv.includes('fade') ? '' : 'fade';
+        console.log(this.fadeDiv)
+        console.log(this.showUploader)
+    }
+
+    async closeFileUploaderModal() {
+        this.showUploader = false;
+        this.connectedCallback();
+
+    }
+
+    @track disableClose;
+
+    handleDisableClose() {
+        this.disableClose = true;
+    }
+
+    handleEnableClose() {
+        this.disableClose = false;
+    }
+
 }
