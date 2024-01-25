@@ -808,8 +808,8 @@
     <assignments>
         <name>Assign_Opp_to_Create</name>
         <label>Assign Opp to Create</label>
-        <locationX>1807</locationX>
-        <locationY>3338</locationY>
+        <locationX>1799</locationX>
+        <locationY>3340</locationY>
         <assignmentItems>
             <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
             <operator>Assign</operator>
@@ -957,8 +957,8 @@
     <assignments>
         <name>Assign_Opp_to_Create_0</name>
         <label>Assign Opp to Create</label>
-        <locationX>2122</locationX>
-        <locationY>3527</locationY>
+        <locationX>2144</locationX>
+        <locationY>3526</locationY>
         <assignmentItems>
             <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
             <operator>Assign</operator>
@@ -1155,6 +1155,120 @@
             <operator>Assign</operator>
             <value>
                 <elementReference>$User.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.RecordTypeId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>recordTypeVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.StageName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>stageVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>statusVar</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Create_PA_Opportunity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Opp_to_Create_0_0_0</name>
+        <label>Assign Opp to Create</label>
+        <locationX>1885</locationX>
+        <locationY>3428</locationY>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.AccountId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Are_you_buying_your_first_home__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>mainApplicant.Are_you_buying_your_first_home__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Assignment_DateTime__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>convertedAssignmentDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.BLG_Campaign__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.BLG_Campaign__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>assignmentDatePlus7</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantRegion__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantRegion__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.ConsultantSubBranch__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.ConsultantSubBranch__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.General_Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.MC_Main_applicant_email_address__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Contact_Record_for_Person.Email</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>oppNameVar</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OppToCreateRecVar.OwnerId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_General_Opportunity.OwnerId</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -2032,8 +2146,8 @@
     <decisions>
         <name>Bond_Create_Checks</name>
         <label>Bond Create Checks</label>
-        <locationX>2112</locationX>
-        <locationY>3333</locationY>
+        <locationX>2135</locationX>
+        <locationY>3324</locationY>
         <defaultConnector>
             <targetReference>Assign_Opp_to_Create_0</targetReference>
         </defaultConnector>
@@ -2056,7 +2170,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Assign_Opp_to_Create</targetReference>
+                <targetReference>Assign_Opp_to_Create_0_0_0</targetReference>
             </connector>
             <label>Office Admin Bond No PA</label>
         </rules>
@@ -2101,7 +2215,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Assign_Opp_to_Create</targetReference>
+                <targetReference>Assign_Opp_to_Create_0_0_0</targetReference>
             </connector>
             <label>Bond No PA</label>
         </rules>
