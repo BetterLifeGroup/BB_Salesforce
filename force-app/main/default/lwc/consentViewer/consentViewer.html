@@ -4,129 +4,152 @@
 
 <!-- Consent Viewer -->
 <template>
-    <template if:true={showHtmlErrorToast}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_error" role="status" style='justify-content: center'>
-                <span class="slds-assistive-text">error</span>
-                <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top"
-                      title="Description of icon when needed">
+    <div if:true={showUploader}>
+        <div id={fileModal}>
+
+            <section role="dialog" tabindex="-1" aria-modal="true"
+                     class="slds-modal slds-fade-in-open slds-modal_small">
+                <div class="slds-modal__container">
+                    <div class="slds-modal__content slds-p-around_medium" id="file-modal-content-id-1" style='border: #5d5d5d solid 2px;border-radius: 10px;'>
+                        <c-external-resource-cat-loader
+                                record-id={recordId}
+                                consent-scope={constantTrue}
+                                onfilemodalclose={handleFileModalClose}
+
+                        ></c-external-resource-cat-loader>
+                        <div class="slds-modal__footer">
+                            <!--                        <button onclick={handleModalCancelClick} class="slds-button slds-button_neutral"-->
+                            <!--                                aria-label="Cancel and close">Cancel-->
+                            <!--                        </button>-->
+                            <button class="slds-button slds-button_brand"
+                                    onclick={closeFileUploaderModal}>Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+        </div>
+
+    </div>
+    <div class={fadeDiv}>
+
+        <template if:true={showHtmlErrorToast}>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_error" role="status"
+                     style='justify-content: center'>
+                    <span class="slds-assistive-text">error</span>
+                    <span class="slds-icon_container slds-icon-utility-error slds-m-right_small slds-no-flex slds-align-top"
+                          title="Description of icon when needed">
 </span>
-                <div class="slds-notify__content">
-                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
-                </div>
-                <div class="slds-notify__close">
-                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
-                            onclick={handleCloseToast}>
-                        <span class="slds-assistive-text">Cancel</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </template>
-
-
-    <template if:true={showHtmlSuccessToast}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_success" role="status" style='justify-content: center'>
-                <span class="slds-assistive-text">success</span>
-                <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
-                      title="Description of icon when needed">
-</span>
-                <div class="slds-notify__content">
-                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
-                </div>
-                <div class="slds-notify__close">
-                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
-                            onclick={handleCloseToast}>
-                        <span class="slds-assistive-text">Cancel</span>
-                    </button>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                                onclick={handleCloseToast}>
+                            <span class="slds-assistive-text">Cancel</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </template>
-
-
-    <template if:true={showHtmlWarningToast}>
-        <div class="slds-notify_container slds-is-relative">
-            <div class="slds-notify slds-notify_toast slds-theme_warning" role="status" style='justify-content: center'>
-                <span class="slds-assistive-text">warning</span>
-                <span class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
-                      title="Description of icon when needed">
-    </span>
-                <div class="slds-notify__content">
-                    <h2 class="slds-text-heading_small ">{toastMessage}</h2>
-                </div>
-                <div class="slds-notify__close">
-                    <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
-                            onclick={handleCloseToast}>
-                        <span class="slds-assistive-text">Cancel</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </template>
-    <template if:true={completeConsentsWarningVisible}>
-        <lightning-formatted-text
-                class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
-                value='Please complete consents'>
-        </lightning-formatted-text>
-    </template>
-    <template if:true={typeOfConsent}>
-        <div class="slds-text-align_center slds-text-heading_small" style="margin: 15px; background-color: #F0F0F0">
-            <lightning-formatted-rich-text
-                    value={loanApplicantName}
-            ></lightning-formatted-rich-text>
-        </div>
-        <div style='display: flex;justify-content: center; gap: 5px; padding-bottom: 15px'>
-            <!--            <lightning-button-->
-            <!--                    label="Telephonic Consent"-->
-            <!--                    variant="brand"-->
-            <!--                    onclick={handleTelephonicClick}-->
-            <!--            ></lightning-button>-->
-            <lightning-button
-                    label="Manual Consent"
-                    variant="brand"
-                    onclick={handleManualClick}
-            ></lightning-button>
-            <lightning-button
-                    label="Confirm Biometrics"
-                    variant="brand"
-                    onclick={handleConfirmBiometricsClick}
-            ></lightning-button>
-        </div>
-
-        <div style="display: flex;justify-content: space-around;border-top: 1px solid lightgray; padding-top: 15px">
-            <lightning-button
-                    label="Cancel"
-                    onclick={handleExitToFlow}
-            ></lightning-button>
-        </div>
-
-    </template>
-
-    <template if:true={manualConsent}>
-        <div style="max-width: 0; max-height: 0; overflow: hidden;">
-            <input autofocus/>
-        </div>
-        <template if:true={error}>
-            <div>SOMETHING WENT WRONG<br/>{error}</div>
         </template>
 
-<!--        <table if:false={error}>-->
+
+        <template if:true={showHtmlSuccessToast}>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_success" role="status"
+                     style='justify-content: center'>
+                    <span class="slds-assistive-text">success</span>
+                    <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                          title="Description of icon when needed">
+</span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                                onclick={handleCloseToast}>
+                            <span class="slds-assistive-text">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+        <template if:true={showHtmlWarningToast}>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_warning" role="status"
+                     style='justify-content: center'>
+                    <span class="slds-assistive-text">warning</span>
+                    <span class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+                          title="Description of icon when needed">
+    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                                onclick={handleCloseToast}>
+                            <span class="slds-assistive-text">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={completeConsentsWarningVisible}>
+            <lightning-formatted-text
+                    class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                    value='Please complete consents'>
+            </lightning-formatted-text>
+        </template>
+        <template if:true={typeOfConsent}>
+            <div class="slds-text-align_center slds-text-heading_small" style="margin: 15px; background-color: #F0F0F0">
+                <lightning-formatted-rich-text
+                        value={loanApplicantName}
+                ></lightning-formatted-rich-text>
+            </div>
+            <div style='display: flex;justify-content: center; gap: 5px; padding-bottom: 15px'>
+                <!--            <lightning-button-->
+                <!--                    label="Telephonic Consent"-->
+                <!--                    variant="brand"-->
+                <!--                    onclick={handleTelephonicClick}-->
+                <!--            ></lightning-button>-->
+                <lightning-button
+                        label="Manual Consent"
+                        variant="brand"
+                        onclick={handleManualClick}
+                ></lightning-button>
+                <lightning-button
+                        label="Confirm Biometrics"
+                        variant="brand"
+                        onclick={handleConfirmBiometricsClick}
+                ></lightning-button>
+            </div>
+
+            <div style="display: flex;justify-content: space-around;border-top: 1px solid lightgray; padding-top: 15px">
+                <lightning-button
+                        label="Cancel"
+                        onclick={handleExitToFlow}
+                ></lightning-button>
+            </div>
+
+        </template>
+
+        <template if:true={manualConsent}>
+            <div style="max-width: 0; max-height: 0; overflow: hidden;">
+                <input autofocus/>
+            </div>
+            <template if:true={error}>
+                <div>SOMETHING WENT WRONG<br/>{error}</div>
+            </template>
+
             <template for:each={consentsList} for:item="cr" for:index="index">
-                <div key={cr.consentTypeId} >
-                    <!--                    <tr key={cr.consentTypeId}>-->
-                    <!---->
-                    <!--                        <td style='border-bottom: 1px lightgray; display: flex; justify-content: end'>-->
-
-
+                <div key={cr.consentTypeId} class="slds-scrollable_y" style='height: 23vh;border: #e3dcdc solid 3px;padding: 9px;border-radius: 5px;' tabindex="0">
                     <lightning-formatted-rich-text
                             value={cr.consentTypeSnapshot.declaration}
                     ></lightning-formatted-rich-text>
-                    <!--                        {cr.consentTypeSnapshot.description}-->
-                    <!--                        <lightning-helptext content={cr.consentTypeSnapshot.declaration}></lightning-helptext>-->
-                    <!--                        </td>-->
-                    <!--                        <td>-->
                     <div if:true={cr.notSet} class="slds-is-relative" style='display: flex;justify-content: end'>
                         <lightning-radio-group options={options}
                                                data-index={index}
@@ -161,56 +184,15 @@
                                                    class="slds-m-around_small"></lightning-radio-group>
                         </div>
                     </div>
-                    <!--                        </td>-->
-                    <!--                    </tr>-->
                 </div>
             </template>
-<!--            <tr style="border-top: 1px solid lightgray">-->
-<!--            </tr>-->
-<!--        </table>-->
-        <div class="slds-p-around_medium lgc-bg">
-            <div style='display: flex;justify-content: space-around'>
-                <div style='display: flex; flex-direction: column;'>
-                    <lightning-input type="file" label="Consent file" single
-                                     onchange={handleConsentFilesChange}
-                                     field-level-help="Consent file required for manual consent"></lightning-input>
-                    <template if:true={consentFileUploaded}>
-                        <div style='display:flex;flex-direction: row; justify-content: center;align-items: center;gap: 18px'>
-                            <lightning-formatted-text
-                                    value="Uploaded"
-                            ></lightning-formatted-text>
-                            <lightning-icon
-                                    icon-name="utility:check"
-                                    variant="success"
-                            ></lightning-icon>
-                        </div>
-                    </template>
-                </div>
-                <div style='display: flex;flex-direction: column'>
-                    <lightning-file-upload label="Identification Document"
-                                           onuploadfinished={handleIdFilesChange}
-                                           record-id={recordId}
-                    ></lightning-file-upload>
-                    <template if:true={idFileUploaded}>
-                        <div style='display:flex;flex-direction: row; justify-content: center;align-items: center;gap: 18px'>
-                            <lightning-formatted-text
-                                    value="Uploaded"
-                            ></lightning-formatted-text>
-                            <lightning-icon
-                                    icon-name="utility:check"
-                                    variant="success"
-                            ></lightning-icon>
-                        </div>
-                    </template>
-                </div>
-                <template if:true={biometricsSelected}>
-                    <div style='display: flex;flex-direction: column'>
-                        <lightning-file-upload
-                                label="Credit Report"
-                                onuploadfinished={handleCreditReportUpload}
-                                record-id={recordId}
-                        ></lightning-file-upload>
-                        <template if:true={creditReportUploaded}>
+            <div class=" lgc-bg">
+                <div style='display: flex;justify-content: space-around'>
+                    <div style='display: flex; flex-direction: column;' class='uploadClass'>
+                        <lightning-input type="file" label="Consent file" single
+                                         onchange={handleConsentFilesChange}
+                                         field-level-help="Consent file required for manual consent"></lightning-input>
+                        <template if:true={consentFileUploaded}>
                             <div style='display:flex;flex-direction: row; justify-content: center;align-items: center;gap: 18px'>
                                 <lightning-formatted-text
                                         value="Uploaded"
@@ -222,98 +204,139 @@
                             </div>
                         </template>
                     </div>
+                    <div style='display: flex;flex-direction: column' class='uploadClass'>
+                        <lightning-file-upload label="Identification Document"
+                                               onuploadfinished={handleIdFilesChange}
+                                               record-id={recordId}
+                        ></lightning-file-upload>
+                        <template if:true={idFileUploaded}>
+                            <div style='display:flex;flex-direction: row; justify-content: center;align-items: center;gap: 18px'>
+                                <lightning-formatted-text
+                                        value="Uploaded"
+                                ></lightning-formatted-text>
+                                <lightning-icon
+                                        icon-name="utility:check"
+                                        variant="success"
+                                ></lightning-icon>
+                            </div>
+                        </template>
+                    </div>
+                    <template if:true={biometricsSelected}>
+                        <div style='display: flex;flex-direction: column' class='uploadClass'>
+                            <lightning-file-upload
+                                    label="Credit Report"
+                                    onuploadfinished={handleCreditReportUpload}
+                                    record-id={recordId}
+                            ></lightning-file-upload>
+                            <template if:true={creditReportUploaded}>
+                                <div style='display:flex;flex-direction: row; justify-content: center;align-items: center;gap: 18px'>
+                                    <lightning-formatted-text
+                                            value="Uploaded"
+                                    ></lightning-formatted-text>
+                                    <lightning-icon
+                                            icon-name="utility:check"
+                                            variant="success"
+                                    ></lightning-icon>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+            <template if:true={biometricsSelected}>
+                <div style="display: flex; flex-direction: row; justify-content: space-around;padding-bottom: 10px">
+                    <lightning-input
+                            label='Identification Number'
+                            required
+                            onchange={handleIdNumberChange}
+                            data-field="idNumber"
+                    ></lightning-input>
+                    <lightning-input
+                            label='XDS Score'
+                            required
+                            onchange={handleXdsScoreChange}
+                    ></lightning-input>
+                </div>
+            </template>
+            <div style="display: flex;justify-content: space-around;border-top: 1px solid lightgray; padding-top: 10px">
+                <lightning-button
+                        label="Cancel"
+                        onclick={handleCloseCheck}
+                ></lightning-button>
+                <lightning-button
+                        label='Manage Files'
+                        onclick={handleManageFiles}
+                ></lightning-button>
+
+                <template if:true={allowUpdate}>
+                    <lightning-button variant="brand" label="Update Consents" title="Update Consents"
+                                      onclick={handleUpdate}
+                    ></lightning-button>
+                </template>
+                <template if:false={allowUpdate}>
+                    <lightning-button variant="brand" label="Update Consents" title="Update Consents"
+                                      disabled
+                    ></lightning-button>
                 </template>
             </div>
-        </div>
-        <template if:true={biometricsSelected}>
-            <div style="display: flex; flex-direction: row; justify-content: space-around;padding-bottom: 25px;border-top: 1px solid lightgray; padding-top: 25px">
-                <lightning-input
-                        label='Identification Number'
-                        required
-                        onchange={handleIdNumberChange}
-                        data-field="idNumber"
-                ></lightning-input>
-                <lightning-input
-                        label='XDS Score'
-                        required
-                        onchange={handleXdsScoreChange}
-                ></lightning-input>
-            </div>
         </template>
-        <div style="display: flex;justify-content: space-around;border-top: 1px solid lightgray; padding-top: 25px">
-            <lightning-button
-                    label="Cancel"
-                    onclick={handleCloseCheck}
-            ></lightning-button>
-            <template if:true={allowUpdate}>
-                <lightning-button variant="brand" label="Update Consents" title="Update Consents"
-                                  onclick={handleUpdate}
-                ></lightning-button>
-            </template>
-            <template if:false={allowUpdate}>
-                <lightning-button variant="brand" label="Update Consents" title="Update Consents"
-                                  disabled
-                ></lightning-button>
-            </template>
-        </div>
-    </template>
-    <template if:true={telephonicConsent}>
-        <template if:true={isLoaded}>
-            <div id={modal}>
+        <template if:true={telephonicConsent}>
+            <template if:true={isLoaded}>
+                <div id={modal}>
 
 
-                <section role="dialog" tabindex="-1" aria-modal="true"
-                         class="slds-modal slds-fade-in-open slds-modal_small">
-                    <div class="slds-modal__container">
-                        <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <section role="dialog" tabindex="-1" aria-modal="true"
+                             class="slds-modal slds-fade-in-open slds-modal_small">
+                        <div class="slds-modal__container">
+                            <div class="slds-modal__content " id="modal-content-id-1">
 
-                            <div>
+                                <div>
 
-                                <div class="slds-text-heading_small">
-                                    <div style="margin-bottom: 12px">
-                                        <lightning-formatted-text
-                                                value="In order to continue to consent and credit check, please read the following to the customer: "
-                                        ></lightning-formatted-text>
+                                    <div class="slds-text-heading_small">
+                                        <div style="margin-bottom: 12px">
+                                            <lightning-formatted-text
+                                                    value="In order to continue to consent and credit check, please read the following to the customer: "
+                                            ></lightning-formatted-text>
+                                        </div>
+                                        <lightning-formatted-rich-text
+                                                value={label.telephonicConsentScript}
+                                        ></lightning-formatted-rich-text>
                                     </div>
-                                    <lightning-formatted-rich-text
-                                            value={label.telephonicConsentScript}
-                                    ></lightning-formatted-rich-text>
-                                </div>
 
-                                <div style='display: flex;justify-content: space-between; margin-top: 20px'>
-                                    <lightning-button
-                                            class="slds-m-around_medium"
-                                            onclick={handleModalCancelClick}
-                                            variant="brand"
-                                            label="Cancel"
-                                    ></lightning-button>
-                                    <lightning-button
-                                            class="slds-m-around_medium"
-                                            onclick={handleDoNotAgree}
-                                            variant="brand"
-                                            label="Do not agree"
-                                    ></lightning-button>
-                                    <lightning-button
-                                            variant="brand" label="Agree to all consents" title="Update Consents"
-                                            onclick={handleAllConsentsUpdate}
-                                            class="slds-m-around_medium"
-                                    >
-                                    </lightning-button>
+                                    <div style='display: flex;justify-content: space-between; margin-top: 10px'>
+                                        <lightning-button
+                                                class="slds-m-around_medium"
+                                                onclick={handleModalCancelClick}
+                                                variant="brand"
+                                                label="Cancel"
+                                        ></lightning-button>
+                                        <lightning-button
+                                                class="slds-m-around_medium"
+                                                onclick={handleDoNotAgree}
+                                                variant="brand"
+                                                label="Do not agree"
+                                        ></lightning-button>
+                                        <lightning-button
+                                                variant="brand" label="Agree to all consents" title="Update Consents"
+                                                onclick={handleAllConsentsUpdate}
+                                                class="slds-m-around_medium"
+                                        >
+                                        </lightning-button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
-            </div>
-        </template>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+                </div>
+            </template>
 
-        <template if:false={isLoaded}>
-            <div class="slds-is-relative">
-                <lightning-spinner alternative-text="Loading...">
-                </lightning-spinner>
-            </div>
+            <template if:false={isLoaded}>
+                <div class="slds-is-relative">
+                    <lightning-spinner alternative-text="Loading...">
+                    </lightning-spinner>
+                </div>
+            </template>
         </template>
-    </template>
-
+    </div>
 </template>

@@ -1,0 +1,30 @@
+/**
+ * Created by frans fourie on 2024/01/11.
+ */
+.uploadClass{
+    transform: scale(0.9);
+    margin-left: -4px;
+    margin-right: -4px;
+}
+
+.transform1{
+    animation: linear;
+}
+
+/*.bar {*/
+/*    background: hotpink;*/
+/*    height: 20px;*/
+/*    width: 100px;*/
+/*}*/
+.fade {
+    /*width: 100%;*/
+    /*height: 20px;*/
+    backdrop-filter: blur(5px);
+    animation-name: fadeOut;
+    animation-duration: 2s;
+}
+
+@keyframes fadeOut{
+    0% { backdrop-filter: blur(0px);}
+    100%{ backdrop-filter: blur(8px);}
+}
