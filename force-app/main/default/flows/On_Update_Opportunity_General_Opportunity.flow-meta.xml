@@ -2,14 +2,11 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>59.0</apiVersion>
     <decisions>
-        <name>Is_General_opportunity_or_Pre_Approval_Opportunity</name>
-        <label>Is General opportunity or Pre-Approval Opportunity</label>
-        <locationX>182</locationX>
+        <name>Is_Converting_to_Pre_Approval_Opportunity_or_Bond_Opportunity</name>
+        <label>Is Converting to Pre-Approval Opportunity or Bond Opportunity</label>
+        <locationX>314</locationX>
         <locationY>323</locationY>
-        <defaultConnector>
-            <targetReference>Update_Application_Bond_Opportunity_using_Applicant_Id</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Is Bond Opportunity</defaultConnectorLabel>
+        <defaultConnectorLabel>Default</defaultConnectorLabel>
         <rules>
             <name>Is_Pre_Approval_Opportunity</name>
             <conditionLogic>and</conditionLogic>
@@ -31,6 +28,21 @@
                 <targetReference>Update_Application_Pre_Approval_using_Applicant_Id</targetReference>
             </connector>
             <label>Is Pre-Approval Opportunity</label>
+        </rules>
+        <rules>
+            <name>Is_Bond_Opportunity</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Bond_Opportunity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Application_Bond_Opportunity_using_Applicant_Id</targetReference>
+            </connector>
+            <label>Is Bond Opportunity</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -146,10 +158,10 @@
         <object>LoanApplicant</object>
     </recordUpdates>
     <start>
-        <locationX>56</locationX>
+        <locationX>188</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Is_General_opportunity_or_Pre_Approval_Opportunity</targetReference>
+            <targetReference>Is_Converting_to_Pre_Approval_Opportunity_or_Bond_Opportunity</targetReference>
         </connector>
         <filterLogic>1 AND 2 AND ( 3 OR 4)</filterLogic>
         <filters>
@@ -184,7 +196,7 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <variables>
         <name>v_Pre_Approval_Opportunity</name>
         <dataType>SObject</dataType>
