@@ -688,7 +688,7 @@ No front-end access, record triggered.</description>
         <locationY>1955</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_Records_3</targetReference>
+            <targetReference>Close_Task</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -780,6 +780,30 @@ No front-end access, record triggered.</description>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
+        <name>Close_Task</name>
+        <label>Close Task</label>
+        <locationX>182</locationX>
+        <locationY>2063</locationY>
+        <connector>
+            <targetReference>Bond_or_PA</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>WhatId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>Completed</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Link_Bond_Opp_to_Gen_Opp</name>
         <label>Link Bond Opp to Gen Opp</label>
         <locationX>50</locationX>
@@ -792,6 +816,9 @@ No front-end access, record triggered.</description>
         </inputAssignments>
         <inputAssignments>
             <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>
     </recordUpdates>
@@ -813,30 +840,6 @@ No front-end access, record triggered.</description>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_Records_3</name>
-        <label>Update Records 3</label>
-        <locationX>182</locationX>
-        <locationY>2063</locationY>
-        <connector>
-            <targetReference>Bond_or_PA</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>WhatId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Status</field>
-            <value>
-                <stringValue>Completed</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Task</object>
     </recordUpdates>
     <start>
         <locationX>485</locationX>
@@ -863,7 +866,7 @@ No front-end access, record triggered.</description>
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Draft</status>
     <variables>
         <name>OpportunityRecordType</name>
         <dataType>String</dataType>
