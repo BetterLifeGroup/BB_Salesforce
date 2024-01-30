@@ -4,7 +4,7 @@
     <decisions>
         <name>Did_Record_Owner_Change</name>
         <label>Did Record Owner Change?</label>
-        <locationX>578</locationX>
+        <locationX>732</locationX>
         <locationY>431</locationY>
         <defaultConnector>
             <targetReference>Is_Updated_By_Integration_User</targetReference>
@@ -51,7 +51,7 @@
     <decisions>
         <name>Is_New_Record</name>
         <label>Is New Record?</label>
-        <locationX>314</locationX>
+        <locationX>391</locationX>
         <locationY>323</locationY>
         <defaultConnector>
             <targetReference>Did_Record_Owner_Change</targetReference>
@@ -74,9 +74,38 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Is_Opportunity_Name_changed_to_created_by_mule</name>
+        <label>Is Opportunity Name changed to &quot;created_by_mule&quot;</label>
+        <locationX>578</locationX>
+        <locationY>947</locationY>
+        <defaultConnectorLabel>Name is not created_by_mule</defaultConnectorLabel>
+        <rules>
+            <name>Name_is_created_by_mule</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Name</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>created_by_mule</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.Name</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <stringValue>created_by_mule</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Retain_The_Required_Formatted_Name</targetReference>
+            </connector>
+            <label>Name is created_by_mule</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_Updated_By_Integration_User</name>
         <label>Is Updated By Integration User?</label>
-        <locationX>578</locationX>
+        <locationX>732</locationX>
         <locationY>839</locationY>
         <defaultConnectorLabel>Not Updated By Integration User</defaultConnectorLabel>
         <rules>
@@ -89,6 +118,9 @@
                     <stringValue>no-reply@betterbond.co.za</stringValue>
                 </rightValue>
             </conditions>
+            <connector>
+                <targetReference>Is_Opportunity_Name_changed_to_created_by_mule</targetReference>
+            </connector>
             <label>Updated By Integration User</label>
         </rules>
     </decisions>
@@ -153,7 +185,7 @@
     <recordCreates>
         <name>Create_Update_General_Opportunity_Out</name>
         <label>Create: Update General Opportunity Out</label>
-        <locationX>446</locationX>
+        <locationX>600</locationX>
         <locationY>647</locationY>
         <connector>
             <targetReference>Is_Updated_By_Integration_User</targetReference>
@@ -179,8 +211,21 @@
         <object>General_Opportunity_Out__e</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
+    <recordUpdates>
+        <name>Update_Retain_The_Required_Formatted_Name</name>
+        <label>Update: Retain The Required Formatted Name</label>
+        <locationX>446</locationX>
+        <locationY>1055</locationY>
+        <inputAssignments>
+            <field>Name</field>
+            <value>
+                <elementReference>$Record__Prior.Name</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
     <start>
-        <locationX>188</locationX>
+        <locationX>265</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Is_New_Record</targetReference>
@@ -218,7 +263,7 @@
     <subflows>
         <name>SubFlow_PUT_General_Opportunity_Owner</name>
         <label>SubFlow: PUT General Opportunity Owner</label>
-        <locationX>446</locationX>
+        <locationX>600</locationX>
         <locationY>539</locationY>
         <connector>
             <targetReference>Create_Update_General_Opportunity_Out</targetReference>
