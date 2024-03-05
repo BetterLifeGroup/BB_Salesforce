@@ -4,7 +4,7 @@
     <decisions>
         <name>Created_By</name>
         <label>Created By</label>
-        <locationX>50</locationX>
+        <locationX>182</locationX>
         <locationY>647</locationY>
         <defaultConnector>
             <targetReference>Create_Applicant_out</targetReference>
@@ -12,7 +12,7 @@
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Is_Integration_User</name>
-            <conditionLogic>and</conditionLogic>
+            <conditionLogic>or</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.LastModifiedBy.Email</leftValueReference>
                 <operator>EqualTo</operator>
@@ -20,13 +20,23 @@
                     <stringValue>no-reply@betterbond.co.za</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Is_Main_Applicant__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Subflow_Attach_Applicant_to_QandA</targetReference>
+            </connector>
             <label>Is Integration User</label>
         </rules>
     </decisions>
     <decisions>
         <name>IsNew</name>
         <label>IsNew</label>
-        <locationX>248</locationX>
+        <locationX>380</locationX>
         <locationY>323</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
@@ -75,7 +85,7 @@
     <recordCreates>
         <name>Create_Applicant_out</name>
         <label>Create: Applicant - out</label>
-        <locationX>182</locationX>
+        <locationX>314</locationX>
         <locationY>755</locationY>
         <inputAssignments>
             <field>AccountId__c</field>
@@ -123,7 +133,7 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <start>
-        <locationX>122</locationX>
+        <locationX>254</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>IsNew</targetReference>
@@ -136,7 +146,7 @@
     <subflows>
         <name>Assign_LoanApplicant_to_Genral_Opp</name>
         <label>Assign LoanApplicant to Genral Opp</label>
-        <locationX>50</locationX>
+        <locationX>182</locationX>
         <locationY>539</locationY>
         <connector>
             <targetReference>Created_By</targetReference>
@@ -153,7 +163,7 @@
     <subflows>
         <name>Get_Applicant_Consent_Document</name>
         <label>Get: Applicant Consent Document</label>
-        <locationX>50</locationX>
+        <locationX>182</locationX>
         <locationY>431</locationY>
         <connector>
             <targetReference>Assign_LoanApplicant_to_Genral_Opp</targetReference>
@@ -169,6 +179,19 @@
             <name>iv_Applicant_Id</name>
             <value>
                 <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Subflow_Attach_Applicant_to_QandA</name>
+        <label>Subflow: Attach Applicant to QandA</label>
+        <locationX>50</locationX>
+        <locationY>755</locationY>
+        <flowName>Subflow_Attach_Applicant_to_QandA</flowName>
+        <inputAssignments>
+            <name>iv_Applicant</name>
+            <value>
+                <elementReference>$Record</elementReference>
             </value>
         </inputAssignments>
     </subflows>
