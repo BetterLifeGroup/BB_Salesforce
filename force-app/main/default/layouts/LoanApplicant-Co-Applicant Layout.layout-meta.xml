@@ -259,6 +259,13 @@
         <fields>LoanApplicationLiability</fields>
         <relatedList>LoanApplicantLiabilities</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>NAME</fields>
+        <fields>Question__c</fields>
+        <fields>Answer__c</fields>
+        <fields>General_Opportunity__c</fields>
+        <relatedList>Question_And_Answer__c.Applicant__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
