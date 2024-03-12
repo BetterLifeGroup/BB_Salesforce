@@ -40,7 +40,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Application_Bond_Opportunity_using_Applicant_Id</targetReference>
+                <targetReference>Get_Bond_Application_Record_type</targetReference>
             </connector>
             <label>Is Bond Opportunity</label>
         </rules>
@@ -67,13 +67,129 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Bond_Application_Record_type</name>
+        <label>Get: Bond Application Record type</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Application_Bond_Opportunity_using_Applicant_Id</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Bond_Application</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Bond Application</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Get_Bond_Applicant_record_type</name>
+        <label>Get: Get Bond Applicant record type</label>
+        <locationX>314</locationX>
+        <locationY>647</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Applicant_based_on_General_Opportunity</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Bond Applicant</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Bond_Applicant</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RecordType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Applicant_base_on_General_Opportunity</name>
+        <label>Update: Applicant base on General Opportunity</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Loan_Applicant__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>IsActive__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SourceOpportunity__c</field>
+            <value>
+                <elementReference>$Record.PreApprovalOpportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Applicant_based_on_General_Opportunity</name>
+        <label>Update: Applicant based on General Opportunity</label>
+        <locationX>314</locationX>
+        <locationY>755</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Loan_Applicant__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>IsActive__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Get_Bond_Applicant_record_type.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>SourceOpportunity__c</field>
+            <value>
+                <elementReference>$Record.Bond_Opportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
     <recordUpdates>
         <name>Update_Application_Bond_Opportunity_using_Applicant_Id</name>
         <label>Update: Application Bond Opportunity using Applicant_Id</label>
         <locationX>314</locationX>
-        <locationY>431</locationY>
+        <locationY>539</locationY>
         <connector>
-            <targetReference>Update_Bond_Opportunity_base_on_General_Opportunity</targetReference>
+            <targetReference>Get_Get_Bond_Applicant_record_type</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -87,6 +203,12 @@
             <field>OpportunityId</field>
             <value>
                 <elementReference>$Record.Bond_Opportunity__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>RecordTypeId</field>
+            <value>
+                <elementReference>Get_Bond_Application_Record_type.Id</elementReference>
             </value>
         </inputAssignments>
         <object>ResidentialLoanApplication</object>
@@ -97,7 +219,7 @@
         <locationX>50</locationX>
         <locationY>431</locationY>
         <connector>
-            <targetReference>Update_Pre_Approval_Opportunity_base_on_General_Opportunity</targetReference>
+            <targetReference>Update_Applicant_base_on_General_Opportunity</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -114,61 +236,6 @@
             </value>
         </inputAssignments>
         <object>ResidentialLoanApplication</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_Bond_Opportunity_base_on_General_Opportunity</name>
-        <label>Update: Bond Opportunity base on General Opportunity</label>
-        <locationX>314</locationX>
-        <locationY>539</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Loan_Applicant__c</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>IsActive__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>SourceOpportunity__c</field>
-            <value>
-                <elementReference>$Record.Bond_Opportunity__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>LoanApplicant</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_Pre_Approval_Opportunity_base_on_General_Opportunity</name>
-        <label>Update: Pre-Approval Opportunity base on General Opportunity</label>
-        <locationX>50</locationX>
-        <locationY>539</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Loan_Applicant__c</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>IsActive__c</field>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>SourceOpportunity__c</field>
-            <value>
-                <elementReference>$Record.PreApprovalOpportunity__c</elementReference>
-            </value>
-        </inputAssignments>
-        <object>LoanApplicant</object>
     </recordUpdates>
     <start>
         <locationX>188</locationX>
