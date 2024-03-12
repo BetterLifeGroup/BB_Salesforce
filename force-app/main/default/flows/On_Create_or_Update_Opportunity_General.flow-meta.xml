@@ -45,6 +45,13 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.OwnerId</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record__Prior.OwnerId</elementReference>
+                </rightValue>
+            </conditions>
             <connector>
                 <targetReference>SubFlow_PUT_General_Opportunity_Owner</targetReference>
             </connector>
@@ -218,7 +225,7 @@
         <inputAssignments>
             <field>Commission_Entity_Id__c</field>
             <value>
-                <elementReference>SubFlow_POST_General_Opportunity_Owner.v_Comm_Entity_Id</elementReference>
+                <elementReference>var_Comm_Entity_Id</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -337,5 +344,16 @@
                 <elementReference>$Record</elementReference>
             </value>
         </inputAssignments>
+        <outputAssignments>
+            <assignToReference>var_Comm_Entity_Id</assignToReference>
+            <name>v_Comm_Entity_Id</name>
+        </outputAssignments>
     </subflows>
+    <variables>
+        <name>var_Comm_Entity_Id</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
 </Flow>
