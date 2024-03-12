@@ -128,6 +128,13 @@
                 <elementReference>$Record.Loan_Applicant__c</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>IsActive__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
         <inputAssignments>
             <field>SourceOpportunity__c</field>
             <value>
@@ -149,6 +156,12 @@
                 <elementReference>$Record.Loan_Applicant__c</elementReference>
             </value>
         </filters>
+        <inputAssignments>
+            <field>IsActive__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
         <inputAssignments>
             <field>SourceOpportunity__c</field>
             <value>
@@ -196,7 +209,7 @@
         <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <variables>
         <name>v_Pre_Approval_Opportunity</name>
         <dataType>SObject</dataType>
