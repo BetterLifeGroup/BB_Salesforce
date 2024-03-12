@@ -4,7 +4,7 @@
         <name>Action_Send_IDV_Status_changed_notification</name>
         <label>Action: Send IDV Status changed notification</label>
         <locationX>176</locationX>
-        <locationY>458</locationY>
+        <locationY>674</locationY>
         <actionName>customNotificationAction</actionName>
         <actionType>customNotificationAction</actionType>
         <faultConnector>
@@ -44,12 +44,57 @@
         <nameSegment>customNotificationAction</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
+    <actionCalls>
+        <name>Apex_Action_Task_Due_Date</name>
+        <label>Apex Action: Task Due Date</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <actionName>DateTimeUtility</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Create_IDV_Status_Changed_Task_Follow_Up</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Create_Log_Message_Error_1</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>businessHoursName</name>
+            <value>
+                <stringValue>Task Schedule Hours</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>dateTimeString</name>
+            <value>
+                <elementReference>$Flow.CurrentDateTime</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>increment</name>
+            <value>
+                <elementReference>Get_Attempting_Contact_BLG_Workflow.Attempt_1_Schedule__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>methodName</name>
+            <value>
+                <stringValue>BusinessHours.addBusinessHours</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>DateTimeUtility</nameSegment>
+        <outputParameters>
+            <assignToReference>var_due_date_result</assignToReference>
+            <name>result</name>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
     <apiVersion>60.0</apiVersion>
     <assignments>
         <name>Assignment_Assign_Notification_Recipient_Id</name>
         <label>Assignment: Assign Notification Recipient Id</label>
         <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>Notification_Recipient_Id</assignToReference>
             <operator>Add</operator>
@@ -63,9 +108,9 @@
     </assignments>
     <environments>Default</environments>
     <formulas>
-        <name>f_Task_Due_Date</name>
+        <name>f_task_due_date</name>
         <dataType>DateTime</dataType>
-        <expression>Now() + (4/24)</expression>
+        <expression>DATETIMEVALUE(DATEVALUE(DATETIMEVALUE({!var_due_date_result}) - 0.08334)) + 0.62505</expression>
     </formulas>
     <interviewLabel>Subflow: Applicant IDV Status Changed {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Subflow: Applicant IDV Status Changed</label>
@@ -92,7 +137,7 @@
         <name>Create_IDV_Status_Changed_Task_Follow_Up</name>
         <label>Create: IDV Status Changed Task(Follow-Up)</label>
         <locationX>176</locationX>
-        <locationY>134</locationY>
+        <locationY>350</locationY>
         <connector>
             <targetReference>Get</targetReference>
         </connector>
@@ -105,7 +150,7 @@
         <inputAssignments>
             <field>Due_Date_Time__c</field>
             <value>
-                <elementReference>f_Task_Due_Date</elementReference>
+                <elementReference>f_task_due_date</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -142,10 +187,30 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
     <recordCreates>
+        <name>Create_Log_Message</name>
+        <label>Create: Log Message Error</label>
+        <locationX>968</locationX>
+        <locationY>242</locationY>
+        <inputAssignments>
+            <field>Better_Home__Message__c</field>
+            <value>
+                <stringValue>Could not find Workflow, Get failed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Better_Home__Type__c</field>
+            <value>
+                <stringValue>ERROR</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Better_Home__Log_Message__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
         <name>Create_Log_Message_Error</name>
         <label>Create: Log Message Error</label>
         <locationX>440</locationX>
-        <locationY>566</locationY>
+        <locationY>782</locationY>
         <inputAssignments>
             <field>Better_Home__Message__c</field>
             <value>
@@ -161,11 +226,31 @@
         <object>Better_Home__Log_Message__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
+    <recordCreates>
+        <name>Create_Log_Message_Error_1</name>
+        <label>Create: Log Message Error</label>
+        <locationX>704</locationX>
+        <locationY>350</locationY>
+        <inputAssignments>
+            <field>Better_Home__Message__c</field>
+            <value>
+                <stringValue>Apex Action: Date,time and Business Hours methods Failed</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Better_Home__Type__c</field>
+            <value>
+                <stringValue>ERROR</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Better_Home__Log_Message__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Get</name>
         <label>Get: IDV Status changed notification type</label>
         <locationX>176</locationX>
-        <locationY>242</locationY>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assignment_Assign_Notification_Recipient_Id</targetReference>
@@ -182,11 +267,35 @@
         <object>CustomNotificationType</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Attempting_Contact_BLG_Workflow</name>
+        <label>Get: Attempting Contact BLG Workflow</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Apex_Action_Task_Due_Date</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Create_Log_Message</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Attempting Contact</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>BLG_Workflow__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Create_IDV_Status_Changed_Task_Follow_Up</targetReference>
+            <targetReference>Get_Attempting_Contact_BLG_Workflow</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -208,6 +317,13 @@ Applicant: {!iv_Applicant.Name}</text>
         <name>Notification_Recipient_Id</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>var_due_date_result</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
     </variables>
