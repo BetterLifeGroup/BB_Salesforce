@@ -96,7 +96,7 @@
     </decisions>
     <decisions>
         <name>isReceived_Documents_c_not_null</name>
-        <label>Did Documents Received?</label>
+        <label>Did Documents Received by DigiApp?</label>
         <locationX>710</locationX>
         <locationY>431</locationY>
         <defaultConnector>
@@ -118,6 +118,13 @@
                 <operator>NotEqualTo</operator>
                 <rightValue>
                     <elementReference>$Record.Received_Documents__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.LastModifiedBy.Email</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>no-reply@betterbond.co.za</stringValue>
                 </rightValue>
             </conditions>
             <connector>
