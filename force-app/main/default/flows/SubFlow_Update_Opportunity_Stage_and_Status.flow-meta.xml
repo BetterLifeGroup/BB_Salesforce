@@ -118,6 +118,12 @@
                 <stringValue>PA Requested - Ready for verification</stringValue>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
         <object>Opportunity</object>
     </recordUpdates>
     <recordUpdates>
