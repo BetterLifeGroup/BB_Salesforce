@@ -37,7 +37,7 @@
         <name>Did_IDV_Status_Change</name>
         <label>Did IDV Status Change?</label>
         <locationX>710</locationX>
-        <locationY>731</locationY>
+        <locationY>1031</locationY>
         <defaultConnectorLabel>IDV Status did not change</defaultConnectorLabel>
         <rules>
             <name>IDV_Status_Changed</name>
@@ -75,7 +75,7 @@
         <locationX>446</locationX>
         <locationY>323</locationY>
         <defaultConnector>
-            <targetReference>isReceived_Documents_c_not_null</targetReference>
+            <targetReference>Update_Status_to_Awaiting_Documents</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Is Update</defaultConnectorLabel>
         <rules>
@@ -98,7 +98,7 @@
         <name>isReceived_Documents_c_not_null</name>
         <label>Did Documents Received by DigiApp?</label>
         <locationX>710</locationX>
-        <locationY>431</locationY>
+        <locationY>731</locationY>
         <defaultConnector>
             <targetReference>Did_IDV_Status_Change</targetReference>
         </defaultConnector>
@@ -131,6 +131,94 @@
                 <targetReference>SubFlow_Update_Opportunity_Stage_and_Status</targetReference>
             </connector>
             <label>Received Documents</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Update_Status_to_Awaiting_Documents</name>
+        <label>Update Status to Awaiting Documents?</label>
+        <locationX>710</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>isReceived_Documents_c_not_null</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Do not update status</defaultConnectorLabel>
+        <rules>
+            <name>UpdateStatustoAwaitingDocuments</name>
+            <conditionLogic>(1 OR 10) AND 2 AND 3 AND 4 AND 5 AND 6 AND 7 AND 8 AND 9</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.IDNumber__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.creditCheckScore__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.creditCheckScore__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.creditCheckScore__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.creditCheckRagIndicator__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record__Prior.creditCheckRagIndicator__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.creditCheckRagIndicator__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Received_Documents__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Consent Document</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$User.Email</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>no-reply@betterbond.co.za</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Awaiting Consent</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SourceOpportunity__r.Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PA Requested - awaiting consent</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Received_Documents__c</leftValueReference>
+                <operator>Contains</operator>
+                <rightValue>
+                    <stringValue>Copy of ID</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Subflow_Update_Applicant_and_Opportunity_status_to_Awaiting_Documents</targetReference>
+            </connector>
+            <label>Update Status to Awaiting Documents</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -264,7 +352,7 @@
         <name>Subflow_Applicant_IDV_Status_Changed</name>
         <label>Subflow: Applicant IDV Status Changed</label>
         <locationX>578</locationX>
-        <locationY>839</locationY>
+        <locationY>1139</locationY>
         <flowName>Subflow_Applicant_IDV_Status_Changed</flowName>
         <inputAssignments>
             <name>iv_Applicant</name>
@@ -287,10 +375,26 @@
         </inputAssignments>
     </subflows>
     <subflows>
+        <name>Subflow_Update_Applicant_and_Opportunity_status_to_Awaiting_Documents</name>
+        <label>Subflow: Update Applicant and Opportunity status to Awaiting Documents</label>
+        <locationX>578</locationX>
+        <locationY>539</locationY>
+        <connector>
+            <targetReference>isReceived_Documents_c_not_null</targetReference>
+        </connector>
+        <flowName>Subflow_Update_Applicant_and_Opportunity_status_to_Awaiting_Documents</flowName>
+        <inputAssignments>
+            <name>iv_Applicant</name>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
         <name>SubFlow_Update_Opportunity_Stage_and_Status</name>
         <label>SubFlow: Update Opportunity Stage and Status</label>
         <locationX>578</locationX>
-        <locationY>539</locationY>
+        <locationY>839</locationY>
         <connector>
             <targetReference>Did_IDV_Status_Change</targetReference>
         </connector>
