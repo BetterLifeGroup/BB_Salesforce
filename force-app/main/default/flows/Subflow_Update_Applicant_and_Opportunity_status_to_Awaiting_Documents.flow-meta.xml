@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>60.0</apiVersion>
+    <environments>Default</environments>
+    <interviewLabel>Subflow: Update Applicant and Opportunity status to Awaiting Documents {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Subflow: Update Applicant and Opportunity status to Awaiting Documents</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Applicant_status_Awaiting_Documents</name>
+        <label>Update: Applicant status Awaiting Documents</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <connector>
+            <targetReference>Update_Opportunity_Status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>iv_Applicant.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Awaiting Documents</stringValue>
+            </value>
+        </inputAssignments>
+        <object>LoanApplicant</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Opportunity_Status</name>
+        <label>Update: Opportunity Status</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>iv_Applicant.SourceOpportunity__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>PA Requested - awaiting documents</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Wrap_Up_Reason__c</field>
+            <value>
+                <stringValue>Automated</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Opportunity</object>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Applicant_status_Awaiting_Documents</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>iv_Applicant</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>LoanApplicant</objectType>
+    </variables>
+</Flow>
