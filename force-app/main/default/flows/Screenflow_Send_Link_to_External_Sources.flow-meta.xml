@@ -2,12 +2,37 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>59.0</apiVersion>
     <decisions>
-        <name>Is_Network_Account_and_Credentials_Null</name>
-        <label>Is Network Account and Credentials Null</label>
-        <locationX>182</locationX>
-        <locationY>350</locationY>
+        <name>Is_Credentials_Null</name>
+        <label>Is Credentials Null</label>
+        <locationX>479</locationX>
+        <locationY>954</locationY>
         <defaultConnector>
-            <targetReference>Update_the_Send_Email_Trigger_to_True</targetReference>
+            <targetReference>Get_New_Version_of_BB_Campaign</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Credentials_Is_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>recordId.Credentials__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Credentials_Screen</targetReference>
+            </connector>
+            <label>Credentials Is Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Network_Account_and_Credentials_Null</name>
+        <label>Is Network Account orCredentials Null</label>
+        <locationX>712</locationX>
+        <locationY>513</locationY>
+        <defaultConnector>
+            <targetReference>screen_Send_Email</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>False Path</defaultConnectorLabel>
         <rules>
@@ -28,9 +53,34 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Error_No_Network_Account_or_Credentials_Found</targetReference>
+                <targetReference>Is_Network_Account_Null</targetReference>
             </connector>
             <label>True Path</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Network_Account_Null</name>
+        <label>Is Network Account Null</label>
+        <locationX>471</locationX>
+        <locationY>512</locationY>
+        <defaultConnector>
+            <targetReference>Is_Credentials_Null</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Network_Account_Is_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>recordId.Network__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Network_Account</targetReference>
+            </connector>
+            <label>Network Account Is Null</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -45,7 +95,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -58,8 +108,8 @@
     <recordLookups>
         <name>Get_BB_Camapign_by_Record_Id</name>
         <label>Get BB Camapign by Record Id</label>
-        <locationX>182</locationX>
-        <locationY>242</locationY>
+        <locationX>702</locationX>
+        <locationY>345</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Network_Account_and_Credentials_Null</targetReference>
@@ -76,11 +126,80 @@
         <object>BLG_Campaign__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_New_Version_of_BB_Campaign</name>
+        <label>Get: New Version of BB Campaign</label>
+        <locationX>488</locationX>
+        <locationY>1234</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Final_Message_Updated</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>BLG_Campaign__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Credentials_on_BB_Campaign</name>
+        <label>Update: Credentials on BB Campaign</label>
+        <locationX>221</locationX>
+        <locationY>1130</locationY>
+        <connector>
+            <targetReference>Get_New_Version_of_BB_Campaign</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Credentials__c</field>
+            <value>
+                <elementReference>v_Credentials.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>BLG_Campaign__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Network_Account_on_BB_Campaign</name>
+        <label>Update: Network Account on BB Campaign</label>
+        <locationX>230</locationX>
+        <locationY>875</locationY>
+        <connector>
+            <targetReference>Is_Credentials_Null</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Network__c</field>
+            <value>
+                <elementReference>v_Network_Account.recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <object>BLG_Campaign__c</object>
+    </recordUpdates>
     <recordUpdates>
         <name>Update_Send_Email_Trigger_to_False</name>
         <label>Update: Send Email Trigger to False</label>
-        <locationX>182</locationX>
-        <locationY>134</locationY>
+        <locationX>680</locationX>
+        <locationY>205</locationY>
         <connector>
             <targetReference>Get_BB_Camapign_by_Record_Id</targetReference>
         </connector>
@@ -103,8 +222,8 @@
     <recordUpdates>
         <name>Update_the_Last_Sent_field_with_the_Current_Time</name>
         <label>Update the Last Sent field with the Current Time</label>
-        <locationX>314</locationX>
-        <locationY>674</locationY>
+        <locationX>507</locationX>
+        <locationY>1730</locationY>
         <connector>
             <targetReference>Update_the_Send_Email_Trigger_to_False</targetReference>
         </connector>
@@ -127,8 +246,11 @@
     <recordUpdates>
         <name>Update_the_Send_Email_Trigger_to_False</name>
         <label>Update the Send Email Trigger to False</label>
-        <locationX>314</locationX>
-        <locationY>782</locationY>
+        <locationX>507</locationX>
+        <locationY>1838</locationY>
+        <connector>
+            <targetReference>Email_Sent</targetReference>
+        </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -148,10 +270,10 @@
     <recordUpdates>
         <name>Update_the_Send_Email_Trigger_to_True</name>
         <label>Update the Send Email Trigger to True</label>
-        <locationX>314</locationX>
-        <locationY>458</locationY>
+        <locationX>507</locationX>
+        <locationY>1622</locationY>
         <connector>
-            <targetReference>Send_Link_to_External_Source</targetReference>
+            <targetReference>Update_the_Last_Sent_field_with_the_Current_Time</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -170,44 +292,166 @@
         <object>BLG_Campaign__c</object>
     </recordUpdates>
     <screens>
-        <name>Error_No_Network_Account_or_Credentials_Found</name>
-        <label>Error: No Network Account or Credentials Found</label>
-        <locationX>50</locationX>
-        <locationY>458</locationY>
+        <name>Add_Credentials_Screen</name>
+        <label>Add Credentials Screen</label>
+        <locationX>220</locationX>
+        <locationY>1023</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Credentials_on_BB_Campaign</targetReference>
+        </connector>
+        <fields>
+            <name>v_Credentials</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Credentials__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Select a Credentials record</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>BLG_Campaign__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>recordId.Credentials__r.Id</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Add_Network_Account</name>
+        <label>Add Network Account</label>
+        <locationX>229</locationX>
+        <locationY>507</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Network_Account_on_BB_Campaign</targetReference>
+        </connector>
+        <fields>
+            <name>v_Network_Account</name>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>Network__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Select a Network Account</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>BLG_Campaign__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>recordId.Network__r.Id</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Email_Sent</name>
+        <label>Email Sent</label>
+        <locationX>507</locationX>
+        <locationY>1946</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <fields>
-            <name>txt_Missing_Information</name>
-            <fieldText>&lt;p&gt;No Network Account or No Credentials assigned to {!recordId.Name} &lt;/p&gt;</fieldText>
+            <name>txt_Email_Confrimation</name>
+            <fieldText>&lt;p&gt;&lt;strong style=&quot;font-size: 22px; color: rgb(32, 39, 141);&quot;&gt;Great!&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;The email has been sent.&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <screens>
-        <name>Send_Link_to_External_Source</name>
-        <label>Send Link to External Source</label>
-        <locationX>314</locationX>
-        <locationY>566</locationY>
-        <allowBack>false</allowBack>
+        <name>Final_Message_Updated</name>
+        <label>Final Message Updated</label>
+        <locationX>192</locationX>
+        <locationY>1375</locationY>
+        <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
+        <allowPause>true</allowPause>
         <connector>
-            <targetReference>Update_the_Last_Sent_field_with_the_Current_Time</targetReference>
+            <targetReference>Update_the_Send_Email_Trigger_to_True</targetReference>
         </connector>
         <fields>
-            <name>txt_Credentials</name>
-            <fieldText>&lt;p&gt;Hi {!recordId.Credentials__r.Name}&lt;/p&gt;&lt;p&gt;Kindly find the updated lead credentials:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Last Sent: &lt;/strong&gt;{!recordId.Credentials__r.Last_sent__c}&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;Certificate: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!recordId.Credentials__r.Certficate__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!recordId.Credentials__r.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key: &lt;/strong&gt;{!recordId.Credentials__r.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key: &lt;/strong&gt;{!Get_BB_Camapign_by_Record_Id.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json: &lt;/strong&gt;{!recordId.Credentials__r.Json__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Email address: &lt;/strong&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!recordId.Network__r.External_Source_Email__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <name>txt_Updated_Credentials</name>
+            <fieldText>&lt;p&gt;Hi&lt;/p&gt;&lt;p&gt;{!Get_New_Version_of_BB_Campaign.Credentials__r.Name}&lt;/p&gt;&lt;p&gt;Kindly find the updated lead credentials:&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Certificate: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Get_New_Version_of_BB_Campaign.Credentials__r.Certficate__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!Get_New_Version_of_BB_Campaign.Credentials__r.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key: &lt;/strong&gt;{!Get_New_Version_of_BB_Campaign.Credentials__r.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key: &lt;/strong&gt;{!Get_BB_Camapign_by_Record_Id.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json: &lt;/strong&gt;{!Get_New_Version_of_BB_Campaign.Credentials__r.Json__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Email address: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!Get_New_Version_of_BB_Campaign.Network__r.External_Source_Email__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
-        <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>screen_Send_Email</name>
+        <label>Send Email</label>
+        <locationX>722</locationX>
+        <locationY>1386</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_the_Send_Email_Trigger_to_True</targetReference>
+        </connector>
+        <fields>
+            <name>textdisplay_Credentials</name>
+            <fieldText>&lt;p&gt;Hi {!recordId.Credentials__r.Name}&lt;/p&gt;&lt;p&gt;Kindly find the updated lead credentials:&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Last Sent: &lt;/strong&gt;{!recordId.Credentials__r.Last_sent__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Certificate: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!recordId.Credentials__r.Certficate__c}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Client ID: &lt;/strong&gt;{!recordId.Credentials__r.Client_Id__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Secret Key: &lt;/strong&gt;{!recordId.Credentials__r.Secret_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Subscription Key: &lt;/strong&gt;{!Get_BB_Camapign_by_Record_Id.Subscription_Key__c}&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Json: &lt;/strong&gt;{!recordId.Credentials__r.Json__c}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;Email address: &lt;/strong&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255);&quot;&gt;{!recordId.Network__r.External_Source_Email__c}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>56</locationX>
-        <locationY>0</locationY>
+        <locationX>539</locationX>
+        <locationY>48</locationY>
         <connector>
             <targetReference>Update_Send_Email_Trigger_to_False</targetReference>
         </connector>
