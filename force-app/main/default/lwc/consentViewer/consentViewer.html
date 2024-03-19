@@ -112,7 +112,96 @@
             <div>SOMETHING WENT WRONG<br/>{error}</div>
         </template>
 
-<!--        <table if:false={error}>-->
+
+        <template if:true={showHtmlSuccessToast}>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_success" role="status"
+                     style='justify-content: center'>
+                    <span class="slds-assistive-text">success</span>
+                    <span class="slds-icon_container slds-icon-utility-success slds-m-right_small slds-no-flex slds-align-top"
+                          title="Description of icon when needed">
+</span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                                onclick={handleCloseToast}>
+                            <span class="slds-assistive-text">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+
+        <template if:true={showHtmlWarningToast}>
+            <div class="slds-notify_container slds-is-relative">
+                <div class="slds-notify slds-notify_toast slds-theme_warning" role="status"
+                     style='justify-content: center'>
+                    <span class="slds-assistive-text">warning</span>
+                    <span class="slds-icon_container slds-icon-utility-warning slds-m-right_small slds-no-flex slds-align-top"
+                          title="Description of icon when needed">
+    </span>
+                    <div class="slds-notify__content">
+                        <h2 class="slds-text-heading_small ">{toastMessage}</h2>
+                    </div>
+                    <div class="slds-notify__close">
+                        <button class="slds-button slds-button_icon slds-button_icon-inverse" title="Close"
+                                onclick={handleCloseToast}>
+                            <span class="slds-assistive-text">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template if:true={completeConsentsWarningVisible}>
+            <lightning-formatted-text
+                    class='slds-text-color_error slds-text-heading_medium slds-align_absolute-center'
+                    value='Please complete consents'>
+            </lightning-formatted-text>
+        </template>
+        <template if:true={typeOfConsent}>
+            <div class="slds-text-align_center slds-text-heading_small" style="margin: 15px; background-color: #F0F0F0">
+                <lightning-formatted-rich-text
+                        value={loanApplicantName}
+                ></lightning-formatted-rich-text>
+            </div>
+            <div style='display: flex;justify-content: center; gap: 5px; padding-bottom: 15px'>
+                <lightning-button
+                        label="Telephonic Consent"
+                        variant="brand"
+                        onclick={handleTelephonicClick}
+                ></lightning-button>
+                <lightning-button
+                        label="Manual Consent"
+                        variant="brand"
+                        onclick={handleManualClick}
+                ></lightning-button>
+                <lightning-button
+                        label="Confirm Biometrics"
+                        variant="brand"
+                        onclick={handleConfirmBiometricsClick}
+                ></lightning-button>
+            </div>
+
+            <div style="display: flex;justify-content: space-around;border-top: 1px solid lightgray; padding-top: 15px">
+                <lightning-button
+                        label="Cancel"
+                        onclick={handleExitToFlow}
+                ></lightning-button>
+            </div>
+
+        </template>
+
+        <template if:true={manualConsent}>
+            <div style="max-width: 0; max-height: 0; overflow: hidden;">
+                <input autofocus/>
+            </div>
+            <template if:true={error}>
+                <div>SOMETHING WENT WRONG<br/>{error}</div>
+            </template>
+
             <template for:each={consentsList} for:item="cr" for:index="index">
                 <div key={cr.consentTypeId} >
                     <!--                    <tr key={cr.consentTypeId}>-->
