@@ -4,8 +4,8 @@
     <decisions>
         <name>Is_Credentials_Null</name>
         <label>Is Credentials Null</label>
-        <locationX>479</locationX>
-        <locationY>954</locationY>
+        <locationX>182</locationX>
+        <locationY>866</locationY>
         <defaultConnector>
             <targetReference>Get_New_Version_of_BB_Campaign</targetReference>
         </defaultConnector>
@@ -29,10 +29,10 @@
     <decisions>
         <name>Is_Network_Account_and_Credentials_Null</name>
         <label>Is Network Account orCredentials Null</label>
-        <locationX>712</locationX>
-        <locationY>513</locationY>
+        <locationX>501</locationX>
+        <locationY>350</locationY>
         <defaultConnector>
-            <targetReference>screen_Send_Email</targetReference>
+            <targetReference>Is_The_External_Source_Email_On_The_Existing_Network_Account_Null</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>False Path</defaultConnectorLabel>
         <rules>
@@ -61,8 +61,8 @@
     <decisions>
         <name>Is_Network_Account_Null</name>
         <label>Is Network Account Null</label>
-        <locationX>471</locationX>
-        <locationY>512</locationY>
+        <locationX>182</locationX>
+        <locationY>458</locationY>
         <defaultConnector>
             <targetReference>Is_Credentials_Null</targetReference>
         </defaultConnector>
@@ -83,6 +83,56 @@
             <label>Network Account Is Null</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Is_Phone_Null_on_Network_Account</name>
+        <label>Is Phone Null on Network Account?</label>
+        <locationX>622</locationX>
+        <locationY>674</locationY>
+        <defaultConnector>
+            <targetReference>Update_Exitsting_Network_Account_External_Source_Email</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Phone_Is_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>recordId.Network__r.Phone</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Screen_Phone_Is_Null_on_Network_Account</targetReference>
+            </connector>
+            <label>Phone Is Null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_The_External_Source_Email_On_The_Existing_Network_Account_Null</name>
+        <label>Is The External Source Email On The Existing Network Account Null?</label>
+        <locationX>820</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>Get_Updated_Network_Account_with_Email_Field</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Is_Email_of_Existing_Network_Account_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_BB_Camapign_by_Record_Id.Network__r.External_Source_Email__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_External_Source_Email_to_Existing_Network_Account</targetReference>
+            </connector>
+            <label>Is Email of Existing Network Account Null?</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <interviewLabel>Screenflow: {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Screenflow: Send Link to External Sources</label>
@@ -95,7 +145,7 @@
     <processMetadataValues>
         <name>CanvasMode</name>
         <value>
-            <stringValue>FREE_FORM_CANVAS</stringValue>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
         </value>
     </processMetadataValues>
     <processMetadataValues>
@@ -108,8 +158,8 @@
     <recordLookups>
         <name>Get_BB_Camapign_by_Record_Id</name>
         <label>Get BB Camapign by Record Id</label>
-        <locationX>702</locationX>
-        <locationY>345</locationY>
+        <locationX>501</locationX>
+        <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Is_Network_Account_and_Credentials_Null</targetReference>
@@ -129,8 +179,8 @@
     <recordLookups>
         <name>Get_New_Version_of_BB_Campaign</name>
         <label>Get: New Version of BB Campaign</label>
-        <locationX>488</locationX>
-        <locationY>1234</locationY>
+        <locationX>182</locationX>
+        <locationY>1274</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Final_Message_Updated</targetReference>
@@ -147,11 +197,32 @@
         <object>BLG_Campaign__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Updated_Network_Account_with_Email_Field</name>
+        <label>Get: Updated Network Account with Email Field</label>
+        <locationX>820</locationX>
+        <locationY>1166</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>screen_Send_Email</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Network__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordUpdates>
         <name>Update_Credentials_on_BB_Campaign</name>
         <label>Update: Credentials on BB Campaign</label>
-        <locationX>221</locationX>
-        <locationY>1130</locationY>
+        <locationX>50</locationX>
+        <locationY>1082</locationY>
         <connector>
             <targetReference>Get_New_Version_of_BB_Campaign</targetReference>
         </connector>
@@ -172,10 +243,64 @@
         <object>BLG_Campaign__c</object>
     </recordUpdates>
     <recordUpdates>
+        <name>Update_Exitsting_Network_Account_External_Source_Email</name>
+        <label>Update Exitsting Network Account External Source Email</label>
+        <locationX>754</locationX>
+        <locationY>782</locationY>
+        <connector>
+            <targetReference>Get_Updated_Network_Account_with_Email_Field</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Network__r.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>External_Source_Email__c</field>
+            <value>
+                <elementReference>txt_External_Source_Email_Address_On_Existing_Network_Account</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Exitsting_Network_Account_External_Source_Email_and_Phone</name>
+        <label>Update Exitsting Network Account External Source Email and Phone</label>
+        <locationX>490</locationX>
+        <locationY>890</locationY>
+        <connector>
+            <targetReference>Get_Updated_Network_Account_with_Email_Field</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId.Network__r.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>External_Source_Email__c</field>
+            <value>
+                <elementReference>txt_External_Source_Email_Address_On_Existing_Network_Account</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Phone</field>
+            <value>
+                <elementReference>input_Phone_Number</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
         <name>Update_Network_Account_on_BB_Campaign</name>
         <label>Update: Network Account on BB Campaign</label>
-        <locationX>230</locationX>
-        <locationY>875</locationY>
+        <locationX>50</locationX>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Is_Credentials_Null</targetReference>
         </connector>
@@ -198,8 +323,8 @@
     <recordUpdates>
         <name>Update_Send_Email_Trigger_to_False</name>
         <label>Update: Send Email Trigger to False</label>
-        <locationX>680</locationX>
-        <locationY>205</locationY>
+        <locationX>501</locationX>
+        <locationY>134</locationY>
         <connector>
             <targetReference>Get_BB_Camapign_by_Record_Id</targetReference>
         </connector>
@@ -222,8 +347,8 @@
     <recordUpdates>
         <name>Update_the_Last_Sent_field_with_the_Current_Time</name>
         <label>Update the Last Sent field with the Current Time</label>
-        <locationX>507</locationX>
-        <locationY>1730</locationY>
+        <locationX>501</locationX>
+        <locationY>1682</locationY>
         <connector>
             <targetReference>Update_the_Send_Email_Trigger_to_False</targetReference>
         </connector>
@@ -246,8 +371,8 @@
     <recordUpdates>
         <name>Update_the_Send_Email_Trigger_to_False</name>
         <label>Update the Send Email Trigger to False</label>
-        <locationX>507</locationX>
-        <locationY>1838</locationY>
+        <locationX>501</locationX>
+        <locationY>1790</locationY>
         <connector>
             <targetReference>Email_Sent</targetReference>
         </connector>
@@ -270,8 +395,8 @@
     <recordUpdates>
         <name>Update_the_Send_Email_Trigger_to_True</name>
         <label>Update the Send Email Trigger to True</label>
-        <locationX>507</locationX>
-        <locationY>1622</locationY>
+        <locationX>501</locationX>
+        <locationY>1574</locationY>
         <connector>
             <targetReference>Update_the_Last_Sent_field_with_the_Current_Time</targetReference>
         </connector>
@@ -294,8 +419,8 @@
     <screens>
         <name>Add_Credentials_Screen</name>
         <label>Add Credentials Screen</label>
-        <locationX>220</locationX>
-        <locationY>1023</locationY>
+        <locationX>50</locationX>
+        <locationY>974</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -344,10 +469,32 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Add_External_Source_Email_to_Existing_Network_Account</name>
+        <label>Add External Source Email to Existing Network Account</label>
+        <locationX>622</locationX>
+        <locationY>566</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Is_Phone_Null_on_Network_Account</targetReference>
+        </connector>
+        <fields>
+            <name>txt_External_Source_Email_Address_On_Existing_Network_Account</name>
+            <dataType>String</dataType>
+            <fieldText>Please Add the External Source Email Address</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Add_Network_Account</name>
         <label>Add Network Account</label>
-        <locationX>229</locationX>
-        <locationY>507</locationY>
+        <locationX>50</locationX>
+        <locationY>566</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -398,8 +545,8 @@
     <screens>
         <name>Email_Sent</name>
         <label>Email Sent</label>
-        <locationX>507</locationX>
-        <locationY>1946</locationY>
+        <locationX>501</locationX>
+        <locationY>1898</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -414,8 +561,8 @@
     <screens>
         <name>Final_Message_Updated</name>
         <label>Final Message Updated</label>
-        <locationX>192</locationX>
-        <locationY>1375</locationY>
+        <locationX>182</locationX>
+        <locationY>1382</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -431,10 +578,32 @@
         <showHeader>true</showHeader>
     </screens>
     <screens>
+        <name>Screen_Phone_Is_Null_on_Network_Account</name>
+        <label>Screen: Phone Is Null on Network Account</label>
+        <locationX>490</locationX>
+        <locationY>782</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Update_Exitsting_Network_Account_External_Source_Email_and_Phone</targetReference>
+        </connector>
+        <fields>
+            <name>input_Phone_Number</name>
+            <dataType>String</dataType>
+            <fieldText>Please enter valid phone number eg (+27612345678)</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>screen_Send_Email</name>
         <label>Send Email</label>
-        <locationX>722</locationX>
-        <locationY>1386</locationY>
+        <locationX>820</locationX>
+        <locationY>1274</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -450,8 +619,8 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>539</locationX>
-        <locationY>48</locationY>
+        <locationX>375</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>Update_Send_Email_Trigger_to_False</targetReference>
         </connector>
